@@ -2,8 +2,8 @@ name: Tier-1 Autonomous YouTube Pipeline
 
 on:
   schedule:
-    - cron: '0 13,22 * * *'  # Din mein 2 dafa USA prime time ke mutabiq
-  workflow_dispatch: # Mobile se manual click par chalane ke liye
+    - cron: '0 13,22 * * *'
+  workflow_dispatch:
 
 jobs:
   run-pipeline:
@@ -17,15 +17,21 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Create Client Secret JSON File from GitHub Secret
+        env:
+          GOOGLE_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+        run: |
+          echo "$GOOGLE_JSON" > client_secret.json
+
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg libgl1-mesa-glx
+          sudo apt-get install -y ffmpeg
 
       - name: Install Python Dependencies
         run: |
           pip install --upgrade pip
-          pip install google-api-python-client google-auth-oauthlib google-auth-httplib2 google-generativeai gspread oauth2client opencv-python-headless torch torchvision numpy
+          pip install google-api-python-client google-auth-oauthlib google-auth-httplib2 google-generativeai gspread oauth2client opencv-python-headless numpy
 
       - name: Run Main Autonomous Script
         env:
