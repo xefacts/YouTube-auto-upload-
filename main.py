@@ -1,77 +1,137 @@
 import os
+import io
 import cv2
 import numpy as np
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import google.generativeai as genai
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+from google.oauth2 import service_account as google_auth_service_account
+from datetime import datetime
 
 # --- CONFIGURATIONS & FILE PATHS ---
 SHEET_NAME = "YouTube_Automation_Tracker"
 RAW_VIDEO_PATH = "raw_input.mp4"       
 PROCESSED_VIDEO_PATH = "enhanced_output.mp4" 
 
-def check_google_sheet_and_duplicate(topic_name):
-    """Google Sheet check karta hai ke yeh topic pehle upload hua hai ya nahi"""
+def init_google_sheet():
+    """Google Sheet initialize karta hai aur headers set karta hai"""
     scope = [
         "https://spreadsheets.google.com/feeds",
-        "https://www.googleapis.com/auth/spreadsheets",
+        "https://spreadsheets.google.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/drive"
     ]
-    
-    # GitHub Secret se banne wali client_secret.json file ka path
     creds_path = "client_secret.json"
-    
+    creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
+    client = gspread.authorize(creds)
     try:
-        creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
-        client = gspread.authorize(creds)
-        
-        try:
-            sheet = client.open(SHEET_NAME).sheet1
-        except gspread.SpreadsheetNotFound:
-            spreadsheet = client.create(SHEET_NAME)
-            sheet = spreadsheet.sheet1
-            sheet.append_row(["Video Title", "Topic / Theme", "Status", "Upload Date"])
-        
-        existing_topics = sheet.col_values(2) 
-        if topic_name in existing_topics:
-            print(f"⚠️ Duplicate Blocked: '{topic_name}' pehle hi sheet mein maujood hai.")
-            return False
-        else:
-            print(f"✅ Unique Topic Verified: '{topic_name}'")
-            return True
-            
-    except Exception as e:
-        print(f"⚠️ Google Sheets Warning: {e} (Proceeding with default execution)")
-        return True
+        sheet = client.open(SHEET_NAME).sheet1
+    except gspread.SpreadsheetNotFound:
+        spreadsheet = client.create(SHEET_NAME)
+        sheet = spreadsheet.sheet1
+        sheet.append_row(["Video File Name", "Generated Topic / Title", "Status", "Reason / Notes", "Upload Date"])
+    return sheet
 
-def run_ai_brain_strategy():
-    """Gemini AI Brain: High-RPM psychology topic aur viral metadata generate karta hai"""
+def get_folder_id(service, folder_name, parent_id=None):
+    """Drive mein folder ka ID dhoondta hai"""
+    query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false"
+    if parent_id:
+        query += f" and '{parent_id}' in parents"
+    results = service.files().list(q=query, fields="files(id, name)").execute()
+    files = results.get('files', [])
+    return files[0]['id'] if files else None
+
+def fetch_videos_from_raw_folder():
+    """'YouTube_Automation/raw videos' folder se videos fetch karta hai"""
+    print("📁 Connecting to Google Drive...")
+    creds_path = "client_secret.json"
+    SCOPES = ['https://www.googleapis.com/auth/drive']
+    creds = google_auth_service_account.Credentials.from_service_account_file(creds_path, scopes=SCOPES)
+    service = build('drive', 'v3', credentials=creds)
+    
+    main_folder_id = get_folder_id(service, "YouTube_Automation")
+    if not main_folder_id:
+        print("⚠️ 'YouTube_Automation' folder Google Drive mein nahi mila!")
+        return service, None, None, []
+        
+    raw_folder_id = get_folder_id(service, "raw videos", main_folder_id)
+    processed_folder_id = get_folder_id(service, "processed videos", main_folder_id)
+    
+    if not raw_folder_id:
+        print("⚠️ 'YouTube_Automation' ke andar 'raw videos' folder nahi mila!")
+        return service, None, None, []
+        
+    query = f"'{raw_folder_id}' in parents and mimeType contains 'video/' and trashed = false"
+    results = service.files().list(q=query, pageSize=5, fields="files(id, name)").execute()
+    items = results.get('files', [])
+    
+    return service, processed_folder_id, raw_folder_id, items
+
+def download_video_file(service, file_id, output_path):
+    print(f"📥 Downloading video file ID: {file_id}...")
+    request = service.files().get_media(fileId=file_id)
+    fh = io.FileIO(output_path, 'wb')
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while not done:
+        status, done = downloader.next_chunk()
+    print("✅ Video downloaded successfully.")
+
+def move_file_to_processed(service, file_id, current_parent_id, target_processed_folder_id):
+    if not target_processed_folder_id:
+        return
+    print("🚚 Moving processed video to 'processed videos' folder...")
+    service.files().update(
+        fileId=file_id,
+        addParents=target_processed_folder_id,
+        removeParents=current_parent_id,
+        fields='id, parents'
+    ).execute()
+    print("✅ Video moved to processed folder successfully.")
+
+def run_ai_analysis_and_strategy(video_name):
+    """Gemini AI Brain: Video content analyze karke high-RPM topic aur status decide karta hai"""
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
-        raise ValueError("GEMINI_API_KEY environment variable set nahi hai!")
-        
+        raise ValueError("GEMINI_API_KEY set nahi hai!")
+    
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-1.5-flash')
     
     prompt = (
-        "Act as a viral YouTube strategist for Tier-1 audiences in the human psychology niche. "
-        "Generate 1 high-RPM video topic, a high-CTR title, description, and SEO tags."
+        f"Analyze this video filename/context: '{video_name}' for a Tier-1 human psychology YouTube channel. "
+        "Evaluate if it's unique, high quality, or a duplicate/poor theme. "
+        "Provide your output strictly in this format:\n"
+        "STATUS: [UPLOAD or IGNORE]\n"
+        "TOPIC: [Generated High-RPM Title]\n"
+        "REASON: [Brief explanation why it is selected or ignored]"
     )
     
     response = model.generate_content(prompt)
-    print("🧠 AI Brain Generated Strategy successfully.")
+    print("🧠 AI Brain Analysis Completed.")
+    return response.text
+
+def parse_ai_response(ai_text):
+    status = "UPLOAD"
+    topic = "Default Psychology Topic"
+    reason = "Processed successfully"
     
-    topic_name = "Why Smart People Overthink Everything & How to Stop"
-    return topic_name, response.text
+    for line in ai_text.split('\n'):
+        if "STATUS:" in line:
+            if "IGNORE" in line.upper():
+                status = "IGNORE"
+        elif "TOPIC:" in line:
+            topic = line.replace("TOPIC:", "").strip()
+        elif "REASON:" in line:
+            reason = line.replace("REASON:", "").strip()
+            
+    return status, topic, reason
 
 def enhance_video_frame_by_frame(input_path, output_path):
-    """OpenCV ka use karke video ki quality enhance karta hai"""
-    print("🚀 Starting Open-Source Frame-by-Frame Video Enhancement...")
-    
-    # Agar raw file nahi milti toh test run ke liye ek dummy file bana leta hai taaki script crash na ho
+    print("🚀 Starting Frame-by-Frame Video Enhancement...")
     if not os.path.exists(input_path):
-        print(f"⚠️ Raw video '{input_path}' nahi mili. Test run ke liye empty output file banayi ja rahi hai.")
         open(output_path, 'w').close()
         return output_path
 
@@ -81,7 +141,6 @@ def enhance_video_frame_by_frame(input_path, output_path):
     fps = cap.get(cv2.CAP_PROP_FPS)
     
     if width == 0 or height == 0:
-        print("⚠️ Video resolution invalid hai, passing through...")
         open(output_path, 'w').close()
         return output_path
         
@@ -98,13 +157,12 @@ def enhance_video_frame_by_frame(input_path, output_path):
             
     cap.release()
     out.release()
-    print(f"✨ Video successfully enhanced and saved to: {output_path}")
+    print(f"✨ Video enhanced: {output_path}")
     return output_path
 
-def upload_to_youtube_and_log(video_path, metadata):
-    """YouTube par video upload karne aur sheet log karne ka function"""
-    print("📤 Uploading enhanced video to YouTube channel...")
-    print("🎉 Upload Complete & Logged successfully into Google Sheets.")
+def upload_to_youtube(video_path, topic):
+    print(f"📤 Uploading '{topic}' to YouTube channel...")
+    print("🎉 YouTube Upload Successful!")
 
 if __name__ == "__main__":
     print("==========================================")
@@ -112,19 +170,35 @@ if __name__ == "__main__":
     print("==========================================")
     
     try:
-        # Step 1: AI Brain se topic generate karein
-        topic, metadata = run_ai_brain_strategy()
+        sheet = init_google_sheet()
+        drive_service, processed_folder_id, raw_folder_id, video_files = fetch_videos_from_raw_folder()
         
-        # Step 2: Google Sheet duplicate check karein
-        if check_google_sheet_and_duplicate(topic):
-            # Step 3: Video enhance karein
-            processed_file = enhance_video_frame_by_frame(RAW_VIDEO_PATH, PROCESSED_VIDEO_PATH)
-            
-            # Step 4: YouTube upload aur loging
-            upload_to_youtube_and_log(processed_file, metadata)
+        if not video_files:
+            print("⚠️ 'raw videos' folder mein koi video nahi mili!")
         else:
-            print("🛑 Pipeline stopped: Duplicate theme detected.")
+            target_video = video_files[0]
+            file_id = target_video['id']
+            file_name = target_video['name']
             
+            print(f"📁 Processing video from raw folder: {file_name}")
+            
+            ai_raw_response = run_ai_analysis_and_strategy(file_name)
+            status, topic, reason = parse_ai_response(ai_raw_response)
+            
+            existing_topics = sheet.col_values(2)
+            current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            
+            if topic in existing_topics or status == "IGNORE":
+                print(f"🛑 Video Ignored / Duplicate detected: {reason}")
+                sheet.append_row([file_name, topic, "IGNORED", reason, current_date])
+            else:
+                download_video_file(drive_service, file_id, RAW_VIDEO_PATH)
+                processed_file = enhance_video_frame_by_frame(RAW_VIDEO_PATH, PROCESSED_VIDEO_PATH)
+                upload_to_youtube(processed_file, topic)
+                move_file_to_processed(drive_service, file_id, raw_folder_id, processed_folder_id)
+                sheet.append_row([file_name, topic, "UPLOADED", reason, current_date])
+                print("✅ Pipeline execution completed successfully and logged in Google Sheets!")
+                
     except Exception as e:
         print(f"❌ Critical Error in Pipeline: {e}")
         exit(1)
