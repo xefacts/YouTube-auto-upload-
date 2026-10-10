@@ -3,11 +3,10 @@ import io
 import cv2
 import numpy as np
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2 import service_account
 import google.generativeai as genai
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
-from google.oauth2 import service_account as google_auth_service_account
 from datetime import datetime
 
 # --- CONFIGURATIONS & FILE PATHS ---
@@ -15,16 +14,17 @@ SHEET_NAME = "YouTube_Automation_Tracker"
 RAW_VIDEO_PATH = "raw_input.mp4"       
 PROCESSED_VIDEO_PATH = "enhanced_output.mp4" 
 
-def init_google_sheet():
-    """Google Sheet initialize karta hai aur headers set karta hai"""
-    scope = [
-        "https://spreadsheets.google.com/feeds",
-        "https://spreadsheets.google.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive.file",
-        "https://www.googleapis.com/auth/drive"
-    ]
+def init_google_sheet_and_drive():
+    """Unified authentication session for both Google Sheets and Google Drive"""
     creds_path = "client_secret.json"
-    creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
+    SCOPES = [
+        'https://www.googleapis.com/auth/spreadsheets',
+        'https://www.googleapis.com/auth/drive'
+    ]
+    
+    creds = service_account.Credentials.from_service_account_file(creds_path, scopes=SCOPES)
+    
+    # Initialize Gspread Client
     client = gspread.authorize(creds)
     try:
         sheet = client.open(SHEET_NAME).sheet1
@@ -32,10 +32,13 @@ def init_google_sheet():
         spreadsheet = client.create(SHEET_NAME)
         sheet = spreadsheet.sheet1
         sheet.append_row(["Video File Name", "Generated Topic / Title", "Status", "Reason / Notes", "Upload Date"])
-    return sheet
+        
+    # Initialize Drive Service
+    drive_service = build('drive', 'v3', credentials=creds)
+    return sheet, drive_service
 
 def get_folder_id(service, folder_name, parent_id=None):
-    """Drive mein folder ka ID dhoondta hai"""
+    """Drive mein specific folder ka ID dhoondta hai"""
     query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false"
     if parent_id:
         query += f" and '{parent_id}' in parents"
@@ -43,31 +46,27 @@ def get_folder_id(service, folder_name, parent_id=None):
     files = results.get('files', [])
     return files[0]['id'] if files else None
 
-def fetch_videos_from_raw_folder():
+def fetch_videos_from_raw_folder(service):
     """'YouTube_Automation/raw videos' folder se videos fetch karta hai"""
     print("📁 Connecting to Google Drive...")
-    creds_path = "client_secret.json"
-    SCOPES = ['https://www.googleapis.com/auth/drive']
-    creds = google_auth_service_account.Credentials.from_service_account_file(creds_path, scopes=SCOPES)
-    service = build('drive', 'v3', credentials=creds)
     
     main_folder_id = get_folder_id(service, "YouTube_Automation")
     if not main_folder_id:
         print("⚠️ 'YouTube_Automation' folder Google Drive mein nahi mila!")
-        return service, None, None, []
+        return None, None, []
         
     raw_folder_id = get_folder_id(service, "raw videos", main_folder_id)
     processed_folder_id = get_folder_id(service, "processed videos", main_folder_id)
     
     if not raw_folder_id:
         print("⚠️ 'YouTube_Automation' ke andar 'raw videos' folder nahi mila!")
-        return service, None, None, []
+        return None, None, []
         
     query = f"'{raw_folder_id}' in parents and mimeType contains 'video/' and trashed = false"
     results = service.files().list(q=query, pageSize=5, fields="files(id, name)").execute()
     items = results.get('files', [])
     
-    return service, processed_folder_id, raw_folder_id, items
+    return processed_folder_id, raw_folder_id, items
 
 def download_video_file(service, file_id, output_path):
     print(f"📥 Downloading video file ID: {file_id}...")
@@ -170,8 +169,8 @@ if __name__ == "__main__":
     print("==========================================")
     
     try:
-        sheet = init_google_sheet()
-        drive_service, processed_folder_id, raw_folder_id, video_files = fetch_videos_from_raw_folder()
+        sheet, drive_service = init_google_sheet_and_drive()
+        processed_folder_id, raw_folder_id, video_files = fetch_videos_from_raw_folder(drive_service)
         
         if not video_files:
             print("⚠️ 'raw videos' folder mein koi video nahi mili!")
