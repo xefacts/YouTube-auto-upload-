@@ -3,11 +3,10 @@ import io
 import cv2
 import numpy as np
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2 import service_account
 import google.generativeai as genai
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
-from google.oauth2 import service_account
 from datetime import datetime
 
 # --- CONFIGURATIONS & FILE PATHS ---
@@ -15,16 +14,8 @@ SHEET_NAME = "YouTube_Automation_Tracker"
 RAW_VIDEO_PATH = "raw_input.mp4"       
 PROCESSED_VIDEO_PATH = "enhanced_output.mp4" 
 
-def init_google_sheet():
+def init_google_sheet(creds):
     """Google Sheet initialize karta hai aur headers set karta hai"""
-    scope = [
-        "https://spreadsheets.google.com/feeds",
-        "https://spreadsheets.google.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive.file",
-        "https://www.googleapis.com/auth/drive"
-    ]
-    creds_path = "client_secret.json"
-    creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
     client = gspread.authorize(creds)
     try:
         sheet = client.open(SHEET_NAME).sheet1
@@ -34,21 +25,39 @@ def init_google_sheet():
         sheet.append_row(["Video File Name", "Generated Topic / Title", "Status", "Reason / Notes", "Upload Date"])
     return sheet
 
-def fetch_and_process_drive_videos():
-    """Google Drive ke raw folder se videos fetch karta hai"""
-    print("📁 Connecting to Google Drive to scan raw videos...")
-    creds_path = "client_secret.json"
-    SCOPES = ['https://www.googleapis.com/auth/drive']
-    creds = service_account.Credentials.from_service_account_file(creds_path, scopes=SCOPES)
+def get_folder_id(service, folder_name, parent_id=None):
+    """Drive mein folder ka ID dhoondta hai"""
+    query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false"
+    if parent_id:
+        query += f" and '{parent_id}' in parents"
+    results = service.files().list(q=query, fields="files(id, name)").execute()
+    files = results.get('files', [])
+    return files[0]['id'] if files else None
+
+def fetch_videos_from_raw_folder(creds):
+    """'YouTube_Automation/raw videos' folder se videos fetch karta hai"""
+    print("📁 Connecting to Google Drive...")
     service = build('drive', 'v3', credentials=creds)
     
-    query = "mimeType contains 'video/' and trashed = false"
+    main_folder_id = get_folder_id(service, "YouTube_Automation")
+    if not main_folder_id:
+        print("⚠️ 'YouTube_Automation' folder Google Drive mein nahi mila!")
+        return service, None, None, []
+        
+    raw_folder_id = get_folder_id(service, "raw videos", main_folder_id)
+    processed_folder_id = get_folder_id(service, "processed videos", main_folder_id)
+    
+    if not raw_folder_id:
+        print("⚠️ 'YouTube_Automation' ke andar 'raw videos' folder nahi mila!")
+        return service, None, None, []
+        
+    query = f"'{raw_folder_id}' in parents and mimeType contains 'video/' and trashed = false"
     results = service.files().list(q=query, pageSize=5, fields="files(id, name)").execute()
     items = results.get('files', [])
-    return service, items
+    
+    return service, processed_folder_id, raw_folder_id, items
 
 def download_video_file(service, file_id, output_path):
-    """Drive se selected video download karta hai"""
     print(f"📥 Downloading video file ID: {file_id}...")
     request = service.files().get_media(fileId=file_id)
     fh = io.FileIO(output_path, 'wb')
@@ -58,6 +67,18 @@ def download_video_file(service, file_id, output_path):
         status, done = downloader.next_chunk()
     print("✅ Video downloaded successfully.")
 
+def move_file_to_processed(service, file_id, current_parent_id, target_processed_folder_id):
+    if not target_processed_folder_id:
+        return
+    print("🚚 Moving processed video to 'processed videos' folder...")
+    service.files().update(
+        fileId=file_id,
+        addParents=target_processed_folder_id,
+        removeParents=current_parent_id,
+        fields='id, parents'
+    ).execute()
+    print("✅ Video moved to processed folder successfully.")
+
 def run_ai_analysis_and_strategy(video_name):
     """Gemini AI Brain: Video content analyze karke high-RPM topic aur status decide karta hai"""
     api_key = os.getenv("GEMINI_API_KEY")
@@ -65,8 +86,7 @@ def run_ai_analysis_and_strategy(video_name):
         raise ValueError("GEMINI_API_KEY set nahi hai!")
     
     genai.configure(api_key=api_key)
-    # Requested model name
-    model = genai.GenerativeModel('gemini-3.8-flash')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     
     prompt = (
         f"Analyze this video filename/context: '{video_name}' for a Tier-1 human psychology YouTube channel. "
@@ -82,7 +102,6 @@ def run_ai_analysis_and_strategy(video_name):
     return response.text
 
 def parse_ai_response(ai_text):
-    """AI ke response ko parse karke status, topic aur reason alag karta hai"""
     status = "UPLOAD"
     topic = "Default Psychology Topic"
     reason = "Processed successfully"
@@ -99,7 +118,6 @@ def parse_ai_response(ai_text):
     return status, topic, reason
 
 def enhance_video_frame_by_frame(input_path, output_path):
-    """OpenCV ke zariye video frames ko enhance karta hai"""
     print("🚀 Starting Frame-by-Frame Video Enhancement...")
     if not os.path.exists(input_path):
         open(output_path, 'w').close()
@@ -131,7 +149,6 @@ def enhance_video_frame_by_frame(input_path, output_path):
     return output_path
 
 def upload_to_youtube(video_path, topic):
-    """YouTube par video publish karta hai"""
     print(f"📤 Uploading '{topic}' to YouTube channel...")
     print("🎉 YouTube Upload Successful!")
 
@@ -141,23 +158,29 @@ if __name__ == "__main__":
     print("==========================================")
     
     try:
-        sheet = init_google_sheet()
-        drive_service, video_files = fetch_and_process_drive_videos()
+        creds_path = "client_secret.json"
+        SCOPES = [
+            'https://www.googleapis.com/auth/spreadsheets',
+            'https://www.googleapis.com/auth/drive'
+        ]
+        # Unified credentials configuration for both Sheets and Drive
+        creds = service_account.Credentials.from_service_account_file(creds_path, scopes=SCOPES)
+        
+        sheet = init_google_sheet(creds)
+        drive_service, processed_folder_id, raw_folder_id, video_files = fetch_videos_from_raw_folder(creds)
         
         if not video_files:
-            print("⚠️ Google Drive ke raw folder mein koi video nahi mili!")
+            print("⚠️ 'raw videos' folder mein koi video nahi mili!")
         else:
             target_video = video_files[0]
             file_id = target_video['id']
             file_name = target_video['name']
             
-            print(f"📁 Processing video: {file_name}")
+            print(f"📁 Processing video from raw folder: {file_name}")
             
-            # Step 1: AI Analysis
             ai_raw_response = run_ai_analysis_and_strategy(file_name)
             status, topic, reason = parse_ai_response(ai_raw_response)
             
-            # Step 2: Google Sheet check & log
             existing_topics = sheet.col_values(2)
             current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
@@ -165,14 +188,10 @@ if __name__ == "__main__":
                 print(f"🛑 Video Ignored / Duplicate detected: {reason}")
                 sheet.append_row([file_name, topic, "IGNORED", reason, current_date])
             else:
-                # Step 3: Download and Process Video
                 download_video_file(drive_service, file_id, RAW_VIDEO_PATH)
                 processed_file = enhance_video_frame_by_frame(RAW_VIDEO_PATH, PROCESSED_VIDEO_PATH)
-                
-                # Step 4: Upload to YouTube
                 upload_to_youtube(processed_file, topic)
-                
-                # Step 5: Log Success in Sheet
+                move_file_to_processed(drive_service, file_id, raw_folder_id, processed_folder_id)
                 sheet.append_row([file_name, topic, "UPLOADED", reason, current_date])
                 print("✅ Pipeline execution completed successfully and logged in Google Sheets!")
                 
