@@ -68,8 +68,8 @@ def run_ai_analysis_and_strategy(video_name):
         raise ValueError("GEMINI_API_KEY set nahi hai!")
     
     genai.configure(api_key=api_key)
-    # Using the latest stable Flash model identifier
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    # Updated to gemini-3.8-flash as requested
+    model = genai.GenerativeModel('gemini-3.8-flash')
     
     prompt = (
         f"Analyze this video filename/context: '{video_name}' for a Tier-1 human psychology YouTube channel. "
