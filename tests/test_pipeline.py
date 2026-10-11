@@ -303,6 +303,21 @@ class CredentialShapeTests(unittest.TestCase):
         self.assertTrue(usable)
         self.assertIn("access_token", message)
 
+    def test_split_secrets_satisfy_the_youtube_credentials(self):
+        env = {
+            "YOUTUBE_CLIENT_ID": "cid",
+            "YOUTUBE_CLIENT_SECRET": "csec",
+            "YOUTUBE_REFRESH_TOKEN": "rtok",
+        }
+        with patch.dict("os.environ", env, clear=False):
+            usable, message = main.token_diagnosis(None, live=True)
+            fields = main.extract_token_fields({})
+
+        self.assertTrue(usable)
+        self.assertIn("refresh_token", message)
+        self.assertEqual(fields["client_id"], "cid")
+        self.assertEqual(fields["refresh_token"], "rtok")
+
     def test_missing_token_is_fatal_only_for_live_runs(self):
         self.assertTrue(main.token_diagnosis(None, live=False)[0])
         self.assertFalse(main.token_diagnosis(None, live=True)[0])
@@ -422,6 +437,65 @@ class PipelineRunTests(unittest.TestCase):
              patch.object(main, "load_youtube_client", return_value=None):
             with self.assertRaises(RuntimeError):
                 main.run()
+
+
+class YouTubeClientTests(unittest.TestCase):
+    def test_load_youtube_client_refreshes_with_a_request_instance(self):
+        payload = {"client_id": "cid", "client_secret": "csec", "refresh_token": "rtok"}
+        fake_creds = Mock()
+        fake_creds.token = None
+        fake_creds.expired = True
+        fake_creds.refresh_token = "rtok"
+
+        with patch.object(main, "read_youtube_token_payload", return_value=payload), \
+             patch.object(main, "UserCredentials", return_value=fake_creds), \
+             patch.object(main, "build") as build:
+            client = main.load_youtube_client()
+
+        refresh_args = fake_creds.refresh.call_args.args
+        self.assertEqual(len(refresh_args), 1)
+        self.assertIsInstance(refresh_args[0], main.Request)
+        build.assert_called_once()
+        self.assertIsNotNone(client)
+
+    def test_load_youtube_client_refuses_unusable_token(self):
+        payload = {"web": {"client_id": "cid", "client_secret": "csec"}}
+
+        with patch.object(main, "read_youtube_token_payload", return_value=payload), \
+             patch.object(main, "build"):
+            with self.assertRaises(RuntimeError) as ctx:
+                main.load_youtube_client()
+
+        self.assertIn("refresh_token", str(ctx.exception))
+
+    def test_doctor_refresh_uses_request_instance(self):
+        payload = {"client_id": "cid", "client_secret": "csec", "refresh_token": "rtok"}
+        fake_creds = Mock()
+        fake_creds.token = None
+        fake_creds.expired = True
+
+        sheets, drive = Mock(), Mock()
+        with patch.object(main, "read_youtube_token_payload", return_value=payload), \
+             patch.object(main, "UserCredentials", return_value=fake_creds), \
+             patch.object(main, "configure_gemini") as gemini, \
+             patch.object(main, "_have_ffmpeg", return_value=True), \
+             patch.object(main, "load_service_account", return_value=(sheets, drive)), \
+             patch.object(main, "resolve_sheet_tab", return_value="Sheet1"), \
+             patch.object(main, "_SHEET_TAB_CACHE", "Sheet1"), \
+             patch.object(main, "retry_call", side_effect=lambda fn, **kw: fn()):
+            gemini.return_value.resolve_model.return_value = "gemini-3.8-flash"
+            gemini.return_value.generate.return_value = "OK"
+            sheets.spreadsheets.return_value.values.return_value.get.return_value.execute.return_value = {
+                "values": [main.SHEET_HEADERS]
+            }
+            drive.files.return_value.list.return_value.execute.return_value = {"files": []}
+            drive.files.return_value.get.return_value.execute.return_value = {
+                "id": "p", "name": "Processed", "capabilities": {"canAddChildren": True}
+            }
+            status = main.doctor()
+
+        self.assertEqual(status, 0)
+        self.assertIsInstance(fake_creds.refresh.call_args.args[0], main.Request)
 
 
 class GeminiClientTests(unittest.TestCase):

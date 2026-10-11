@@ -67,14 +67,28 @@ Repo → **Settings → Secrets and variables → Actions**
 | `YOUTUBE_TOKEN_JSON` | yes for live runs | YouTube user OAuth JSON |
 
 `YOUTUBE_TOKEN_JSON` must contain the OAuth fields (`client_id`, `client_secret`,
-`refresh_token`); aliases, nested `installed`/`web` client files and an
-access-token-only blob are also understood, but only a refresh token keeps
-working long term. Regenerate it locally with:
+`refresh_token`); aliases and nested `installed`/`web` client files are understood
+too, but only a refresh token keeps working long term. Two ways to provide it:
 
-```bash
-pip install google-auth-oauthlib
-python tools/get_youtube_token.py --client-secret client_secret_xxx.json
-```
+1. **Regenerate the JSON** locally with a Desktop OAuth client:
+
+   ```bash
+   pip install google-auth-oauthlib
+   python tools/get_youtube_token.py --client-secret client_secret_xxx.json
+   ```
+
+2. **Split secrets** (no local tooling): keep `YOUTUBE_TOKEN_JSON` as-is (it
+   already carries `client_id`/`client_secret`) and add
+   `YOUTUBE_REFRESH_TOKEN` (a refresh token minted for the *same* OAuth client,
+   e.g. via the OAuth 2.0 Playground with the `youtube.upload` scope).
+   `YOUTUBE_CLIENT_ID` / `YOUTUBE_CLIENT_SECRET` are also honoured as overrides.
+
+   The pipeline tries every combination of payload/split client credentials and
+   refresh tokens, so a refresh token minted with a *different* OAuth client than
+   the one stored in `YOUTUBE_TOKEN_JSON` still works. `invalid_grant` means the
+   refresh token itself is dead: it was revoked, it expired (consent screen still
+   in **Testing** expires refresh tokens after 7 days) or it belongs to a deleted
+   client - mint a fresh one.
 
 Service-account email ko Sheet aur Drive folders (Raw + Processed) **Editor** share karein.
 
