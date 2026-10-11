@@ -66,6 +66,8 @@ YOUTUBE_TOKEN_FILE = os.getenv("YOUTUBE_TOKEN_FILE", "youtube_token.json")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "auto")
 GEMINI_API_BASE = os.getenv("GEMINI_API_BASE", "https://generativelanguage.googleapis.com")
 GEMINI_API_VERSION = os.getenv("GEMINI_API_VERSION", "v1beta")
+# Bounded fallback: every extra model costs another API request (free-tier quotas).
+MAX_GEMINI_MODEL_ATTEMPTS = int(os.getenv("MAX_GEMINI_MODEL_ATTEMPTS", "4"))
 GEMINI_MODEL_PREFERENCES = [
     "gemini-3.8-flash",
     "gemini-3.7-flash",
@@ -1000,6 +1002,10 @@ class GeminiError(RuntimeError):
     pass
 
 
+class GeminiQuotaError(GeminiError):
+    """Gemini quota / billing limits - do not retry, do not hammer other models."""
+
+
 class GeminiClient:
     def __init__(self, api_key: str, model: str | None = None, base: str = GEMINI_API_BASE):
         self.api_key = api_key
@@ -1019,10 +1025,23 @@ class GeminiClient:
                 )
             return resp.json()
         try:
-            return retry_call(call, label=label, attempts=5, base_delay=2.5)
+            # 429 is excluded on purpose: quota errors are not transient and
+            # retrying them burns the daily request budget.
+            return retry_call(
+                call,
+                label=label,
+                attempts=4,
+                base_delay=2.5,
+                retry_on={408, 500, 502, 503, 504},
+            )
         except requests.HTTPError as exc:
             status = exc.response.status_code if exc.response is not None else "?"
-            raise GeminiError(f"Gemini API error ({status}): {self._error_message(exc.response)}") from None
+            message = self._error_message(exc.response)
+            if status == 429 or "quota" in message.lower() or "RESOURCE_EXHAUSTED" in message:
+                raise GeminiQuotaError(
+                    f"Gemini quota/limit reached ({status}): {message}"
+                ) from None
+            raise GeminiError(f"Gemini API error ({status}): {message}") from None
 
     @staticmethod
     def _error_message(resp: requests.Response | None) -> str:
@@ -1074,11 +1093,12 @@ class GeminiClient:
 
     # -- Generation ---------------------------------------------------------
     def _candidate_models(self) -> list[str]:
-        """The resolved model first, then the remaining preferences as fallbacks."""
+        """The resolved model first, then a few fallbacks (bounded on purpose:
+        each extra model costs another API request)."""
         self.resolve_model()
         models = [self.model]
         models.extend(m for m in GEMINI_MODEL_PREFERENCES if m != self.model)
-        return models
+        return models[:MAX_GEMINI_MODEL_ATTEMPTS]
 
     def generate(
         self,
@@ -1089,6 +1109,7 @@ class GeminiClient:
         temperature: float = 0.6,
     ) -> str:
         errors: list[str] = []
+        quota_fallbacks = 0
         for model in self._candidate_models():
             json_mode_enabled = json_mode
             while True:
@@ -1107,6 +1128,14 @@ class GeminiClient:
                 except GeminiError as exc:
                     message = str(exc)
                     errors.append(f"{model}: {sanitize(message)[:200]}")
+                    if isinstance(exc, GeminiQuotaError):
+                        # Quotas are per model, so exactly one lighter model is tried
+                        # before giving up - hammering every model would burn more budget.
+                        if quota_fallbacks < 1:
+                            quota_fallbacks += 1
+                            print(f"   ⚠️  {model}: quota limit; trying one lighter model")
+                            break
+                        raise
                     if json_mode_enabled and ("responseMimeType" in message or "response_mime_type" in message):
                         print(f"   ⚠️  {model} rejected JSON mode; retrying as plain text")
                         json_mode_enabled = False
@@ -1563,6 +1592,22 @@ def run() -> int:
             used_topics.add(topic_key)
             analyzed.append(c)
             print(f"  ✅ queued: {c.title}")
+        except GeminiQuotaError as exc:
+            failure = f"Gemini quota exhausted: {describe_exception(exc)}"
+            problems.append(failure)
+            print(f"  ❌ {failure}")
+            annotate(
+                "error",
+                "Gemini quota exhausted",
+                "The Gemini API quota for this key (all tried models) is used up, so no video "
+                "could be analysed. Wait for the quota to reset, use a lighter model "
+                "(GEMINI_MODEL) or raise the quota/billing in Google AI Studio.",
+            )
+            try:
+                log_row(sheets, c, "FAILED", notes="Gemini quota exhausted; retried on the next run.")
+            except Exception as log_exc:  # noqa: BLE001
+                problems.append(f"could not log quota failure for {c.name}: {describe_exception(log_exc)}")
+            break
         except Exception as exc:
             failure = f"analysis failed for {c.name}: {describe_exception(exc)}"
             problems.append(failure)

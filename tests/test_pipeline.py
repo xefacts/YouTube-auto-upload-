@@ -428,6 +428,29 @@ class PipelineRunTests(unittest.TestCase):
         self.assertEqual(status, 1)
         self.assertEqual(sheets.values().appended[0][8], "FAILED")
 
+    def test_quota_exhaustion_stops_analysis_and_fails_the_run(self):
+        sheets = FakeSheetsClient([main.SHEET_HEADERS])
+        candidates = [make_candidate(name="a.mp4", path=self.video), make_candidate(name="b.mp4", path=self.video)]
+        analyze = Mock(side_effect=main.GeminiQuotaError("Gemini quota/limit reached (429)"))
+        with patch.object(main, "DRY_RUN", True), \
+             patch.object(main, "load_service_account", return_value=(sheets, Mock())), \
+             patch.object(main, "ensure_sheet_headers"), \
+             patch.object(main, "resolve_sheet_tab", return_value="Sheet1"), \
+             patch.object(main, "_SHEET_TAB_CACHE", "Sheet1"), \
+             patch.object(main, "datetime", FixedDatetime), \
+             patch.object(main, "list_drive_videos", return_value=[]), \
+             patch.object(main, "list_local_videos", return_value=candidates), \
+             patch.object(main, "materialize_file", return_value=self.video), \
+             patch.object(main, "extract_first_frame", return_value=None), \
+             patch.object(main, "extract_audio_clip", return_value=None), \
+             patch.object(main, "analyze_video_with_gemini", analyze):
+            status = main.run()
+
+        self.assertEqual(status, 1)
+        self.assertEqual(analyze.call_count, 1)  # stops instead of hammering the API
+        self.assertEqual(len(sheets.values().appended), 1)
+        self.assertEqual(sheets.values().appended[0][8], "FAILED")
+
     def test_live_run_without_youtube_credentials_raises(self):
         sheets = FakeSheetsClient([main.SHEET_HEADERS])
         with patch.object(main, "DRY_RUN", False), \
@@ -437,6 +460,59 @@ class PipelineRunTests(unittest.TestCase):
              patch.object(main, "load_youtube_client", return_value=None):
             with self.assertRaises(RuntimeError):
                 main.run()
+
+
+class GeminiQuotaTests(unittest.TestCase):
+    class FakeResponse:
+        status_code = 429
+        text = "quota"
+
+        def json(self):
+            return {"error": {"code": 429, "message": "You exceeded your current quota, please check your plan and billing details"}}
+
+    def test_429_is_not_retried(self):
+        client = main.GeminiClient("test-key", model="gemini-3.8-flash")
+        calls = {"n": 0}
+
+        def fake_request(*args, **kwargs):
+            calls["n"] += 1
+            return self.FakeResponse()
+
+        client.session.request = fake_request
+
+        with self.assertRaises(main.GeminiQuotaError):
+            client._request("POST", "https://example.invalid", payload={}, label="test")
+        self.assertEqual(calls["n"], 1)
+
+    def test_generate_tries_one_lighter_model_then_gives_up(self):
+        client = main.GeminiClient("test-key", model="gemini-3.8-flash")
+        urls = []
+
+        def fake_request(method, url, *, payload=None, label=""):
+            urls.append(url)
+            raise main.GeminiQuotaError("Gemini quota/limit reached (429): exceeded your current quota")
+
+        client._request = fake_request
+
+        with self.assertRaises(main.GeminiQuotaError):
+            client.generate([{"text": "hello"}])
+
+        self.assertEqual(len(urls), 2)
+        self.assertIn("gemini-3.8-flash", urls[0])
+        self.assertIn("gemini-3.7-flash", urls[1])
+
+    def test_generate_succeeds_on_the_lighter_model(self):
+        client = main.GeminiClient("test-key", model="gemini-3.8-flash")
+
+        def fake_request(method, url, *, payload=None, label=""):
+            if "gemini-3.8-flash" in url:
+                raise main.GeminiQuotaError("Gemini quota/limit reached (429)")
+            return {"candidates": [{"content": {"parts": [{"text": '{"ok": true}'}]}}]}
+
+        client._request = fake_request
+
+        self.assertEqual(client.generate([{"text": "hello"}]), '{"ok": true}')
+        self.assertEqual(client.model, "gemini-3.7-flash")
 
 
 class YouTubeClientTests(unittest.TestCase):
