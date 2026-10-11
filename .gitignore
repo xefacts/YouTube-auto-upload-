@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+work/
+client_secret.json
+youtube_token.json
+*.mp4
+*.mov
+*.mkv
+.env
+.DS_Store

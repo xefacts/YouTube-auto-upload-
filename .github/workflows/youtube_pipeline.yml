@@ -1,40 +1,92 @@
-name: Tier-1 Autonomous YouTube Pipeline
+name: YouTube Auto Publish Pipeline
 
 on:
   schedule:
-    - cron: '0 13,22 * * *'
+    # 16:00 UTC ≈ 11–12 ET (before 2:00 PM ET slot)
+    # 23:00 UTC ≈ 6–7 PM ET (before 8:00 PM ET slot)
+    - cron: "0 16,23 * * *"
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Log to Google Sheet only (no YouTube upload)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: youtube-auto-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
-  run-pipeline:
+  publish:
+    name: Scan · AI · Sheet · Schedule 2/day
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Create Client Secret JSON File from GitHub Secret
+      - name: Require secrets
         env:
           GOOGLE_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+          GEMINI: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          echo "$GOOGLE_JSON" > client_secret.json
+          missing=0
+          if [ -z "$GOOGLE_JSON" ]; then echo "::error::Set secret GOOGLE_CREDENTIALS_JSON"; missing=1; fi
+          if [ -z "$GEMINI" ]; then echo "::error::Set secret GEMINI_API_KEY"; missing=1; fi
+          if [ "$missing" -ne 0 ]; then exit 1; fi
+          if [ -z "${{ secrets.YOUTUBE_TOKEN_JSON }}" ]; then
+            echo "::warning::YOUTUBE_TOKEN_JSON is empty — pipeline will log to Sheets without YouTube upload"
+          fi
 
-      - name: Install System Dependencies
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Write Google service-account JSON
+        env:
+          GOOGLE_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+        run: printf '%s' "$GOOGLE_JSON" > client_secret.json
+
+      - name: Write YouTube OAuth token
+        env:
+          YT_TOKEN: ${{ secrets.YOUTUBE_TOKEN_JSON }}
+        run: |
+          if [ -n "$YT_TOKEN" ]; then
+            printf '%s' "$YT_TOKEN" > youtube_token.json
+          fi
+
+      - name: Install ffmpeg
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg libgl1
 
-      - name: Install Python Dependencies
+      - name: Install Python dependencies
         run: |
-          pip install --upgrade pip
-          pip install google-api-python-client google-auth-oauthlib google-auth-httplib2 google-generativeai gspread oauth2client opencv-python-headless numpy
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run Main Autonomous Script
+      - name: Run publish pipeline
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          python main.py
+          YOUTUBE_TOKEN_JSON: ${{ secrets.YOUTUBE_TOKEN_JSON }}
+          CHANNEL_NICHE: personal finance and business
+          MIN_QUALITY_SCORE: "90"
+          MAX_VIDEOS_PER_DAY: "2"
+          DAY_SLOT_HOUR: "14"
+          NIGHT_SLOT_HOUR: "20"
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: python main.py
+
+      - name: Upload work logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-work
+          path: work/
+          if-no-files-found: ignore
+          retention-days: 7
