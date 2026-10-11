@@ -1428,30 +1428,7 @@ def doctor() -> int:
             f"cannot read PROCESSED_FOLDER_ID ({describe_exception(exc)}); uploaded files will stay in Raw.",
         )
 
-    # 3) Gemini
-    try:
-        client = configure_gemini()
-        model = client.resolve_model()
-        probe = ""
-        try:
-            text = client.generate(
-                [{"text": "Reply with the single word: OK"}], json_mode=False, max_output_tokens=512
-            )
-            probe = f"probe reply {sanitize(text)[:20]!r}"
-        except GeminiError as exc:
-            # Newer Flash models spend the output budget on thinking tokens, so an
-            # empty answer on a tiny probe still proves the model is reachable.
-            if "returned no text" in str(exc):
-                probe = "model answered (probe hit the output-token cap)"
-            else:
-                raise
-        print(f"✅ Gemini reachable (model '{model}', {probe})")
-        annotate("notice", "Doctor: Gemini", f"model={model} {probe}")
-    except Exception as exc:  # noqa: BLE001
-        annotate("error", "Doctor: Gemini", f"Gemini not usable ({describe_exception(exc)})")
-        fatal += 1
-
-    # 4) YouTube token
+    # 3) YouTube token
     payload = read_youtube_token_payload()
     fields = extract_token_fields(payload or {})
     if payload is None and not any(fields.values()):
@@ -1477,6 +1454,29 @@ def doctor() -> int:
             level = "warning" if DRY_RUN else "error"
             annotate(level, "Doctor: YouTube token", message)
             fatal += 0 if DRY_RUN else 1
+
+    # 4) Gemini
+    try:
+        client = configure_gemini()
+        model = client.resolve_model()
+        probe = ""
+        try:
+            text = client.generate(
+                [{"text": "Reply with the single word: OK"}], json_mode=False, max_output_tokens=512
+            )
+            probe = f"probe reply {sanitize(text)[:20]!r}"
+        except GeminiError as exc:
+            # Newer Flash models spend the output budget on thinking tokens, so an
+            # empty answer on a tiny probe still proves the model is reachable.
+            if "returned no text" in str(exc):
+                probe = "model answered (probe hit the output-token cap)"
+            else:
+                raise
+        print(f"✅ Gemini reachable (model '{model}', {probe})")
+        annotate("notice", "Doctor: Gemini", f"model={model} {probe}")
+    except Exception as exc:  # noqa: BLE001
+        annotate("error", "Doctor: Gemini", f"Gemini not usable ({describe_exception(exc)})")
+        fatal += 1
 
     # 5) ffmpeg
     if not _have_ffmpeg():
