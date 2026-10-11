@@ -407,10 +407,13 @@ def read_youtube_token_payload() -> dict | None:
 
 
 def token_diagnosis(payload: dict | None, *, live: bool) -> tuple[bool, str]:
-    """(usable, message) for the YouTube credential in the requested mode."""
-    if payload is None:
-        message = "YOUTUBE_TOKEN_JSON is not set (no OAuth token)."
-        return (not live), message
+    """(usable, message) for the YouTube credential in the requested mode.
+
+    Accepts the secret as the authorized-user JSON, a nested client JSON, an
+    access-token blob, or the split secrets YOUTUBE_CLIENT_ID /
+    YOUTUBE_CLIENT_SECRET / YOUTUBE_REFRESH_TOKEN.
+    """
+    payload = payload or {}
     fields = extract_token_fields(payload)
     have = sorted(k for k, v in fields.items() if v)
     missing = [
@@ -430,28 +433,32 @@ def token_diagnosis(payload: dict | None, *, live: bool) -> tuple[bool, str]:
             "YOUTUBE_TOKEN_JSON contains a *service account* key. YouTube uploads need a "
             "user OAuth token, not a service account."
         )
-    shape = ", ".join(key_paths(payload)) or "(empty object)"
+    if not payload and not have:
+        message = "YOUTUBE_TOKEN_JSON is not set (no OAuth token)."
+        return (not live), message
+    source = "YOUTUBE_TOKEN_JSON" if payload else "the YouTube secrets"
+    shape = ", ".join(key_paths(payload)) or "(no fields)"
     return False, (
-        "YOUTUBE_TOKEN_JSON is missing "
+        f"{source} has no refresh_token and no access_token (missing: "
         + ", ".join(missing)
-        + f" and has no access_token. Fields present: {shape}. "
-        "Regenerate it with tools/get_youtube_token.py (Desktop OAuth client) and store the "
-        "authorized-user JSON (refresh_token + client_id + client_secret)."
-        + (f" Fields detected: {', '.join(have)}." if have else "")
+        + f"; fields present: {shape}"
+        + (f"; detected: {', '.join(have)}" if have else "")
+        + "). Fix it either way: (a) add a repository secret YOUTUBE_REFRESH_TOKEN holding a "
+        "refresh token minted for this OAuth client (OAuth 2.0 Playground, scope "
+        "youtube.upload) - the pipeline combines the split secrets automatically, or "
+        "(b) replace YOUTUBE_TOKEN_JSON with the authorized-user JSON printed by "
+        "tools/get_youtube_token.py (Desktop OAuth client)."
     )
 
 
 def load_youtube_client():
     """Build a YouTube Data API client from the stored OAuth token."""
-    if not Path(YOUTUBE_TOKEN_FILE).exists() and not os.getenv("YOUTUBE_TOKEN_JSON"):
-        print("⚠️  YouTube OAuth token missing — metadata will be logged without upload.")
-        return None
     payload = read_youtube_token_payload()
-    if payload is None:
+    fields = extract_token_fields(payload or {})
+    if payload is None and not any(fields.values()):
         print("⚠️  YouTube OAuth token missing — metadata will be logged without upload.")
         return None
 
-    fields = extract_token_fields(payload)
     usable, message = token_diagnosis(payload, live=True)
     print(f"🔑 YouTube credential: {message}")
     if not usable:
@@ -1323,12 +1330,13 @@ def doctor() -> int:
 
     # 4) YouTube token
     payload = read_youtube_token_payload()
-    if payload is None:
+    fields = extract_token_fields(payload or {})
+    if payload is None and not any(fields.values()):
         level = "warning" if DRY_RUN else "error"
         annotate(level, "Doctor: YouTube token", "YOUTUBE_TOKEN_JSON is not set")
         fatal += 0 if DRY_RUN else 1
     else:
-        fields = extract_token_fields(payload)
+        payload = payload or {}
         print(f"🔎 YOUTUBE_TOKEN_JSON fields: {', '.join(k for k, v in fields.items() if v) or '(none)'}")
         usable, message = token_diagnosis(payload, live=not DRY_RUN)
         if usable:

@@ -303,6 +303,21 @@ class CredentialShapeTests(unittest.TestCase):
         self.assertTrue(usable)
         self.assertIn("access_token", message)
 
+    def test_split_secrets_satisfy_the_youtube_credentials(self):
+        env = {
+            "YOUTUBE_CLIENT_ID": "cid",
+            "YOUTUBE_CLIENT_SECRET": "csec",
+            "YOUTUBE_REFRESH_TOKEN": "rtok",
+        }
+        with patch.dict("os.environ", env, clear=False):
+            usable, message = main.token_diagnosis(None, live=True)
+            fields = main.extract_token_fields({})
+
+        self.assertTrue(usable)
+        self.assertIn("refresh_token", message)
+        self.assertEqual(fields["client_id"], "cid")
+        self.assertEqual(fields["refresh_token"], "rtok")
+
     def test_missing_token_is_fatal_only_for_live_runs(self):
         self.assertTrue(main.token_diagnosis(None, live=False)[0])
         self.assertFalse(main.token_diagnosis(None, live=True)[0])
