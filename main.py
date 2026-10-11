@@ -10,7 +10,7 @@ from datetime import datetime
 import shutil
 
 # --- CONFIGURATIONS & FILE PATHS ---
-SHEET_NAME = "YouTube_Automation_Log"
+SPREADSHEET_ID = "15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618"
 RAW_VIDEO_PATH = "raw_input.mp4"       
 PROCESSED_VIDEO_PATH = "enhanced_output.mp4" 
 
@@ -29,15 +29,6 @@ def init_google_sheet_and_drive():
     sheets_service = build('sheets', 'v4', credentials=creds)
     
     return sheets_service, drive_service
-
-def get_spreadsheet_id(drive_service, sheet_name):
-    """Search for the spreadsheet ID by name in Google Drive"""
-    query = f"name = '{sheet_name}' and mimeType = 'application/vnd.google-apps.spreadsheet' and trashed = false"
-    results = drive_service.files().list(q=query, fields="files(id, name)").execute()
-    files = results.get('files', [])
-    if not files:
-        raise FileNotFoundError(f"Google Sheet '{sheet_name}' nahi mili! Please check karein ke yeh service account ke sath share ki gayi hai ya nahi.")
-    return files[0]['id']
 
 def get_folder_id(service, folder_name, parent_id=None):
     query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false"
@@ -147,7 +138,6 @@ if __name__ == "__main__":
     
     try:
         sheets_service, drive_service = init_google_sheet_and_drive()
-        spreadsheet_id = get_spreadsheet_id(drive_service, SHEET_NAME)
         
         processed_folder_id, raw_folder_id, video_files = fetch_videos_from_raw_folder(drive_service)
         
@@ -165,7 +155,7 @@ if __name__ == "__main__":
             
             # Read existing values from Sheet using Sheets API
             result = sheets_service.spreadsheets().values().get(
-                spreadsheetId=spreadsheet_id, range="Sheet1!C:C"
+                spreadsheetId=SPREADSHEET_ID, range="Sheet1!C:C"
             ).execute()
             rows = result.get('values', [])
             existing_topics = [row[0] for row in rows if row]
@@ -186,7 +176,7 @@ if __name__ == "__main__":
             # Append row using standard Sheets API
             body = {'values': row_data}
             sheets_service.spreadsheets().values().append(
-                spreadsheetId=spreadsheet_id,
+                spreadsheetId=SPREADSHEET_ID,
                 range="Sheet1!A1",
                 valueInputOption="USER_ENTERED",
                 body=body
