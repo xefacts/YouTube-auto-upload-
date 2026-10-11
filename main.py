@@ -11,11 +11,11 @@ import shutil
 
 # --- CONFIGURATIONS & FILE PATHS ---
 SPREADSHEET_ID = "15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618"
+MAIN_FOLDER_ID = "1x1DpEkCpxF8TqDHL1Tz1DM8Ikudix8Az"
 RAW_VIDEO_PATH = "raw_input.mp4"       
 PROCESSED_VIDEO_PATH = "enhanced_output.mp4" 
 
 def init_google_sheet_and_drive():
-    """Robust unified authentication using standard Google API Client"""
     creds_path = "client_secret.json"
     SCOPES = [
         'https://www.googleapis.com/auth/spreadsheets',
@@ -23,8 +23,6 @@ def init_google_sheet_and_drive():
     ]
     
     creds = service_account.Credentials.from_service_account_file(creds_path, scopes=SCOPES)
-    
-    # Build both Drive and Sheets services using the same solid credentials object
     drive_service = build('drive', 'v3', credentials=creds)
     sheets_service = build('sheets', 'v4', credentials=creds)
     
@@ -40,16 +38,12 @@ def get_folder_id(service, folder_name, parent_id=None):
 
 def fetch_videos_from_raw_folder(service):
     print("📁 Connecting to Google Drive...")
-    main_folder_id = get_folder_id(service, "YouTube_Automation")
-    if not main_folder_id:
-        print("⚠️ 'YouTube_Automation' folder Google Drive mein nahi mila!")
-        return None, None, []
-        
-    raw_folder_id = get_folder_id(service, "raw videos", main_folder_id)
-    processed_folder_id = get_folder_id(service, "processed videos", main_folder_id)
+    
+    raw_folder_id = get_folder_id(service, "Raw_Videos", MAIN_FOLDER_ID)
+    processed_folder_id = get_folder_id(service, "Processed_Videos", MAIN_FOLDER_ID)
     
     if not raw_folder_id:
-        print("⚠️ 'YouTube_Automation' ke andar 'raw videos' folder nahi mila!")
+        print("⚠️ 'Raw_Videos' folder nahi mila! Please check karein ke folder ka naam theek hai.")
         return None, None, []
         
     query = f"'{raw_folder_id}' in parents and mimeType contains 'video/' and trashed = false"
@@ -71,7 +65,7 @@ def download_video_file(service, file_id, output_path):
 def move_file_to_processed(service, file_id, current_parent_id, target_processed_folder_id):
     if not target_processed_folder_id:
         return
-    print("🚚 Moving processed video to 'processed videos' folder...")
+    print("🚚 Moving processed video to 'Processed_Videos' folder...")
     service.files().update(
         fileId=file_id,
         addParents=target_processed_folder_id,
@@ -142,7 +136,7 @@ if __name__ == "__main__":
         processed_folder_id, raw_folder_id, video_files = fetch_videos_from_raw_folder(drive_service)
         
         if not video_files:
-            print("⚠️ 'raw videos' folder mein koi video nahi mili!")
+            print("⚠️ 'Raw_Videos' folder mein koi video nahi mili!")
         else:
             target_video = video_files[0]
             file_id = target_video['id']
