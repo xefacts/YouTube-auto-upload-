@@ -504,8 +504,11 @@ def resolve_youtube_credentials(payload: dict | None) -> tuple[UserCredentials, 
             continue
         return creds, label
     detail = " | ".join(problems[:4]) or "no usable credentials"
+    tried = ", ".join(label for label, _ in candidates) or "none"
     raise RuntimeError(
-        "YouTube credentials could not authenticate ("
+        "YouTube credentials could not authenticate (combinations tried: "
+        + tried
+        + "; "
         + detail
         + "). A refresh token must be minted by the channel owner with the same OAuth client; "
         "an invalid_grant error means the refresh token was revoked, expired (OAuth consent "
