@@ -2,49 +2,57 @@
 """
 Autonomous YouTube publishing pipeline.
 
-Rules:
-  - At most 2 videos per US calendar day at peak traffic:
-      14:00 ET (weekday afternoon) and 20:00 ET (prime time).
-  - Only videos with AI quality score >= 90 are uploaded.
-  - One topic = one video, forever (sheet + in-batch).
-  - Topic is taken ~90% from on-screen first-frame text or the first spoken
-    sentence (audio clip), not from the filename.
-  - Gemini writes SEO title, description, and tags.
+Rules (do not change):
+  - Niche: personal finance and business.
+  - At most 2 videos per US calendar day, published at the 2:00 PM ET and
+    8:00 PM ET peak slots.
+  - Only videos with an AI quality score >= 90 are published.
+  - One topic = one video, forever (Google Sheet history + in-batch).
+  - The topic is taken from the on-screen first-frame text or from the first
+    spoken line (first seconds of audio), never from the filename.
+  - Gemini writes the SEO title, description and tags.
+  - All video/history data is stored in the Google Sheet.
+
+Modes:
+  python main.py                 # normal run (DRY_RUN env decides upload vs. sheet only)
+  python main.py --doctor        # network preflight (sheet, drive, Gemini, YouTube token)
+  python main.py --validate-credentials   # offline credential shape check
 """
 
 from __future__ import annotations
 
+import argparse
+import base64
 import json
 import os
 import re
 import subprocess
 import sys
+import time
 import traceback
 import unicodedata
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Iterable
 
 import cv2
 import pytz
+import requests
+from google.auth.transport.requests import Request
 from google.oauth2 import service_account
 from google.oauth2.credentials import Credentials as UserCredentials
-from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
-
-try:
-    import google.generativeai as genai
-except ImportError:  # pragma: no cover
-    genai = None
-
 
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID", "15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618")
 SHEET_RANGE = os.getenv("SHEET_RANGE", "Sheet1!A:L")
+SHEET_TAB = (os.getenv("SHEET_TAB") or "").strip()
 RAW_FOLDER_ID = os.getenv("RAW_FOLDER_ID", "1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J")
 PROCESSED_FOLDER_ID = os.getenv("PROCESSED_FOLDER_ID", "1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf")
 
@@ -53,7 +61,24 @@ WORK_DIR = Path(os.getenv("WORK_DIR", "work"))
 CREDENTIALS_FILE = os.getenv("GOOGLE_CREDENTIALS_FILE", "client_secret.json")
 YOUTUBE_TOKEN_FILE = os.getenv("YOUTUBE_TOKEN_FILE", "youtube_token.json")
 
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+# "auto" lets the pipeline discover a working Flash model for the API key
+# (see GEMINI_MODEL_PREFERENCES). Set GEMINI_MODEL to pin an exact model id.
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "auto")
+GEMINI_API_BASE = os.getenv("GEMINI_API_BASE", "https://generativelanguage.googleapis.com")
+GEMINI_API_VERSION = os.getenv("GEMINI_API_VERSION", "v1beta")
+GEMINI_MODEL_PREFERENCES = [
+    "gemini-3.8-flash",
+    "gemini-3.7-flash",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+    "gemini-3.1-flash",
+    "gemini-3-flash",
+    "gemini-2.5-flash",
+    "gemini-flash-latest",
+    "gemini-2.5-flash-lite",
+    "gemini-2.0-flash",
+]
+
 CHANNEL_NICHE = os.getenv("CHANNEL_NICHE", "personal finance and business")
 MAX_VIDEOS_PER_DAY = int(os.getenv("MAX_VIDEOS_PER_DAY", "2"))
 MIN_QUALITY_SCORE = int(os.getenv("MIN_QUALITY_SCORE", "90"))
@@ -87,7 +112,159 @@ SHEET_HEADERS = [
     "Notes",
 ]
 
+# Statuses that mean "this source file / this topic is already used".
+COMMITTED_STATUSES = {"SCHEDULED", "UPLOADED", "PUBLISHED"}
+# Statuses that must stay retryable in later runs.
+RETRYABLE_STATUSES = {"DRY_RUN", "FAILED", "IGNORED", "LOW_QUALITY", "DUPLICATE_TOPIC"}
 
+RETRYABLE_HTTP_STATUS = {408, 429, 500, 502, 503, 504}
+
+
+# ---------------------------------------------------------------------------
+# Secret hygiene
+# ---------------------------------------------------------------------------
+_FILE_SECRETS_CACHE: list[str] | None = None
+
+
+def _file_secret_values() -> list[str]:
+    """Secrets read from the credential files (cached - they do not change mid-run)."""
+    global _FILE_SECRETS_CACHE
+    if _FILE_SECRETS_CACHE is not None:
+        return _FILE_SECRETS_CACHE
+    values: set[str] = set()
+    for path in (CREDENTIALS_FILE, YOUTUBE_TOKEN_FILE):
+        try:
+            raw = Path(path).read_text()
+        except OSError:
+            continue
+        if raw and len(raw) >= 8:
+            values.add(raw)
+        try:
+            parsed = json.loads(raw)
+        except (json.JSONDecodeError, TypeError):
+            continue
+        values.update(_iter_strings(parsed))
+    _FILE_SECRETS_CACHE = sorted((v for v in values if len(v) >= 8), key=len, reverse=True)
+    return _FILE_SECRETS_CACHE
+
+
+def secret_values() -> list[str]:
+    """Every literal secret string we know about, for log redaction."""
+    values: set[str] = set()
+    for name in (
+        "GEMINI_API_KEY",
+        "YOUTUBE_TOKEN_JSON",
+        "GOOGLE_CREDENTIALS_JSON",
+        "YOUTUBE_CLIENT_ID",
+        "YOUTUBE_CLIENT_SECRET",
+        "YOUTUBE_REFRESH_TOKEN",
+    ):
+        value = os.getenv(name)
+        if value and len(value) >= 8:
+            values.add(value)
+    values.update(_file_secret_values())
+    return sorted((v for v in values if len(v) >= 8), key=len, reverse=True)
+
+
+def _iter_strings(node: Any) -> Iterable[str]:
+    if isinstance(node, str):
+        if len(node) >= 8:
+            yield node
+    elif isinstance(node, dict):
+        for value in node.values():
+            yield from _iter_strings(value)
+    elif isinstance(node, (list, tuple)):
+        for value in node:
+            yield from _iter_strings(value)
+
+
+def sanitize(text: Any) -> str:
+    """Redact known secrets from anything we print (never log secret values)."""
+    out = str(text)
+    for secret in secret_values():
+        out = out.replace(secret, "[REDACTED]")
+    return out
+
+
+def describe_exception(exc: BaseException) -> str:
+    """Short, sanitized, one-line description of an exception for logs/annotations."""
+    message = sanitize(str(exc)).replace("\n", " ").strip()
+    if isinstance(exc, HttpError):
+        status = getattr(exc.resp, "status", None)
+        return f"HttpError {status}: {message[:400]}"
+    if isinstance(exc, requests.HTTPError) and exc.response is not None:
+        body = sanitize(exc.response.text)[:400].replace("\n", " ")
+        return f"HTTP {exc.response.status_code}: {body}"
+    return f"{type(exc).__name__}: {message[:400]}" if message else type(exc).__name__
+
+
+def annotate(level: str, title: str, message: str) -> None:
+    """Emit a GitHub Actions annotation (sanitized) and a plain log line."""
+    safe = sanitize(message).replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+    print(f"::{level} title={title}::{safe}")
+
+
+# ---------------------------------------------------------------------------
+# Small helpers
+# ---------------------------------------------------------------------------
+def retry_call(
+    fn: Callable[[], Any],
+    *,
+    label: str,
+    attempts: int = 4,
+    base_delay: float = 2.0,
+    retry_on: set[int] = RETRYABLE_HTTP_STATUS,
+) -> Any:
+    """Call fn() with backoff on transient Google API / network failures."""
+    last_exc: BaseException | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            return fn()
+        except Exception as exc:  # noqa: BLE001 - classified below
+            status = None
+            if isinstance(exc, HttpError):
+                status = getattr(exc.resp, "status", None)
+            elif isinstance(exc, requests.HTTPError) and exc.response is not None:
+                status = exc.response.status_code
+            retryable = status in retry_on or isinstance(
+                exc, (requests.ConnectionError, requests.Timeout)
+            )
+            last_exc = exc
+            if not retryable or attempt == attempts:
+                raise
+            delay = base_delay * (2 ** (attempt - 1))
+            print(f"  ↩️  {label}: transient error ({describe_exception(exc)}); retry in {delay:.0f}s")
+            time.sleep(delay)
+    raise last_exc  # pragma: no cover - defensive
+
+
+def parse_json_object(raw: str, label: str) -> dict:
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"{label} is not valid JSON ({exc.msg} at position {exc.pos}).") from None
+    if not isinstance(data, dict):
+        raise ValueError(f"{label} must be a JSON object, got {type(data).__name__}.")
+    return data
+
+
+def key_paths(node: Any, prefix: str = "") -> list[str]:
+    """Field names only (never values) - used to diagnose secret shapes safely."""
+    paths: list[str] = []
+    if isinstance(node, dict):
+        for key, value in node.items():
+            path = f"{prefix}.{key}" if prefix else str(key)
+            paths.append(path)
+            paths.extend(key_paths(value, path))
+    elif isinstance(node, (list, tuple)):
+        for item in node:
+            paths.extend(key_paths(item, f"{prefix}[]"))
+    return paths
+
+
+# ---------------------------------------------------------------------------
+# Data model
+# ---------------------------------------------------------------------------
 @dataclass
 class VideoCandidate:
     name: str
@@ -114,49 +291,357 @@ class PipelineResult:
     notes: str
 
 
-def load_service_account():
-    if not Path(CREDENTIALS_FILE).exists():
+# ---------------------------------------------------------------------------
+# Google credentials
+# ---------------------------------------------------------------------------
+def load_service_account(credentials_file: str | None = None):
+    path = Path(credentials_file or CREDENTIALS_FILE)
+    if not path.exists():
         raise FileNotFoundError(
-            f"{CREDENTIALS_FILE} missing. Write secrets.GOOGLE_CREDENTIALS_JSON to this file."
+            f"{path} is missing. Write the GOOGLE_CREDENTIALS_JSON secret to {path} first."
         )
-    creds = service_account.Credentials.from_service_account_file(
-        CREDENTIALS_FILE, scopes=DRIVE_SCOPES
-    )
+    creds = service_account.Credentials.from_service_account_file(str(path), scopes=DRIVE_SCOPES)
     drive = build("drive", "v3", credentials=creds, cache_discovery=False)
     sheets = build("sheets", "v4", credentials=creds, cache_discovery=False)
     return sheets, drive
 
 
+def service_account_summary(credentials_file: str | None = None) -> str:
+    """Human-readable (non-secret) summary of the service account."""
+    path = Path(credentials_file or CREDENTIALS_FILE)
+    if not path.exists():
+        return f"{path} is missing"
+    data = parse_json_object(path.read_text(), str(path))
+    kind = data.get("type", "?")
+    email = str(data.get("client_email", ""))
+    project = str(data.get("project_id", ""))
+    if "@" in email:
+        local, _, domain = email.partition("@")
+        masked = f"{local[:2]}***@{domain}"
+    else:
+        masked = "(no client_email)"
+    return f"type={kind} project={project or '?'} account={masked}"
+
+
+# --- YouTube OAuth token ---------------------------------------------------
+TOKEN_FIELD_ALIASES: dict[str, tuple[str, ...]] = {
+    "refresh_token": ("refresh_token", "refreshtoken", "refresh_token_value"),
+    "client_id": ("client_id", "clientid", "oauth_client_id"),
+    "client_secret": ("client_secret", "clientsecret", "oauth_client_secret"),
+    "token": ("token", "access_token", "accesstoken"),
+    "token_uri": ("token_uri", "tokenuri"),
+    "scopes": ("scopes", "scope"),
+}
+
+
+def extract_token_fields(data: dict) -> dict[str, Any]:
+    """Pull OAuth fields out of whatever shape the secret is stored in.
+
+    Supports the canonical authorized-user JSON, the Google "installed"/"web"
+    client-secret files, "access_token" only blobs and common key aliases.
+    Searches nested objects, so ``{"installed": {...}}`` works too.
+    """
+    found: dict[str, Any] = {}
+    for field_name, aliases in TOKEN_FIELD_ALIASES.items():
+        value = _find_field(data, aliases)
+        if value is not None:
+            found[field_name] = value
+
+    env_fallbacks = {
+        "client_id": "YOUTUBE_CLIENT_ID",
+        "client_secret": "YOUTUBE_CLIENT_SECRET",
+        "refresh_token": "YOUTUBE_REFRESH_TOKEN",
+    }
+    for field_name, env_name in env_fallbacks.items():
+        if not found.get(field_name) and os.getenv(env_name):
+            found[field_name] = os.getenv(env_name, "").strip()
+    return found
+
+
+def _find_field(node: Any, aliases: Iterable[str]) -> Any:
+    alias_set = {alias.replace("-", "_").lower() for alias in aliases}
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if str(key).replace("-", "_").lower() in alias_set:
+                if isinstance(value, str) and value.strip():
+                    return value.strip()
+                if isinstance(value, (list, tuple)) and value:
+                    return list(value)
+        for value in node.values():
+            found = _find_field(value, aliases)
+            if found is not None:
+                return found
+    elif isinstance(node, (list, tuple)):
+        for item in node:
+            found = _find_field(item, aliases)
+            if found is not None:
+                return found
+    return None
+
+
+def read_youtube_token_payload() -> dict | None:
+    """Return the parsed YOUTUBE_TOKEN_JSON (env first, then the token file)."""
+    raw = os.getenv("YOUTUBE_TOKEN_JSON") or ""
+    if raw.strip():
+        payload = parse_json_object(raw, "YOUTUBE_TOKEN_JSON")
+    else:
+        path = Path(YOUTUBE_TOKEN_FILE)
+        if not path.exists():
+            return None
+        payload = parse_json_object(path.read_text(), str(path))
+    # Mirror the secret to disk so google-auth tooling can reuse it.
+    try:
+        Path(YOUTUBE_TOKEN_FILE).write_text(json.dumps(payload))
+    except OSError:
+        pass
+    return payload
+
+
+def token_diagnosis(payload: dict | None, *, live: bool) -> tuple[bool, str]:
+    """(usable, message) for the YouTube credential in the requested mode."""
+    if payload is None:
+        message = "YOUTUBE_TOKEN_JSON is not set (no OAuth token)."
+        return (not live), message
+    fields = extract_token_fields(payload)
+    have = sorted(k for k, v in fields.items() if v)
+    missing = [
+        name
+        for name in ("refresh_token", "client_id", "client_secret")
+        if not fields.get(name)
+    ]
+    if not missing:
+        return True, "token has refresh_token + client_id + client_secret"
+    if fields.get("token"):
+        return True, (
+            "token has an access_token only (no refresh_token/client_id/client_secret): "
+            "uploads work only until that access token expires"
+        )
+    if str(payload.get("type", "")).lower() == "service_account":
+        return False, (
+            "YOUTUBE_TOKEN_JSON contains a *service account* key. YouTube uploads need a "
+            "user OAuth token, not a service account."
+        )
+    shape = ", ".join(key_paths(payload)) or "(empty object)"
+    return False, (
+        "YOUTUBE_TOKEN_JSON is missing "
+        + ", ".join(missing)
+        + f" and has no access_token. Fields present: {shape}. "
+        "Regenerate it with tools/get_youtube_token.py (Desktop OAuth client) and store the "
+        "authorized-user JSON (refresh_token + client_id + client_secret)."
+        + (f" Fields detected: {', '.join(have)}." if have else "")
+    )
+
+
 def load_youtube_client():
-    token_json = os.getenv("YOUTUBE_TOKEN_JSON")
-    if token_json:
-        Path(YOUTUBE_TOKEN_FILE).write_text(token_json)
-    if not Path(YOUTUBE_TOKEN_FILE).exists():
+    """Build a YouTube Data API client from the stored OAuth token."""
+    if not Path(YOUTUBE_TOKEN_FILE).exists() and not os.getenv("YOUTUBE_TOKEN_JSON"):
         print("⚠️  YouTube OAuth token missing — metadata will be logged without upload.")
         return None
-    data = json.loads(Path(YOUTUBE_TOKEN_FILE).read_text())
-    creds = UserCredentials.from_authorized_user_info(data, YOUTUBE_SCOPES)
-    if creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-        Path(YOUTUBE_TOKEN_FILE).write_text(creds.to_json())
+    payload = read_youtube_token_payload()
+    if payload is None:
+        print("⚠️  YouTube OAuth token missing — metadata will be logged without upload.")
+        return None
+
+    fields = extract_token_fields(payload)
+    usable, message = token_diagnosis(payload, live=True)
+    print(f"🔑 YouTube credential: {message}")
+    if not usable:
+        raise RuntimeError(f"Cannot build the YouTube client. {message}")
+
+    scopes = fields.get("scopes")
+    if isinstance(scopes, str):
+        scopes = [s for s in scopes.split() if s]
+    if scopes and "https://www.googleapis.com/auth/youtube.upload" not in scopes:
+        print(f"⚠️  token scopes {scopes} do not list youtube.upload; upload may fail with 403")
+
+    creds = UserCredentials(
+        token=fields.get("token"),
+        refresh_token=fields.get("refresh_token"),
+        token_uri=fields.get("token_uri") or "https://oauth2.googleapis.com/token",
+        client_id=fields.get("client_id"),
+        client_secret=fields.get("client_secret"),
+        scopes=YOUTUBE_SCOPES,
+    )
+    if not creds.token or creds.expired:
+        if not creds.refresh_token:
+            raise RuntimeError(
+                "YouTube token has no refresh_token and no usable access_token; "
+                "regenerate YOUTUBE_TOKEN_JSON with tools/get_youtube_token.py."
+            )
+        retry_call(creds.refresh, label="youtube token refresh")
+        print("🔁 YouTube access token refreshed.")
     return build("youtube", "v3", credentials=creds, cache_discovery=False)
 
 
+# ---------------------------------------------------------------------------
+# Google Sheet plumbing (tab is discovered, never assumed)
+# ---------------------------------------------------------------------------
+_SHEET_TAB_CACHE: str | None = SHEET_TAB or None
+
+
+def resolve_sheet_tab(sheets, *, refresh: bool = False) -> str:
+    """Find the tab that holds the video history. Never raises."""
+    global _SHEET_TAB_CACHE
+    if _SHEET_TAB_CACHE and not refresh:
+        return _SHEET_TAB_CACHE
+
+    fallback = SHEET_TAB or (SHEET_RANGE.split("!", 1)[0] if "!" in SHEET_RANGE else "Sheet1")
+    try:
+        meta = retry_call(
+            lambda: sheets.spreadsheets()
+            .get(
+                spreadsheetId=SPREADSHEET_ID,
+                fields="properties.title,sheets.properties.title",
+            )
+            .execute(),
+            label="spreadsheet metadata",
+        )
+        titles = [
+            sheet["properties"]["title"]
+            for sheet in meta.get("sheets", [])
+            if sheet.get("properties", {}).get("title")
+        ]
+        print(f"📗 Spreadsheet '{meta.get('properties', {}).get('title', '?')}' tabs: {titles}")
+        chosen = SHEET_TAB if SHEET_TAB in titles else ""
+        if not chosen:
+            chosen = _match_tab_by_header(sheets, titles) or ""
+        if not chosen and fallback in titles:
+            chosen = fallback
+        if not chosen and titles:
+            chosen = titles[0]
+        if not chosen:
+            chosen = fallback
+    except Exception as exc:  # noqa: BLE001 - discovery must never be fatal
+        annotate("warning", "Sheet discovery", f"could not read spreadsheet metadata ({describe_exception(exc)}); using {fallback}")
+        chosen = fallback
+    _SHEET_TAB_CACHE = chosen
+    return chosen
+
+
+def _match_tab_by_header(sheets, titles: list[str]) -> str | None:
+    for title in titles:
+        try:
+            result = (
+                sheets.spreadsheets()
+                .values()
+                .get(spreadsheetId=SPREADSHEET_ID, range=f"'{title}'!A1:L1")
+                .execute()
+            )
+        except Exception:  # noqa: BLE001
+            continue
+        row = (result.get("values") or [[]])[0]
+        if row and row[0].strip().lower() == SHEET_HEADERS[0].strip().lower():
+            print(f"📄 Using existing pipeline tab '{title}'.")
+            return title
+    return None
+
+
+def sheet_range(a1: str = "A:L") -> str:
+    tab = _SHEET_TAB_CACHE or SHEET_TAB or (
+        SHEET_RANGE.split("!", 1)[0] if "!" in SHEET_RANGE else "Sheet1"
+    )
+    return f"'{tab}'!{a1}"
+
+
 def ensure_sheet_headers(sheets) -> None:
-    result = (
-        sheets.spreadsheets()
+    resolve_sheet_tab(sheets)
+    result = retry_call(
+        lambda: sheets.spreadsheets()
         .values()
-        .get(spreadsheetId=SPREADSHEET_ID, range="Sheet1!A1:L1")
-        .execute()
+        .get(spreadsheetId=SPREADSHEET_ID, range=sheet_range("A1:L1"))
+        .execute(),
+        label="sheet header read",
     )
     values = result.get("values", [])
     if not values or values[0] != SHEET_HEADERS:
-        sheets.spreadsheets().values().update(
+        retry_call(
+            lambda: sheets.spreadsheets()
+            .values()
+            .update(
+                spreadsheetId=SPREADSHEET_ID,
+                range=sheet_range("A1"),
+                valueInputOption="RAW",
+                body={"values": [SHEET_HEADERS]},
+            )
+            .execute(),
+            label="sheet header write",
+        )
+        print("🧾 Header row written.")
+
+
+def sheet_rows(sheets) -> list[list[str]]:
+    result = retry_call(
+        lambda: sheets.spreadsheets()
+        .values()
+        .get(spreadsheetId=SPREADSHEET_ID, range=sheet_range("A:L"))
+        .execute(),
+        label="sheet read",
+    )
+    rows = result.get("values", [])[1:]
+    padded: list[list[str]] = []
+    for row in rows:
+        row = list(row)
+        while len(row) < len(SHEET_HEADERS):
+            row.append("")
+        padded.append(row)
+    return padded
+
+
+def append_sheet_row(sheets, row: list[str]) -> None:
+    retry_call(
+        lambda: sheets.spreadsheets()
+        .values()
+        .append(
             spreadsheetId=SPREADSHEET_ID,
-            range="Sheet1!A1",
+            range=sheet_range("A1"),
             valueInputOption="RAW",
-            body={"values": [SHEET_HEADERS]},
-        ).execute()
+            insertDataOption="INSERT_ROWS",
+            body={"values": [row]},
+        )
+        .execute(),
+        label="sheet append",
+    )
+
+
+def load_sheet_state(sheets) -> tuple[set[str], set[str]]:
+    """Return (file/id/title keys, normalized topics already used)."""
+    return state_from_rows(sheet_rows(sheets))
+
+
+def state_from_rows(rows: list[list[str]]) -> tuple[set[str], set[str]]:
+    keys: set[str] = set()
+    topics: set[str] = set()
+    for row in rows:
+        status = row[8].strip().upper()
+        if status not in RETRYABLE_STATUSES:
+            for idx in (1, 2, 3):
+                if row[idx].strip():
+                    keys.add(row[idx].strip().lower())
+        topic_key = normalize_topic(row[6] or row[3])
+        if topic_key and status not in RETRYABLE_STATUSES:
+            topics.add(topic_key)
+    return keys, topics
+
+
+def log_row(sheets, c: VideoCandidate, status: str, slot_label: str = "", yt_id: str = "", notes: str = "") -> None:
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+    append_sheet_row(
+        sheets,
+        [
+            now,
+            c.name,
+            c.drive_id or "",
+            c.title,
+            (c.description or "")[:500],
+            ", ".join(c.tags),
+            c.topic,
+            str(c.score),
+            status,
+            slot_label,
+            yt_id,
+            sanitize(notes or c.reason),
+        ],
+    )
 
 
 def normalize_topic(text: str) -> str:
@@ -172,81 +657,141 @@ def normalize_topic(text: str) -> str:
     return " ".join(words[:8])
 
 
-def load_sheet_state(sheets) -> tuple[set[str], set[str]]:
-    """Return (file/id/title keys, normalized topics already used)."""
-    result = (
-        sheets.spreadsheets()
-        .values()
-        .get(spreadsheetId=SPREADSHEET_ID, range=SHEET_RANGE)
-        .execute()
-    )
-    rows = result.get("values", [])[1:]
+# ---------------------------------------------------------------------------
+# Slot scheduling (2:00 PM ET / 8:00 PM ET, max 2 per US day)
+# ---------------------------------------------------------------------------
+def slot_key(moment: datetime) -> str:
+    """Stable sheet key for a slot, e.g. '2026-10-11 14'."""
+    return f"{moment.strftime('%Y-%m-%d')} {moment.hour:02d}"
+
+
+SLOT_LABEL_FORMATS = (
+    "%Y-%m-%d %H:%M %Z",
+    "%Y-%m-%d %H:%M:%S",
+    "%Y-%m-%d %H:%M",
+    "%Y-%m-%dT%H:%M:%S%z",
+    "%Y-%m-%dT%H:%M:%SZ",
+    "%m/%d/%Y %H:%M:%S",
+    "%m/%d/%Y %H:%M",
+)
+
+
+def parse_slot_label(label: str, tz=pytz.timezone("America/New_York")) -> datetime | None:
+    """Parse the 'Scheduled For (ET)' cell, tolerating Sheets date coercion."""
+    text = (label or "").strip()
+    if not text:
+        return None
+    for fmt in SLOT_LABEL_FORMATS:
+        try:
+            parsed = datetime.strptime(text, fmt)
+        except ValueError:
+            continue
+        if parsed.tzinfo is None:
+            return tz.localize(parsed)
+        return parsed.astimezone(tz)
+    iso = re.search(r"(\d{4})-(\d{2})-(\d{2})[ T](\d{1,2}):(\d{2})", text)
+    if iso:
+        year, month, day, hour, minute = (int(g) for g in iso.groups())
+        return tz.localize(datetime(year, month, day, hour, minute))
+    us = re.search(r"(\d{1,2})/(\d{1,2})/(\d{4})[ ,]+(\d{1,2}):(\d{2})", text)
+    if us:
+        month, day, year, hour, minute = (int(g) for g in us.groups())
+        return tz.localize(datetime(year, month, day, hour, minute))
+    return None
+
+
+def booked_slot_keys(rows: list[list[str]], tz=pytz.timezone("America/New_York")) -> set[str]:
     keys: set[str] = set()
-    topics: set[str] = set()
     for row in rows:
-        while len(row) < 12:
-            row.append("")
-        status = row[8].upper()
-        # Dry runs and failures must remain eligible for a later live retry.
-        if status not in {"DRY_RUN", "FAILED"}:
-            for idx in (1, 2, 3):
-                if row[idx].strip():
-                    keys.add(row[idx].strip().lower())
-        topic_key = normalize_topic(row[6] or row[3])
-        if topic_key and status not in {
-            "IGNORED", "FAILED", "LOW_QUALITY", "DUPLICATE_TOPIC", "DRY_RUN"
-        }:
-            topics.add(topic_key)
-    return keys, topics
+        if row[8].strip().upper() not in COMMITTED_STATUSES:
+            continue
+        parsed = parse_slot_label(row[9], tz)
+        if parsed:
+            keys.add(slot_key(parsed))
+    return keys
 
 
-def count_scheduled_for_date(sheets, et_date: str) -> int:
-    result = (
-        sheets.spreadsheets()
-        .values()
-        .get(spreadsheetId=SPREADSHEET_ID, range=SHEET_RANGE)
-        .execute()
-    )
-    rows = result.get("values", [])[1:]
-    n = 0
-    for row in rows:
-        while len(row) < 12:
-            row.append("")
-        status = row[8].upper()
-        scheduled = row[9]
-        if status in {"SCHEDULED", "UPLOADED", "PUBLISHED"} and scheduled.startswith(et_date):
-            n += 1
-    return n
+def count_scheduled_for_date(rows: list[list[str]], et_date: str) -> int:
+    return sum(1 for key in booked_slot_keys(rows) if key.startswith(et_date))
 
 
-def append_sheet_row(sheets, row: list[str]) -> None:
-    sheets.spreadsheets().values().append(
-        spreadsheetId=SPREADSHEET_ID,
-        range="Sheet1!A1",
-        valueInputOption="USER_ENTERED",
-        body={"values": [row]},
-    ).execute()
+def slots_for_day(day, tz=US_TZ) -> list[datetime]:
+    return [
+        tz.localize(datetime(day.year, day.month, day.day, DAY_SLOT_HOUR, 0, 0)),
+        tz.localize(datetime(day.year, day.month, day.day, NIGHT_SLOT_HOUR, 0, 0)),
+    ]
 
 
+def next_open_slots(
+    already_today: int = 0,
+    now_et: datetime | None = None,
+    booked_slots: Iterable[str] | None = None,
+) -> list[datetime]:
+    """Next open 2:00 PM / 8:00 PM ET slots (max MAX_VIDEOS_PER_DAY per US day).
+
+    ``booked_slots`` holds explicit slot keys already present in the sheet, so a
+    slot is never handed out twice. ``already_today`` is the legacy counter used
+    when no explicit keys are available.
+    """
+    now_et = now_et or datetime.now(US_TZ)
+    today = now_et.date()
+    booked = {str(key).strip() for key in (booked_slots or ()) if str(key).strip()}
+    explicit = bool(booked)
+    per_day = Counter(key.split(" ")[0] for key in booked)
+
+    picks: list[datetime] = []
+    for offset in range(3):
+        day = today + timedelta(days=offset)
+        day_iso = day.strftime("%Y-%m-%d")
+        used = per_day.get(day_iso, 0) + (already_today if offset == 0 and not explicit else 0)
+        quota = max(0, MAX_VIDEOS_PER_DAY - used)
+        if quota == 0:
+            continue
+        for slot in slots_for_day(day):
+            if slot_key(slot) in booked:
+                continue
+            if offset == 0 and slot <= now_et + timedelta(minutes=15):
+                continue
+            picks.append(slot)
+            quota -= 1
+            if quota == 0 or len(picks) >= MAX_VIDEOS_PER_DAY:
+                break
+        if len(picks) >= MAX_VIDEOS_PER_DAY:
+            break
+    return picks[:MAX_VIDEOS_PER_DAY]
+
+
+def to_youtube_publish_at(et_dt: datetime) -> str:
+    utc = et_dt.astimezone(timezone.utc)
+    return utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+# ---------------------------------------------------------------------------
+# Drive
+# ---------------------------------------------------------------------------
 def list_drive_videos(drive) -> list[VideoCandidate]:
     query = f"'{RAW_FOLDER_ID}' in parents and mimeType contains 'video/' and trashed = false"
     items: list[dict] = []
     page_token = None
     while True:
-        resp = (
-            drive.files()
+        resp = retry_call(
+            lambda page_token=page_token: drive.files()
             .list(
                 q=query,
                 pageSize=50,
                 fields="nextPageToken, files(id, name)",
                 pageToken=page_token,
+                supportsAllDrives=True,
+                includeItemsFromAllDrives=True,
             )
-            .execute()
+            .execute(),
+            label="drive list",
         )
         items.extend(resp.get("files", []))
         page_token = resp.get("nextPageToken")
         if not page_token:
             break
+    print(f"   Drive raw folder: {len(items)} file(s)")
     return [VideoCandidate(name=f["name"], source="drive", drive_id=f["id"]) for f in items]
 
 
@@ -261,7 +806,7 @@ def list_local_videos() -> list[VideoCandidate]:
 
 def download_drive_file(drive, file_id: str, dest: Path) -> Path:
     dest.parent.mkdir(parents=True, exist_ok=True)
-    request = drive.files().get_media(fileId=file_id)
+    request = drive.files().get_media(fileId=file_id, supportsAllDrives=True)
     with dest.open("wb") as fh:
         downloader = MediaIoBaseDownload(fh, request)
         done = False
@@ -271,12 +816,33 @@ def download_drive_file(drive, file_id: str, dest: Path) -> Path:
 
 
 def move_drive_to_processed(drive, file_id: str) -> None:
-    drive.files().update(
-        fileId=file_id,
-        addParents=PROCESSED_FOLDER_ID,
-        removeParents=RAW_FOLDER_ID,
-        fields="id, parents",
-    ).execute()
+    retry_call(
+        lambda: drive.files()
+        .update(
+            fileId=file_id,
+            addParents=PROCESSED_FOLDER_ID,
+            removeParents=RAW_FOLDER_ID,
+            fields="id, parents",
+            supportsAllDrives=True,
+        )
+        .execute(),
+        label="drive move",
+    )
+
+
+def materialize_file(drive, candidate: VideoCandidate) -> Path:
+    WORK_DIR.mkdir(parents=True, exist_ok=True)
+    if candidate.source == "local" and candidate.path:
+        return candidate.path
+    dest = WORK_DIR / candidate.name
+    print(f"  📥 Downloading Drive file {candidate.name} ...")
+    return download_drive_file(drive, candidate.drive_id, dest)
+
+
+# ---------------------------------------------------------------------------
+# Media extraction
+# ---------------------------------------------------------------------------
+MAX_FRAME_WIDTH = int(os.getenv("MAX_FRAME_WIDTH", "1280"))
 
 
 def extract_first_frame(video_path: Path, dest: Path) -> Path | None:
@@ -289,8 +855,12 @@ def extract_first_frame(video_path: Path, dest: Path) -> Path | None:
     cap.release()
     if not ok or frame is None:
         return None
-    cv2.imwrite(str(dest), frame)
-    return dest
+    height, width = frame.shape[:2]
+    if width > MAX_FRAME_WIDTH:
+        scale = MAX_FRAME_WIDTH / float(width)
+        frame = cv2.resize(frame, (MAX_FRAME_WIDTH, int(height * scale)), interpolation=cv2.INTER_AREA)
+    cv2.imwrite(str(dest), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 88])
+    return dest if dest.exists() else None
 
 
 def extract_audio_clip(video_path: Path, dest: Path, seconds: int = 20) -> Path | None:
@@ -298,25 +868,183 @@ def extract_audio_clip(video_path: Path, dest: Path, seconds: int = 20) -> Path 
     dest.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
         "ffmpeg", "-y", "-i", str(video_path),
-        "-t", str(seconds), "-vn", "-ac", "1", "-ar", "16000",
+        "-t", str(seconds), "-vn", "-ac", "1", "-ar", "16000", "-b:a", "64k",
         str(dest),
     ]
     try:
-        subprocess.run(cmd, check=True, capture_output=True, timeout=60)
+        subprocess.run(cmd, check=True, capture_output=True, timeout=180)
         if dest.exists() and dest.stat().st_size > 0:
             return dest
     except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired) as exc:
-        print(f"  ⚠️  audio clip skipped: {exc}")
+        detail = ""
+        if isinstance(exc, subprocess.CalledProcessError) and exc.stderr:
+            detail = sanitize(exc.stderr.decode(errors="replace"))[-200:].replace("\n", " ")
+        print(f"  ⚠️  audio clip skipped: {describe_exception(exc)} {detail}".strip())
     return None
 
 
-def configure_gemini():
+# ---------------------------------------------------------------------------
+# Gemini (REST - independent of the deprecated google-generativeai package)
+# ---------------------------------------------------------------------------
+class GeminiError(RuntimeError):
+    pass
+
+
+class GeminiClient:
+    def __init__(self, api_key: str, model: str | None = None, base: str = GEMINI_API_BASE):
+        self.api_key = api_key
+        self.base = base.rstrip("/")
+        self.requested_model = (model or "").strip() or GEMINI_MODEL
+        self.model = "" if self.requested_model == "auto" else self.requested_model
+        self.session = requests.Session()
+        self.session.headers.update({"x-goog-api-key": api_key, "Content-Type": "application/json"})
+
+    # -- HTTP ---------------------------------------------------------------
+    def _request(self, method: str, url: str, *, payload: dict | None = None, label: str) -> dict:
+        def call():
+            resp = self.session.request(method, url, json=payload, timeout=180)
+            if resp.status_code >= 400:
+                raise requests.HTTPError(
+                    f"{resp.status_code} {self._error_message(resp)}", response=resp
+                )
+            return resp.json()
+        try:
+            return retry_call(call, label=label)
+        except requests.HTTPError as exc:
+            status = exc.response.status_code if exc.response is not None else "?"
+            raise GeminiError(f"Gemini API error ({status}): {self._error_message(exc.response)}") from None
+
+    @staticmethod
+    def _error_message(resp: requests.Response | None) -> str:
+        if resp is None:
+            return "no response"
+        try:
+            data = resp.json()
+        except ValueError:
+            return sanitize(resp.text)[:400]
+        error = data.get("error") if isinstance(data, dict) else None
+        if isinstance(error, dict):
+            return sanitize(error.get("message") or json.dumps(error))[:400]
+        return sanitize(json.dumps(data))[:400]
+
+    # -- Models -------------------------------------------------------------
+    def list_models(self) -> list[str]:
+        url = f"{self.base}/{GEMINI_API_VERSION}/models"
+        data = self._request("GET", url, label="gemini list models")
+        names = []
+        for item in data.get("models", []):
+            name = str(item.get("name", "")).removeprefix("models/")
+            if not name:
+                continue
+            methods = item.get("supportedGenerationMethods") or []
+            if methods and "generateContent" not in methods:
+                continue
+            names.append(name)
+        return names
+
+    def resolve_model(self) -> str:
+        if self.model:
+            return self.model
+        available: list[str] = []
+        try:
+            available = self.list_models()
+            print(f"   Gemini models available for this key: {len(available)}")
+        except Exception as exc:  # noqa: BLE001 - fall back to trying candidates
+            print(f"   ⚠️  could not list Gemini models ({describe_exception(exc)}); trying candidates")
+        for candidate in GEMINI_MODEL_PREFERENCES:
+            if candidate in available or not available:
+                self.model = candidate
+                return self.model
+        if available:
+            flash = [m for m in available if "flash" in m and "lite" not in m and "image" not in m]
+            self.model = (flash or available)[0]
+            return self.model
+        self.model = GEMINI_MODEL_PREFERENCES[0]
+        return self.model
+
+    # -- Generation ---------------------------------------------------------
+    def generate(
+        self,
+        parts: list[dict],
+        *,
+        json_mode: bool = True,
+        max_output_tokens: int | None = None,
+        temperature: float = 0.6,
+    ) -> str:
+        model = self.resolve_model()
+        url = f"{self.base}/{GEMINI_API_VERSION}/models/{model}:generateContent"
+        generation_config: dict[str, Any] = {"temperature": temperature}
+        if json_mode:
+            generation_config["responseMimeType"] = "application/json"
+        if max_output_tokens:
+            generation_config["maxOutputTokens"] = max_output_tokens
+        payload = {
+            "contents": [{"role": "user", "parts": parts}],
+            "generationConfig": generation_config,
+        }
+        last_exc: Exception | None = None
+        for attempt in (1, 2):
+            try:
+                data = self._request("POST", url, payload=payload, label=f"gemini generate ({model})")
+                return self._text_from_response(data)
+            except GeminiError as exc:
+                last_exc = exc
+                message = str(exc)
+                unsupported = any(
+                    token in message for token in ("not found", "NOT_FOUND", "not supported", "unsupported")
+                )
+                if json_mode and "responseMimeType" in message:
+                    print("   ⚠️  model rejected JSON mode; retrying as plain text")
+                    json_mode = False
+                    generation_config.pop("responseMimeType", None)
+                    payload["generationConfig"] = generation_config
+                    continue
+                if unsupported and attempt == 1:
+                    previous = model
+                    self.model = ""
+                    for candidate in GEMINI_MODEL_PREFERENCES:
+                        if candidate != previous:
+                            self.model = candidate
+                            break
+                    print(f"   ⚠️  {previous} unavailable; retrying with {self.model}")
+                    url = f"{self.base}/{GEMINI_API_VERSION}/models/{self.model}:generateContent"
+                    continue
+                raise
+        raise last_exc if last_exc else GeminiError("Gemini request failed")
+
+    @staticmethod
+    def _text_from_response(data: dict) -> str:
+        candidates = data.get("candidates") or []
+        if not candidates:
+            feedback = data.get("promptFeedback") or {}
+            raise GeminiError(
+                f"Gemini returned no candidates (blockReason={feedback.get('blockReason', 'none')})"
+            )
+        candidate = candidates[0]
+        texts = [
+            str(part.get("text", ""))
+            for part in candidate.get("content", {}).get("parts", [])
+            if part.get("text")
+        ]
+        text = "\n".join(t for t in texts if t).strip()
+        if not text:
+            raise GeminiError(
+                f"Gemini returned no text (finishReason={candidate.get('finishReason', 'unknown')})"
+            )
+        return text
+
+
+_GEMINI_CLIENT: GeminiClient | None = None
+
+
+def configure_gemini() -> GeminiClient:
+    global _GEMINI_CLIENT
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         raise ValueError("GEMINI_API_KEY is not set.")
-    if genai is None:
-        raise ImportError("google-generativeai is not installed.")
-    genai.configure(api_key=api_key)
+    if _GEMINI_CLIENT is None or _GEMINI_CLIENT.api_key != api_key:
+        _GEMINI_CLIENT = GeminiClient(api_key)
+    return _GEMINI_CLIENT
 
 
 def _parse_json_blob(text: str) -> dict[str, Any]:
@@ -331,13 +1059,22 @@ def _parse_json_blob(text: str) -> dict[str, Any]:
     return json.loads(text)
 
 
+def _inline_part(path: Path, mime_type: str) -> dict:
+    return {
+        "inlineData": {
+            "mimeType": mime_type,
+            "data": base64.b64encode(path.read_bytes()).decode("ascii"),
+        }
+    }
+
+
 def analyze_video_with_gemini(
     candidate: VideoCandidate,
     frame_path: Path | None,
     audio_path: Path | None,
+    client: GeminiClient | None = None,
 ) -> VideoCandidate:
-    configure_gemini()
-    model = genai.GenerativeModel(GEMINI_MODEL)
+    client = client or configure_gemini()
     prompt = f"""You are a senior YouTube SEO strategist for a {CHANNEL_NICHE} channel (US audience).
 
 PRIMARY EVIDENCE (use this for ~90% of the topic):
@@ -360,21 +1097,27 @@ Return STRICT JSON only:
 }}
 Set skip=true if quality is below the bar or topic cannot be read from frame/audio.
 """
-    parts: list[Any] = [prompt]
+    parts: list[dict] = [{"text": prompt}]
     if frame_path and frame_path.exists():
         try:
-            parts.append(genai.upload_file(str(frame_path), mime_type="image/jpeg"))
-        except Exception as exc:
-            print(f"  ⚠️  frame upload failed: {exc}")
+            parts.append(_inline_part(frame_path, "image/jpeg"))
+            print(f"   frame attached: {frame_path.name} ({frame_path.stat().st_size // 1024} KB)")
+        except OSError as exc:
+            print(f"  ⚠️  frame attach failed: {describe_exception(exc)}")
     if audio_path and audio_path.exists():
+        mime = "audio/mpeg" if audio_path.suffix.lower() == ".mp3" else "audio/wav"
         try:
-            mime = "audio/mpeg" if audio_path.suffix.lower() == ".mp3" else "audio/wav"
-            parts.append(genai.upload_file(str(audio_path), mime_type=mime))
-        except Exception as exc:
-            print(f"  ⚠️  audio upload failed: {exc}")
+            parts.append(_inline_part(audio_path, mime))
+            print(f"   audio attached: {audio_path.name} ({audio_path.stat().st_size // 1024} KB)")
+        except OSError as exc:
+            print(f"  ⚠️  audio attach failed: {describe_exception(exc)}")
 
-    response = model.generate_content(parts)
-    data = _parse_json_blob(response.text or "{}")
+    raw = client.generate(parts)
+    try:
+        data = _parse_json_blob(raw)
+    except json.JSONDecodeError as exc:
+        raise GeminiError(f"Gemini did not return JSON ({exc.msg}); first 200 chars: {sanitize(raw)[:200]}") from None
+
     candidate.source_text = str(data.get("source_text") or "")
     candidate.topic = str(data.get("topic") or candidate.source_text or candidate.name)
     candidate.title = str(data.get("title") or candidate.topic)[:100]
@@ -383,58 +1126,18 @@ Set skip=true if quality is below the bar or topic cannot be read from frame/aud
     if isinstance(tags, str):
         tags = [t.strip() for t in tags.split(",") if t.strip()]
     candidate.tags = [str(t)[:30] for t in tags][:12]
-    candidate.score = int(data.get("score") or 0)
+    try:
+        candidate.score = int(data.get("score") or 0)
+    except (TypeError, ValueError):
+        candidate.score = 0
     candidate.reason = str(data.get("reason") or "")
     candidate.skip = bool(data.get("skip")) or candidate.score < MIN_QUALITY_SCORE
     return candidate
 
 
-def rank_sequence(candidates: list[VideoCandidate]) -> list[VideoCandidate]:
-    ranked = sorted(candidates, key=lambda c: c.score, reverse=True)
-    ordered: list[VideoCandidate] = []
-    leftover = ranked[:]
-    while leftover:
-        if not ordered:
-            ordered.append(leftover.pop(0))
-            continue
-        last = normalize_topic(ordered[-1].topic)
-        pick_idx = 0
-        for i, c in enumerate(leftover):
-            if normalize_topic(c.topic) != last:
-                pick_idx = i
-                break
-        ordered.append(leftover.pop(pick_idx))
-    return ordered
-
-
-def next_open_slots(already_today: int, now_et: datetime | None = None) -> list[datetime]:
-    now_et = now_et or datetime.now(US_TZ)
-    today = now_et.date()
-
-    def slots_for(d) -> list[datetime]:
-        day = US_TZ.localize(datetime(d.year, d.month, d.day, DAY_SLOT_HOUR, 0, 0))
-        night = US_TZ.localize(datetime(d.year, d.month, d.day, NIGHT_SLOT_HOUR, 0, 0))
-        return [day, night]
-
-    remaining: list[datetime] = []
-    future_today = [s for s in slots_for(today) if s > now_et + timedelta(minutes=15)]
-    skip = already_today
-    for s in future_today:
-        if skip > 0:
-            skip -= 1
-            continue
-        remaining.append(s)
-    # Fill remaining daily quota on the next US day (still max 2 per day later).
-    if len(remaining) < MAX_VIDEOS_PER_DAY:
-        remaining.extend(slots_for(today + timedelta(days=1)))
-    return remaining[:MAX_VIDEOS_PER_DAY]
-
-
-def to_youtube_publish_at(et_dt: datetime) -> str:
-    utc = et_dt.astimezone(timezone.utc)
-    return utc.strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
+# ---------------------------------------------------------------------------
+# YouTube upload
+# ---------------------------------------------------------------------------
 def upload_to_youtube(youtube, video_path: Path, candidate: VideoCandidate, publish_at_rfc3339: str) -> str:
     body = {
         "snippet": {
@@ -454,49 +1157,236 @@ def upload_to_youtube(youtube, video_path: Path, candidate: VideoCandidate, publ
     media = MediaFileUpload(str(video_path), chunksize=8 * 1024 * 1024, resumable=True)
     request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
     response = None
+    attempt = 0
     while response is None:
-        status, response = request.next_chunk()
+        try:
+            status, response = request.next_chunk()
+        except HttpError as exc:
+            status_code = getattr(exc.resp, "status", None)
+            if status_code in RETRYABLE_HTTP_STATUS and attempt < 4:
+                attempt += 1
+                delay = min(2 ** attempt, 30)
+                print(f"    ↩️  upload hiccup ({describe_exception(exc)}); retry in {delay}s")
+                time.sleep(delay)
+                continue
+            raise
         if status:
             print(f"    upload {int(status.progress() * 100)}%")
     return response["id"]
 
 
-def materialize_file(drive, candidate: VideoCandidate) -> Path:
-    WORK_DIR.mkdir(parents=True, exist_ok=True)
-    if candidate.source == "local" and candidate.path:
-        return candidate.path
-    dest = WORK_DIR / candidate.name
-    print(f"  📥 Downloading Drive file {candidate.name} ...")
-    return download_drive_file(drive, candidate.drive_id, dest)
+# ---------------------------------------------------------------------------
+# Doctor / credential validation
+# ---------------------------------------------------------------------------
+def validate_credentials() -> int:
+    """Offline structural check of the two JSON secrets (no values printed)."""
+    failures = 0
+    try:
+        service = parse_json_object(Path(CREDENTIALS_FILE).read_text(), "GOOGLE_CREDENTIALS_JSON")
+    except (OSError, ValueError) as exc:
+        annotate("error", "Credential validation", f"GOOGLE_CREDENTIALS_JSON problem: {exc}")
+        return 1
+    if str(service.get("type", "")) != "service_account":
+        annotate("error", "Credential validation", "GOOGLE_CREDENTIALS_JSON must be a service-account key")
+        failures += 1
+    else:
+        missing = {"client_email", "private_key", "token_uri"} - set(service)
+        if missing:
+            annotate(
+                "error",
+                "Credential validation",
+                "service-account JSON is missing required fields: " + ", ".join(sorted(missing)),
+            )
+            failures += 1
+        else:
+            print(f"✅ GOOGLE_CREDENTIALS_JSON: {service_account_summary()}")
+
+    payload = read_youtube_token_payload()
+    usable, message = token_diagnosis(payload, live=not DRY_RUN)
+    if usable:
+        print(f"✅ YOUTUBE_TOKEN_JSON: {message}")
+        if payload is None or not extract_token_fields(payload).get("refresh_token"):
+            annotate("warning", "Credential validation", f"{message} (uploads may stop working)")
+    else:
+        # A dry run never uploads, so a broken token is only a warning there;
+        # live runs cannot continue without a usable token.
+        level = "warning" if DRY_RUN else "error"
+        suffix = " Dry run: warning only, uploads stay disabled until this is fixed." if DRY_RUN else ""
+        annotate(level, "Credential validation", f"{message}{suffix}")
+        if not DRY_RUN:
+            failures += 1
+    return 1 if failures else 0
 
 
-def log_row(sheets, c: VideoCandidate, status: str, slot_label: str = "", yt_id: str = "", notes: str = "") -> None:
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
-    append_sheet_row(
-        sheets,
-        [
-            now,
-            c.name,
-            c.drive_id or "",
-            c.title,
-            (c.description or "")[:500],
-            ", ".join(c.tags),
-            c.topic,
-            str(c.score),
-            status,
-            slot_label,
-            yt_id,
-            notes or c.reason,
-        ],
-    )
+def doctor() -> int:
+    """Network preflight; returns non-zero when the requested mode cannot run."""
+    mode = "dry-run (no uploads)" if DRY_RUN else "LIVE (uploads allowed)"
+    print("=" * 64)
+    print(f"🩺 Preflight doctor — mode: {mode}")
+    print("=" * 64)
+    fatal = 0
+
+    # 1) service account / sheet
+    try:
+        sheets, drive = load_service_account()
+        print(f"✅ service account loaded: {service_account_summary()}")
+    except Exception as exc:  # noqa: BLE001
+        annotate("error", "Doctor: Google credentials", describe_exception(exc))
+        return 1
+
+    try:
+        tab = resolve_sheet_tab(sheets, refresh=True)
+        result = retry_call(
+            lambda: sheets.spreadsheets()
+            .values()
+            .get(spreadsheetId=SPREADSHEET_ID, range=f"'{tab}'!A1:L")
+            .execute(),
+            label="sheet read",
+        )
+        values = result.get("values", [])
+        header = values[0] if values else []
+        rows = max(0, len(values) - 1)
+        print(f"✅ Google Sheet reachable: tab '{tab}', {rows} data row(s)")
+        if header and header[:4] != SHEET_HEADERS[:4]:
+            print(f"   header row is '{header[:3]}...' (pipeline writes its own 12-column header)")
+    except Exception as exc:  # noqa: BLE001
+        annotate("error", "Doctor: Google Sheet", f"cannot read the history sheet ({describe_exception(exc)})")
+        fatal += 1
+
+    # 2) drive folders
+    try:
+        listing = retry_call(
+            lambda: drive.files()
+            .list(
+                q=f"'{RAW_FOLDER_ID}' in parents and trashed = false",
+                pageSize=5,
+                fields="files(id, name)",
+                supportsAllDrives=True,
+                includeItemsFromAllDrives=True,
+            )
+            .execute(),
+            label="drive raw folder",
+        )
+        print(f"✅ Drive raw folder reachable ({len(listing.get('files', []))} item(s) in first page)")
+    except Exception as exc:  # noqa: BLE001
+        annotate(
+            "error",
+            "Doctor: Drive raw folder",
+            f"cannot list RAW_FOLDER_ID ({describe_exception(exc)}). Share the folder with the service account "
+            "(Editor) and check RAW_FOLDER_ID.",
+        )
+        fatal += 1
+    try:
+        meta = retry_call(
+            lambda: drive.files()
+            .get(fileId=PROCESSED_FOLDER_ID, fields="id, name, capabilities(canAddChildren)", supportsAllDrives=True)
+            .execute(),
+            label="drive processed folder",
+        )
+        can_add = (meta.get("capabilities") or {}).get("canAddChildren")
+        print(f"✅ Drive processed folder '{meta.get('name', '?')}' (canAddChildren={can_add})")
+        if can_add is False:
+            annotate("warning", "Doctor: Drive processed folder", "service account cannot add files there")
+    except Exception as exc:  # noqa: BLE001
+        annotate(
+            "warning",
+            "Doctor: Drive processed folder",
+            f"cannot read PROCESSED_FOLDER_ID ({describe_exception(exc)}); uploaded files will stay in Raw.",
+        )
+
+    # 3) Gemini
+    try:
+        client = configure_gemini()
+        model = client.resolve_model()
+        text = client.generate([{"text": "Reply with the single word: OK"}], json_mode=False, max_output_tokens=32)
+        print(f"✅ Gemini reachable (model '{model}', probe reply: {sanitize(text)[:40]!r})")
+    except Exception as exc:  # noqa: BLE001
+        annotate("error", "Doctor: Gemini", f"Gemini not usable ({describe_exception(exc)})")
+        fatal += 1
+
+    # 4) YouTube token
+    payload = read_youtube_token_payload()
+    if payload is None:
+        level = "warning" if DRY_RUN else "error"
+        annotate(level, "Doctor: YouTube token", "YOUTUBE_TOKEN_JSON is not set")
+        fatal += 0 if DRY_RUN else 1
+    else:
+        fields = extract_token_fields(payload)
+        print(f"🔎 YOUTUBE_TOKEN_JSON fields: {', '.join(k for k, v in fields.items() if v) or '(none)'}")
+        usable, message = token_diagnosis(payload, live=not DRY_RUN)
+        if usable:
+            try:
+                creds = UserCredentials(
+                    token=fields.get("token"),
+                    refresh_token=fields.get("refresh_token"),
+                    token_uri=fields.get("token_uri") or "https://oauth2.googleapis.com/token",
+                    client_id=fields.get("client_id"),
+                    client_secret=fields.get("client_secret"),
+                    scopes=YOUTUBE_SCOPES,
+                )
+                if not creds.token or creds.expired:
+                    retry_call(creds.refresh, label="youtube token refresh")
+                    print("✅ YouTube token refreshed successfully.")
+                else:
+                    print("✅ YouTube token has a live access_token (no refresh attempted).")
+            except Exception as exc:  # noqa: BLE001
+                level = "warning" if DRY_RUN else "error"
+                annotate(level, "Doctor: YouTube token", f"token could not be refreshed ({describe_exception(exc)})")
+                fatal += 0 if DRY_RUN else 1
+        else:
+            level = "warning" if DRY_RUN else "error"
+            annotate(level, "Doctor: YouTube token", message)
+            fatal += 0 if DRY_RUN else 1
+
+    # 5) ffmpeg
+    if not _have_ffmpeg():
+        annotate("warning", "Doctor: ffmpeg", "ffmpeg not found; audio (first spoken line) analysis will be skipped")
+    else:
+        print("✅ ffmpeg available")
+
+    print("=" * 64)
+    print("❌ preflight found blocking problems" if fatal else "✅ preflight passed")
+    print("=" * 64)
+    return 1 if fatal else 0
+
+
+def _have_ffmpeg() -> bool:
+    try:
+        subprocess.run(["ffmpeg", "-version"], check=True, capture_output=True, timeout=30)
+        return True
+    except Exception:  # noqa: BLE001
+        return False
+
+
+# ---------------------------------------------------------------------------
+# Pipeline
+# ---------------------------------------------------------------------------
+def rank_sequence(candidates: list[VideoCandidate]) -> list[VideoCandidate]:
+    ranked = sorted(candidates, key=lambda c: c.score, reverse=True)
+    ordered: list[VideoCandidate] = []
+    leftover = ranked[:]
+    while leftover:
+        if not ordered:
+            ordered.append(leftover.pop(0))
+            continue
+        last = normalize_topic(ordered[-1].topic)
+        pick_idx = 0
+        for i, c in enumerate(leftover):
+            if normalize_topic(c.topic) != last:
+                pick_idx = i
+                break
+        ordered.append(leftover.pop(pick_idx))
+    return ordered
 
 
 def run() -> int:
     print("=" * 64)
     print("🚀 YouTube Auto-Publish  |  2/day US peaks  |  score>=90  |  1 topic")
+    print(f"   mode: {'DRY RUN (no uploads)' if DRY_RUN else 'LIVE'}")
     print("=" * 64)
 
     sheets, drive = load_service_account()
+    resolve_sheet_tab(sheets)
     youtube = None if DRY_RUN else load_youtube_client()
     if not DRY_RUN and youtube is None:
         raise RuntimeError(
@@ -505,10 +1395,12 @@ def run() -> int:
         )
     ensure_sheet_headers(sheets)
 
-    logged, used_topics = load_sheet_state(sheets)
-    print(f"📊 Known files: {len(logged)}  |  used topics: {len(used_topics)}")
+    rows = sheet_rows(sheets)
+    logged, used_topics = state_from_rows(rows)
+    booked = booked_slot_keys(rows)
+    print(f"📊 Known files: {len(logged)}  |  used topics: {len(used_topics)}  |  booked slots: {len(booked)}")
 
-    candidates = list_local_videos() + list_drive_videos()
+    candidates = list_local_videos() + list_drive_videos(drive)
     print(f"📁 Found {len(candidates)} video(s).")
 
     fresh: list[VideoCandidate] = []
@@ -520,10 +1412,11 @@ def run() -> int:
 
     if not fresh:
         print("⚠️  No new videos. Idle.")
+        annotate("notice", "Pipeline summary", f"No new videos. files={len(logged)} topics={len(used_topics)}")
         return 0
 
     analyzed: list[VideoCandidate] = []
-    pipeline_failures: list[str] = []
+    problems: list[str] = []
     for c in fresh:
         print(f"\n🧠 Analyzing: {c.name}")
         try:
@@ -531,8 +1424,10 @@ def run() -> int:
             c.path = local_path
             frame = extract_first_frame(local_path, WORK_DIR / f"{local_path.stem}_frame.jpg")
             audio = extract_audio_clip(local_path, WORK_DIR / f"{local_path.stem}_open.mp3")
+            if frame is None:
+                print("  ⚠️  first frame could not be extracted (video may be unreadable)")
             analyze_video_with_gemini(c, frame, audio)
-            print(f"  source_text: {c.source_text[:120]}")
+            print(f"  source_text: {sanitize(c.source_text)[:120]}")
             print(f"  topic={c.topic!r}  score={c.score}")
 
             if c.score < MIN_QUALITY_SCORE or c.skip:
@@ -554,8 +1449,8 @@ def run() -> int:
             analyzed.append(c)
             print(f"  ✅ queued: {c.title}")
         except Exception as exc:
-            failure = f"analysis failed for {c.name}: {type(exc).__name__}: {exc}"
-            pipeline_failures.append(failure)
+            failure = f"analysis failed for {c.name}: {describe_exception(exc)}"
+            problems.append(failure)
             print(f"  ❌ {failure}")
             traceback.print_exc()
             try:
@@ -566,17 +1461,18 @@ def run() -> int:
                     notes=f"Analysis failed ({type(exc).__name__}); see GitHub Actions log.",
                 )
             except Exception as log_exc:
-                pipeline_failures.append(
-                    f"could not log analysis failure for {c.name}: {type(log_exc).__name__}"
-                )
-                print(f"  ❌ Could not log failure to Google Sheet: {log_exc}")
-                traceback.print_exc()
+                problems.append(f"could not log analysis failure for {c.name}: {describe_exception(log_exc)}")
+                print(f"  ❌ Could not log failure to Google Sheet: {describe_exception(log_exc)}")
 
     if not analyzed:
         print("⚠️  No video passed quality + unique-topic gates.")
-        for failure in pipeline_failures:
+        for failure in problems:
             print(f"PIPELINE_FAILURE: {failure}")
-        return 1 if pipeline_failures else 0
+        if problems:
+            annotate("error", "Pipeline failed", f"no usable video; first problem: {problems[0]}")
+            return 1
+        annotate("notice", "Pipeline summary", "no video passed the quality/topic gates")
+        return 0
 
     sequenced = rank_sequence(analyzed)
     print("\n📑 Sequence (highest score first, unique topics):")
@@ -585,9 +1481,9 @@ def run() -> int:
 
     now_et = datetime.now(US_TZ)
     today_str = now_et.strftime("%Y-%m-%d")
-    already = count_scheduled_for_date(sheets, today_str)
+    already = count_scheduled_for_date(rows, today_str)
     print(f"\n📅 US {today_str}: {already}/{MAX_VIDEOS_PER_DAY} already booked.")
-    slots = next_open_slots(already, now_et)
+    slots = next_open_slots(already_today=already, now_et=now_et, booked_slots=booked)
     to_publish = sequenced[: len(slots)]
 
     results: list[PipelineResult] = []
@@ -603,30 +1499,43 @@ def run() -> int:
                 status = "DRY_RUN"
                 notes = "No YouTube token or DRY_RUN — sheet only."
                 print(f"   ⚠️  {notes}")
+                log_row(sheets, candidate, status, slot_label, yt_id, notes)
             else:
                 yt_id = upload_to_youtube(youtube, candidate.path, candidate, rfc)
                 print(f"   🎉 youtube id={yt_id}")
+                # Log the committed slot before any follow-up work, so a later
+                # failure can never re-upload the same file.
+                log_row(sheets, candidate, status, slot_label, yt_id, notes)
                 if candidate.source == "drive" and candidate.drive_id:
-                    move_drive_to_processed(drive, candidate.drive_id)
-            log_row(sheets, candidate, status, slot_label, yt_id, notes)
+                    try:
+                        move_drive_to_processed(drive, candidate.drive_id)
+                        print("   📦 moved to Processed folder")
+                    except Exception as move_exc:  # noqa: BLE001
+                        problems.append(
+                            f"drive move failed for {candidate.name}: {describe_exception(move_exc)}"
+                        )
+                        print(f"   ⚠️  drive move failed: {describe_exception(move_exc)}")
             results.append(
                 PipelineResult(candidate.title, candidate.name, status, slot_label, yt_id, notes)
             )
         except Exception as exc:
-            failure = f"publish failed for {candidate.name}: {type(exc).__name__}: {exc}"
-            pipeline_failures.append(failure)
+            failure = f"publish failed for {candidate.name}: {describe_exception(exc)}"
+            problems.append(failure)
             print(f"   ❌ {failure}")
             traceback.print_exc()
-            log_row(
-                sheets,
-                candidate,
-                "FAILED",
-                slot_label,
-                "",
-                f"Publish failed ({type(exc).__name__}): {str(exc)[:400]}",
-            )
+            try:
+                log_row(
+                    sheets,
+                    candidate,
+                    "FAILED",
+                    slot_label,
+                    "",
+                    f"Publish failed ({type(exc).__name__}): {str(exc)[:400]}",
+                )
+            except Exception as log_exc:  # noqa: BLE001
+                problems.append(f"could not log publish failure for {candidate.name}: {describe_exception(log_exc)}")
             results.append(
-                PipelineResult(candidate.title, candidate.name, "FAILED", slot_label, "", str(exc)[:200])
+                PipelineResult(candidate.title, candidate.name, "FAILED", slot_label, "", f"{type(exc).__name__}")
             )
 
     print("\n" + "=" * 64)
@@ -639,15 +1548,51 @@ def run() -> int:
         if r.youtube_id:
             print(f"  https://youtu.be/{r.youtube_id}")
     print("=" * 64)
-    for failure in pipeline_failures:
-        print(f"PIPELINE_FAILURE: {failure}")
-    return 1 if pipeline_failures else 0
+    for problem in problems:
+        print(f"PIPELINE_FAILURE: {problem}")
+
+    scheduled = [r for r in results if r.status in {"SCHEDULED", "UPLOADED"}]
+    failed_publishes = [r for r in results if r.status == "FAILED"]
+    if failed_publishes:
+        annotate("error", "Pipeline failed", problems[0] if problems else "a video could not be published")
+        return 1
+    if problems:
+        annotate(
+            "warning",
+            "Pipeline warnings",
+            f"{len(problems)} non-fatal problem(s); first: {problems[0]}",
+        )
+    summary = (
+        f"mode={'dry-run' if DRY_RUN else 'live'} files={len(candidates)} fresh={len(fresh)} "
+        f"queued={len(analyzed)} scheduled={len(scheduled)}"
+    )
+    annotate("notice", "Pipeline summary", summary)
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="YouTube auto-publish pipeline")
+    parser.add_argument("--doctor", action="store_true", help="run the network preflight checks")
+    parser.add_argument(
+        "--validate-credentials",
+        action="store_true",
+        help="offline structural check of the JSON secrets",
+    )
+    args = parser.parse_args(argv)
+    if args.doctor:
+        return doctor()
+    if args.validate_credentials:
+        return validate_credentials()
+    return run()
 
 
 if __name__ == "__main__":
     try:
-        sys.exit(run())
-    except Exception as e:
-        print(f"❌ Critical Error in Pipeline: {e}")
+        sys.exit(main())
+    except SystemExit:
+        raise
+    except Exception as e:  # noqa: BLE001
+        print(f"❌ Critical Error in Pipeline: {describe_exception(e)}")
         traceback.print_exc()
+        annotate("error", "Pipeline failed", f"critical error: {describe_exception(e)}")
         sys.exit(1)

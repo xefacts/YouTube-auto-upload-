@@ -1,27 +1,60 @@
 # YouTube Auto-Upload Pipeline
 
-GitHub Actions + Python. Niche: **personal finance and business**.  
+GitHub Actions + Python. Niche: **personal finance and business**.
 Saari video history Google Sheet mein rehti hai.
 
-## GitHub par kya chalta hai
+## Rules (fixed)
 
-Workflow: `.github/workflows/youtube_pipeline.yml`
-
-| Trigger | Kab |
+| Rule | Value |
 | --- | --- |
-| Cron `0 16 * * *` | US afternoon slot se pehle (2:00 PM ET) |
-| Cron `0 23 * * *` | US prime-time slot se pehle (8:00 PM ET) |
-| **Actions → Run workflow** | Manual (optional Dry run) |
+| Niche | personal finance and business |
+| Videos per US day | max **2** |
+| Slots | **14:00 ET** and **20:00 ET** |
+| Quality gate | AI score **< 90 → ignore** |
+| Topics | one topic = one video (Sheet history + in-batch) |
+| Topic source | first-frame on-screen text or first spoken line (not the filename) |
+| Metadata | Gemini writes title / description / tags |
+| History | Google Sheet `15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618` |
 
-Har run:
+## How runs are triggered
 
-1. Drive `Raw_Videos` + local `videos/` scan
-2. Pehla frame + pehli 20s audio → Gemini
-3. Score **&lt; 90** ignore
-4. Same **topic** pehle Sheet mein ho to skip
-5. Roz max **2** videos: **14:00 ET** aur **20:00 ET**
-6. SEO title / description / tags AI
-7. YouTube `publishAt` + Sheet log
+| Trigger | Uploads? | Notes |
+| --- | --- | --- |
+| `schedule` (cron `0 16,23 * * *`) | yes (live) | runs before the 14:00/20:00 ET slots |
+| **Actions → Run workflow** (`workflow_dispatch`) | only if `dry_run` is unchecked | the checkbox defaults to **dry run** |
+| `repository_dispatch` (`event_type=publish`) | yes, unless `client_payload[dry_run]=true` | works with a token that only has `contents: write` |
+| `push` to `main` / `arena/**` | **never** | always a dry run, keeps merges safe |
+
+Manual dry run from the command line (Arena/GitHub App token):
+
+```bash
+gh api -X POST repos/OWNER/REPO/dispatches \
+  -f event_type=publish -f client_payload[dry_run]=true
+```
+
+Live run:
+
+```bash
+gh api -X POST repos/OWNER/REPO/dispatches \
+  -f event_type=publish -f client_payload[dry_run]=false
+```
+
+> `gh workflow run ...` needs the `Actions: write` permission. The Arena GitHub App
+> connection only has `contents: write`, so it returns *403 Resource not accessible
+> by integration*. Use the Actions UI button or the `repository_dispatch` calls above.
+
+## What a run does
+
+1. Read the Sheet history (used files, used topics, booked slots).
+2. Scan Drive `Raw_Videos` + local `videos/`.
+3. First frame (OCR) + first 20s audio (first spoken line) → Gemini.
+4. Score **< 90** → `LOW_QUALITY`; known topic → `DUPLICATE_TOPIC`.
+5. Pick the next open **14:00 / 20:00 ET** slots (max 2 per US day).
+6. Gemini SEO title / description / tags → YouTube `publishAt` (private until then).
+7. Log every decision in the Sheet; uploaded Drive files move to `Processed`.
+
+Dry runs write `DRY_RUN` rows and never upload, and `DRY_RUN`/`FAILED` rows stay
+retryable on the next run.
 
 ## Secrets
 
@@ -31,7 +64,17 @@ Repo → **Settings → Secrets and variables → Actions**
 | --- | --- | --- |
 | `GOOGLE_CREDENTIALS_JSON` | yes | Service account (Drive + Sheet) |
 | `GEMINI_API_KEY` | yes | Gemini |
-| `YOUTUBE_TOKEN_JSON` | yes for scheduled/live runs; optional only for manual dry runs | YouTube user OAuth JSON (include `refresh_token`, `client_id`, and `client_secret`) |
+| `YOUTUBE_TOKEN_JSON` | yes for live runs | YouTube user OAuth JSON |
+
+`YOUTUBE_TOKEN_JSON` must contain the OAuth fields (`client_id`, `client_secret`,
+`refresh_token`); aliases, nested `installed`/`web` client files and an
+access-token-only blob are also understood, but only a refresh token keeps
+working long term. Regenerate it locally with:
+
+```bash
+pip install google-auth-oauthlib
+python tools/get_youtube_token.py --client-secret client_secret_xxx.json
+```
 
 Service-account email ko Sheet aur Drive folders (Raw + Processed) **Editor** share karein.
 
@@ -41,13 +84,27 @@ Columns: Logged At · Source File · Source Id · Title · Description · Tags �
 
 Status: `SCHEDULED`, `DRY_RUN`, `LOW_QUALITY`, `DUPLICATE_TOPIC`, `IGNORED`, `FAILED`
 
-## YouTube token (ek dafa)
+## Diagnostics
 
-Google Cloud mein YouTube Data API v3 + Desktop OAuth client. Local machine par token banao, JSON `YOUTUBE_TOKEN_JSON` secret mein paste karo. Service account se YouTube upload nahi hota.
+Each run performs two preflight steps before the pipeline:
+
+* `python main.py --validate-credentials` – offline JSON shape check (field **names**
+  only, never values).
+* `python main.py --doctor` – live checks: Sheet/tab access, Drive raw + processed
+  folders, Gemini model discovery + a tiny probe, YouTube token refresh, ffmpeg.
+
+A broken YouTube token is only a warning in dry-run mode (dry runs never upload)
+and a hard error in live mode. Failures are reported as GitHub check annotations
+and in the run's job summary; secret values are redacted from every log line.
 
 ## Dependencies
 
-`requirements.txt` is a fully pinned CPython 3.11 runtime lock, including transitive dependencies. The Actions workflow installs the wheel-only lock without running pip's backtracking resolver, then runs `pip check` and the pipeline rule tests.
+`requirements.txt` is a fully pinned CPython 3.11 runtime lock (including
+transitive dependencies). The workflow installs the wheel-only lock without
+running pip's backtracking resolver, then runs `pip check` and the rule tests.
+Gemini is called over the REST API, so the deprecated `google-generativeai`
+package is no longer needed; the model is auto-discovered for the API key
+(`GEMINI_MODEL=auto`, override with a concrete model id if required).
 
 ## Local
 
@@ -55,5 +112,7 @@ Google Cloud mein YouTube Data API v3 + Desktop OAuth client. Local machine par 
 pip install -r requirements.txt
 export GEMINI_API_KEY=...
 # client_secret.json (+ optional youtube_token.json) repo root par
-python main.py
+python main.py --validate-credentials
+python main.py --doctor
+DRY_RUN=true python main.py
 ```
