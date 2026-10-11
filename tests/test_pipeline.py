@@ -424,6 +424,77 @@ class PipelineRunTests(unittest.TestCase):
                 main.run()
 
 
+class GeminiClientTests(unittest.TestCase):
+    def test_generate_falls_back_to_the_next_model_when_one_is_overloaded(self):
+        client = main.GeminiClient("test-key", model="gemini-3.8-flash")
+        urls = []
+
+        def fake_request(method, url, *, payload=None, label=""):
+            urls.append(url)
+            if "gemini-3.8-flash" in url:
+                raise main.GeminiError(
+                    "Gemini API error (503): This model is currently experiencing high demand."
+                )
+            return {"candidates": [{"content": {"parts": [{"text": '{"ok": true}'}]}}]}
+
+        client._request = fake_request
+
+        self.assertEqual(client.generate([{"text": "hi"}]), '{"ok": true}')
+        self.assertEqual(len(urls), 2)
+        self.assertIn("gemini-3.7-flash", urls[1])
+        self.assertEqual(client.model, "gemini-3.7-flash")
+
+    def test_generate_retries_without_json_mode_when_the_model_rejects_it(self):
+        client = main.GeminiClient("test-key", model="gemini-3.8-flash")
+        configs = []
+
+        def fake_request(method, url, *, payload=None, label=""):
+            configs.append(payload["generationConfig"])
+            if "responseMimeType" in payload["generationConfig"]:
+                raise main.GeminiError("Gemini API error (400): responseMimeType is not supported")
+            return {"candidates": [{"content": {"parts": [{"text": "plain answer"}]}}]}
+
+        client._request = fake_request
+
+        self.assertEqual(client.generate([{"text": "hi"}]), "plain answer")
+        self.assertNotIn("responseMimeType", configs[-1])
+
+    def test_generate_reports_blocked_prompts(self):
+        client = main.GeminiClient("test-key", model="gemini-3.8-flash")
+        client._request = lambda *a, **k: {"promptFeedback": {"blockReason": "SAFETY"}}
+
+        with self.assertRaises(main.GeminiError) as ctx:
+            client.generate([{"text": "hi"}])
+
+        self.assertIn("blockReason=SAFETY", str(ctx.exception))
+
+    def test_retry_call_retries_transient_connection_errors(self):
+        import requests
+
+        attempts = {"n": 0}
+
+        def flaky():
+            attempts["n"] += 1
+            if attempts["n"] < 3:
+                raise requests.ConnectionError("connection reset")
+            return "done"
+
+        with patch.object(main.time, "sleep"):
+            self.assertEqual(main.retry_call(flaky, label="test retry"), "done")
+        self.assertEqual(attempts["n"], 3)
+
+    def test_retry_call_does_not_retry_permanent_errors(self):
+        attempts = {"n": 0}
+
+        def broken():
+            attempts["n"] += 1
+            raise ValueError("permanent")
+
+        with self.assertRaises(ValueError):
+            main.retry_call(broken, label="test permanent")
+        self.assertEqual(attempts["n"], 1)
+
+
 class UploadTests(unittest.TestCase):
     def test_upload_retries_transient_chunk_errors(self):
         class FakeResp:

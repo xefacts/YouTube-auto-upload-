@@ -918,7 +918,7 @@ class GeminiClient:
                 )
             return resp.json()
         try:
-            return retry_call(call, label=label)
+            return retry_call(call, label=label, attempts=5, base_delay=2.5)
         except requests.HTTPError as exc:
             status = exc.response.status_code if exc.response is not None else "?"
             raise GeminiError(f"Gemini API error ({status}): {self._error_message(exc.response)}") from None
@@ -972,6 +972,13 @@ class GeminiClient:
         return self.model
 
     # -- Generation ---------------------------------------------------------
+    def _candidate_models(self) -> list[str]:
+        """The resolved model first, then the remaining preferences as fallbacks."""
+        self.resolve_model()
+        models = [self.model]
+        models.extend(m for m in GEMINI_MODEL_PREFERENCES if m != self.model)
+        return models
+
     def generate(
         self,
         parts: list[dict],
@@ -980,46 +987,34 @@ class GeminiClient:
         max_output_tokens: int | None = None,
         temperature: float = 0.6,
     ) -> str:
-        model = self.resolve_model()
-        url = f"{self.base}/{GEMINI_API_VERSION}/models/{model}:generateContent"
-        generation_config: dict[str, Any] = {"temperature": temperature}
-        if json_mode:
-            generation_config["responseMimeType"] = "application/json"
-        if max_output_tokens:
-            generation_config["maxOutputTokens"] = max_output_tokens
-        payload = {
-            "contents": [{"role": "user", "parts": parts}],
-            "generationConfig": generation_config,
-        }
-        last_exc: Exception | None = None
-        for attempt in (1, 2):
-            try:
-                data = self._request("POST", url, payload=payload, label=f"gemini generate ({model})")
+        errors: list[str] = []
+        for model in self._candidate_models():
+            json_mode_enabled = json_mode
+            while True:
+                generation_config: dict[str, Any] = {"temperature": temperature}
+                if json_mode_enabled:
+                    generation_config["responseMimeType"] = "application/json"
+                if max_output_tokens:
+                    generation_config["maxOutputTokens"] = max_output_tokens
+                url = f"{self.base}/{GEMINI_API_VERSION}/models/{model}:generateContent"
+                payload = {
+                    "contents": [{"role": "user", "parts": parts}],
+                    "generationConfig": generation_config,
+                }
+                try:
+                    data = self._request("POST", url, payload=payload, label=f"gemini generate ({model})")
+                except GeminiError as exc:
+                    message = str(exc)
+                    errors.append(f"{model}: {sanitize(message)[:200]}")
+                    if json_mode_enabled and ("responseMimeType" in message or "response_mime_type" in message):
+                        print(f"   ⚠️  {model} rejected JSON mode; retrying as plain text")
+                        json_mode_enabled = False
+                        continue
+                    print(f"   ⚠️  {model} failed ({sanitize(message)[:120]}); trying the next model")
+                    break
+                self.model = model
                 return self._text_from_response(data)
-            except GeminiError as exc:
-                last_exc = exc
-                message = str(exc)
-                unsupported = any(
-                    token in message for token in ("not found", "NOT_FOUND", "not supported", "unsupported")
-                )
-                if json_mode and "responseMimeType" in message:
-                    print("   ⚠️  model rejected JSON mode; retrying as plain text")
-                    json_mode = False
-                    generation_config.pop("responseMimeType", None)
-                    payload["generationConfig"] = generation_config
-                    continue
-                if unsupported and attempt == 1:
-                    previous = model
-                    self.model = ""
-                    for candidate in GEMINI_MODEL_PREFERENCES:
-                        if candidate != previous:
-                            self.model = candidate
-                            break
-                    print(f"   ⚠️  {previous} unavailable; retrying with {self.model}")
-                    url = f"{self.base}/{GEMINI_API_VERSION}/models/{self.model}:generateContent"
-                    continue
-                raise
-        raise last_exc if last_exc else GeminiError("Gemini request failed")
+        raise GeminiError("every Gemini model failed -> " + " | ".join(errors[:4]))
 
     @staticmethod
     def _text_from_response(data: dict) -> str:
