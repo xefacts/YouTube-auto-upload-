@@ -2,13 +2,13 @@ name: YouTube Auto Publish Pipeline
 
 on:
   schedule:
-    # 16:00 UTC ≈ 11–12 ET (before 2:00 PM ET slot)
-    # 23:00 UTC ≈ 6–7 PM ET (before 8:00 PM ET slot)
+    # 16:00 UTC ≈ 11:00–12:00 ET (before the 2:00 PM ET slot)
+    # 23:00 UTC ≈ 6:00–7:00 PM ET (before the 8:00 PM ET slot)
     - cron: "0 16,23 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Log to Google Sheet only (no YouTube upload)"
+        description: "Analyze and log to Google Sheet without uploading (live runs can publish videos)"
         type: boolean
         default: false
 
@@ -26,23 +26,28 @@ jobs:
     timeout-minutes: 90
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
 
       - name: Require secrets
         env:
           GOOGLE_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
           GEMINI: ${{ secrets.GEMINI_API_KEY }}
+          YT_TOKEN: ${{ secrets.YOUTUBE_TOKEN_JSON }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
         run: |
           missing=0
           if [ -z "$GOOGLE_JSON" ]; then echo "::error::Set secret GOOGLE_CREDENTIALS_JSON"; missing=1; fi
           if [ -z "$GEMINI" ]; then echo "::error::Set secret GEMINI_API_KEY"; missing=1; fi
-          if [ "$missing" -ne 0 ]; then exit 1; fi
-          if [ -z "${{ secrets.YOUTUBE_TOKEN_JSON }}" ]; then
-            echo "::warning::YOUTUBE_TOKEN_JSON is empty — pipeline will log to Sheets without YouTube upload"
+          if [ -z "$YT_TOKEN" ] && [ "$DRY_RUN" != "true" ]; then
+            echo "::error::Set secret YOUTUBE_TOKEN_JSON for scheduled/live uploads (or explicitly select dry_run)"
+            missing=1
+          elif [ -z "$YT_TOKEN" ]; then
+            echo "::warning::YOUTUBE_TOKEN_JSON is empty; this manual dry run will not upload"
           fi
+          if [ "$missing" -ne 0 ]; then exit 1; fi
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7.0.0
         with:
           python-version: "3.11"
           cache: pip
@@ -50,7 +55,9 @@ jobs:
       - name: Write Google service-account JSON
         env:
           GOOGLE_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
-        run: printf '%s' "$GOOGLE_JSON" > client_secret.json
+        run: |
+          printf '%s' "$GOOGLE_JSON" > client_secret.json
+          chmod 600 client_secret.json
 
       - name: Write YouTube OAuth token
         env:
@@ -58,17 +65,69 @@ jobs:
         run: |
           if [ -n "$YT_TOKEN" ]; then
             printf '%s' "$YT_TOKEN" > youtube_token.json
+            chmod 600 youtube_token.json
           fi
+
+      - name: Validate credential JSON
+        env:
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          def fail(message):
+              print(f"::error title=Credential validation::{message}")
+              raise SystemExit(message)
+
+          service_path = Path("client_secret.json")
+          try:
+              service = json.loads(service_path.read_text())
+          except (OSError, json.JSONDecodeError):
+              fail("GOOGLE_CREDENTIALS_JSON must contain valid service-account JSON")
+          if not isinstance(service, dict) or service.get("type") != "service_account":
+              fail("GOOGLE_CREDENTIALS_JSON must be a service-account key JSON object")
+          missing = {"client_email", "private_key", "token_uri"} - service.keys()
+          if missing:
+              fail("Google service-account JSON is missing required fields: " + ", ".join(sorted(missing)))
+
+          token_path = Path("youtube_token.json")
+          if token_path.exists():
+              try:
+                  token = json.loads(token_path.read_text())
+              except json.JSONDecodeError:
+                  fail("YOUTUBE_TOKEN_JSON must contain valid OAuth token JSON")
+              if not isinstance(token, dict):
+                  fail("YOUTUBE_TOKEN_JSON must be a JSON object")
+              if os.environ.get("DRY_RUN", "false").lower() != "true":
+                  missing = {"refresh_token", "client_id", "client_secret"} - token.keys()
+                  if missing:
+                      fail("YOUTUBE_TOKEN_JSON is missing required OAuth fields: " + ", ".join(sorted(missing)))
+          PY
 
       - name: Install ffmpeg
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg libgl1
+          sudo apt-get install -y --no-install-recommends ffmpeg libgl1
 
-      - name: Install Python dependencies
+      - name: Install pinned Python dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install \
+            --disable-pip-version-check \
+            --no-input \
+            --prefer-binary \
+            --only-binary=:all: \
+            --no-deps \
+            --timeout 60 \
+            --retries 4 \
+            --requirement requirements.txt
+          python -m pip check
+
+      - name: Test pipeline rules
+        run: |
+          python -m py_compile main.py tests/test_pipeline.py
+          python -m unittest discover -s tests -v
 
       - name: Run publish pipeline
         env:
@@ -80,13 +139,53 @@ jobs:
           DAY_SLOT_HOUR: "14"
           NIGHT_SLOT_HOUR: "20"
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
-        run: python main.py
+        run: |
+          mkdir -p work
+          set +e
+          python main.py 2>&1 | tee work/pipeline.log
+          pipeline_status=${PIPESTATUS[0]}
+          set -e
+          if [ "$pipeline_status" -ne 0 ]; then
+            PIPELINE_STATUS="$pipeline_status" python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
 
-      - name: Upload work logs
+          log_path = Path("work/pipeline.log")
+          text = log_path.read_text(errors="replace") if log_path.exists() else ""
+          secrets = [os.environ.get("GEMINI_API_KEY", ""), os.environ.get("YOUTUBE_TOKEN_JSON", "")]
+          for path in (Path("client_secret.json"), Path("youtube_token.json")):
+              if path.exists():
+                  raw_secret = path.read_text(errors="replace")
+                  secrets.append(raw_secret)
+                  try:
+                      secret_fields = json.loads(raw_secret)
+                  except json.JSONDecodeError:
+                      secret_fields = {}
+                  if isinstance(secret_fields, dict):
+                      secrets.extend(value for value in secret_fields.values() if isinstance(value, str))
+          for secret in sorted((s for s in set(secrets) if len(s) >= 8), key=len, reverse=True):
+              text = text.replace(secret, "[REDACTED]")
+          log_path.write_text(text)
+          lines = [line for line in text.splitlines() if line.strip()]
+          detail = "\n".join(lines[-10:])[-2400:] or "Pipeline exited without captured output."
+          escaped = detail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print(f"::error title=Pipeline failed::{escaped}")
+          summary = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          summary.write_text(
+              "## Pipeline failed\n\n"
+              f"Exit status: `{os.environ.get('PIPELINE_STATUS', 'non-zero')}`. "
+              "See the `pipeline-log` artifact and the annotated error above for details.\n"
+          )
+          PY
+          fi
+          exit "$pipeline_status"
+
+      - name: Upload pipeline log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.2
         with:
-          name: pipeline-work
-          path: work/
+          name: pipeline-log
+          path: work/pipeline.log
           if-no-files-found: ignore
           retention-days: 7

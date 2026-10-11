@@ -187,11 +187,15 @@ def load_sheet_state(sheets) -> tuple[set[str], set[str]]:
         while len(row) < 12:
             row.append("")
         status = row[8].upper()
-        for idx in (1, 2, 3):
-            if row[idx].strip():
-                keys.add(row[idx].strip().lower())
+        # Dry runs and failures must remain eligible for a later live retry.
+        if status not in {"DRY_RUN", "FAILED"}:
+            for idx in (1, 2, 3):
+                if row[idx].strip():
+                    keys.add(row[idx].strip().lower())
         topic_key = normalize_topic(row[6] or row[3])
-        if topic_key and status not in {"IGNORED", "FAILED", "LOW_QUALITY", "DUPLICATE_TOPIC"}:
+        if topic_key and status not in {
+            "IGNORED", "FAILED", "LOW_QUALITY", "DUPLICATE_TOPIC", "DRY_RUN"
+        }:
             topics.add(topic_key)
     return keys, topics
 
@@ -494,6 +498,11 @@ def run() -> int:
 
     sheets, drive = load_service_account()
     youtube = None if DRY_RUN else load_youtube_client()
+    if not DRY_RUN and youtube is None:
+        raise RuntimeError(
+            "YOUTUBE_TOKEN_JSON is required for a live publish run. "
+            "Use the workflow dry_run input only when intentionally skipping uploads."
+        )
     ensure_sheet_headers(sheets)
 
     logged, used_topics = load_sheet_state(sheets)
@@ -514,6 +523,7 @@ def run() -> int:
         return 0
 
     analyzed: list[VideoCandidate] = []
+    pipeline_failures: list[str] = []
     for c in fresh:
         print(f"\n🧠 Analyzing: {c.name}")
         try:
@@ -544,12 +554,29 @@ def run() -> int:
             analyzed.append(c)
             print(f"  ✅ queued: {c.title}")
         except Exception as exc:
-            print(f"  ❌ Analysis failed: {exc}")
+            failure = f"analysis failed for {c.name}: {type(exc).__name__}: {exc}"
+            pipeline_failures.append(failure)
+            print(f"  ❌ {failure}")
             traceback.print_exc()
+            try:
+                log_row(
+                    sheets,
+                    c,
+                    "FAILED",
+                    notes=f"Analysis failed ({type(exc).__name__}); see GitHub Actions log.",
+                )
+            except Exception as log_exc:
+                pipeline_failures.append(
+                    f"could not log analysis failure for {c.name}: {type(log_exc).__name__}"
+                )
+                print(f"  ❌ Could not log failure to Google Sheet: {log_exc}")
+                traceback.print_exc()
 
     if not analyzed:
         print("⚠️  No video passed quality + unique-topic gates.")
-        return 0
+        for failure in pipeline_failures:
+            print(f"PIPELINE_FAILURE: {failure}")
+        return 1 if pipeline_failures else 0
 
     sequenced = rank_sequence(analyzed)
     print("\n📑 Sequence (highest score first, unique topics):")
@@ -586,9 +613,18 @@ def run() -> int:
                 PipelineResult(candidate.title, candidate.name, status, slot_label, yt_id, notes)
             )
         except Exception as exc:
-            print(f"   ❌ Upload failed: {exc}")
+            failure = f"publish failed for {candidate.name}: {type(exc).__name__}: {exc}"
+            pipeline_failures.append(failure)
+            print(f"   ❌ {failure}")
             traceback.print_exc()
-            log_row(sheets, candidate, "FAILED", slot_label, "", str(exc)[:500])
+            log_row(
+                sheets,
+                candidate,
+                "FAILED",
+                slot_label,
+                "",
+                f"Publish failed ({type(exc).__name__}): {str(exc)[:400]}",
+            )
             results.append(
                 PipelineResult(candidate.title, candidate.name, "FAILED", slot_label, "", str(exc)[:200])
             )
@@ -603,7 +639,9 @@ def run() -> int:
         if r.youtube_id:
             print(f"  https://youtu.be/{r.youtube_id}")
     print("=" * 64)
-    return 0
+    for failure in pipeline_failures:
+        print(f"PIPELINE_FAILURE: {failure}")
+    return 1 if pipeline_failures else 0
 
 
 if __name__ == "__main__":

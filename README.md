@@ -31,7 +31,7 @@ Repo → **Settings → Secrets and variables → Actions**
 | --- | --- | --- |
 | `GOOGLE_CREDENTIALS_JSON` | yes | Service account (Drive + Sheet) |
 | `GEMINI_API_KEY` | yes | Gemini |
-| `YOUTUBE_TOKEN_JSON` | for real upload | YouTube user OAuth JSON |
+| `YOUTUBE_TOKEN_JSON` | yes for scheduled/live runs; optional only for manual dry runs | YouTube user OAuth JSON (include `refresh_token`, `client_id`, and `client_secret`) |
 
 Service-account email ko Sheet aur Drive folders (Raw + Processed) **Editor** share karein.
 
@@ -44,6 +44,10 @@ Status: `SCHEDULED`, `DRY_RUN`, `LOW_QUALITY`, `DUPLICATE_TOPIC`, `IGNORED`, `FA
 ## YouTube token (ek dafa)
 
 Google Cloud mein YouTube Data API v3 + Desktop OAuth client. Local machine par token banao, JSON `YOUTUBE_TOKEN_JSON` secret mein paste karo. Service account se YouTube upload nahi hota.
+
+## Dependencies
+
+`requirements.txt` is a fully pinned CPython 3.11 runtime lock, including transitive dependencies. The Actions workflow installs the wheel-only lock without running pip's backtracking resolver, then runs `pip check` and the pipeline rule tests.
 
 ## Local
 
