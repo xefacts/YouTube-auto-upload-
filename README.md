@@ -83,6 +83,13 @@ too, but only a refresh token keeps working long term. Two ways to provide it:
    e.g. via the OAuth 2.0 Playground with the `youtube.upload` scope).
    `YOUTUBE_CLIENT_ID` / `YOUTUBE_CLIENT_SECRET` are also honoured as overrides.
 
+   The pipeline tries every combination of payload/split client credentials and
+   refresh tokens, so a refresh token minted with a *different* OAuth client than
+   the one stored in `YOUTUBE_TOKEN_JSON` still works. `invalid_grant` means the
+   refresh token itself is dead: it was revoked, it expired (consent screen still
+   in **Testing** expires refresh tokens after 7 days) or it belongs to a deleted
+   client - mint a fresh one.
+
 Service-account email ko Sheet aur Drive folders (Raw + Processed) **Editor** share karein.
 
 Sheet: `15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618`

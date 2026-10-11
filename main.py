@@ -406,71 +406,64 @@ def read_youtube_token_payload() -> dict | None:
     return payload
 
 
-def token_diagnosis(payload: dict | None, *, live: bool) -> tuple[bool, str]:
-    """(usable, message) for the YouTube credential in the requested mode.
+def youtube_credential_candidates(payload: dict | None) -> list[tuple[str, dict[str, Any]]]:
+    """Every credential combination we can try, most canonical first.
 
-    Accepts the secret as the authorized-user JSON, a nested client JSON, an
-    access-token blob, or the split secrets YOUTUBE_CLIENT_ID /
-    YOUTUBE_CLIENT_SECRET / YOUTUBE_REFRESH_TOKEN.
+    The environment secrets (YOUTUBE_CLIENT_ID / YOUTUBE_CLIENT_SECRET /
+    YOUTUBE_REFRESH_TOKEN) and the YOUTUBE_TOKEN_JSON payload may each hold part
+    of the puzzle - e.g. a refresh token minted with a *different* OAuth client
+    than the client file stored in YOUTUBE_TOKEN_JSON. Each candidate is a
+    (label, fields) pair so a working combination can be reported exactly.
     """
-    payload = payload or {}
-    fields = extract_token_fields(payload)
-    have = sorted(k for k, v in fields.items() if v)
-    missing = [
-        name
-        for name in ("refresh_token", "client_id", "client_secret")
-        if not fields.get(name)
-    ]
-    if not missing:
-        return True, "token has refresh_token + client_id + client_secret"
-    if fields.get("token"):
-        return True, (
-            "token has an access_token only (no refresh_token/client_id/client_secret): "
-            "uploads work only until that access token expires"
+    from_payload = extract_token_fields(payload or {})
+    from_env: dict[str, Any] = {}
+    for field, env_name in (
+        ("client_id", "YOUTUBE_CLIENT_ID"),
+        ("client_secret", "YOUTUBE_CLIENT_SECRET"),
+        ("refresh_token", "YOUTUBE_REFRESH_TOKEN"),
+        ("token", "YOUTUBE_ACCESS_TOKEN"),
+    ):
+        value = (os.getenv(env_name) or "").strip()
+        if value:
+            from_env[field] = value
+
+    combos: list[tuple[str, dict[str, Any]]] = []
+    sources = (("YOUTUBE_TOKEN_JSON", from_payload), ("split secrets", from_env))
+    for label, fields in sources:
+        if fields.get("refresh_token") or fields.get("token"):
+            combos.append((label, dict(fields)))
+    for client_label, client_fields in sources:
+        for token_label, token_fields in sources:
+            if client_label == token_label:
+                continue
+            merged: dict[str, Any] = {}
+            for field in ("client_id", "client_secret", "token_uri"):
+                if client_fields.get(field):
+                    merged[field] = client_fields[field]
+            for field in ("refresh_token", "token"):
+                if token_fields.get(field):
+                    merged[field] = token_fields[field]
+            if merged.get("refresh_token") or merged.get("token"):
+                combos.append((f"{client_label} client + {token_label} token", merged))
+
+    unique: list[tuple[str, dict[str, Any]]] = []
+    seen: set[tuple] = set()
+    for label, fields in combos:
+        signature = (
+            fields.get("client_id"),
+            fields.get("client_secret"),
+            fields.get("refresh_token"),
+            fields.get("token"),
         )
-    if str(payload.get("type", "")).lower() == "service_account":
-        return False, (
-            "YOUTUBE_TOKEN_JSON contains a *service account* key. YouTube uploads need a "
-            "user OAuth token, not a service account."
-        )
-    if not payload and not have:
-        message = "YOUTUBE_TOKEN_JSON is not set (no OAuth token)."
-        return (not live), message
-    source = "YOUTUBE_TOKEN_JSON" if payload else "the YouTube secrets"
-    shape = ", ".join(key_paths(payload)) or "(no fields)"
-    return False, (
-        f"{source} has no refresh_token and no access_token (missing: "
-        + ", ".join(missing)
-        + f"; fields present: {shape}"
-        + (f"; detected: {', '.join(have)}" if have else "")
-        + "). Fix it either way: (a) add a repository secret YOUTUBE_REFRESH_TOKEN holding a "
-        "refresh token minted for this OAuth client (OAuth 2.0 Playground, scope "
-        "youtube.upload) - the pipeline combines the split secrets automatically, or "
-        "(b) replace YOUTUBE_TOKEN_JSON with the authorized-user JSON printed by "
-        "tools/get_youtube_token.py (Desktop OAuth client)."
-    )
+        if signature in seen:
+            continue
+        seen.add(signature)
+        unique.append((label, fields))
+    return unique
 
 
-def load_youtube_client():
-    """Build a YouTube Data API client from the stored OAuth token."""
-    payload = read_youtube_token_payload()
-    fields = extract_token_fields(payload or {})
-    if payload is None and not any(fields.values()):
-        print("⚠️  YouTube OAuth token missing — metadata will be logged without upload.")
-        return None
-
-    usable, message = token_diagnosis(payload, live=True)
-    print(f"🔑 YouTube credential: {message}")
-    if not usable:
-        raise RuntimeError(f"Cannot build the YouTube client. {message}")
-
-    scopes = fields.get("scopes")
-    if isinstance(scopes, str):
-        scopes = [s for s in scopes.split() if s]
-    if scopes and "https://www.googleapis.com/auth/youtube.upload" not in scopes:
-        print(f"⚠️  token scopes {scopes} do not list youtube.upload; upload may fail with 403")
-
-    creds = UserCredentials(
+def build_youtube_credentials(fields: dict[str, Any]) -> UserCredentials:
+    return UserCredentials(
         token=fields.get("token"),
         refresh_token=fields.get("refresh_token"),
         token_uri=fields.get("token_uri") or "https://oauth2.googleapis.com/token",
@@ -478,14 +471,112 @@ def load_youtube_client():
         client_secret=fields.get("client_secret"),
         scopes=YOUTUBE_SCOPES,
     )
-    if not creds.token or creds.expired:
-        if not creds.refresh_token:
-            raise RuntimeError(
-                "YouTube token has no refresh_token and no usable access_token; "
-                "regenerate YOUTUBE_TOKEN_JSON with tools/get_youtube_token.py."
-            )
-        retry_call(lambda: creds.refresh(Request()), label="youtube token refresh")
-        print("🔁 YouTube access token refreshed.")
+
+
+def resolve_youtube_credentials(payload: dict | None) -> tuple[UserCredentials, str]:
+    """Return the first credential combination that can actually authenticate."""
+    candidates = youtube_credential_candidates(payload)
+    if not candidates:
+        raise RuntimeError(
+            "No YouTube OAuth credentials found: set YOUTUBE_TOKEN_JSON or the split "
+            "secrets YOUTUBE_CLIENT_ID + YOUTUBE_CLIENT_SECRET + YOUTUBE_REFRESH_TOKEN."
+        )
+    problems: list[str] = []
+    for label, fields in candidates:
+        has_token = bool(fields.get("token"))
+        has_refresh = bool(fields.get("refresh_token"))
+        if not has_token and not has_refresh:
+            continue
+        if has_refresh:
+            missing = [f for f in ("client_id", "client_secret") if not fields.get(f)]
+            if missing:
+                problems.append(f"{label}: refresh_token present but missing {', '.join(missing)}")
+                continue
+        try:
+            creds = build_youtube_credentials(fields)
+            if not creds.token or creds.expired:
+                if not creds.refresh_token:
+                    problems.append(f"{label}: access token expired and no refresh_token")
+                    continue
+                retry_call(lambda: creds.refresh(Request()), label=f"youtube token refresh ({label})")
+        except Exception as exc:  # noqa: BLE001
+            problems.append(f"{label}: {describe_exception(exc)}")
+            continue
+        return creds, label
+    detail = " | ".join(problems[:4]) or "no usable credentials"
+    raise RuntimeError(
+        "YouTube credentials could not authenticate ("
+        + detail
+        + "). A refresh token must be minted by the channel owner with the same OAuth client; "
+        "an invalid_grant error means the refresh token was revoked, expired (OAuth consent "
+        "screen still in Testing expires refresh tokens after 7 days) or belongs to a different "
+        "client. Re-mint it with tools/get_youtube_token.py or the OAuth 2.0 Playground and "
+        "update YOUTUBE_TOKEN_JSON / YOUTUBE_REFRESH_TOKEN."
+    )
+
+
+def token_diagnosis(payload: dict | None, *, live: bool) -> tuple[bool, str]:
+    """(usable, message) about the YouTube credential *shape* (no network calls)."""
+    candidates = youtube_credential_candidates(payload)
+    complete = [
+        label
+        for label, fields in candidates
+        if fields.get("refresh_token") and fields.get("client_id") and fields.get("client_secret")
+    ]
+    if complete:
+        return True, (
+            "refresh_token + client_id + client_secret available (from "
+            + ", ".join(complete[:2])
+            + ")"
+        )
+    if any(fields.get("token") for _, fields in candidates):
+        return True, (
+            "access_token only (no refresh_token): uploads work only until that access token expires"
+        )
+    payload = payload or {}
+    if str(payload.get("type", "")).lower() == "service_account":
+        return False, (
+            "YOUTUBE_TOKEN_JSON contains a *service account* key. YouTube uploads need a "
+            "user OAuth token, not a service account."
+        )
+    if not payload and not candidates:
+        return (not live), "YOUTUBE_TOKEN_JSON is not set and no split YouTube secrets are set"
+    shape = ", ".join(key_paths(payload)) or "(no fields)"
+    partial = ", ".join(f"{label}: {', '.join(sorted(f for f, v in fields.items() if v))}" for label, fields in candidates) or "none"
+    return False, (
+        "no refresh_token and no access_token available. YOUTUBE_TOKEN_JSON fields: "
+        + shape
+        + f"; candidate credentials: {partial}. Fix it either way: (a) add/refresh the "
+        "YOUTUBE_REFRESH_TOKEN secret with a refresh token minted for this OAuth client "
+        "(OAuth 2.0 Playground with scope youtube.upload) - the pipeline combines the split "
+        "secrets automatically, or (b) replace YOUTUBE_TOKEN_JSON with the authorized-user "
+        "JSON printed by tools/get_youtube_token.py (Desktop OAuth client)."
+    )
+
+
+def load_youtube_client():
+    """Build a YouTube Data API client from the stored OAuth credentials."""
+    payload = read_youtube_token_payload()
+    split_present = any(
+        (os.getenv(name) or "").strip()
+        for name in ("YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN")
+    )
+    if payload is None and not split_present:
+        print("⚠️  YouTube OAuth token missing — metadata will be logged without upload.")
+        return None
+
+    usable, message = token_diagnosis(payload, live=True)
+    if not usable:
+        raise RuntimeError(f"Cannot build the YouTube client. {message}")
+
+    creds, label = resolve_youtube_credentials(payload)
+    print(f"🔑 YouTube credential: authenticated using {label}.")
+
+    scopes = extract_token_fields(payload or {}).get("scopes")
+    if isinstance(scopes, str):
+        scopes = [s for s in scopes.split() if s]
+    if scopes and "https://www.googleapis.com/auth/youtube.upload" not in scopes:
+        print(f"⚠️  token scopes {scopes} do not list youtube.upload; upload may fail with 403")
     return build("youtube", "v3", credentials=creds, cache_discovery=False)
 
 
@@ -1338,27 +1429,17 @@ def doctor() -> int:
     else:
         payload = payload or {}
         print(f"🔎 YOUTUBE_TOKEN_JSON fields: {', '.join(k for k, v in fields.items() if v) or '(none)'}")
+        candidates = youtube_credential_candidates(payload)
+        print(f"🔎 YouTube credential combinations: {[label for label, _ in candidates] or 'none'}")
         usable, message = token_diagnosis(payload, live=not DRY_RUN)
         if usable:
             try:
-                creds = UserCredentials(
-                    token=fields.get("token"),
-                    refresh_token=fields.get("refresh_token"),
-                    token_uri=fields.get("token_uri") or "https://oauth2.googleapis.com/token",
-                    client_id=fields.get("client_id"),
-                    client_secret=fields.get("client_secret"),
-                    scopes=YOUTUBE_SCOPES,
-                )
-                if not creds.token or creds.expired:
-                    retry_call(lambda: creds.refresh(Request()), label="youtube token refresh")
-                    print("✅ YouTube token refreshed successfully.")
-                    annotate("notice", "Doctor: YouTube token", "refresh succeeded - uploads can authenticate")
-                else:
-                    print("✅ YouTube token has a live access_token (no refresh attempted).")
-                    annotate("notice", "Doctor: YouTube token", "access_token present and not expired")
+                _creds, label = resolve_youtube_credentials(payload)
+                print(f"✅ YouTube credentials authenticate (from {label}).")
+                annotate("notice", "Doctor: YouTube token", f"authenticated using {label}")
             except Exception as exc:  # noqa: BLE001
                 level = "warning" if DRY_RUN else "error"
-                annotate(level, "Doctor: YouTube token", f"token could not be refreshed ({describe_exception(exc)})")
+                annotate(level, "Doctor: YouTube token", describe_exception(exc))
                 fatal += 0 if DRY_RUN else 1
         else:
             level = "warning" if DRY_RUN else "error"
