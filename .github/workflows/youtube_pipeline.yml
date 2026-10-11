@@ -8,9 +8,17 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Analyze and log to Google Sheet without uploading (live runs can publish videos)"
+        description: "Dry run (analyze + log to Google Sheet, never upload). Uncheck to publish live."
         type: boolean
-        default: false
+        default: true
+  # Manual trigger that works with the Arena GitHub App token (contents:write).
+  #   gh api -X POST repos/OWNER/REPO/dispatches -f event_type=publish -f client_payload[dry_run]=true
+  repository_dispatch:
+    types: [publish]
+  # Every push runs a dry run only (never uploads); live publishing happens on
+  # schedule, on workflow_dispatch with dry_run unchecked, or on repository_dispatch.
+  push:
+    branches: [main, "arena/**"]
 
 concurrency:
   group: youtube-auto-publish
@@ -28,21 +36,46 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7.0.1
 
+      - name: Resolve run mode
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+          PAYLOAD_DRY_RUN: ${{ github.event.client_payload.dry_run }}
+        run: |
+          case "$EVENT_NAME" in
+            schedule) dry_run="false" ;;
+            workflow_dispatch)
+              if [ "$INPUT_DRY_RUN" = "true" ]; then dry_run="true"; else dry_run="false"; fi ;;
+            repository_dispatch)
+              case "$(printf '%s' "$PAYLOAD_DRY_RUN" | tr '[:upper:]' '[:lower:]')" in
+                false|no|0) dry_run="false" ;;
+                *) dry_run="true" ;;
+              esac ;;
+            *) dry_run="true" ;;
+          esac
+          echo "dry_run=$dry_run" >> "$GITHUB_ENV"
+          echo "Resolved DRY_RUN=$dry_run (event=$EVENT_NAME)"
+          if [ "$dry_run" = "true" ]; then
+            echo "::notice title=Run mode::DRY RUN - no YouTube uploads, Google Sheet rows only."
+          else
+            echo "::notice title=Run mode::LIVE RUN - eligible videos (score>=90, new topic, max 2/day at 14:00/20:00 ET) will be scheduled on YouTube."
+          fi
+
       - name: Require secrets
         env:
           GOOGLE_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
           GEMINI: ${{ secrets.GEMINI_API_KEY }}
           YT_TOKEN: ${{ secrets.YOUTUBE_TOKEN_JSON }}
-          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+          DRY_RUN: ${{ env.dry_run }}
         run: |
           missing=0
           if [ -z "$GOOGLE_JSON" ]; then echo "::error::Set secret GOOGLE_CREDENTIALS_JSON"; missing=1; fi
           if [ -z "$GEMINI" ]; then echo "::error::Set secret GEMINI_API_KEY"; missing=1; fi
           if [ -z "$YT_TOKEN" ] && [ "$DRY_RUN" != "true" ]; then
-            echo "::error::Set secret YOUTUBE_TOKEN_JSON for scheduled/live uploads (or explicitly select dry_run)"
+            echo "::error::Set secret YOUTUBE_TOKEN_JSON for scheduled/live uploads (or select dry_run)"
             missing=1
           elif [ -z "$YT_TOKEN" ]; then
-            echo "::warning::YOUTUBE_TOKEN_JSON is empty; this manual dry run will not upload"
+            echo "::warning::YOUTUBE_TOKEN_JSON is empty; this dry run will not upload"
           fi
           if [ "$missing" -ne 0 ]; then exit 1; fi
 
@@ -68,44 +101,6 @@ jobs:
             chmod 600 youtube_token.json
           fi
 
-      - name: Validate credential JSON
-        env:
-          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
-          def fail(message):
-              print(f"::error title=Credential validation::{message}")
-              raise SystemExit(message)
-
-          service_path = Path("client_secret.json")
-          try:
-              service = json.loads(service_path.read_text())
-          except (OSError, json.JSONDecodeError):
-              fail("GOOGLE_CREDENTIALS_JSON must contain valid service-account JSON")
-          if not isinstance(service, dict) or service.get("type") != "service_account":
-              fail("GOOGLE_CREDENTIALS_JSON must be a service-account key JSON object")
-          missing = {"client_email", "private_key", "token_uri"} - service.keys()
-          if missing:
-              fail("Google service-account JSON is missing required fields: " + ", ".join(sorted(missing)))
-
-          token_path = Path("youtube_token.json")
-          if token_path.exists():
-              try:
-                  token = json.loads(token_path.read_text())
-              except json.JSONDecodeError:
-                  fail("YOUTUBE_TOKEN_JSON must contain valid OAuth token JSON")
-              if not isinstance(token, dict):
-                  fail("YOUTUBE_TOKEN_JSON must be a JSON object")
-              if os.environ.get("DRY_RUN", "false").lower() != "true":
-                  missing = {"refresh_token", "client_id", "client_secret"} - token.keys()
-                  if missing:
-                      fail("YOUTUBE_TOKEN_JSON is missing required OAuth fields: " + ", ".join(sorted(missing)))
-          PY
-
       - name: Install ffmpeg
         run: |
           sudo apt-get update
@@ -129,16 +124,37 @@ jobs:
           python -m py_compile main.py tests/test_pipeline.py
           python -m unittest discover -s tests -v
 
-      - name: Run publish pipeline
+      - name: Validate credential JSON
+        env:
+          DRY_RUN: ${{ env.dry_run }}
+        run: python main.py --validate-credentials
+
+      - name: Preflight doctor
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           YOUTUBE_TOKEN_JSON: ${{ secrets.YOUTUBE_TOKEN_JSON }}
+          RAW_FOLDER_ID: ${{ vars.RAW_FOLDER_ID || '1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J' }}
+          PROCESSED_FOLDER_ID: ${{ vars.PROCESSED_FOLDER_ID || '1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf' }}
           CHANNEL_NICHE: personal finance and business
           MIN_QUALITY_SCORE: "90"
           MAX_VIDEOS_PER_DAY: "2"
           DAY_SLOT_HOUR: "14"
           NIGHT_SLOT_HOUR: "20"
-          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+          DRY_RUN: ${{ env.dry_run }}
+        run: python main.py --doctor
+
+      - name: Run publish pipeline
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YOUTUBE_TOKEN_JSON: ${{ secrets.YOUTUBE_TOKEN_JSON }}
+          RAW_FOLDER_ID: ${{ vars.RAW_FOLDER_ID || '1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J' }}
+          PROCESSED_FOLDER_ID: ${{ vars.PROCESSED_FOLDER_ID || '1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf' }}
+          CHANNEL_NICHE: personal finance and business
+          MIN_QUALITY_SCORE: "90"
+          MAX_VIDEOS_PER_DAY: "2"
+          DAY_SLOT_HOUR: "14"
+          NIGHT_SLOT_HOUR: "20"
+          DRY_RUN: ${{ env.dry_run }}
         run: |
           mkdir -p work
           set +e
@@ -147,39 +163,42 @@ jobs:
           set -e
           if [ "$pipeline_status" -ne 0 ]; then
             PIPELINE_STATUS="$pipeline_status" python - <<'PY'
-          import json
           import os
           from pathlib import Path
-
+          import main
           log_path = Path("work/pipeline.log")
           text = log_path.read_text(errors="replace") if log_path.exists() else ""
-          secrets = [os.environ.get("GEMINI_API_KEY", ""), os.environ.get("YOUTUBE_TOKEN_JSON", "")]
-          for path in (Path("client_secret.json"), Path("youtube_token.json")):
-              if path.exists():
-                  raw_secret = path.read_text(errors="replace")
-                  secrets.append(raw_secret)
-                  try:
-                      secret_fields = json.loads(raw_secret)
-                  except json.JSONDecodeError:
-                      secret_fields = {}
-                  if isinstance(secret_fields, dict):
-                      secrets.extend(value for value in secret_fields.values() if isinstance(value, str))
-          for secret in sorted((s for s in set(secrets) if len(s) >= 8), key=len, reverse=True):
-              text = text.replace(secret, "[REDACTED]")
+          text = main.sanitize(text)
           log_path.write_text(text)
           lines = [line for line in text.splitlines() if line.strip()]
-          detail = "\n".join(lines[-10:])[-2400:] or "Pipeline exited without captured output."
+          detail = "\n".join(lines[-12:])[-2400:] or "Pipeline exited without captured output."
           escaped = detail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
           print(f"::error title=Pipeline failed::{escaped}")
           summary = Path(os.environ["GITHUB_STEP_SUMMARY"])
           summary.write_text(
               "## Pipeline failed\n\n"
-              f"Exit status: `{os.environ.get('PIPELINE_STATUS', 'non-zero')}`. "
-              "See the `pipeline-log` artifact and the annotated error above for details.\n"
+              f"Exit status: `{os.environ.get('PIPELINE_STATUS', 'non-zero')}`\n\n"
+              "```\n" + detail + "\n```\n"
           )
           PY
           fi
           exit "$pipeline_status"
+
+      - name: Write job summary
+        if: always()
+        run: |
+          if [ -f work/pipeline.log ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          from pathlib import Path
+          import main
+          text = main.sanitize(Path("work/pipeline.log").read_text(errors="replace"))
+          lines = [line for line in text.splitlines() if line.strip()]
+          print("## Pipeline log (tail)")
+          print("```")
+          print("\n".join(lines[-40:]))
+          print("```")
+          PY
+          fi
 
       - name: Upload pipeline log
         if: always()

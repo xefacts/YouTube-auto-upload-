@@ -1,19 +1,17 @@
 # Fully pinned CPython 3.11 runtime lock for the GitHub Actions Ubuntu runner.
 # Keep every transitive dependency pinned to avoid slow pip backtracking.
+# Gemini is called over the REST API (requests), so no google-generativeai /
+# pydantic / grpcio / tqdm entry is needed.
 annotated-types==0.8.0
 certifi==2026.7.22
 cffi==2.1.1
 charset-normalizer==3.5.2
 cryptography==50.0.2
-google-ai-generativelanguage==0.6.15
 google-api-core==2.33.0
 google-api-python-client==2.201.0
 google-auth==2.61.0
 google-auth-httplib2==0.4.4
-google-generativeai==0.8.6
 googleapis-common-protos==1.75.0
-grpcio==1.84.0
-grpcio-status==1.71.2
 httplib2==0.32.0
 idna==3.20
 numpy==2.2.6
@@ -23,13 +21,9 @@ protobuf==5.29.6
 pyasn1==0.6.4
 pyasn1-modules==0.4.2
 pycparser==3.11
-pydantic==2.14.0
-pydantic-core==2.50.0
 pyparsing==3.3.3
 pytz==2026.5
 requests==2.34.2
-tqdm==4.70.1
-typing-inspection==0.4.4
 typing-extensions==4.16.0
 uritemplate==4.2.0
 urllib3==2.8.0
