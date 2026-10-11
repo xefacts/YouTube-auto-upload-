@@ -1596,8 +1596,10 @@ def run() -> int:
             failure = f"Gemini quota exhausted: {describe_exception(exc)}"
             problems.append(failure)
             print(f"  ❌ {failure}")
+            # A warning: the run itself can still succeed when other videos were
+            # analysed (the exit code decides the job result).
             annotate(
-                "error",
+                "warning",
                 "Gemini quota exhausted",
                 "The Gemini API quota for this key (all tried models) is used up, so no video "
                 "could be analysed. Wait for the quota to reset, use a lighter model "
