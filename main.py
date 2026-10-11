@@ -484,7 +484,7 @@ def load_youtube_client():
                 "YouTube token has no refresh_token and no usable access_token; "
                 "regenerate YOUTUBE_TOKEN_JSON with tools/get_youtube_token.py."
             )
-        retry_call(creds.refresh, label="youtube token refresh")
+        retry_call(lambda: creds.refresh(Request()), label="youtube token refresh")
         print("🔁 YouTube access token refreshed.")
     return build("youtube", "v3", credentials=creds, cache_discovery=False)
 
@@ -1350,10 +1350,12 @@ def doctor() -> int:
                     scopes=YOUTUBE_SCOPES,
                 )
                 if not creds.token or creds.expired:
-                    retry_call(creds.refresh, label="youtube token refresh")
+                    retry_call(lambda: creds.refresh(Request()), label="youtube token refresh")
                     print("✅ YouTube token refreshed successfully.")
+                    annotate("notice", "Doctor: YouTube token", "refresh succeeded - uploads can authenticate")
                 else:
                     print("✅ YouTube token has a live access_token (no refresh attempted).")
+                    annotate("notice", "Doctor: YouTube token", "access_token present and not expired")
             except Exception as exc:  # noqa: BLE001
                 level = "warning" if DRY_RUN else "error"
                 annotate(level, "Doctor: YouTube token", f"token could not be refreshed ({describe_exception(exc)})")

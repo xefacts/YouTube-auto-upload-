@@ -439,6 +439,65 @@ class PipelineRunTests(unittest.TestCase):
                 main.run()
 
 
+class YouTubeClientTests(unittest.TestCase):
+    def test_load_youtube_client_refreshes_with_a_request_instance(self):
+        payload = {"client_id": "cid", "client_secret": "csec", "refresh_token": "rtok"}
+        fake_creds = Mock()
+        fake_creds.token = None
+        fake_creds.expired = True
+        fake_creds.refresh_token = "rtok"
+
+        with patch.object(main, "read_youtube_token_payload", return_value=payload), \
+             patch.object(main, "UserCredentials", return_value=fake_creds), \
+             patch.object(main, "build") as build:
+            client = main.load_youtube_client()
+
+        refresh_args = fake_creds.refresh.call_args.args
+        self.assertEqual(len(refresh_args), 1)
+        self.assertIsInstance(refresh_args[0], main.Request)
+        build.assert_called_once()
+        self.assertIsNotNone(client)
+
+    def test_load_youtube_client_refuses_unusable_token(self):
+        payload = {"web": {"client_id": "cid", "client_secret": "csec"}}
+
+        with patch.object(main, "read_youtube_token_payload", return_value=payload), \
+             patch.object(main, "build"):
+            with self.assertRaises(RuntimeError) as ctx:
+                main.load_youtube_client()
+
+        self.assertIn("refresh_token", str(ctx.exception))
+
+    def test_doctor_refresh_uses_request_instance(self):
+        payload = {"client_id": "cid", "client_secret": "csec", "refresh_token": "rtok"}
+        fake_creds = Mock()
+        fake_creds.token = None
+        fake_creds.expired = True
+
+        sheets, drive = Mock(), Mock()
+        with patch.object(main, "read_youtube_token_payload", return_value=payload), \
+             patch.object(main, "UserCredentials", return_value=fake_creds), \
+             patch.object(main, "configure_gemini") as gemini, \
+             patch.object(main, "_have_ffmpeg", return_value=True), \
+             patch.object(main, "load_service_account", return_value=(sheets, drive)), \
+             patch.object(main, "resolve_sheet_tab", return_value="Sheet1"), \
+             patch.object(main, "_SHEET_TAB_CACHE", "Sheet1"), \
+             patch.object(main, "retry_call", side_effect=lambda fn, **kw: fn()):
+            gemini.return_value.resolve_model.return_value = "gemini-3.8-flash"
+            gemini.return_value.generate.return_value = "OK"
+            sheets.spreadsheets.return_value.values.return_value.get.return_value.execute.return_value = {
+                "values": [main.SHEET_HEADERS]
+            }
+            drive.files.return_value.list.return_value.execute.return_value = {"files": []}
+            drive.files.return_value.get.return_value.execute.return_value = {
+                "id": "p", "name": "Processed", "capabilities": {"canAddChildren": True}
+            }
+            status = main.doctor()
+
+        self.assertEqual(status, 0)
+        self.assertIsInstance(fake_creds.refresh.call_args.args[0], main.Request)
+
+
 class GeminiClientTests(unittest.TestCase):
     def test_generate_falls_back_to_the_next_model_when_one_is_overloaded(self):
         client = main.GeminiClient("test-key", model="gemini-3.8-flash")
