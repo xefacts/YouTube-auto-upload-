@@ -1,54 +1,55 @@
 # YouTube Auto-Upload Pipeline
 
-Python + GitHub Actions pipeline that:
+GitHub Actions + Python. Niche: **personal finance and business**.  
+Saari video history Google Sheet mein rehti hai.
 
-Niche: **personal finance and business**. All upload history and metadata live in the Google Sheet.
+## GitHub par kya chalta hai
 
-1. Scans `videos/` **and** a Google Drive `Raw_Videos` folder
-2. Extracts the first frame and asks **Gemini** for topic, title, description, tags, and a quality score
-3. Deduplicates against **Google Sheets** (filename, Drive id, title)
-4. Ranks leftover videos so similar topics are not back-to-back
-5. Schedules **exactly 2 videos per US day** at YouTube peak traffic: **14:00 ET** and **20:00 ET**
-6. Uploads only videos with **AI score ≥ 90**; ignores low quality
-7. **One topic = one video** (never two videos on the same topic)
-8. Topic comes from first-frame OCR text or the first spoken sentence (~90%), not the filename
-9. Gemini writes SEO title, description, and tags; YouTube `publishAt` + Sheets report
+Workflow: `.github/workflows/youtube_pipeline.yml`
 
-## Setup
-
-### Secrets (GitHub → Settings → Secrets and variables → Actions)
-
-| Secret | Purpose |
+| Trigger | Kab |
 | --- | --- |
-| `GOOGLE_CREDENTIALS_JSON` | Service-account JSON with access to Drive + the spreadsheet |
-| `GEMINI_API_KEY` | Gemini API key |
-| `YOUTUBE_TOKEN_JSON` | OAuth **user** token (`authorized_user` JSON). YouTube does **not** accept service accounts for uploads. |
+| Cron `0 16 * * *` | US afternoon slot se pehle (2:00 PM ET) |
+| Cron `0 23 * * *` | US prime-time slot se pehle (8:00 PM ET) |
+| **Actions → Run workflow** | Manual (optional Dry run) |
 
-Share the Drive folders and the Sheet with the service-account email.
+Har run:
 
-### Local / first-time YouTube OAuth
+1. Drive `Raw_Videos` + local `videos/` scan
+2. Pehla frame + pehli 20s audio → Gemini
+3. Score **&lt; 90** ignore
+4. Same **topic** pehle Sheet mein ho to skip
+5. Roz max **2** videos: **14:00 ET** aur **20:00 ET**
+6. SEO title / description / tags AI
+7. YouTube `publishAt` + Sheet log
 
-Create a Desktop OAuth client in Google Cloud, enable YouTube Data API v3, then generate `youtube_token.json` once on a machine with a browser and paste it into `YOUTUBE_TOKEN_JSON`.
+## Secrets
 
-### Run locally
+Repo → **Settings → Secrets and variables → Actions**
+
+| Secret | Required | Purpose |
+| --- | --- | --- |
+| `GOOGLE_CREDENTIALS_JSON` | yes | Service account (Drive + Sheet) |
+| `GEMINI_API_KEY` | yes | Gemini |
+| `YOUTUBE_TOKEN_JSON` | for real upload | YouTube user OAuth JSON |
+
+Service-account email ko Sheet aur Drive folders (Raw + Processed) **Editor** share karein.
+
+Sheet: `15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618`
+
+Columns: Logged At · Source File · Source Id · Title · Description · Tags · Topic · Score · Status · Scheduled For (ET) · YouTube Video ID · Notes
+
+Status: `SCHEDULED`, `DRY_RUN`, `LOW_QUALITY`, `DUPLICATE_TOPIC`, `IGNORED`, `FAILED`
+
+## YouTube token (ek dafa)
+
+Google Cloud mein YouTube Data API v3 + Desktop OAuth client. Local machine par token banao, JSON `YOUTUBE_TOKEN_JSON` secret mein paste karo. Service account se YouTube upload nahi hota.
+
+## Local
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
 pip install -r requirements.txt
 export GEMINI_API_KEY=...
-# place client_secret.json and optionally youtube_token.json in the repo root
+# client_secret.json (+ optional youtube_token.json) repo root par
 python main.py
 ```
-
-`DRY_RUN=true` logs metadata to Sheets without calling YouTube.
-
-### Sheet columns
-
-Logged At (UTC) · Source File · Source Id · Title · Description · Tags · Topic · Score · Status · Scheduled For (ET) · YouTube Video ID · Notes
-
-Status values: `SCHEDULED`, `DRY_RUN`, `IGNORED`, `FAILED`.
-
-## Schedule
-
-GitHub Actions cron: `0 13,22 * * *` (before the two ET publish windows). Manual **Run workflow** is also enabled.
