@@ -12,6 +12,9 @@ import shutil
 # --- CONFIGURATIONS & FILE PATHS ---
 SPREADSHEET_ID = "15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618"
 MAIN_FOLDER_ID = "1x1DpEkCpxF8TqDHL1Tz1DM8Ikudix8Az"
+RAW_FOLDER_ID = "1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J"
+PROCESSED_FOLDER_ID = "1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf"
+
 RAW_VIDEO_PATH = "raw_input.mp4"       
 PROCESSED_VIDEO_PATH = "enhanced_output.mp4" 
 
@@ -28,29 +31,14 @@ def init_google_sheet_and_drive():
     
     return sheets_service, drive_service
 
-def get_folder_id(service, folder_name, parent_id=None):
-    query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false"
-    if parent_id:
-        query += f" and '{parent_id}' in parents"
-    results = service.files().list(q=query, fields="files(id, name)").execute()
-    files = results.get('files', [])
-    return files[0]['id'] if files else None
-
 def fetch_videos_from_raw_folder(service):
-    print("📁 Connecting to Google Drive...")
-    
-    raw_folder_id = get_folder_id(service, "Raw_Videos", MAIN_FOLDER_ID)
-    processed_folder_id = get_folder_id(service, "Processed_Videos", MAIN_FOLDER_ID)
-    
-    if not raw_folder_id:
-        print("⚠️ 'Raw_Videos' folder nahi mila! Please check karein ke folder ka naam theek hai.")
-        return None, None, []
+    print("📁 Connecting to Google Drive via Direct IDs...")
         
-    query = f"'{raw_folder_id}' in parents and mimeType contains 'video/' and trashed = false"
+    query = f"'{RAW_FOLDER_ID}' in parents and mimeType contains 'video/' and trashed = false"
     results = service.files().list(q=query, pageSize=5, fields="files(id, name)").execute()
     items = results.get('files', [])
     
-    return processed_folder_id, raw_folder_id, items
+    return PROCESSED_FOLDER_ID, RAW_FOLDER_ID, items
 
 def download_video_file(service, file_id, output_path):
     print(f"📥 Downloading video file ID: {file_id}...")
