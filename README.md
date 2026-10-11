@@ -2,6 +2,8 @@
 
 Python + GitHub Actions pipeline that:
 
+Niche: **personal finance and business**. All upload history and metadata live in the Google Sheet.
+
 1. Scans `videos/` **and** a Google Drive `Raw_Videos` folder
 2. Extracts the first frame and asks **Gemini** for topic, title, description, tags, and a quality score
 3. Deduplicates against **Google Sheets** (filename, Drive id, title)

@@ -54,7 +54,7 @@ CREDENTIALS_FILE = os.getenv("GOOGLE_CREDENTIALS_FILE", "client_secret.json")
 YOUTUBE_TOKEN_FILE = os.getenv("YOUTUBE_TOKEN_FILE", "youtube_token.json")
 
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
-CHANNEL_NICHE = os.getenv("CHANNEL_NICHE", "human psychology / self-improvement")
+CHANNEL_NICHE = os.getenv("CHANNEL_NICHE", "personal finance and business")
 MAX_VIDEOS_PER_DAY = int(os.getenv("MAX_VIDEOS_PER_DAY", "2"))
 MIN_QUALITY_SCORE = int(os.getenv("MIN_QUALITY_SCORE", "90"))
 DRY_RUN = os.getenv("DRY_RUN", "false").lower() in {"1", "true", "yes"}
