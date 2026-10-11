@@ -2,8 +2,8 @@ name: YouTube Auto Publish Pipeline
 
 on:
   schedule:
-    # 13:00 UTC ≈ 09:00 ET  and  22:00 UTC ≈ 18:00 ET  — before day & night slots
-    - cron: "0 13,22 * * *"
+    # Before 14:00 ET (~18:00 UTC) and 20:00 ET (~00:00 UTC) peak slots
+    - cron: "0 16,23 * * *"
   workflow_dispatch:
 
 jobs:

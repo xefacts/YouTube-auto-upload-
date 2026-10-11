@@ -6,8 +6,11 @@ Python + GitHub Actions pipeline that:
 2. Extracts the first frame and asks **Gemini** for topic, title, description, tags, and a quality score
 3. Deduplicates against **Google Sheets** (filename, Drive id, title)
 4. Ranks leftover videos so similar topics are not back-to-back
-5. Schedules **2 videos per US day** — midday (12:00 ET) and prime time (19:00 ET)
-6. Uploads with YouTube Data API `publishAt`, moves Drive files to `Processed_Videos`, logs a report
+5. Schedules **exactly 2 videos per US day** at YouTube peak traffic: **14:00 ET** and **20:00 ET**
+6. Uploads only videos with **AI score ≥ 90**; ignores low quality
+7. **One topic = one video** (never two videos on the same topic)
+8. Topic comes from first-frame OCR text or the first spoken sentence (~90%), not the filename
+9. Gemini writes SEO title, description, and tags; YouTube `publishAt` + Sheets report
 
 ## Setup
 
