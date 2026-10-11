@@ -133,6 +133,8 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           YOUTUBE_TOKEN_JSON: ${{ secrets.YOUTUBE_TOKEN_JSON }}
+          RAW_FOLDER_ID: ${{ vars.RAW_FOLDER_ID || '1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J' }}
+          PROCESSED_FOLDER_ID: ${{ vars.PROCESSED_FOLDER_ID || '1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf' }}
           CHANNEL_NICHE: personal finance and business
           MIN_QUALITY_SCORE: "90"
           MAX_VIDEOS_PER_DAY: "2"
@@ -145,6 +147,8 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           YOUTUBE_TOKEN_JSON: ${{ secrets.YOUTUBE_TOKEN_JSON }}
+          RAW_FOLDER_ID: ${{ vars.RAW_FOLDER_ID || '1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J' }}
+          PROCESSED_FOLDER_ID: ${{ vars.PROCESSED_FOLDER_ID || '1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf' }}
           CHANNEL_NICHE: personal finance and business
           MIN_QUALITY_SCORE: "90"
           MAX_VIDEOS_PER_DAY: "2"

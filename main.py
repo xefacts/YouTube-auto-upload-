@@ -198,10 +198,19 @@ def describe_exception(exc: BaseException) -> str:
     return f"{type(exc).__name__}: {message[:400]}" if message else type(exc).__name__
 
 
+def gemini_label() -> str:
+    """Which Gemini model this run actually used (for the run summary)."""
+    return getattr(_GEMINI_CLIENT, "model", "") or GEMINI_MODEL
+
+
 def annotate(level: str, title: str, message: str) -> None:
-    """Emit a GitHub Actions annotation (sanitized) and a plain log line."""
-    safe = sanitize(message).replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
-    print(f"::{level} title={title}::{safe}")
+    """Emit a sanitized GitHub Actions annotation (or a plain line outside CI)."""
+    safe = sanitize(message)
+    if os.getenv("GITHUB_ACTIONS") == "true" and os.getenv("PIPELINE_QUIET_ANNOTATIONS") != "1":
+        escaped = safe.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+        print(f"::{level} title={title}::{escaped}")
+    else:
+        print(f"[{level}] {title}: {safe}")
 
 
 # ---------------------------------------------------------------------------
@@ -1298,8 +1307,21 @@ def doctor() -> int:
     try:
         client = configure_gemini()
         model = client.resolve_model()
-        text = client.generate([{"text": "Reply with the single word: OK"}], json_mode=False, max_output_tokens=32)
-        print(f"✅ Gemini reachable (model '{model}', probe reply: {sanitize(text)[:40]!r})")
+        probe = ""
+        try:
+            text = client.generate(
+                [{"text": "Reply with the single word: OK"}], json_mode=False, max_output_tokens=512
+            )
+            probe = f"probe reply {sanitize(text)[:20]!r}"
+        except GeminiError as exc:
+            # Newer Flash models spend the output budget on thinking tokens, so an
+            # empty answer on a tiny probe still proves the model is reachable.
+            if "returned no text" in str(exc):
+                probe = "model answered (probe hit the output-token cap)"
+            else:
+                raise
+        print(f"✅ Gemini reachable (model '{model}', {probe})")
+        annotate("notice", "Doctor: Gemini", f"model={model} {probe}")
     except Exception as exc:  # noqa: BLE001
         annotate("error", "Doctor: Gemini", f"Gemini not usable ({describe_exception(exc)})")
         fatal += 1
@@ -1412,7 +1434,11 @@ def run() -> int:
 
     if not fresh:
         print("⚠️  No new videos. Idle.")
-        annotate("notice", "Pipeline summary", f"No new videos. files={len(logged)} topics={len(used_topics)}")
+        annotate(
+            "notice",
+            "Pipeline summary",
+            f"No new videos. files={len(logged)} topics={len(used_topics)} gemini={gemini_label()}",
+        )
         return 0
 
     analyzed: list[VideoCandidate] = []
@@ -1564,8 +1590,10 @@ def run() -> int:
         )
     summary = (
         f"mode={'dry-run' if DRY_RUN else 'live'} files={len(candidates)} fresh={len(fresh)} "
-        f"queued={len(analyzed)} scheduled={len(scheduled)}"
+        f"queued={len(analyzed)} scheduled={len(scheduled)} gemini={gemini_label()}"
     )
+    if problems:
+        summary += f" warnings={len(problems)}"
     annotate("notice", "Pipeline summary", summary)
     return 0
 

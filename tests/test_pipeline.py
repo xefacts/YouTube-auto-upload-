@@ -1,7 +1,11 @@
 import contextlib
 import json
+import os
 import tempfile
 import unittest
+
+# keep the mocked runs from emitting GitHub Actions annotations during CI tests
+os.environ.setdefault("PIPELINE_QUIET_ANNOTATIONS", "1")
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import Mock, patch
