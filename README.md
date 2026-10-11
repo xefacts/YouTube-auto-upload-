@@ -108,7 +108,11 @@ Each run performs two preflight steps before the pipeline:
   folders, Gemini model discovery + a tiny probe, YouTube token refresh, ffmpeg.
 
 A broken YouTube token is only a warning in dry-run mode (dry runs never upload)
-and a hard error in live mode. Failures are reported as GitHub check annotations
+and a hard error in live mode. The free Gemini tier allows only **20 requests per
+model per day**, so the pipeline spends one request per video plus one doctor
+probe; pin a lighter model with the `GEMINI_MODEL` repository variable
+(Settings -> Secrets and variables -> Actions -> Variables) when the quota is
+tight, or enable billing. Failures are reported as GitHub check annotations
 and in the run's job summary; secret values are redacted from every log line.
 
 ## Dependencies
