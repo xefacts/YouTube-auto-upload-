@@ -6,7 +6,7 @@ Rules (do not change):
   - Niche: personal finance and business.
   - At most 2 videos per US calendar day, published at the 2:00 PM ET and
     8:00 PM ET peak slots.
-  - Only videos with an AI quality score >= 90 are published.
+  - Only videos with an AI quality score >= 85 (8.5/10) are published.
   - One topic = one video, forever (Google Sheet history + in-batch).
   - The topic is taken from the on-screen first-frame text or from the first
     spoken line (first seconds of audio), never from the filename.
@@ -83,7 +83,7 @@ GEMINI_MODEL_PREFERENCES = [
 
 CHANNEL_NICHE = os.getenv("CHANNEL_NICHE", "personal finance and business")
 MAX_VIDEOS_PER_DAY = int(os.getenv("MAX_VIDEOS_PER_DAY", "2"))
-MIN_QUALITY_SCORE = int(os.getenv("MIN_QUALITY_SCORE", "90"))
+MIN_QUALITY_SCORE = int(os.getenv("MIN_QUALITY_SCORE", "85"))  # 8.5/10 on the 0-100 scale
 DRY_RUN = os.getenv("DRY_RUN", "false").lower() in {"1", "true", "yes"}
 
 # US YouTube peak traffic (America/New_York)
@@ -1521,7 +1521,7 @@ def rank_sequence(candidates: list[VideoCandidate]) -> list[VideoCandidate]:
 
 def run() -> int:
     print("=" * 64)
-    print("🚀 YouTube Auto-Publish  |  2/day US peaks  |  score>=90  |  1 topic")
+    print("🚀 YouTube Auto-Publish  |  2/day US peaks  |  score>=85 (8.5/10)  |  1 topic")
     print(f"   mode: {'DRY RUN (no uploads)' if DRY_RUN else 'LIVE'}")
     print("=" * 64)
 

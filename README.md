@@ -10,7 +10,7 @@ Saari video history Google Sheet mein rehti hai.
 | Niche | personal finance and business |
 | Videos per US day | max **2** |
 | Slots | **14:00 ET** and **20:00 ET** |
-| Quality gate | AI score **< 90 → ignore** |
+| Quality gate | AI score **< 8.5/10 (85/100) → ignore** |
 | Topics | one topic = one video (Sheet history + in-batch) |
 | Topic source | first-frame on-screen text or first spoken line (not the filename) |
 | Metadata | Gemini writes title / description / tags |
@@ -48,7 +48,7 @@ gh api -X POST repos/OWNER/REPO/dispatches \
 1. Read the Sheet history (used files, used topics, booked slots).
 2. Scan Drive `Raw_Videos` + local `videos/`.
 3. First frame (OCR) + first 20s audio (first spoken line) → Gemini.
-4. Score **< 90** → `LOW_QUALITY`; known topic → `DUPLICATE_TOPIC`.
+4. Score **< 85 (8.5/10)** → `LOW_QUALITY`; known topic → `DUPLICATE_TOPIC`.
 5. Pick the next open **14:00 / 20:00 ET** slots (max 2 per US day).
 6. Gemini SEO title / description / tags → YouTube `publishAt` (private until then).
 7. Log every decision in the Sheet; uploaded Drive files move to `Processed`.
