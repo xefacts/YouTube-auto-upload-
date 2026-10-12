@@ -177,7 +177,7 @@ class PipelineRulesTests(unittest.TestCase):
             {"2026-10-11 14", "2026-10-12 20"},
         )
 
-    def test_gemini_score_below_90_marks_video_for_ignoring(self):
+    def test_gemini_score_below_85_marks_video_for_ignoring(self):
         client = Mock()
         client.generate.return_value = json.dumps(
             {
@@ -186,7 +186,7 @@ class PipelineRulesTests(unittest.TestCase):
                 "title": "A Better Monthly Savings Plan",
                 "description": "Practical savings advice.",
                 "tags": ["saving", "budget"],
-                "score": 89,
+                "score": 84,
                 "reason": "The opening hook is unclear.",
                 "skip": False,
             }
@@ -195,13 +195,13 @@ class PipelineRulesTests(unittest.TestCase):
 
         main.analyze_video_with_gemini(candidate, None, None, client=client)
 
-        self.assertEqual(candidate.score, 89)
+        self.assertEqual(candidate.score, 84)
         self.assertTrue(candidate.skip)
         self.assertEqual(candidate.topic, "monthly savings")
         self.assertEqual(candidate.tags, ["saving", "budget"])
         prompt = client.generate.call_args.args[0][0]["text"]
         self.assertIn("personal finance and business", prompt)
-        self.assertIn("90", prompt)
+        self.assertIn("85", prompt)
 
     def test_gemini_analysis_attaches_first_frame_and_opening_audio(self):
         client = Mock()

@@ -58,7 +58,7 @@ jobs:
           if [ "$dry_run" = "true" ]; then
             echo "::notice title=Run mode::DRY RUN - no YouTube uploads, Google Sheet rows only."
           else
-            echo "::notice title=Run mode::LIVE RUN - eligible videos (score>=90, new topic, max 2/day at 14:00/20:00 ET) will be scheduled on YouTube."
+            echo "::notice title=Run mode::LIVE RUN - eligible videos (score>=85 = 8.5/10, new topic, max 2/day at 14:00/20:00 ET) will be scheduled on YouTube."
           fi
 
       - name: Require secrets
@@ -154,7 +154,7 @@ jobs:
           RAW_FOLDER_ID: ${{ vars.RAW_FOLDER_ID || '1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J' }}
           PROCESSED_FOLDER_ID: ${{ vars.PROCESSED_FOLDER_ID || '1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf' }}
           CHANNEL_NICHE: personal finance and business
-          MIN_QUALITY_SCORE: "90"
+          MIN_QUALITY_SCORE: "85"
           MAX_VIDEOS_PER_DAY: "2"
           DAY_SLOT_HOUR: "14"
           NIGHT_SLOT_HOUR: "20"
@@ -172,7 +172,7 @@ jobs:
           RAW_FOLDER_ID: ${{ vars.RAW_FOLDER_ID || '1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J' }}
           PROCESSED_FOLDER_ID: ${{ vars.PROCESSED_FOLDER_ID || '1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf' }}
           CHANNEL_NICHE: personal finance and business
-          MIN_QUALITY_SCORE: "90"
+          MIN_QUALITY_SCORE: "85"
           MAX_VIDEOS_PER_DAY: "2"
           DAY_SLOT_HOUR: "14"
           NIGHT_SLOT_HOUR: "20"
