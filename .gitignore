@@ -4,7 +4,10 @@ __pycache__/
 venv/
 work/
 client_secret.json
+client_secret_*.json
 youtube_token.json
+*_token.json
+*.log
 *.mp4
 *.mov
 *.mkv

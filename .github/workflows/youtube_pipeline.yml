@@ -30,7 +30,9 @@ permissions:
 jobs:
   publish:
     name: Scan · AI · Sheet · Schedule 2/day
-    runs-on: ubuntu-latest
+    # Override with the ACTIONS_RUNNER repository variable (e.g. a self-hosted
+    # runner); defaults to the GitHub-hosted Ubuntu image.
+    runs-on: ${{ vars.ACTIONS_RUNNER || 'ubuntu-latest' }}
     timeout-minutes: 90
     steps:
       - name: Checkout
@@ -69,11 +71,17 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          SHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          RAW_ID: ${{ secrets.RAW_FOLDER_ID }}
+          PROCESSED_ID: ${{ secrets.PROCESSED_FOLDER_ID }}
           DRY_RUN: ${{ env.dry_run }}
         run: |
           missing=0
           if [ -z "$GOOGLE_JSON" ]; then echo "::error::Set secret GOOGLE_CREDENTIALS_JSON"; missing=1; fi
           if [ -z "$GEMINI" ]; then echo "::error::Set secret GEMINI_API_KEY"; missing=1; fi
+          if [ -z "$SHEET_ID" ]; then echo "::error::Set secret SPREADSHEET_ID"; missing=1; fi
+          if [ -z "$RAW_ID" ]; then echo "::error::Set secret RAW_FOLDER_ID"; missing=1; fi
+          if [ -z "$PROCESSED_ID" ]; then echo "::error::Set secret PROCESSED_FOLDER_ID"; missing=1; fi
           # A live run needs either the combined token JSON or the split secrets.
           have_split="false"
           if [ -n "$YT_CLIENT_ID" ] && [ -n "$YT_CLIENT_SECRET" ] && [ -n "$YT_REFRESH_TOKEN" ]; then
@@ -87,7 +95,7 @@ jobs:
           fi
           if [ "$missing" -ne 0 ]; then exit 1; fi
           present() { if [ -n "$1" ]; then printf 'yes'; else printf 'no'; fi; }
-          echo "::notice title=Credential inventory::GOOGLE_CREDENTIALS_JSON=$(present "$GOOGLE_JSON") GEMINI_API_KEY=$(present "$GEMINI") YOUTUBE_TOKEN_JSON=$(present "$YT_TOKEN") YOUTUBE_CLIENT_ID=$(present "$YT_CLIENT_ID") YOUTUBE_CLIENT_SECRET=$(present "$YT_CLIENT_SECRET") YOUTUBE_REFRESH_TOKEN=$(present "$YT_REFRESH_TOKEN")"
+          echo "::notice title=Credential inventory::GOOGLE_CREDENTIALS_JSON=$(present "$GOOGLE_JSON") GEMINI_API_KEY=$(present "$GEMINI") YOUTUBE_TOKEN_JSON=$(present "$YT_TOKEN") YOUTUBE_CLIENT_ID=$(present "$YT_CLIENT_ID") YOUTUBE_CLIENT_SECRET=$(present "$YT_CLIENT_SECRET") YOUTUBE_REFRESH_TOKEN=$(present "$YT_REFRESH_TOKEN") SPREADSHEET_ID=$(present "$SHEET_ID") RAW_FOLDER_ID=$(present "$RAW_ID") PROCESSED_FOLDER_ID=$(present "$PROCESSED_ID")"
 
       - name: Set up Python
         uses: actions/setup-python@v7.0.0
@@ -112,9 +120,25 @@ jobs:
           fi
 
       - name: Install ffmpeg
+        shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ffmpeg libgl1
+          case "${RUNNER_OS:-Linux}" in
+            Linux)
+              sudo apt-get update
+              sudo apt-get install -y --no-install-recommends ffmpeg libgl1
+              ;;
+            macOS)
+              brew install ffmpeg
+              ;;
+            Windows)
+              choco install ffmpeg --no-progress --yes
+              ;;
+            *)
+              echo "::error::Unsupported runner OS '${RUNNER_OS}' for ffmpeg install"
+              exit 1
+              ;;
+          esac
+          ffmpeg -version | head -n 1
 
       - name: Install pinned Python dependencies
         run: |
@@ -151,8 +175,9 @@ jobs:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-          RAW_FOLDER_ID: ${{ vars.RAW_FOLDER_ID || '1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J' }}
-          PROCESSED_FOLDER_ID: ${{ vars.PROCESSED_FOLDER_ID || '1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf' }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          RAW_FOLDER_ID: ${{ secrets.RAW_FOLDER_ID }}
+          PROCESSED_FOLDER_ID: ${{ secrets.PROCESSED_FOLDER_ID }}
           CHANNEL_NICHE: personal finance and business
           MIN_QUALITY_SCORE: "85"
           MAX_VIDEOS_PER_DAY: "2"
@@ -169,8 +194,9 @@ jobs:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-          RAW_FOLDER_ID: ${{ vars.RAW_FOLDER_ID || '1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J' }}
-          PROCESSED_FOLDER_ID: ${{ vars.PROCESSED_FOLDER_ID || '1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf' }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          RAW_FOLDER_ID: ${{ secrets.RAW_FOLDER_ID }}
+          PROCESSED_FOLDER_ID: ${{ secrets.PROCESSED_FOLDER_ID }}
           CHANNEL_NICHE: personal finance and business
           MIN_QUALITY_SCORE: "85"
           MAX_VIDEOS_PER_DAY: "2"
