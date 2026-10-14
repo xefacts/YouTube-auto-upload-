@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
 import json
 import os
 import re
@@ -120,6 +121,23 @@ COMMITTED_STATUSES = {"SCHEDULED", "UPLOADED", "PUBLISHED"}
 RETRYABLE_STATUSES = {"DRY_RUN", "FAILED", "IGNORED", "LOW_QUALITY", "DUPLICATE_TOPIC"}
 
 RETRYABLE_HTTP_STATUS = {408, 429, 500, 502, 503, 504}
+
+# Appended to a failed YouTube refresh whenever Google answers "invalid_grant",
+# because that single error has very different causes that all look identical
+# in the raw log line.
+INVALID_GRANT_HINT = (
+    " invalid_grant means Google refuses this refresh token. In practice it is almost "
+    "always one of: (1) the token was minted with a DIFFERENT OAuth client than the "
+    "client_id/client_secret configured here - in the OAuth 2.0 Playground open the "
+    "gear icon and tick 'Use your own OAuth credentials' before step 1, then use that "
+    "same client id/secret in YOUTUBE_CLIENT_ID/YOUTUBE_CLIENT_SECRET (or re-mint with "
+    "tools/get_youtube_token.py, which always uses one client for both steps); "
+    "(2) the consent screen is still in Testing mode, so refresh tokens expire after "
+    "7 days - move it to Production or re-mint weekly; (3) the token was revoked at "
+    "https://myaccount.google.com/permissions, the OAuth client was deleted/recreated, "
+    "or the wrong channel/account granted consent. Minting a new token is the only fix - "
+    "no code change can revive it."
+)
 
 
 # ---------------------------------------------------------------------------
@@ -257,6 +275,11 @@ def parse_json_object(raw: str, label: str) -> dict:
     if not isinstance(data, dict):
         raise ValueError(f"{label} must be a JSON object, got {type(data).__name__}.")
     return data
+
+
+def is_invalid_grant(exc: BaseException | str) -> bool:
+    """True when Google refused the refresh token (invalid_grant / Bad Request)."""
+    return "invalid_grant" in str(exc).lower()
 
 
 def key_paths(node: Any, prefix: str = "") -> list[str]:
@@ -448,8 +471,12 @@ def youtube_credential_candidates(payload: dict | None) -> list[tuple[str, dict[
             if merged.get("refresh_token") or merged.get("token"):
                 combos.append((f"{client_label} client + {token_label} token", merged))
 
+    # Two sources that hold the *same* client id/secret/refresh token are one
+    # combination, not two - but the log must still say that both secrets were
+    # read, otherwise "combinations tried: YOUTUBE_TOKEN_JSON" looks like the
+    # freshly added split secrets were never exercised.
     unique: list[tuple[str, dict[str, Any]]] = []
-    seen: set[tuple] = set()
+    by_signature: dict[tuple, int] = {}
     for label, fields in combos:
         signature = (
             fields.get("client_id"),
@@ -457,11 +484,30 @@ def youtube_credential_candidates(payload: dict | None) -> list[tuple[str, dict[
             fields.get("refresh_token"),
             fields.get("token"),
         )
-        if signature in seen:
+        if signature in by_signature:
+            index = by_signature[signature]
+            merged_label, merged_fields = unique[index]
+            if label not in merged_label.split(" + "):
+                unique[index] = (f"{merged_label} + {label}", merged_fields)
             continue
-        seen.add(signature)
+        by_signature[signature] = len(unique)
         unique.append((label, fields))
     return unique
+
+
+def fingerprint(value: str) -> str:
+    """Short, non-reversible id so logs can confirm *which* secret was loaded."""
+    return hashlib.sha256(value.encode("utf-8", "replace")).hexdigest()[:12]
+
+
+def credential_fingerprints(fields: dict[str, Any]) -> str:
+    """'client_id=fp:… refresh_token=fp:…' for one credential combination."""
+    parts = []
+    for name in ("client_id", "refresh_token", "token"):
+        value = fields.get(name)
+        if value:
+            parts.append(f"{name}=fp:{fingerprint(value)}")
+    return ", ".join(parts) or "(no credential fields)"
 
 
 def build_youtube_credentials(fields: dict[str, Any]) -> UserCredentials:
@@ -507,6 +553,7 @@ def resolve_youtube_credentials(payload: dict | None) -> tuple[UserCredentials, 
         return creds, label
     detail = " | ".join(problems[:4]) or "no usable credentials"
     tried = ", ".join(label for label, _ in candidates) or "none"
+    hint = INVALID_GRANT_HINT if any(is_invalid_grant(problem) for problem in problems) else ""
     raise RuntimeError(
         "YouTube credentials could not authenticate (combinations tried: "
         + tried
@@ -517,6 +564,7 @@ def resolve_youtube_credentials(payload: dict | None) -> tuple[UserCredentials, 
         "screen still in Testing expires refresh tokens after 7 days) or belongs to a different "
         "client. Re-mint it with tools/get_youtube_token.py or the OAuth 2.0 Playground and "
         "update YOUTUBE_TOKEN_JSON / YOUTUBE_REFRESH_TOKEN."
+        + hint
     )
 
 
@@ -1440,6 +1488,10 @@ def doctor() -> int:
         print(f"🔎 YOUTUBE_TOKEN_JSON fields: {', '.join(k for k, v in fields.items() if v) or '(none)'}")
         candidates = youtube_credential_candidates(payload)
         print(f"🔎 YouTube credential combinations: {[label for label, _ in candidates] or 'none'}")
+        for label, fields in candidates:
+            # Fingerprints (sha256 prefix) let you confirm which secret CI loaded
+            # without ever printing the secret itself.
+            print(f"   {label}: {credential_fingerprints(fields)}")
         usable, message = token_diagnosis(payload, live=not DRY_RUN)
         if usable:
             try:
@@ -1448,7 +1500,9 @@ def doctor() -> int:
                 annotate("notice", "Doctor: YouTube token", f"authenticated using {label}")
             except Exception as exc:  # noqa: BLE001
                 level = "warning" if DRY_RUN else "error"
-                annotate(level, "Doctor: YouTube token", describe_exception(exc))
+                describe = describe_exception(exc)
+                print(f"❌ YouTube credentials rejected: {describe}")
+                annotate(level, "Doctor: YouTube token", describe)
                 fatal += 0 if DRY_RUN else 1
         else:
             level = "warning" if DRY_RUN else "error"
