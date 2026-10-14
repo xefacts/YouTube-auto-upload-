@@ -333,6 +333,70 @@ class CredentialShapeTests(unittest.TestCase):
         self.assertNotIn("AIzaSy-super-secret-key", text)
         self.assertIn("[REDACTED]", text)
 
+    def test_identical_combinations_are_reported_with_merged_labels(self):
+        """A re-added split secret that matches YOUTUBE_TOKEN_JSON is one combo -
+        but the log must still show that both sources were read."""
+        payload = {"client_id": "cid", "client_secret": "csec", "refresh_token": "rtok"}
+        env = {
+            "YOUTUBE_CLIENT_ID": "cid",
+            "YOUTUBE_CLIENT_SECRET": "csec",
+            "YOUTUBE_REFRESH_TOKEN": "rtok",
+        }
+        with patch.dict("os.environ", env, clear=False):
+            combos = main.youtube_credential_candidates(payload)
+
+        self.assertEqual(len(combos), 1)
+        label = combos[0][0]
+        self.assertIn("YOUTUBE_TOKEN_JSON", label)
+        self.assertIn("split secrets", label)
+
+    def test_different_refresh_tokens_stay_separate_combinations(self):
+        payload = {"client_id": "cid", "client_secret": "csec", "refresh_token": "old-rtok"}
+        env = {
+            "YOUTUBE_CLIENT_ID": "cid",
+            "YOUTUBE_CLIENT_SECRET": "csec",
+            "YOUTUBE_REFRESH_TOKEN": "new-rtok",
+        }
+        with patch.dict("os.environ", env, clear=False):
+            combos = main.youtube_credential_candidates(payload)
+
+        self.assertEqual(len(combos), 2)
+        self.assertEqual(combos[0][1]["refresh_token"], "old-rtok")
+        self.assertEqual(combos[1][1]["refresh_token"], "new-rtok")
+
+    def test_invalid_grant_gets_the_re_mint_guidance(self):
+        from google.auth.exceptions import RefreshError
+
+        payload = {"client_id": "cid", "client_secret": "csec", "refresh_token": "rtok"}
+        fake_creds = Mock()
+        fake_creds.token = None
+        fake_creds.expired = True
+        fake_creds.refresh_token = "rtok"
+        fake_creds.refresh.side_effect = RefreshError(
+            "('invalid_grant: Bad Request', {'error': 'invalid_grant'})"
+        )
+
+        with patch.dict("os.environ", {}, clear=True), \
+             patch.object(main, "build_youtube_credentials", return_value=fake_creds), \
+             patch.object(main, "retry_call", side_effect=lambda fn, **kw: fn()):
+            with self.assertRaises(RuntimeError) as ctx:
+                main.resolve_youtube_credentials(payload)
+
+        message = str(ctx.exception)
+        self.assertIn("invalid_grant", message)
+        self.assertIn("Use your own OAuth credentials", message)
+        self.assertIn("tools/get_youtube_token.py", message)
+
+    def test_fingerprints_identify_secrets_without_exposing_them(self):
+        secret = "1//0g-supersecretrefreshtoken"
+
+        printed = main.credential_fingerprints({"refresh_token": secret, "client_id": "cid"})
+
+        self.assertNotIn(secret, printed)
+        self.assertIn("refresh_token=fp:", printed)
+        self.assertEqual(main.fingerprint(secret), main.fingerprint(secret))
+        self.assertNotEqual(main.fingerprint(secret), main.fingerprint(secret + "x"))
+
 
 class PipelineRunTests(unittest.TestCase):
     """End-to-end run() with the Google/YouTube edges mocked out."""

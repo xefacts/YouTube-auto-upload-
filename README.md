@@ -115,6 +115,46 @@ probe; pin a lighter model with the `GEMINI_MODEL` repository variable
 tight, or enable billing. Failures are reported as GitHub check annotations
 and in the run's job summary; secret values are redacted from every log line.
 
+## Troubleshooting
+
+### Job fails in ~2 seconds with "recent account payments have failed"
+
+The Actions job never starts, so nothing in the repo can fix it. Open
+**Settings → Billing & plans** (user settings, not the repo) and either settle the
+failed payment or raise the Actions spending limit. Until then every scheduled,
+dispatched and push run fails instantly, and no dry-run result is produced.
+
+### `invalid_grant: Bad Request` on the YouTube token
+
+Google refuses the refresh token. The pipeline now prints the diagnosis with the
+error, and it always comes down to one of:
+
+1. **The token was minted with a different OAuth client** than the
+   `client_id` / `client_secret` used at runtime — the most common cause. In the
+   [OAuth 2.0 Playground](https://developers.google.com/oauthplayground) open the
+   gear icon and tick **Use your own OAuth credentials** *before* step 1, then use
+   that same client id/secret in `YOUTUBE_CLIENT_ID` / `YOUTUBE_CLIENT_SECRET`.
+   `python tools/get_youtube_token.py --client-secret client_secret_xxx.json`
+   cannot hit this trap because it uses one client for both steps.
+2. **Consent screen still in Testing** — refresh tokens expire after 7 days. Move
+   the app to Production or re-mint weekly.
+3. **Revoked / recreated client** — check
+   <https://myaccount.google.com/permissions> and the Cloud Console credentials
+   list.
+
+A dead refresh token can only be replaced, never repaired. Secrets are never
+printed: the doctor log shows `client_id=fp:…` / `refresh_token=fp:…`
+fingerprints (first 12 hex chars of the SHA-256) so you can confirm which secret
+CI actually loaded:
+
+```bash
+# fingerprint only - the secret itself is never typed or echoed
+tr -d '\n' < refresh_token.txt | sha256sum | cut -c1-12
+```
+
+(A trailing newline is ignored, so a value pasted into a file and the value read
+from the secret produce the same fingerprint.)
+
 ## Dependencies
 
 `requirements.txt` is a fully pinned CPython 3.11 runtime lock (including
