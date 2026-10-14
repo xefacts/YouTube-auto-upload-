@@ -51,11 +51,44 @@ from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
-SPREADSHEET_ID = os.getenv("SPREADSHEET_ID", "15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618")
+# No Google resource ids live in this repository (it is public): the sheet and
+# the two Drive folder ids must come from the environment / GitHub Secrets.
+SPREADSHEET_ID = (os.getenv("SPREADSHEET_ID") or "").strip()
 SHEET_RANGE = os.getenv("SHEET_RANGE", "Sheet1!A:L")
 SHEET_TAB = (os.getenv("SHEET_TAB") or "").strip()
-RAW_FOLDER_ID = os.getenv("RAW_FOLDER_ID", "1-YtW4xKp1qg1TzebJI5qlIjNKzuo_r_J")
-PROCESSED_FOLDER_ID = os.getenv("PROCESSED_FOLDER_ID", "1ftCj1FCSAEdE3qD2HM_1R83zhCwUIiOf")
+RAW_FOLDER_ID = (os.getenv("RAW_FOLDER_ID") or "").strip()
+PROCESSED_FOLDER_ID = (os.getenv("PROCESSED_FOLDER_ID") or "").strip()
+
+# Mandatory settings. Only NAMES are ever reported, never values.
+REQUIRED_CONFIG = ("SPREADSHEET_ID", "RAW_FOLDER_ID", "PROCESSED_FOLDER_ID")
+
+
+def _env(name: str) -> str:
+    return (os.getenv(name) or "").strip()
+
+
+def missing_config() -> list[str]:
+    """Return the NAMES (never the values) of required settings that are unset."""
+    return [name for name in REQUIRED_CONFIG if not _env(name)]
+
+
+def require_config() -> None:
+    """Stop unless every REQUIRED_CONFIG variable is set (missing names only).
+
+    On success, refreshes the module-level config from the live environment so
+    later calls see values provided after import time.
+    """
+    missing = missing_config()
+    if missing:
+        raise RuntimeError(
+            "Missing required configuration: "
+            + ", ".join(missing)
+            + ". Set them as environment variables (GitHub Secrets in the workflow)."
+        )
+    global SPREADSHEET_ID, RAW_FOLDER_ID, PROCESSED_FOLDER_ID
+    SPREADSHEET_ID = _env("SPREADSHEET_ID")
+    RAW_FOLDER_ID = _env("RAW_FOLDER_ID")
+    PROCESSED_FOLDER_ID = _env("PROCESSED_FOLDER_ID")
 
 LOCAL_VIDEO_DIR = Path(os.getenv("LOCAL_VIDEO_DIR", "videos"))
 WORK_DIR = Path(os.getenv("WORK_DIR", "work"))
@@ -1408,6 +1441,18 @@ def doctor() -> int:
     print("=" * 64)
     fatal = 0
 
+    # 0) required configuration (names only, never values)
+    missing = missing_config()
+    if missing:
+        print(f"❌ Missing required config: {', '.join(missing)}")
+        annotate(
+            "error",
+            "Doctor: configuration",
+            "set these variables/secrets before running: " + ", ".join(missing),
+        )
+        return 1
+    require_config()
+
     # 1) service account / sheet
     try:
         sheets, drive = load_service_account()
@@ -1574,6 +1619,7 @@ def rank_sequence(candidates: list[VideoCandidate]) -> list[VideoCandidate]:
 
 
 def run() -> int:
+    require_config()
     print("=" * 64)
     print("🚀 YouTube Auto-Publish  |  2/day US peaks  |  score>=85 (8.5/10)  |  1 topic")
     print(f"   mode: {'DRY RUN (no uploads)' if DRY_RUN else 'LIVE'}")
