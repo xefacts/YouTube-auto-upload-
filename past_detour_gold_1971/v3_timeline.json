@@ -1,0 +1,47 @@
+[
+  {
+    "start": 0.0,
+    "end": 5.75,
+    "mode": "vault"
+  },
+  {
+    "start": 5.89,
+    "end": 9.59,
+    "mode": "promise"
+  },
+  {
+    "start": 9.59,
+    "end": 15.51,
+    "mode": "exchange"
+  },
+  {
+    "start": 15.65,
+    "end": 18.75,
+    "mode": "ocean"
+  },
+  {
+    "start": 18.75,
+    "end": 22.11,
+    "mode": "shortfall"
+  },
+  {
+    "start": 22.25,
+    "end": 32.23,
+    "mode": "tv"
+  },
+  {
+    "start": 32.37,
+    "end": 40.79,
+    "mode": "float"
+  },
+  {
+    "start": 40.93,
+    "end": 44.93,
+    "mode": "never"
+  },
+  {
+    "start": 44.93,
+    "end": 50.51,
+    "mode": "legacy"
+  }
+]

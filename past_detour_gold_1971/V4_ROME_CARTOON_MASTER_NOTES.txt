@@ -1,0 +1,15 @@
+PAST DETOUR — 1971 GOLD WINDOW / ROME-V10-STYLE CARTOON EDIT
+LATEST MASTER TO UPLOAD: Past_Detour_1971_Gold_Window_ROME_STYLE_V4.mp4
+Earlier V1 illustrated edit, V2 vector-character edit and V3 realistic cel-painting edit are superseded. Use this V4 file.
+
+This revision was built AFTER viewing the actual Rome Gunpowder V10 master and its timeline showcase. That reference uses rounded simplified expressive cartoon people, strong ink contours, warm flat cel colors, detailed architectural/location backgrounds, key-pose acting, object motion, map moves, dramatic title/ending cards and brisk shot reframing. V4 builds original finance-history characters and settings in that broad production language: no Roman footage, characters, shields, eagle emblems, maps, title cards, audio or logos were reused in the final video.
+
+10 newly generated original 2D cartoon images form the source art: open/closed gold vault and banker poses, Bretton Woods conference, two official dollar/gold handoff poses, harbor shipment, banker reacting to dollar claims vs gold, two 1971 TV/viewer poses, and a 1973 currency-market map/trader. The animated edit also adds a translating vault door, physical banker pose cut, signing line, animated dollar handoff, airborne ocean-bound notes, growing dollar claims, TV reaction/gesture and scan, four currency-market camera set-ups and tracked exchange-rate paths, closing vault/action insert, and a tipping money-vs-gold verdict scale with returning cartoon banker. No claims are made that every limb was redrawn in every video frame: this is a cutout/key-pose 2D animated explainer edit, not traditional frame-by-frame animation.
+
+Export: English narration; 9:16 vertical 1080 x 1920; TRUE 60 fps rendered frames; 51.4 seconds; H.264 video and AAC stereo sound. 10 original painted source images were 768 x 1376 before crop/resampling, so this is NOT claimed to be native 4K. Full audio/video stream decoded with FFmpeg without errors. Quiet original non-musical Foley is mixed under the narration; no instrumental soundtrack or archival speech.
+
+Suggested title: The Night Nixon Cut the Dollar Off Gold | 1971 #Shorts
+Suggested description: In 1971, foreign governments could exchange U.S. dollars for gold at $35 an ounce. Nixon suspended that gold window and called it temporary. It never reopened. What would you have seen coming? Original illustrated 2D historical reconstruction; not archival footage. Sources: https://history.state.gov/milestones/1969-1976/nixon-shock and https://www.federalreservehistory.org/essays/gold-convertibility-ends
+Suggested hashtags: #Shorts #EconomicHistory #GoldStandard #NixonShock #PastDetour
+
+Fact-check: $35/oz convertibility was for foreign monetary authorities, not ordinary shoppers. The August 15, 1971 announcement suspended the exchange; major currencies floated by 1973, not on that same night. All scenes are illustrated reconstructions, not archival records. This is an editorial attempt, not a guarantee of views, retention, engagement, monetization or RPM.
