@@ -1,0 +1,5 @@
+# Isolated animation-rendering dependencies; do not add to the upload pipeline's pinned requirements.txt.
+pillow==11.3.0
+numpy==2.4.6
+opencv-python-headless==4.14.0.94
+imageio-ffmpeg==0.7.0

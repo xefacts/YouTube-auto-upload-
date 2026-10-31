@@ -1,0 +1,6 @@
+# Rendered deliverables and transient review output live on Google Drive, not in Git.
+*.mp4
+*.zip
+v4_audio.wav
+v4_review/
+v4_assets/contact_all.jpg
