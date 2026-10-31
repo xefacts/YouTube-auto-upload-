@@ -1,0 +1,51 @@
+[Script Info]
+Title: Emu War final phase — exact Phase 2 narration
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Caption,DejaVu Sans,39,&H00F7F8F7,&H009EE8C9,&H0010191B,&H8C10191B,-1,0,0,0,100,100,0,0,3,10,0,2,30,30,0,1
+Style: Accent,DejaVu Sans,20,&H009EE8C9,&H009EE8C9,&H0010191B,&H0010191B,-1,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.17,0:00:01.56,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}Remember the Emu {\c&H9EE8C9&}War?{\c&H00F7F8F7&}
+Dialogue: 1,0:00:00.17,0:00:01.56,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:01.62,0:00:03.78,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}The soldiers actually came\N{\c&H9EE8C9&}back.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:01.62,0:00:03.78,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:03.84,0:00:07.55,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}After the first\Nembarrassing withdrawal\Nin November {\c&H9EE8C9&}1932,{\c&H00F7F8F7&}
+Dialogue: 1,0:00:03.84,0:00:07.55,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:07.61,0:00:10.70,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}farmers insisted the crop\Ndamage was still {\c&H9EE8C9&}serious.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:07.61,0:00:10.70,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:10.76,0:00:12.48,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}The small gun team\N{\c&H9EE8C9&}returned.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:10.76,0:00:12.48,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:12.54,0:00:13.62,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}By {\c&H9EE8C9&}December,{\c&H00F7F8F7&}
+Dialogue: 1,0:00:12.54,0:00:13.62,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:13.68,0:00:17.50,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}Major Meredith reported\Nnine hundred and eighty\N{\c&H9EE8C9&}six{\c&H00F7F8F7&} emus killed.
+Dialogue: 1,0:00:13.68,0:00:17.50,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:17.56,0:00:18.92,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}That was not {\c&H9EE8C9&}zero,{\c&H00F7F8F7&}
+Dialogue: 1,0:00:17.56,0:00:18.92,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:18.98,0:00:21.81,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}but it was nowhere near\Nenough to stop the\N{\c&H9EE8C9&}migration.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:18.98,0:00:21.81,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:21.87,0:00:23.87,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}Newspapers loved the\N{\c&H9EE8C9&}story.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:21.87,0:00:23.87,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:23.93,0:00:26.07,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}The farmers still needed\N{\c&H9EE8C9&}protection.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:23.93,0:00:26.07,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:26.13,0:00:27.45,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}In {\c&H9EE8C9&}1934,{\c&H00F7F8F7&}
+Dialogue: 1,0:00:26.13,0:00:27.45,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:27.51,0:00:31.24,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}the government supplied\Nammunition and paid\N{\c&H9EE8C9&}bounties{\c&H00F7F8F7&} for emu hunting.
+Dialogue: 1,0:00:27.51,0:00:31.24,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:31.30,0:00:35.29,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}More than fifty seven\Nthousand bounty claims\Nwere made in six {\c&H9EE8C9&}months.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:31.30,0:00:35.29,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:35.35,0:00:39.20,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}But the lasting physical\Ndefence was not another\Nmachine {\c&H9EE8C9&}gun.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:35.35,0:00:39.20,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:39.26,0:00:42.20,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}It was longer {\c&H9EE8C9&}fencing{\c&H00F7F8F7&}\Nacross the farm country.
+Dialogue: 1,0:00:39.26,0:00:42.20,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:42.26,0:00:43.82,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}The so-called war {\c&H9EE8C9&}ended;{\c&H00F7F8F7&}
+Dialogue: 1,0:00:42.26,0:00:43.82,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
+Dialogue: 0,0:00:43.82,0:00:47.08,Caption,,0,0,0,,{\an2\pos(360,842)\fscx92\fscy92\t(0,160,\fscx100\fscy100)\fad(45,90)}the fight to protect crops\Ndid {\c&H9EE8C9&}not.{\c&H00F7F8F7&}
+Dialogue: 1,0:00:43.82,0:00:47.08,Accent,,0,0,0,,{\an5\pos(360,871)\p1\c&H9EE8C9&\fscx0\t(0,180,\fscx100)\fad(40,120)}m -54 0 l 54 0 l 54 4 l -54 4
