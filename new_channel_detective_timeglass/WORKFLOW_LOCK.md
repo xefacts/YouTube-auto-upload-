@@ -1,0 +1,33 @@
+# New-channel workflow and old-channel lock
+
+This note captures the user's standing direction as of 2026-11-01. It is a **production checklist**, not permission to change a live YouTube account.
+
+## Scope boundary — MUST KEEP
+
+- The existing **gold/Sona channel is finished and frozen**. Do not edit its artwork, scripts, local assets, uploads, metadata, credentials, workflow jobs, or settings when working on Detective Timeglass. Do not reinterpret a Drive experimental upload as permission to publish to YouTube. A technical lock on a YouTube account has **not** been applied; this file records the operating rule.
+- The revised proposed new brand is **Detective Timeglass**, with matching handle `@DetectiveTimeglass` subject to actual availability/reservation in the new channel's Studio. Do not mark it final until confirmed there.
+- For every future topic/script selection, open and read the *current* Drive documents below again; this summary is not a substitute for checking updates.
+
+## Mandatory Drive references to re-read before each new script/topic
+
+1. [Topic and scripts — master architecture A](https://docs.google.com/document/d/1Y2mwRHTxFIDbHnEDMdAp4_gtCQ2rffEkdRB79tSBkMk/edit) — US audience, two-source verification, four-stage scripting, 9:16 hybrid visuals, caption suggestions.
+2. [Topic and scripts — master architecture B](https://docs.google.com/document/d/1FSoVloe62wPZPYGBsIyoh69EjpZ3mA_pCmBhmnJbVxg/edit) — expanded high-retention engine. The third copy [here](https://docs.google.com/document/d/1Z4R1RA7GXyl3KgqZkpL7aO9fM7EKw6LDMi1ENWbYyvQ/edit) was byte-identical when read; check for changes rather than assuming permanent duplication.
+3. [Text reference folder](https://drive.google.com/drive/folders/1VHLFtfo9cnI9yRuIIh5fyxkVf1o2rRL2) — two unique reference videos, one duplicate portfolio file, and screenshots. Rewatch the material for movement/caption/text timing when planning an episode; never import their footage, people, audio, logos or watermarks into a new episode.
+
+## What the references actually show
+
+- The 56-second portrait before/after reel uses a dark forest-green grid, rounded inset portrait frames, a small `before` frame and larger `after` frame, expressive talking-head pose changes, subject cutouts that overlap big mustard/white display words, rapid staggered reveals and comparatively minimal persistent text. It is an editing portfolio, **not** a historical documentary template.
+- The 48-second landscape portfolio uses a nearly black-to-forest-green background, oversized condensed lime headlines, subject cutout centered across the typography, tiny neat uppercase metadata, light graphic streaks, and project-thumbnail cards that slide/sequence in. The uploaded pair was the same video, not two different references.
+- Screenshot examples include a red/white stacked CTA on pale sky, lime/white high-contrast keywords over a person on dark background, small translucent rounded caption pills, and one-line yellow/white caption treatments. Use these as *motion and readability studies*, not as copied templates or people.
+- New-channel identity takes their **hierarchy, timing, and selective emphasis**, while remaining original: photoreal/archival-style backgrounds behind separately moving minimalist 2D characters, short high-contrast caption beats and clean editorial cutouts. Test at actual phone size; do not obscure faces or essential action. The recurring main character is the simple outlined detective in `assets/detective_mascot_white.png` (round head, dot eyes, teal hat/coat, mustard scarf, magnifying glass)—NOT the previously rejected detailed neon/anime human. Generate fresh image-based poses from that character reference as needed rather than rigging or reusing one static portrait.
+
+## Script and production gate (every episode)
+
+1. **Niche and audience:** mature US/UK English historical heists, covert operations, mysteries and tactical blunders. Start with an immediate, factually defensible visual/story hook; no channel intro or generic "Did you know?".
+2. **Evidence:** mine topic ideas broadly, but verify every concrete historical claim against at least two independent reliable sources (prefer original archives/records and scholarly or institutional reporting). Log the evidence, uncertainty and dates. Documentary examples in the supplied docs contain **dramatic inaccuracies** (e.g. a formally declared Australian "war" and bullets bouncing off emus); never copy their assertions as historical facts. Viral metrics and RPM numbers in the docs are creative targets/claims, not guaranteed platform thresholds.
+3. **Script before visuals:** map a ~25–40 second Short to hook (0–3s), curiosity gap (~3–10s), escalating beats, and a truthful satisfying/loop-friendly ending. Speak-test the actual word count and timing; no cut-off sentence just to force a loop. Include scene/character-expression cues every ~3–4 seconds.
+4. **Visual storyboard:** vertical 9:16 for Shorts unless the user explicitly requests another format; use independently created historical backgrounds and original character assets. Plan distinct expressions/gestures/poses (not a single rigid character sliding across a background). If motion is created from a sequence of generated still poses, describe it honestly; don't call it hand-rigged animation. Plan parallax and purposeful slide reveals, not a default repetitive zoom.
+5. **Captions/type:** for the new channel, design single-word or short-phrase emphasis in bold ivory/lime with strong contrast, timed to speech. Use a readable condensed headline + a neutral sans for support. Avoid full-screen subtitle spam, long paragraphs, flicker and busy backgrounds behind type. Keep captions inside actual Shorts UI safe areas, test a phone-sized crop, and check the caption timing against audio. This is distinct from the old Emu Phase 3 caption treatment the user rejected.
+6. **Voice and sound:** choose an original, consistent US-English narrator; do not imitate reference voices. Preserve the user's prior no-music preference until explicitly revised; use restrained original non-melodic foley where appropriate, never call it authentic field audio. Match effects to actions without burying speech.
+7. **QC before sharing:** audit facts against evidence, pose changes, caption legibility, sound mix, spelling, device crops, aspect ratio, frame count, exact runtime, and no borrowed reference footage/audio. Label illustrated reconstructions. Deliver a private preview for approval.
+8. **Publishing gate:** do **not** upload, schedule, edit a live channel, or change workflows/credentials without the user's fresh explicit approval for that specific channel/action. A Drive review link is not a YouTube upload.

@@ -1,4 +1,6 @@
-# PastCipher — new-channel identity package (draft, not published)
+# PastCipher — SUPERSEDED draft, not for upload
+
+**This first draft was rejected by the user.** Its emblem/profile and archive-style banner should not be uploaded. The replacement with the simple 2D detective character on a white profile background and a scene-based banner is in [`../new_channel_detective_timeglass/CHANNEL_BRAND.md`](../new_channel_detective_timeglass/CHANNEL_BRAND.md). The old kit and Drive links remain only as version history. Neither brand has been published to YouTube.
 
 ## Scope and status
 

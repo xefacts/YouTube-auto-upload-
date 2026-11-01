@@ -1,4 +1,8 @@
-# New-channel workflow and old-channel lock
+# SUPERSEDED new-channel brand draft — workflow retained for reference
+
+**Brand identity here is obsolete:** user rejected the PastCipher emblem/banner. The current proposed character-based direction and corresponding workflow are in [`../new_channel_detective_timeglass/WORKFLOW_LOCK.md`](../new_channel_detective_timeglass/WORKFLOW_LOCK.md). The existing Sona/gold channel remains unchanged; this old file does not apply any technical lock.
+
+## Original notes below (not current branding)
 
 This note captures the user's standing direction as of 2026-11-01. It is a **production checklist**, not permission to change a live YouTube account.
 
