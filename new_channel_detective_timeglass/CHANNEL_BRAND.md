@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-- This **replaces the rejected PastCipher emblem/archival-banner direction**. It is a draft brand kit, not a YouTube channel or published branding.
+- This **replaces the rejected PastCipher emblem/archival-banner direction and the subsequently rejected female detective draft**. It is a draft brand kit, not a YouTube channel or published branding.
 - Existing gold/Sona channel remains **out of scope and unchanged**. The scope lock is a project rule, **not a technical YouTube lock**.
 - Proposed exact name: **Detective Timeglass** · proposed matching handle: **@DetectiveTimeglass**. The handle has **not been reserved or confirmed**. Public search not showing an obvious match is inconclusive; check availability in the NEW channel's YouTube Studio. If unavailable, stop and choose a different exact name/handle pair before publishing.
 - Audience: curious English-speaking US/UK adults; short history mysteries, documented heists, espionage and strange real events. Detective Timeglass is the **fictional illustrated guide**, not a real historical witness or claim that events were literally investigated in period.
@@ -10,9 +10,9 @@
 
 ## Profile / recurring character
 
-An original simplified **2D editorial-history-video detective mascot**: round tan face, tiny dot eyes, expressive eyebrows, dark wavy bob, blue-teal fedora with lime band, mustard scarf, flat teal coat and large magnifying glass. Thin near-black outlines and minimal shading; **not an anime/comic-realism portrait**. Profile has a near-white background, with no lettering or busy scenery. It has been tested as a circular 98 px crop.
+An original **adult male American-noir-inspired 2D detective mascot** designed in the simplified editorial history-video style: warm peach face, tiny dot eyes, short brown hair, expressive eyebrows, camel fedora with teal band, tan trench coat, teal waistcoat, burgundy tie, case notebook and large magnifying glass. Clean natural dark outlines and restrained flat shading; **not an anime/comic-realism portrait or a copied Emu character**. Profile has a near-white background with no lettering or scenery. It has been tested as a circular 98 px crop.
 
-Use this specific source image, `assets/detective_mascot_white.png`, as the identity reference for future generated poses. Make new image-based expression/gesture variants as each script requires (pointing, puzzling, discovering, listening); do not animate a rigid single pose or claim manually rigged animation. The detective may act as a presenter and explain evidence, but must never imply fabricated documents/scenes are archival footage. Never reuse the supplied historical character sheets as the identity of this mascot.
+Use this revised source image, `assets/male_detective_portrait_v2.png`, as the identity reference for future generated poses. Make new image-based expression/gesture variants as each script requires (pointing, puzzling, discovering, listening); do not animate a rigid single pose or claim manually rigged animation. This is a fictional American detective-style presenter, not a real historical witness. Do not imply fabricated documents/scenes are archival footage. Never reuse the supplied historical character sheets as the identity of this mascot.
 
 ## Banner
 

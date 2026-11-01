@@ -25,9 +25,9 @@ def circular_preview(im: Image.Image, size=98):
 
 
 def make_profile():
-    source = Image.open(ASSET / 'detective_mascot_white.png').convert('RGB')
-    # Closer circular crop keeps both detective face and magnifying lens readable.
-    portrait = source.crop((140, 60, 930, 850))
+    source = Image.open(ASSET / 'male_detective_portrait_v2.png').convert('RGB')
+    # Keep the male detective's hat, face AND left-hand lens in circular crop.
+    portrait = source.crop((70, 40, 960, 930))
     portrait.resize((800, 800), Image.Resampling.LANCZOS).save(ROOT / 'profile_upload_800.png', optimize=True)
     portrait.resize((2048, 2048), Image.Resampling.LANCZOS).save(ROOT / 'profile_2048_upscaled.png', optimize=True)
     circular_preview(portrait)
@@ -35,16 +35,16 @@ def make_profile():
 
 def mascot_cutout():
     """Key out the near-uniform ivory field; keep the hand, hat, lens and outline."""
-    source = Image.open(ASSET / 'detective_mascot_white.png').convert('RGB')
+    source = Image.open(ASSET / 'male_detective_portrait_v2.png').convert('RGB')
     pixels = np.asarray(source).astype('float32')
     # The generated white field varies +/- 2. Foreground has much larger
     # color distance; a soft ramp preserves antialiased contours.
-    background = np.array([249, 249, 238], dtype='float32')
+    background = np.array([245, 246, 237], dtype='float32')
     dist = np.max(np.abs(pixels - background), axis=2)
     alpha = np.uint8(np.clip((dist-9) * (255/35), 0, 255))
     rgba = source.convert('RGBA')
     rgba.putalpha(Image.fromarray(alpha, 'L'))
-    rgba.save(ASSET / 'detective_mascot_cutout.png', optimize=True)
+    rgba.save(ASSET / 'male_detective_cutout_v2.png', optimize=True)
     return rgba
 
 
@@ -53,7 +53,7 @@ def composite_banner(scale=1):
     background = Image.open(ASSET / 'realistic_case_room_background.png').convert('RGB')
     im = ImageOps.fit(background, (w, h), method=Image.Resampling.LANCZOS).convert('RGBA')
     character = mascot_cutout().resize((520*scale, 520*scale), Image.Resampling.LANCZOS)
-    xy = (520*scale, 467*scale)
+    xy = (520*scale, 502*scale)  # Keep the whole fedora in the mobile-safe crop.
     # A small soft shadow seats the drawn subject in the photographic scene.
     shadow = Image.new('RGBA', im.size, (0,0,0,0))
     dark_shape = Image.new('RGBA', character.size, (0,0,0,0))
