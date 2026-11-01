@@ -1,12 +1,18 @@
-# Detective Timeglass — revised new-channel brand draft
+# Ben’s Casebook — revised new-channel brand draft
+
+The directory name `new_channel_detective_timeglass` is a retained historical workspace path; **Ben’s Casebook** is the current proposed public name. Use `Bens_Casebook_Brand_Kit_DRAFT.zip`, not the superseded Detective Timeglass bundle or the rejected PastCipher/female variants.
 
 ## Status and scope
 
 - This **replaces the rejected PastCipher emblem/archival-banner direction and the subsequently rejected female detective draft**. It is a draft brand kit, not a YouTube channel or published branding.
 - Existing gold/Sona channel remains **out of scope and unchanged**. The scope lock is a project rule, **not a technical YouTube lock**.
-- Proposed exact name: **Detective Timeglass** · proposed matching handle: **@DetectiveTimeglass**. The handle has **not been reserved or confirmed**. Public search not showing an obvious match is inconclusive; check availability in the NEW channel's YouTube Studio. If unavailable, stop and choose a different exact name/handle pair before publishing.
-- Audience: curious English-speaking US/UK adults; short history mysteries, documented heists, espionage and strange real events. Detective Timeglass is the **fictional illustrated guide**, not a real historical witness or claim that events were literally investigated in period.
-- Tagline: **FOLLOW THE CLUES. FIND THE HISTORY.**
+- Proposed exact name: **Ben’s Casebook** · proposed matching handle: **@BensCasebook**. The handle has **not been reserved or confirmed**. Public search not showing an obvious match is inconclusive; check availability in the NEW channel's YouTube Studio. If unavailable, stop and choose a different exact name/handle pair before publishing.
+- Audience: curious English-speaking US/UK adults; short history mysteries, documented heists, espionage and strange real events. Detective Ben is a **fictional illustrated guide**, not a real historical witness or a claim that events were literally investigated by him in period.
+- Tagline: **LET’S FOLLOW THE CLUES.**
+
+## Repeatable spoken signature (after the mystery hook, never before it)
+
+**“I’m Ben. This is Ben’s Casebook. Let’s follow the clues.”** The detective appears briefly in every episode during this line (and can return where evidence is examined). Keep the opening 0–3 seconds for the case-specific hook, not a channel greeting.
 
 ## Profile / recurring character
 
@@ -23,16 +29,16 @@ Use this revised source image, `assets/male_detective_portrait_v2.png`, as the i
 
 ## Paste-ready channel description
 
-Every old story leaves a clue. Join Detective Timeglass, an illustrated guide to historical mysteries, ingenious heists, covert operations, and unlikely blunders. In short, cinematic documentaries, we trace the decisions behind the story, test popular legends against the record, and explain what remains unknown. Expect original 2D characters, realistic scene backgrounds, clear timelines, and source notes. Reconstructed scenes are identified. Follow the clues. Find the history.
+Every old story leaves a clue. Join Detective Ben, an illustrated guide to historical mysteries, ingenious heists, covert operations, and unlikely blunders. In short, cinematic documentaries, we trace the decisions behind the story, test popular legends against the record, and explain what remains unknown. Expect original 2D characters, realistic scene backgrounds, clear timelines, and source notes. Reconstructed scenes are identified. Let’s follow the clues.
 
 ## Paste-ready channel keywords
 
-Detective Timeglass, history detective, history shorts, historical mysteries, historical heists, espionage history, spy stories, intelligence history, unsolved history, Cold War stories, history explained, documentary shorts, strange history, archive mysteries, true history, historical blunders
+Ben’s Casebook, history detective, history shorts, historical mysteries, historical heists, espionage history, spy stories, intelligence history, unsolved history, Cold War stories, history explained, documentary shorts, strange history, archive mysteries, true history, historical blunders
 
 Use episode-specific topics in each video's title and description rather than stuffing the same keywords everywhere. Do not promise a posting schedule, financial results or facts not independently verified.
 
 ## Before any launch
 
-1. Verify and claim the **exact matching `@DetectiveTimeglass`** in the new channel's Studio. Do not claim that a public search verifies availability. YouTube's policy: https://support.google.com/youtube/answer/11585688?hl=en
+1. Verify and claim the **exact matching `@BensCasebook`** in the new channel's Studio. Do not claim that a public search verifies availability. YouTube's policy: https://support.google.com/youtube/answer/11585688?hl=en
 2. Check real YouTube banner crop previews on mobile, desktop and TV; resize/adjust if the UI occludes anything.
 3. Ask for specific approval before creating/modifying any live channel, uploading, scheduling or touching the Sona/gold channel. Drive delivery of draft art is not a YouTube upload.

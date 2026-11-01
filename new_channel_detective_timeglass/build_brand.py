@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the Detective Timeglass draft kit. No YouTube account is touched.
+"""Render the Ben's Casebook draft kit. No YouTube account is touched.
 
 The mascot and photorealistic backdrop are generated source images, so the
 7680x4320 export is an upscaled artwork canvas, not native-detail 8K footage.
@@ -76,10 +76,10 @@ def composite_banner(scale=1):
         assert x + (bbox[2]-bbox[0]) <= 2042*scale, (word, bbox)
         d.text((x+4*scale, y+5*scale), word, font=f, fill=(2,14,18,230))
         d.text((x, y), word, font=f, fill=(*color,255))
-    title('DETECTIVE', 555*scale, IVORY)
-    title('TIMEGLASS', 695*scale, LIME)
+    title("BEN'S", 555*scale, IVORY)
+    title('CASEBOOK', 695*scale, LIME)
     d.line((x, 858*scale, 1340*scale, 858*scale), fill=(*LIME,245), width=4*scale)
-    d.text((x, 869*scale), 'FOLLOW THE CLUES. FIND THE HISTORY.',
+    d.text((x, 869*scale), "LET'S FOLLOW THE CLUES.",
            font=sub, fill=(*IVORY,255), stroke_width=1*scale,
            stroke_fill=(3,16,20,180))
     # Gently framed original scene, not ornamental logo or fake evidence label.
