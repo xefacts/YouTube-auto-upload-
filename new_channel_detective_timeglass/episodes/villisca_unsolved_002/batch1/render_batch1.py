@@ -1,6 +1,8 @@
-"""Render Batch 1 camera/type animatic from three ORIGINAL reconstruction images.
-Not the finished Short or frame-by-frame character animation. Requires ffmpeg and Pillow.
+"""SUPERSEDED — DO NOT RENDER. The Adam VO is a Florida hotel mystery, NOT Villisca.
+The earlier 14-second Villisca storyboard accidentally paired unrelated imagery/audio.
+Keep the code as a record only; use the separate Florida episode for this VO.
 """
+raise RuntimeError('Disabled: selected Adam VO narrates a Florida hotel mystery, not Villisca. Do not rebuild a misleading preview.')
 from pathlib import Path
 import subprocess
 import imageio_ffmpeg

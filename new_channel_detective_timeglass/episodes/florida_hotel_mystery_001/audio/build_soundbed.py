@@ -1,4 +1,5 @@
-"""Generate original non-melodic percussion/breath-like air for Villisca Short.
+"""Generate a draft original non-melodic percussion/breath-like air bed.
+For the unverified fictional Florida hotel mystery VO, not the Villisca case.
 No sampled music, melody, weapon or purported historical field recording.
 """
 from pathlib import Path
@@ -72,9 +73,9 @@ out=np.tanh(out*2.5)
 out[:int(.3*SR)]*=np.linspace(0,1,int(.3*SR))[:,None]
 out[-int(.35*SR):]*=np.linspace(1,0,int(.35*SR))[:,None]
 root=Path(__file__).parent
-wav=root/'original_percussion_breath_bed.wav'
+wav=root/'percussion_air_draft.wav'
 sf.write(wav,out,SR,subtype='PCM_16')
 ff=imageio_ffmpeg.get_ffmpeg_exe()
-subprocess.run([ff,'-hide_banner','-loglevel','error','-y','-i',str(wav),'-c:a','libmp3lame','-b:a','192k',str(root/'original_percussion_breath_bed.mp3')],check=True)
+subprocess.run([ff,'-hide_banner','-loglevel','error','-y','-i',str(wav),'-c:a','libmp3lame','-b:a','192k',str(root/'percussion_air_draft.mp3')],check=True)
 wav.unlink(missing_ok=True)
 print('peak',np.max(np.abs(out)),'RMS',np.sqrt(np.mean(out*out)),'duration',DUR)

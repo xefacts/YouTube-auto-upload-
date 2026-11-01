@@ -1,4 +1,6 @@
-# Villisca Short — Batch 1 review (2026-11-01)
+# SUPERSEDED / NOT FOR REVIEW — Villisca Batch 1 (2026-11-01)
+
+**Critical correction (2026-11-01):** Local speech recognition of BOTH uploaded Adam takes found an unrelated Florida hotel-suite mystery: businessman, gunshot, locked suite, pocket watch, balcony, wife and business partner. The 19:34 VO was incorrectly assumed to be a Villisca narration. **The old 14-second MP4 pairs incompatible visuals and audio; do not reuse, approve or publish it.** The user chose the actual uploaded audio's Florida hotel story and a private Drive destination; new images live in `../../florida_hotel_mystery_001/phase1/`. This story is unverified as a real case and must not be marketed as historical fact. The old audio files/build script were moved to that episode. The historical notes below describe the failed draft, not a current plan.
 
 **Scope:** the first three original illustrated keyframes and a **14.0-second 1080×1920 camera/type/audio animatic**, not the final Short. User requested images in three batches; batch 2 and 3 have not been made. No YouTube upload or live-channel edit.
 
