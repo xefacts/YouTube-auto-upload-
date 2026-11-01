@@ -1,0 +1,29 @@
+NARRATOR SHORTLIST — first four historical Shorts
+US-English target | Research snapshot: 2026-11-01 | Audition candidates, not a selected voice
+
+1. Darian — Warm Grounded Storyteller
+   ElevenLabs voice ID: gOupLcAkjEnguROwi4oS
+   Best overall starting test: conversational warmth for the happy opening, enough gravity for the turn, and less temptation to sound like a movie trailer. Try New Coke and Mona Lisa first.
+   Library link: https://elevenlabs.io/app/voice-library?voiceId=gOupLcAkjEnguROwi4oS
+
+2. Sawyer — Midnight Storyteller
+   ElevenLabs voice ID: 8dEUmyPMdDdK91vboYih
+   Mystery-leaning option: test for a controlled, intimate reveal rather than an over-dark or slow read. Try the Mona Lisa and Carrington scripts.
+   Library link: https://elevenlabs.io/app/voice-library?voiceId=8dEUmyPMdDdK91vboYih
+
+3. Caleb — Trusted Guide
+   ElevenLabs voice ID: AaOhDHYJ1XLZk74lXhdE
+   Clear, restrained fact-forward alternative. Test whether the opening still sounds lively, especially on the marathon script.
+   Library link: https://elevenlabs.io/app/voice-library?voiceId=AaOhDHYJ1XLZk74lXhdE
+
+4. Lawrence — Bright and Informative
+   ElevenLabs voice ID: ktkP7Nsj67dw2zcplQYt
+   Lighter editorial backup if the darker reads flatten the positive opening. Watch that the climax retains weight. Try New Coke and the marathon.
+   Library link: https://elevenlabs.io/app/voice-library?voiceId=ktkP7Nsj67dw2zcplQYt
+
+Selection protocol: These are current ElevenLabs-listed replacement voices, NOT voices I have auditioned in your account. Their exact accent, license/tier availability, v4 tag response and suitability for this character have not been confirmed. Filter to a natural US accent in your account and listen to the SAME complete script on each candidate; prefer the voice that keeps proper names clear and does not exaggerate [brightly] or the twist. Pick ONE consistent narrator for the channel after that A/B listening test. Use Eleven v4 or v3 for the square-bracket audio tags; render at natural pace and check the full take before editing. No music is specified here.
+
+Official reference for names, IDs and the December 31, 2026 retirement of old Default voices:
+https://elevenlabs.io/docs/help-center/product/voices/my-voices/what-are-default-voices
+Official audio-tag support:
+https://elevenlabs.io/docs/help-center/product/core-capabilities/text-to-speech/how-do-audio-tags-work-with-eleven-v3-and-v4
