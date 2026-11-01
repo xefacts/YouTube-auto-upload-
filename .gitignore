@@ -12,3 +12,5 @@ youtube_token.json
 .DS_Store
 # Duplicate lossless Finch sheets are tracked individually; keep the assembled archive local.
 new_channel_detective_timeglass/finch_refined/FINCH_COMPLETE_SHEETS_AND_PROMPTS.zip
+# Download bundle duplicates the tracked Finch V2 storyboard/keyframe sources.
+new_channel_detective_timeglass/finch_branded_intro/FINCH_V2_STORYBOARD_AND_PROMPTS.zip
