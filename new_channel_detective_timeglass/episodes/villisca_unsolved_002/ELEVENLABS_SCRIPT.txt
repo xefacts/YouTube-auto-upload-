@@ -1,7 +1,14 @@
-[warmly] Two sisters came over for a sleepover.
-[curious] It was June 1912, in Villisca, Iowa, after a children's church program.
-[short pause][with concern] By morning, they and the six members of the Moore family had been murdered.
-[measured] Investigators found the Moores' own ax in the guest room.
-[quietly] A suspect confessed, then recanted.
-[firmly] His first trial deadlocked; the second acquitted him.
-[reflective] Who killed them remains unknown.
+[warm, brisk] Two sisters were invited to a sleepover in Villisca, Iowa.
+[upbeat] In June 1912, they walked home with the Moore family after a children's church program.
+[curious, quicker] Next morning, neighbor Mary Peckham noticed the family hadn't come out for chores.
+[urgent] She knocked.
+[short pause][hushed] Nobody answered.
+[grave, controlled] Inside were Josiah and Sarah Moore, their four children, and both visiting girls—all murdered.
+[precise] Investigators found the family's ax in the guest room.
+[quickly] Bloodhounds searched, but found no suspect.
+[with concern] Meanwhile, townspeople walked through the house, disturbing potential evidence.
+[building] Five years later, minister George Kelly confessed after hours of questioning—then recanted.
+[firmly] The first jury deadlocked; the second acquitted him.
+[quietly] Eight victims.
+[measured] No proven killer.
+[low, final] The case remains unsolved.

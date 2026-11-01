@@ -1,0 +1,33 @@
+FAST CRIME-EXPLAINER NARRATOR OPTIONS — VILLISCA REVISION (2026-11-01)
+These are audition candidates or prompts, not audio I have generated or voices I have listened to in your account. Use ONE consistent narrator per episode. Model: Eleven v4 (or v3) for sentence-level bracket delivery tags. Test the full 111-word script at a quick but intelligible pace; give the victims' names and the acquittal extra clarity. Do not shout the killings, impersonate a victim, or turn the case into comedy.
+
+BEST OPTION FOR A UNIQUE CHANNEL SOUND — Voice Design prompt (not an existing voice or voice ID)
+Working identity: CASEWIRE — The Fast Case Explainer
+Paste into ElevenLabs > Voices > My Voices > Add a new voice > Voice Design:
+Native American English, neutral US accent. Male, early 30s. Studio-quality audio. Persona: sharp investigative explainer. Emotion: curious, energetic, credible. Mid-low pitch, slight natural grit, crisp consonants and an alert conversational rhythm. Moves quickly through dates and evidence without rushing names; tight pauses before a reversal. Warm when describing ordinary life, serious and restrained around victims, never a theatrical movie trailer, caricature detective, or radio announcer. No impersonation of a real person.
+Audition line: "Two sisters were invited to a sleepover in Villisca, Iowa. Next morning, nobody answered the door. Five years later, a confession was recanted. The case remains unsolved."
+This is a design brief only. ElevenLabs generates preview choices; pick/save one after listening. No voice ID exists until generated in the user's account.
+
+READY-TO-AUDITION LIBRARY OPTIONS (listed with IDs on ElevenLabs' public pages; not personally auditioned)
+1. The Tech Influencer — neutral American male; fast, conversational, animated with clear inflection. Despite the name, test for quick crime-explainer cadence; reject if it sounds flippant around the victims.
+   ID: 3NaRwOJqL6TJuOi2it2L
+   Preview: https://elevenlabs.io/app/voice-lab/share/779d91788b0d9e364d32e0a0e4273ec722b92887fa710d82f50b2d034a9fb97b/3NaRwOJqL6TJuOi2it2L
+2. Alex — young American male, upbeat, energetic, clear; good for quick opening and evidence transitions. Back off the bounce at the victim reveal.
+   ID: yl2ZDV1MzN4HbQJbMihG
+   Preview: https://elevenlabs.io/app/voice-library?voiceId=yl2ZDV1MzN4HbQJbMihG
+3. Arthur — energetic American male social narrator, most immediate hook; audition cautiously because a playful read would be wrong for this case.
+   ID: TtRFBnwQdH1k01vR0hMz
+   Preview: https://elevenlabs.io/app/voice-library?voiceId=TtRFBnwQdH1k01vR0hMz
+4. Parker Springfield — middle-aged American male casual broadcaster; less youthful but more grounded. Try if the first three lose credibility.
+   ID: Dnd9VXpAjEGXiRGBf1O6
+   Preview: https://elevenlabs.io/app/voice-library?voiceId=Dnd9VXpAjEGXiRGBf1O6
+
+Production audition: render the same complete script with two finalists using exactly the same pacing settings. Judge 1) opening hooks naturally, 2) "Josiah," "Villisca" and "acquitted" are intelligible, 3) speed doesn't trivialize victims, and 4) the last line sounds unresolved, not smug. A voice description or preview isn't a guarantee of account availability, license, accent accuracy, or tag compliance. Voice Design takes credits to preview; check before generating.
+
+Public sources for voice descriptions/IDs and design format:
+https://elevenlabs.io/voice-library/explainer-voice-over
+https://elevenlabs.io/voice-library/entertainment-and-tv
+https://elevenlabs.io/voice-library/tiktok
+https://elevenlabs.io/voice-library/sports
+https://elevenlabs.io/docs/eleven-creative/voices/voice-design
+https://elevenlabs.io/docs/help-center/product/core-capabilities/text-to-speech/how-do-audio-tags-work-with-eleven-v3-and-v4
