@@ -1,15 +1,25 @@
-# Florida locked suite — V5 2.5D character-motion review
+# Florida locked suite — V6 character and latch private review
 
-**Status:** 38.5-second vertical **720 × 1280 private review**, not a finished/native-4K master. V5 supersedes V3/V4 video drafts. The story is fictional/unverified. No YouTube upload or change to the existing channel.
+**Current review:** 38.5 seconds, vertical **720 × 1280**, fictional dramatization. This is an iterative private review, **not** a native-4K master or a verified account of a real incident. No YouTube upload or change to the existing channel.
 
-## Current direction
+Private Drive review (owner-only): https://drive.google.com/file/d/1qhuKrl5PWaCd7W19Vpj-V1bjCz0_ToU-/view?usp=drivesdk . A recipient needs the owner's permission; this is not a public link.
 
-- Four canonical adult American role designs, each with a matching alternate full-body pose: businessman/watch, investigator/crouch, wife/hand to collar, partner/document case. The repeated outfits, hair, faces and proportions are based on the same character masters. The 2D ink-and-cel art has dimensional 2.5D shading; it is **not a 3D model**.
-- Subtle localized 2D image warps animate head, torso, both arms/hands and legs from those original character images; larger actions use alternate matching pose images. This is **not a fully hand-drawn frame-by-frame production**. Photography-style hotel plates remain the setting. No copied reference footage or people.
-- The hand examining the watch in the suite comes from the established, directly illustrated V4 scene rather than floating an isolated crouching sprite over the tabletop. The balcony action uses the new character master/pose. Wife and partner show role-specific hand/body changes. The **V5B** door close has a replacement foreground-door image that matches the preceding half-closed perspective more closely, accompanied by creak/slam SFX. Minor keyframe differences remain, so do not describe this as a physical 3D door simulation.
-- Existing selected Adam voice edit is used with original procedural rain/creak/door-close/impact soundtrack; no purported real incident sounds. The closing camera pullback is retained.
-- Exact VO words and ending cut were not independently re-transcribed in this turn. The on-screen edit avoids asserting watch time, date or guilt. The 4K finish requires higher-resolution artwork/voice audit; simply upscaling this review is not native 4K.
+## What changed since V5B
 
-`render_v5.py` imports the prior V4 shot/timing/audio helper and uses V3 realistic plates, but does **not** embed old V3/V4 video files. The old V4 MP4 and previous private-review videos were removed or moved to Drive trash after V5 was created, leaving reference/source images and the selected voice available for future improvement. `render_cache/` is disposable and ignored.
+- The recurring illustrated investigator now walks into the photographic hotel corridor and changes to a matching reach pose near the suite-door handle. This suggests an attempted test of the door; the hand does **not** visibly grasp or turn a physically simulated handle. The awkward floating-foot suite-desk overlay remains excluded.
+- The balcony latch now has two matching photographic states: clearly retracted, then engaged. The state change is an edited cut rather than a continuous mechanical simulation. Quiet, timed brass/handle clicks were added at the reach and lock-state cut; the previously matched door-close creak/slam is retained.
+- The same character masters anchor the four adult roles (businessman, investigator, wife, partner), with matching alternate poses, repeated hair/outfits/faces and proportions. Localized warps move heads, torsos, arms/hands and legs over the original 2D cel-shaded art. Shading and independent hotel-plate camera motion give a 2.5D appearance, **not** rigged 3D models or fully hand-drawn frame-by-frame animation.
 
-Rebuild: `python -m venv .venv && .venv/bin/pip install numpy pillow scipy opencv-python-headless imageio-ffmpeg && .venv/bin/python render_v5.py` from repo root.
+The established selected Adam voice edit is used with the procedural rain/creak/door-close/impact soundtrack; no sounds are presented as recordings of a real incident. The visual-only closing pullback is retained. The exact narration words and ending trim have not been independently re-transcribed in this revision; higher-resolution source art and a VO audit are needed before a 4K finish. Upscaling this 720p review would not make it native 4K. Avoid treating any on-screen watch time, date, or person as verified historical evidence.
+
+`render_v5.py` imports the earlier V4 timing/camera/audio helper and uses existing photographic hotel plates; it does **not** depend on old V3/V4 MP4 exports. Prior assistant-generated previews were moved to recoverable Drive Trash after their replacements uploaded; source images, project scripts and the user-selected voice were preserved. `render_cache/` and the local rendered MP4 are ignored disposable outputs.
+
+From the repository root, rebuild with:
+
+```sh
+python -m venv .venv
+.venv/bin/pip install numpy pillow scipy opencv-python-headless imageio-ffmpeg
+.venv/bin/python new_channel_detective_timeglass/episodes/florida_hotel_mystery_001/v5_articulated/render_v5.py
+```
+
+Output: `v5_articulated/FLORIDA_V6_CHARACTER_AND_LATCH_PRIVATE_REVIEW_720x1280.mp4`.
