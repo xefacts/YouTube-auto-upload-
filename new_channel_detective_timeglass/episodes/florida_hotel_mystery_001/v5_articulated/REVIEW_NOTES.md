@@ -1,34 +1,24 @@
-# Florida locked suite — V7 ten-key cinematic-motion private review
+# Florida locked suite — V8 restrained edit / text / sound review
 
-**Current review:** 38.5 seconds, vertical **720 × 1280**. [Open the owner-only V7 review](https://drive.google.com/file/d/18sTJQm4QG-m5tu2PTdYdt_Dm7yDfPmLP/view?usp=drivesdk). The Drive link is not public; other people need the owner's permission. This is a fictional dramatization, **not** a verified account of a real case, a native-4K master, or a YouTube release.
+**Current private review:** 38.5 s, vertical **720 × 1280**, fictional dramatization. [Owner-only Drive review](https://drive.google.com/file/d/1mMPhUgqU5bmmKR0PELSFdR-7Z2X4MI80/view?usp=drivesdk). This is not a native-4K master, verified real incident, or YouTube release.
 
-## Ten new movement images, all used in this cut
+## Corrections requested after V7
 
-The ten `assets/v7_*.png` images are distinct keyed action poses of the *same* four established adult characters. None introduces a new identity or a copied real person's image.
+- **Text:** Inspected the user's Drive `Text` folder screenshots and a sample video for their bold, compact, color-accented type hierarchy. V8 uses its own cream/amber two-level typography and short 1–2-word **story-cue cards**, shown briefly near estimated narration beats. None of the reference footage, faces, logos, audio or text graphics were reused. The supplied narration has **not** been independently transcribed word-for-word, so these are **not verbatim subtitles**. They avoid uncertain year, exact watch time, alleged motive and guilt. For true word-synced captions, obtain an approved transcript or direct listening audit first; edit `CUES` in `render_v8.py`.
+- **Grounding/continuity:** Removed V7's awkward balcony crouch, walking key and hand gesture pointed away from the suite handle. The investigator now stands on the balcony tile rather than overlapping the railing; the corridor, wife and partner stand with both shoes on the carpet, and their positions remain fixed throughout each shot. Only a few matching key-pose cuts remain (watch, wife, partner, thread); no limb warp, sprite slide, ambient character wobble or constantly moving camera. Existing composited stills used for the desk examination are retained. The adult cast identities remain consistent with V5/V6/V7.
+- **Motion:** Cut most shot zoom/focal travel by roughly 50–66%, eliminated the V7 camera oscillation and rapid match-key dissolves. The dramatic window-to-hotel pullback remains the strongest intentional camera move, after narration finishes.
+- **Sound:** A fresh original, non-melodic dark filtered-wind/rain/percussion mix keeps Adam's selected VO forward. A longer wood creak leads into a clearly timed door slam at **6.24 s**; brass latch clicks hit the **15.96 s** state cut; the visual-only ending gets a stronger atmospheric rise/low impact instead of falling silent. No audio, music, voices or door effects were copied from the reference folder. It does not purport to be a recording of a real incident.
 
-1. `v7_businessman_watch_lift.png` — lift of pocket watch in suite.
-2. `v7_businessman_watch_lower.png` — surprised backward shift.
-3. `v7_investigator_walk_step.png` — corridor walking stride.
-4. `v7_investigator_handle_brace.png` — tension beat at suite door.
-5. `v7_investigator_balcony_crouch.png` — **upper-body/hand insert only**; the full-length crouch reads as unsupported, so it is intentionally cropped above its legs. Do not show this sprite full-body.
-6. `v7_investigator_thread_inspect.png` — thread lifted to eye level.
-7. `v7_wife_step_back.png` — defensive step in corridor.
-8. `v7_wife_hand_to_mouth.png` — restrained shocked reaction.
-9. `v7_partner_case_open.png` — open document case.
-10. `v7_partner_glance_away.png` — closes case and glances aside.
+Visual QA checked a multi-frame sheet and full-resolution feet/rail/door compositions; FFmpeg decoded all frames and audio of the exported MP4 without error. Timing of short text cues is based on *rough earlier ASR/storyboard ranges* rather than a newly verified spoken transcript. The last line of the supplied edited VO still needs approval. Higher-resolution art would be required for a genuinely detailed 4K finish; an upscale of this review is not native 4K.
 
-`render_v7.py` makes short softened pose changes, anchored shoe-ground positions, an investigator walk-in, subtle handheld/dolly drift over the existing photo plates, a deliberate balcony close insert, brief focal transitions and a dark edge falloff. These changes add editorial momentum while preserving the V6 latch-state cut, door-close and lock SFX, selected Adam narration and visual-only hotel pullback. The 2D ink-and-cel characters have dimensional 2.5D shading, localized body-part image warps and matching alternate poses; this is **not** a rigged 3D simulation or fully hand-drawn in-between animation. The door handle is reached toward, not physically turned in a continuous simulation.
+V7 and earlier image/script assets remain as reproducible history. The prior generated V7 video was moved to **recoverable Drive Trash after V8 uploaded and owner-only permissions were verified**; the user-provided VO and source reference files are never removed. Local MP4s and `render_cache/` are ignored build outputs.
 
-The movie file was fully decoded with FFmpeg, and an extracted multi-frame contact sheet was visually inspected. The exact selected narration words/ending trim still need an independent audit before publication; avoid assigning historical dates, time-of-death or guilt from the dramatization. Higher-resolution source art, rather than an upscale of this 720p review, is needed for a native-4K finish. No YouTube upload or modification of an existing channel occurred.
-
-The older V6 review was moved to **recoverable Drive Trash** after V7 uploaded and owner-only permissions were verified. Its source renderer/assets, along with the user's selected voice, are retained. Video MP4s and `render_cache/` are ignored disposable local outputs; older source project scripts/images are retained for reproduction.
-
-From repository root, rebuild with:
+Rebuild from repository root:
 
 ```sh
 python -m venv .venv
 .venv/bin/pip install numpy pillow scipy opencv-python-headless imageio-ffmpeg
-.venv/bin/python new_channel_detective_timeglass/episodes/florida_hotel_mystery_001/v5_articulated/render_v7.py
+.venv/bin/python new_channel_detective_timeglass/episodes/florida_hotel_mystery_001/v5_articulated/render_v8.py
 ```
 
-Output: `v5_articulated/FLORIDA_V7_TEN_MOTION_KEYS_PRIVATE_REVIEW_720x1280.mp4`.
+Output: `v5_articulated/FLORIDA_V8_RESTRAINED_TYPE_AND_SOUND_PRIVATE_REVIEW_720x1280.mp4`.
