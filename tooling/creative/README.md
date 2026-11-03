@@ -36,10 +36,10 @@ Python environments are separate because the CrewAI dependency tree's `pdfplumbe
 4. Render locally with MoviePy/FFmpeg or the proven episode renderer; check full VO/last line, frame continuity, decodability, size versus native-source detail, licensing and unlicensed/graphic elements.
 5. Upload **owner-only private review** after QA. Do not invoke any publishing workflow or change permissions without approval.
 
-Florida V10 (full selected VO, PRISM, fictional flashback) rebuild:
+Florida V11 (full selected VO ending exactly with the video, PRISM, fictional flashback and original moving clue collage) rebuild:
 
 ```sh
-.venv-video/bin/python new_channel_detective_timeglass/episodes/florida_hotel_mystery_001/v5_articulated/render_v10.py
+.venv-video/bin/python new_channel_detective_timeglass/episodes/florida_hotel_mystery_001/v5_articulated/render_v11.py
 ```
 
-The video output is ignored and is 2160 × 3840 **upscaled** from smaller source art; source stills, two generated performances and the renderer are tracked. The Train screenshots are user-supplied research references, not to be copied into the final video.
+The video output is ignored and is 2160 × 3840 **upscaled** from smaller source art; source stills, two generated performances and the renderer are tracked. V10 remains available as an earlier comparison cut. The Train screenshots are user-supplied research references, not to be copied into the final video.
