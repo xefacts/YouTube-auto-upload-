@@ -14,7 +14,7 @@ Saari video history Google Sheet mein rehti hai.
 | Topics | one topic = one video (Sheet history + in-batch) |
 | Topic source | first-frame on-screen text or first spoken line (not the filename) |
 | Metadata | Gemini writes title / description / tags |
-| History | Google Sheet `15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618` |
+| History | Google Sheet (id lives in the `SPREADSHEET_ID` secret, never in the repo) |
 
 ## How runs are triggered
 
@@ -64,6 +64,9 @@ Repo → **Settings → Secrets and variables → Actions**
 | --- | --- | --- |
 | `GOOGLE_CREDENTIALS_JSON` | yes | Service account (Drive + Sheet) |
 | `GEMINI_API_KEY` | yes | Gemini |
+| `SPREADSHEET_ID` | yes | Google Sheet id that stores run history |
+| `RAW_FOLDER_ID` | yes | Drive folder with new videos (Raw) |
+| `PROCESSED_FOLDER_ID` | yes | Drive folder uploaded videos move to (Processed) |
 | `YOUTUBE_TOKEN_JSON` | yes for live runs | YouTube user OAuth JSON |
 
 `YOUTUBE_TOKEN_JSON` must contain the OAuth fields (`client_id`, `client_secret`,
@@ -92,11 +95,29 @@ too, but only a refresh token keeps working long term. Two ways to provide it:
 
 Service-account email ko Sheet aur Drive folders (Raw + Processed) **Editor** share karein.
 
-Sheet: `15jAt6HUoOrucNA-79y8u7hunq7vUUIBMrTOOeiG-618`
+Sheet: the spreadsheet whose id you stored in the `SPREADSHEET_ID` secret.
 
 Columns: Logged At · Source File · Source Id · Title · Description · Tags · Topic · Score · Status · Scheduled For (ET) · YouTube Video ID · Notes
 
 Status: `SCHEDULED`, `DRY_RUN`, `LOW_QUALITY`, `DUPLICATE_TOPIC`, `IGNORED`, `FAILED`
+
+## Public repository
+
+This repo is meant to be **public**. The source deliberately contains **no
+Google resource ids and no credentials**:
+
+* The sheet/folder ids come only from `SPREADSHEET_ID`, `RAW_FOLDER_ID` and
+  `PROCESSED_FOLDER_ID` secrets — `main.py` refuses to run (`--doctor` exits
+  non-zero, a plain run raises the missing NAMES, never values) until all
+  three are set.
+* Credential files (`client_secret*.json`, `*_token.json`, `*.log`) are
+  git-ignored; never commit them.
+* Tests enforce both rules (config guard + regex-shape guard), so a hardcoded
+  id cannot come back in unnoticed.
+
+Before you flip the visibility switch, make sure **every credential that ever
+appeared in an old commit or branch has been revoked/rotated** in Google Cloud
+Console — deleting or overwriting files does not erase git history.
 
 ## Diagnostics
 
@@ -169,6 +190,9 @@ package is no longer needed; the model is auto-discovered for the API key
 ```bash
 pip install -r requirements.txt
 export GEMINI_API_KEY=...
+export SPREADSHEET_ID=...        # sheet id (GitHub secret ka saathi)
+export RAW_FOLDER_ID=...         # Raw drive folder id
+export PROCESSED_FOLDER_ID=...   # Processed drive folder id
 # client_secret.json (+ optional youtube_token.json) repo root par
 python main.py --validate-credentials
 python main.py --doctor

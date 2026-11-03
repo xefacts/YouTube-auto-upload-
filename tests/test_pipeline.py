@@ -1,6 +1,7 @@
 import contextlib
 import json
 import os
+import re
 import tempfile
 import unittest
 
@@ -11,6 +12,14 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 import main
+
+# Dummy (non-real) values; the pipeline only checks that these are present.
+# Real ids/secrets must NEVER be written in this file.
+CONFIG_ENV = {
+    "SPREADSHEET_ID": "test-sheet",
+    "RAW_FOLDER_ID": "test-raw",
+    "PROCESSED_FOLDER_ID": "test-processed",
+}
 
 
 class FixedDatetime(datetime):
@@ -388,7 +397,9 @@ class CredentialShapeTests(unittest.TestCase):
         self.assertIn("tools/get_youtube_token.py", message)
 
     def test_fingerprints_identify_secrets_without_exposing_them(self):
-        secret = "1//0g-supersecretrefreshtoken"
+        # deliberately NOT shaped like a real OAuth refresh token, so that
+        # repository secret scanners never flag this fixture
+        secret = "fake-refresh-token-for-fingerprint-test"
 
         printed = main.credential_fingerprints({"refresh_token": secret, "client_id": "cid"})
 
@@ -434,6 +445,7 @@ class PipelineRunTests(unittest.TestCase):
             patch.object(main, "move_drive_to_processed", return_value=None),
             patch.object(main, "resolve_sheet_tab", return_value="Sheet1"),
             patch.object(main, "_SHEET_TAB_CACHE", "Sheet1"),
+            patch.dict("os.environ", CONFIG_ENV, clear=False),
         ]
         if upload is not None:
             patches.append(patch.object(main, "upload_to_youtube", side_effect=upload))
@@ -496,7 +508,8 @@ class PipelineRunTests(unittest.TestCase):
         sheets = FakeSheetsClient([main.SHEET_HEADERS])
         candidates = [make_candidate(name="a.mp4", path=self.video), make_candidate(name="b.mp4", path=self.video)]
         analyze = Mock(side_effect=main.GeminiQuotaError("Gemini quota/limit reached (429)"))
-        with patch.object(main, "DRY_RUN", True), \
+        with patch.dict("os.environ", CONFIG_ENV, clear=False), \
+             patch.object(main, "DRY_RUN", True), \
              patch.object(main, "load_service_account", return_value=(sheets, Mock())), \
              patch.object(main, "ensure_sheet_headers"), \
              patch.object(main, "resolve_sheet_tab", return_value="Sheet1"), \
@@ -517,7 +530,8 @@ class PipelineRunTests(unittest.TestCase):
 
     def test_live_run_without_youtube_credentials_raises(self):
         sheets = FakeSheetsClient([main.SHEET_HEADERS])
-        with patch.object(main, "DRY_RUN", False), \
+        with patch.dict("os.environ", CONFIG_ENV, clear=False), \
+             patch.object(main, "DRY_RUN", False), \
              patch.object(main, "load_service_account", return_value=(sheets, Mock())), \
              patch.object(main, "resolve_sheet_tab", return_value="Sheet1"), \
              patch.object(main, "_SHEET_TAB_CACHE", "Sheet1"), \
@@ -615,7 +629,8 @@ class YouTubeClientTests(unittest.TestCase):
         fake_creds.expired = True
 
         sheets, drive = Mock(), Mock()
-        with patch.object(main, "read_youtube_token_payload", return_value=payload), \
+        with patch.dict("os.environ", CONFIG_ENV, clear=False), \
+             patch.object(main, "read_youtube_token_payload", return_value=payload), \
              patch.object(main, "UserCredentials", return_value=fake_creds), \
              patch.object(main, "configure_gemini") as gemini, \
              patch.object(main, "_have_ffmpeg", return_value=True), \
@@ -730,6 +745,80 @@ class UploadTests(unittest.TestCase):
 
         self.assertEqual(yt_id, "yt-99")
         sleep.assert_called_once()
+
+
+class ConfigGuardTests(unittest.TestCase):
+    """The repo is public, so sheet/folder ids come ONLY from the environment."""
+
+    def test_missing_config_lists_variable_names(self):
+        with patch.dict("os.environ", {}, clear=True):
+            self.assertEqual(
+                main.missing_config(),
+                ["SPREADSHEET_ID", "RAW_FOLDER_ID", "PROCESSED_FOLDER_ID"],
+            )
+
+    def test_missing_config_reports_partially_set_env(self):
+        with patch.dict("os.environ", {"SPREADSHEET_ID": "test-sheet"}, clear=True):
+            self.assertEqual(main.missing_config(), ["RAW_FOLDER_ID", "PROCESSED_FOLDER_ID"])
+
+    def test_require_config_raises_names_not_values(self):
+        with patch.dict("os.environ", {"SPREADSHEET_ID": "test-sheet"}, clear=True):
+            with self.assertRaises(RuntimeError) as ctx:
+                main.require_config()
+        message = str(ctx.exception)
+        self.assertIn("RAW_FOLDER_ID", message)
+        self.assertIn("PROCESSED_FOLDER_ID", message)
+        self.assertNotIn("SPREADSHEET_ID", message)  # set already, so not missing
+        self.assertNotIn("test-sheet", message)  # values are never revealed
+
+    def test_require_config_syncs_module_config_from_env(self):
+        with patch.dict("os.environ", CONFIG_ENV, clear=True):
+            main.require_config()
+            self.assertEqual(main.SPREADSHEET_ID, "test-sheet")
+            self.assertEqual(main.RAW_FOLDER_ID, "test-raw")
+            self.assertEqual(main.PROCESSED_FOLDER_ID, "test-processed")
+
+    def test_doctor_returns_1_when_config_missing(self):
+        with patch.dict("os.environ", {}, clear=True):
+            self.assertEqual(main.doctor(), 1)
+
+    def test_run_raises_names_when_config_missing(self):
+        with patch.dict("os.environ", {}, clear=True):
+            with self.assertRaises(RuntimeError) as ctx:
+                main.run()
+        self.assertIn("SPREADSHEET_ID", str(ctx.exception))
+
+
+class NoHardcodedIdsTests(unittest.TestCase):
+    """Regex-SHAPE guards only. No real id is ever written in this test."""
+
+    # Google Sheet / Drive folder ids are long web-safe tokens that typically
+    # start with "1"; this matches the shape, not any specific value.
+    ID_SHAPE = re.compile(r"[\"']1[A-Za-z0-9_-]{26,}[\"']")
+
+    def _tracked_files(self):
+        root = Path(main.__file__).resolve().parent
+        return (
+            root / "main.py",
+            root / "README.md",
+            root / ".github" / "workflows" / "youtube_pipeline.yml",
+        )
+
+    def test_no_google_resource_id_literal_in_tracked_files(self):
+        for path in self._tracked_files():
+            text = path.read_text(encoding="utf-8")
+            self.assertIsNone(
+                self.ID_SHAPE.search(text),
+                f"{path.name} holds a Google-resource-id-shaped literal; keep ids in GitHub Secrets only",
+            )
+
+    def test_required_config_has_no_default_values_in_source(self):
+        text = Path(main.__file__).read_text(encoding="utf-8")
+        offenders = re.findall(
+            r"os\.getenv\(\s*[\"'](?:SPREADSHEET_ID|RAW_FOLDER_ID|PROCESSED_FOLDER_ID)[\"']\s*,\s*[\"'][^\"']+[\"']",
+            text,
+        )
+        self.assertEqual(offenders, [], "hardcoded id default(s) still present in main.py")
 
 
 if __name__ == "__main__":
