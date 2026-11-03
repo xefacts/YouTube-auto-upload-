@@ -22,3 +22,5 @@
 Previews: `BANNER_MOBILE_SAFE_PREVIEW.png`, `BANNER_DESKTOP_STRIP_PREVIEW.jpg`, and `PROFILE_CIRCLE_98px_PREVIEW.png`. Check YouTube Studio's own crop preview on desktop/mobile/TV after approval; interface crop may vary. Use the upload images above, not the previews.
 
 The wordmark is typeset with checked-in Anton and DM Sans fonts; generated background art is original and separate from all text. The Florida thumbnail uses the checked-in fictional illustration from the actual video. Rebuild with `.venv-video/bin/python build_brand.py` from the repository root. Original source art and script are in this directory; no reference-video frames, real-case claims or YouTube activity are included.
+
+**Superseded for current review:** The user requested a shorter, more memorable sponsor-friendly name. See `../case_ember_brand/` for the current **Case Ember** proposal; this Nocturne kit remains a historical draft and must not be applied as current branding.
