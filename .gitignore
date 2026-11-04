@@ -20,3 +20,6 @@ new_channel_detective_timeglass/docket_lantern_brand/THE_DOCKET_LANTERN_COMPLETE
 google_drive/
 .venv-video/
 tooling/creative/node_modules/
+
+# Uncompressed transient audio of the private geography render.
+new_channel_detective_timeglass/train2_geography_study/render_cache/
