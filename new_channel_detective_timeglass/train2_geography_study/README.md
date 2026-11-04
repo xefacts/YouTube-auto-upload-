@@ -1,5 +1,7 @@
 # Train 2 — experimental geography motion style study
 
+**Latest film:** the rebuilt, 58.53-second *voiced* `FLORIDA_KEYS_GEOGRAPHY_V2_VOICED_1080x1920.mp4`. See [V2 production notes](V2_PRODUCTION_NOTES.md) for the 18-beat shot/voice/source plan, geographical accuracy caveat, original script and licensing. The previous six-second preview and 36-second caption-only study below are earlier work, not this master.
+
 An **original, private style test** based on the nine user-supplied Train 2 videos. It does not revise the Florida mystery episode or publish anything to YouTube. Deliverables are four 1080×1920 PNG sequence keyframes, a terrain backplate, five modular transparent RGBA overlays, and a silent six-second motion test (144 frames/24 fps). The source videos remain in the user's Drive folder; **their actual video pixels, logos, edit UI, characters, narration, maps and text are not pasted into the deliverables**.
 
 ## What was studied
