@@ -1,0 +1,12 @@
+{
+  "name": "uncase-ricks-style-3d-short",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Code-rendered original 3D cartoon explainer short using Three.js SVGRenderer",
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "jsdom": "^26.1.0",
+    "three": "^0.180.0"
+  }
+}

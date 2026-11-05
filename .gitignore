@@ -3,6 +3,7 @@ __pycache__/
 .venv/
 venv/
 work/
+node_modules/
 client_secret.json
 youtube_token.json
 *.mp4
@@ -10,6 +11,7 @@ youtube_token.json
 *.mkv
 .env
 .DS_Store
+
 # Duplicate lossless Finch sheets are tracked individually; keep the assembled archive local.
 new_channel_detective_timeglass/finch_refined/FINCH_COMPLETE_SHEETS_AND_PROMPTS.zip
 # Download bundle duplicates the tracked Finch V2 storyboard/keyframe sources.
@@ -25,3 +27,13 @@ tooling/creative/node_modules/
 new_channel_detective_timeglass/train2_geography_study/render_cache/
 # Large source archive is delivered owner-only through Drive; keep local project assets/code tracked.
 new_channel_detective_timeglass/uncase_truecrime_short/UNCASE_MONA_LISA_EDITABLE_SOURCE_KIT.zip
+
+# User-provided and generated working assets (kept local; not for PR)
+new_channel_detective_timeglass/reference_materials/
+image-search/
+workcam_*.png
+workscene_*.png
+workcheck_*.png
+new_channel_detective_timeglass/**/*.mp3
+new_channel_detective_timeglass/**/*.wav
+new_channel_detective_timeglass/**/kit_build/stills/
