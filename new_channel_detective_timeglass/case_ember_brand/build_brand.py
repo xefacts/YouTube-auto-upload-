@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+"""Original noir brand kit for proposed Case Ember (not published).
+
+Editable Pillow typesetting ensures correct English and a real YouTube mobile
+safe crop. The original backdrop and fictional episode art are source imagery;
+no screenshots, third-party thumbnails or generated text are embedded.
+"""
+from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageFilter
+import numpy as np
+
+HERE=Path(__file__).resolve().parent
+ROOT=HERE.parent
+FONT=ROOT/'assets/fonts'
+ANTON=str(FONT/'Anton-Regular.ttf')
+SANS=str(FONT/'DMSans.ttf')
+EP=ROOT/'episodes/florida_hotel_mystery_001/v5_articulated/assets'
+OUT=HERE
+IVORY=(246,236,212)
+COPPER=(214,152,97)
+RUST=(196,54,58)
+INK=(12,22,29)
+
+def f(path,size):return ImageFont.truetype(path,size)
+
+def fit_font(draw,text,path,initial,maxwidth):
+    size=initial
+    while draw.textbbox((0,0),text,font=f(path,size))[2]>maxwidth:
+        size-=1
+    return f(path,size)
+
+def circle_logo(n):
+    # Draw at oversampled resolution; monogram is readable as a 98px circle.
+    bg=Image.new('RGB',(n,n),INK)
+    yy,xx=np.mgrid[0:n,0:n].astype(np.float32)
+    rr=np.sqrt(((xx-n/2)/(n/2))**2+((yy-n/2)/(n/2))**2)
+    rng=np.random.default_rng(1106)
+    grain=rng.normal(0,1.1,(n,n))
+    base=np.asarray(bg).copy().astype(np.float32)
+    glow=np.maximum(0,1-rr)**1.4
+    for c,g in enumerate((17,16,13)):
+        base[:,:,c]=np.clip(base[:,:,c]+g*glow+grain,0,255)
+    bg=Image.fromarray(base.astype('uint8'))
+    d=ImageDraw.Draw(bg)
+    s=n/1600
+    def pt(*co):return tuple(round(v*s) for v in co)
+    d.ellipse(pt(110,110,1490,1490),outline=(163,121,77),width=round(5*s))
+    d.ellipse(pt(157,157,1443,1443),outline=(86,89,82),width=round(3*s))
+    # Broken evidence-circle mark, deliberately imperfect, not a police seal.
+    d.arc(pt(186,186,1414,1414),212,330,fill=(205,81,70),width=round(12*s))
+    d.ellipse(pt(1326,365,1362,401),fill=RUST)
+    d.line(pt(305,1185,1295,1185),fill=(172,109,68),width=round(7*s))
+    d.line(pt(440,1219,1160,1219),fill=(93,98,90),width=round(3*s))
+    word='CE'
+    font=fit_font(d,word,ANTON,720*s,980*s)
+    bbox=d.textbbox((0,0),word,font=font)
+    x=round((n-(bbox[2]-bbox[0]))/2-bbox[0])
+    y=round(407*s-bbox[1])
+    d.text((x,y),word,font=font,fill=IVORY)
+    # A single red underline acts as the evidence thread at small sizes.
+    d.line(pt(478,1047,1122,1047),fill=RUST,width=round(25*s))
+    return bg
+
+master=circle_logo(1600)
+master.save(OUT/'PROFILE_MASTER_1600.png',optimize=True)
+profile=master.resize((800,800),Image.Resampling.LANCZOS)
+profile.save(OUT/'PROFILE_UPLOAD_800x800.png',optimize=True)
+profile_small=profile.resize((98,98),Image.Resampling.LANCZOS).convert('RGBA')
+mask=Image.new('L',(98,98));ImageDraw.Draw(mask).ellipse((0,0,97,97),fill=255)
+profile_small.putalpha(mask)
+profile_small.save(OUT/'PROFILE_CIRCLE_98px_PREVIEW.png')
+
+# Exact YouTube 2560x1440 header; central 1546x423 is the mobile-safe preview.
+banner_src=Image.open(ROOT/'nocturne_docket_brand/art/noir_evidence_room.png').convert('RGB')
+banner=ImageOps.fit(banner_src,(2560,1440),Image.Resampling.LANCZOS,centering=(.5,.5))
+# Protective transparent atmosphere holds the lettering without hiding art.
+veil=Image.new('RGBA',banner.size)
+d=ImageDraw.Draw(veil,'RGBA')
+d.rounded_rectangle((550,520,2020,915),radius=36,fill=(6,17,23,204))
+veil=veil.filter(ImageFilter.GaussianBlur(27))
+banner=Image.alpha_composite(banner.convert('RGBA'),veil)
+d=ImageDraw.Draw(banner,'RGBA')
+# All critical elements are comfortably INSIDE x507..2053, y508..931.
+# Symbol remains intact even in TV/desktop strips and is optional on mobile.
+d.ellipse((600,620,823,843),outline=(202,154,101,255),width=5)
+d.arc((616,636,807,827),225,337,fill=(214,68,67,255),width=9)
+d.text((659,656),'CE',font=f(ANTON,110),fill=IVORY)
+d.line((851,580,851,859),fill=(200,130,86,210),width=3)
+# A compact one-line wordmark feels stronger and more memorable than the old
+# three-word brand; no caption overlaps the main text.
+name='CASE EMBER'
+namefont=fit_font(d,name,ANTON,177,1070)
+d.text((914,619),name,font=namefont,fill=IVORY)
+d.line((920,829,1625,829),fill=(204,68,66,255),width=7)
+tagline='EVERY CASE LEAVES A TRACE'
+tagfont=fit_font(d,tagline,SANS,40,1070)
+d.text((921,861),tagline,font=tagfont,fill=(236,229,211,255))
+# No provisional handle is printed on the art: @handle is not yet claimed.
+banner.convert('RGB').save(OUT/'BANNER_UPLOAD_2560x1440.jpg',quality=92,optimize=True,subsampling=0)
+banner.crop((507,508,2053,931)).convert('RGB').save(OUT/'BANNER_MOBILE_SAFE_PREVIEW.png',optimize=True)
+banner.crop((0,530,2560,950)).convert('RGB').save(OUT/'BANNER_DESKTOP_STRIP_PREVIEW.jpg',quality=89,optimize=True)
+
+# Episode thumbnail uses ONLY art that appears in the fictional Florida video.
+# Original drawing: anonymous shadow points at fictional businessman. Title and
+# fiction label are set here as exact fonts, never generated by an image model.
+scene=Image.open(EP/'florida_suite_shooter_consistent.png').convert('RGB')
+assert scene.size==(768,1376)
+thumb=scene.crop((0,430,768,862)).resize((1280,720),Image.Resampling.LANCZOS)
+arr=np.asarray(thumb).copy()
+# A smooth left-sided charcoal field makes the cover readable at phone size.
+pos=np.arange(1280,dtype=np.float32)[None,:,None]
+factor=(np.clip((890-pos)/890,0,1)**1.25*.87)
+tint=np.array([5,14,18],dtype=np.float32)[None,None,:]
+arr=np.uint8(np.clip(arr.astype(np.float32)*(1-factor)+tint*factor,0,255))
+thumb=Image.fromarray(arr)
+d=ImageDraw.Draw(thumb)
+# Original editorial hairlines, no fabricated police/true-crime certification.
+d.rectangle((66,54,82,106),fill=RUST)
+d.text((104,54),'CASE EMBER',font=f(SANS,31),fill=(235,211,181))
+d.text((69,277),'A FICTIONAL FLORIDA MYSTERY',font=f(SANS,29),fill=(221,214,198))
+headline1='THE LOCKED'
+headline2='SUITE'
+h1=fit_font(d,headline1,ANTON,129,770)
+h2=fit_font(d,headline2,ANTON,201,770)
+d.text((63,334),headline1,font=h1,fill=IVORY,stroke_width=2,stroke_fill=(3,12,15))
+d.text((58,433),headline2,font=h2,fill=(235,168,110),stroke_width=2,stroke_fill=(3,12,15))
+d.ellipse((695,115,836,256),outline=RUST,width=9) # marks threatening hand, not victim
+thumb.save(OUT/'FLORIDA_LOCKED_SUITE_THUMBNAIL_1280x720.jpg',quality=94,optimize=True,subsampling=0)
+
+print('PROFILE',profile.size)
+print('BANNER',banner.size,(OUT/'BANNER_UPLOAD_2560x1440.jpg').stat().st_size)
+print('THUMBNAIL',thumb.size,(OUT/'FLORIDA_LOCKED_SUITE_THUMBNAIL_1280x720.jpg').stat().st_size)

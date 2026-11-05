@@ -1,0 +1,837 @@
+{
+  "duration": 65.5,
+  "sample_rate": 48000,
+  "clips": [
+    {
+      "clip": 0,
+      "text": "One hijacker vanished with two hundred thousand dollars. Years later, only fifty-eight hundred came back.",
+      "scene": 5,
+      "start": 0,
+      "end": 8.095,
+      "duration": 8.095
+    },
+    {
+      "clip": 1,
+      "text": "On November twenty-fourth, nineteen seventy-one, a man using the name Dan Cooper boarded Northwest Orient Flight Three-O-Five. The press later called him D.B.",
+      "scene": 0,
+      "start": 8.175,
+      "end": 21.33,
+      "duration": 13.155
+    },
+    {
+      "clip": 2,
+      "text": "He claimed his briefcase held a bomb and demanded four parachutes and two hundred thousand dollars.",
+      "scene": 1,
+      "start": 21.41,
+      "end": 26.865,
+      "duration": 5.455
+    },
+    {
+      "clip": 3,
+      "text": "In Seattle, he released all thirty-six passengers, kept the crew aboard, and ordered the plane south.",
+      "scene": 2,
+      "start": 26.945,
+      "end": 33.54,
+      "duration": 6.595
+    },
+    {
+      "clip": 4,
+      "text": "Somewhere between Seattle and Reno, Cooper lowered the rear stairs and jumped into a stormy night.",
+      "scene": 3,
+      "start": 33.62,
+      "end": 39.325,
+      "duration": 5.705
+    },
+    {
+      "clip": 5,
+      "text": "The FBI considered more than eight hundred suspects\u2014but never proved who he was.",
+      "scene": 4,
+      "start": 39.405,
+      "end": 43.44,
+      "duration": 4.035
+    },
+    {
+      "clip": 6,
+      "text": "Then, in nineteen eighty, a boy found fifty-eight hundred dollars from the ransom. Serial numbers matched. But the money did not show where Cooper landed, or whether he survived.",
+      "scene": 5,
+      "start": 43.52,
+      "end": 54.835,
+      "duration": 11.315
+    },
+    {
+      "clip": 7,
+      "text": "After forty-five years, the FBI redirected its resources. The identity is still unknown. Did Cooper die in the jump\u2014or escape? The evidence cannot settle it.",
+      "scene": 6,
+      "start": 54.915,
+      "end": 65.5,
+      "duration": 10.585
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.06,
+      "end": 0.6296,
+      "text": "One"
+    },
+    {
+      "start": 0.6296,
+      "end": 1.4841,
+      "text": "hijacker"
+    },
+    {
+      "start": 1.4841,
+      "end": 2.3386,
+      "text": "vanished"
+    },
+    {
+      "start": 2.3386,
+      "end": 2.6234,
+      "text": "with"
+    },
+    {
+      "start": 2.6234,
+      "end": 2.9082,
+      "text": "two"
+    },
+    {
+      "start": 2.9082,
+      "end": 3.4779,
+      "text": "hundred"
+    },
+    {
+      "start": 3.4779,
+      "end": 4.0475,
+      "text": "thousand"
+    },
+    {
+      "start": 4.0475,
+      "end": 4.6171,
+      "text": "dollars."
+    },
+    {
+      "start": 4.6171,
+      "end": 4.902,
+      "text": "Years"
+    },
+    {
+      "start": 4.902,
+      "end": 5.4716,
+      "text": "later,"
+    },
+    {
+      "start": 5.4716,
+      "end": 6.0413,
+      "text": "only"
+    },
+    {
+      "start": 6.0413,
+      "end": 6.6109,
+      "text": "fifty-eight"
+    },
+    {
+      "start": 6.6109,
+      "end": 7.1805,
+      "text": "hundred"
+    },
+    {
+      "start": 7.1805,
+      "end": 7.7502,
+      "text": "came"
+    },
+    {
+      "start": 7.7502,
+      "end": 8.035,
+      "text": "back."
+    },
+    {
+      "start": 8.235,
+      "end": 8.5454,
+      "text": "On"
+    },
+    {
+      "start": 8.5454,
+      "end": 9.4764,
+      "text": "November"
+    },
+    {
+      "start": 9.4764,
+      "end": 10.4075,
+      "text": "twenty-fourth,"
+    },
+    {
+      "start": 10.4075,
+      "end": 11.3386,
+      "text": "nineteen"
+    },
+    {
+      "start": 11.3386,
+      "end": 12.58,
+      "text": "seventy-one,"
+    },
+    {
+      "start": 12.58,
+      "end": 12.8904,
+      "text": "a"
+    },
+    {
+      "start": 12.8904,
+      "end": 13.2007,
+      "text": "man"
+    },
+    {
+      "start": 13.2007,
+      "end": 13.8214,
+      "text": "using"
+    },
+    {
+      "start": 13.8214,
+      "end": 14.1318,
+      "text": "the"
+    },
+    {
+      "start": 14.1318,
+      "end": 14.7525,
+      "text": "name"
+    },
+    {
+      "start": 14.7525,
+      "end": 15.0629,
+      "text": "Dan"
+    },
+    {
+      "start": 15.0629,
+      "end": 15.6836,
+      "text": "Cooper"
+    },
+    {
+      "start": 15.6836,
+      "end": 16.3043,
+      "text": "boarded"
+    },
+    {
+      "start": 16.3043,
+      "end": 16.925,
+      "text": "Northwest"
+    },
+    {
+      "start": 16.925,
+      "end": 17.5457,
+      "text": "Orient"
+    },
+    {
+      "start": 17.5457,
+      "end": 17.8561,
+      "text": "Flight"
+    },
+    {
+      "start": 17.8561,
+      "end": 18.7871,
+      "text": "Three-O-Five."
+    },
+    {
+      "start": 18.7871,
+      "end": 19.0975,
+      "text": "The"
+    },
+    {
+      "start": 19.0975,
+      "end": 19.4079,
+      "text": "press"
+    },
+    {
+      "start": 19.4079,
+      "end": 20.0286,
+      "text": "later"
+    },
+    {
+      "start": 20.0286,
+      "end": 20.6493,
+      "text": "called"
+    },
+    {
+      "start": 20.6493,
+      "end": 20.9596,
+      "text": "him"
+    },
+    {
+      "start": 20.9596,
+      "end": 21.27,
+      "text": "D.B."
+    },
+    {
+      "start": 21.47,
+      "end": 21.6676,
+      "text": "He"
+    },
+    {
+      "start": 21.6676,
+      "end": 22.0628,
+      "text": "claimed"
+    },
+    {
+      "start": 22.0628,
+      "end": 22.2604,
+      "text": "his"
+    },
+    {
+      "start": 22.2604,
+      "end": 22.8531,
+      "text": "briefcase"
+    },
+    {
+      "start": 22.8531,
+      "end": 23.0507,
+      "text": "held"
+    },
+    {
+      "start": 23.0507,
+      "end": 23.2483,
+      "text": "a"
+    },
+    {
+      "start": 23.2483,
+      "end": 23.4459,
+      "text": "bomb"
+    },
+    {
+      "start": 23.4459,
+      "end": 23.6435,
+      "text": "and"
+    },
+    {
+      "start": 23.6435,
+      "end": 24.2363,
+      "text": "demanded"
+    },
+    {
+      "start": 24.2363,
+      "end": 24.4339,
+      "text": "four"
+    },
+    {
+      "start": 24.4339,
+      "end": 25.2243,
+      "text": "parachutes"
+    },
+    {
+      "start": 25.2243,
+      "end": 25.4219,
+      "text": "and"
+    },
+    {
+      "start": 25.4219,
+      "end": 25.6194,
+      "text": "two"
+    },
+    {
+      "start": 25.6194,
+      "end": 26.0146,
+      "text": "hundred"
+    },
+    {
+      "start": 26.0146,
+      "end": 26.4098,
+      "text": "thousand"
+    },
+    {
+      "start": 26.4098,
+      "end": 26.805,
+      "text": "dollars."
+    },
+    {
+      "start": 27.005,
+      "end": 27.2448,
+      "text": "In"
+    },
+    {
+      "start": 27.2448,
+      "end": 27.7244,
+      "text": "Seattle,"
+    },
+    {
+      "start": 27.7244,
+      "end": 27.9643,
+      "text": "he"
+    },
+    {
+      "start": 27.9643,
+      "end": 28.6837,
+      "text": "released"
+    },
+    {
+      "start": 28.6837,
+      "end": 28.9235,
+      "text": "all"
+    },
+    {
+      "start": 28.9235,
+      "end": 29.643,
+      "text": "thirty-six"
+    },
+    {
+      "start": 29.643,
+      "end": 30.3624,
+      "text": "passengers,"
+    },
+    {
+      "start": 30.3624,
+      "end": 30.6022,
+      "text": "kept"
+    },
+    {
+      "start": 30.6022,
+      "end": 30.842,
+      "text": "the"
+    },
+    {
+      "start": 30.842,
+      "end": 31.0819,
+      "text": "crew"
+    },
+    {
+      "start": 31.0819,
+      "end": 31.5615,
+      "text": "aboard,"
+    },
+    {
+      "start": 31.5615,
+      "end": 31.8013,
+      "text": "and"
+    },
+    {
+      "start": 31.8013,
+      "end": 32.5207,
+      "text": "ordered"
+    },
+    {
+      "start": 32.5207,
+      "end": 32.7606,
+      "text": "the"
+    },
+    {
+      "start": 32.7606,
+      "end": 33.2402,
+      "text": "plane"
+    },
+    {
+      "start": 33.2402,
+      "end": 33.48,
+      "text": "south."
+    },
+    {
+      "start": 33.68,
+      "end": 34.4779,
+      "text": "Somewhere"
+    },
+    {
+      "start": 34.4779,
+      "end": 34.8768,
+      "text": "between"
+    },
+    {
+      "start": 34.8768,
+      "end": 35.2757,
+      "text": "Seattle"
+    },
+    {
+      "start": 35.2757,
+      "end": 35.4752,
+      "text": "and"
+    },
+    {
+      "start": 35.4752,
+      "end": 35.8741,
+      "text": "Reno,"
+    },
+    {
+      "start": 35.8741,
+      "end": 36.273,
+      "text": "Cooper"
+    },
+    {
+      "start": 36.273,
+      "end": 36.8714,
+      "text": "lowered"
+    },
+    {
+      "start": 36.8714,
+      "end": 37.0709,
+      "text": "the"
+    },
+    {
+      "start": 37.0709,
+      "end": 37.2704,
+      "text": "rear"
+    },
+    {
+      "start": 37.2704,
+      "end": 37.4698,
+      "text": "stairs"
+    },
+    {
+      "start": 37.4698,
+      "end": 37.6693,
+      "text": "and"
+    },
+    {
+      "start": 37.6693,
+      "end": 38.0682,
+      "text": "jumped"
+    },
+    {
+      "start": 38.0682,
+      "end": 38.4671,
+      "text": "into"
+    },
+    {
+      "start": 38.4671,
+      "end": 38.6666,
+      "text": "a"
+    },
+    {
+      "start": 38.6666,
+      "end": 39.0655,
+      "text": "stormy"
+    },
+    {
+      "start": 39.0655,
+      "end": 39.265,
+      "text": "night."
+    },
+    {
+      "start": 39.465,
+      "end": 39.643,
+      "text": "The"
+    },
+    {
+      "start": 39.643,
+      "end": 39.8209,
+      "text": "FBI"
+    },
+    {
+      "start": 39.8209,
+      "end": 40.5327,
+      "text": "considered"
+    },
+    {
+      "start": 40.5327,
+      "end": 40.8886,
+      "text": "more"
+    },
+    {
+      "start": 40.8886,
+      "end": 41.0666,
+      "text": "than"
+    },
+    {
+      "start": 41.0666,
+      "end": 41.2445,
+      "text": "eight"
+    },
+    {
+      "start": 41.2445,
+      "end": 41.6005,
+      "text": "hundred"
+    },
+    {
+      "start": 41.6005,
+      "end": 42.1343,
+      "text": "suspects\u2014but"
+    },
+    {
+      "start": 42.1343,
+      "end": 42.4902,
+      "text": "never"
+    },
+    {
+      "start": 42.4902,
+      "end": 42.8461,
+      "text": "proved"
+    },
+    {
+      "start": 42.8461,
+      "end": 43.0241,
+      "text": "who"
+    },
+    {
+      "start": 43.0241,
+      "end": 43.202,
+      "text": "he"
+    },
+    {
+      "start": 43.202,
+      "end": 43.38,
+      "text": "was."
+    },
+    {
+      "start": 43.58,
+      "end": 43.8234,
+      "text": "Then,"
+    },
+    {
+      "start": 43.8234,
+      "end": 44.0667,
+      "text": "in"
+    },
+    {
+      "start": 44.0667,
+      "end": 44.7968,
+      "text": "nineteen"
+    },
+    {
+      "start": 44.7968,
+      "end": 45.2836,
+      "text": "eighty,"
+    },
+    {
+      "start": 45.2836,
+      "end": 45.527,
+      "text": "a"
+    },
+    {
+      "start": 45.527,
+      "end": 45.7703,
+      "text": "boy"
+    },
+    {
+      "start": 45.7703,
+      "end": 46.0137,
+      "text": "found"
+    },
+    {
+      "start": 46.0137,
+      "end": 46.5004,
+      "text": "fifty-eight"
+    },
+    {
+      "start": 46.5004,
+      "end": 46.9872,
+      "text": "hundred"
+    },
+    {
+      "start": 46.9872,
+      "end": 47.4739,
+      "text": "dollars"
+    },
+    {
+      "start": 47.4739,
+      "end": 47.7173,
+      "text": "from"
+    },
+    {
+      "start": 47.7173,
+      "end": 47.9607,
+      "text": "the"
+    },
+    {
+      "start": 47.9607,
+      "end": 48.4474,
+      "text": "ransom."
+    },
+    {
+      "start": 48.4474,
+      "end": 48.9341,
+      "text": "Serial"
+    },
+    {
+      "start": 48.9341,
+      "end": 49.4209,
+      "text": "numbers"
+    },
+    {
+      "start": 49.4209,
+      "end": 49.9076,
+      "text": "matched."
+    },
+    {
+      "start": 49.9076,
+      "end": 50.151,
+      "text": "But"
+    },
+    {
+      "start": 50.151,
+      "end": 50.3943,
+      "text": "the"
+    },
+    {
+      "start": 50.3943,
+      "end": 50.8811,
+      "text": "money"
+    },
+    {
+      "start": 50.8811,
+      "end": 51.1245,
+      "text": "did"
+    },
+    {
+      "start": 51.1245,
+      "end": 51.3678,
+      "text": "not"
+    },
+    {
+      "start": 51.3678,
+      "end": 51.6112,
+      "text": "show"
+    },
+    {
+      "start": 51.6112,
+      "end": 52.0979,
+      "text": "where"
+    },
+    {
+      "start": 52.0979,
+      "end": 52.5847,
+      "text": "Cooper"
+    },
+    {
+      "start": 52.5847,
+      "end": 53.0714,
+      "text": "landed,"
+    },
+    {
+      "start": 53.0714,
+      "end": 53.3148,
+      "text": "or"
+    },
+    {
+      "start": 53.3148,
+      "end": 53.8015,
+      "text": "whether"
+    },
+    {
+      "start": 53.8015,
+      "end": 54.0449,
+      "text": "he"
+    },
+    {
+      "start": 54.0449,
+      "end": 54.775,
+      "text": "survived."
+    },
+    {
+      "start": 54.975,
+      "end": 55.4203,
+      "text": "After"
+    },
+    {
+      "start": 55.4203,
+      "end": 56.311,
+      "text": "forty-five"
+    },
+    {
+      "start": 56.311,
+      "end": 56.5336,
+      "text": "years,"
+    },
+    {
+      "start": 56.5336,
+      "end": 56.7563,
+      "text": "the"
+    },
+    {
+      "start": 56.7563,
+      "end": 56.9789,
+      "text": "FBI"
+    },
+    {
+      "start": 56.9789,
+      "end": 57.8696,
+      "text": "redirected"
+    },
+    {
+      "start": 57.8696,
+      "end": 58.0922,
+      "text": "its"
+    },
+    {
+      "start": 58.0922,
+      "end": 58.7602,
+      "text": "resources."
+    },
+    {
+      "start": 58.7602,
+      "end": 58.9829,
+      "text": "The"
+    },
+    {
+      "start": 58.9829,
+      "end": 59.8735,
+      "text": "identity"
+    },
+    {
+      "start": 59.8735,
+      "end": 60.0962,
+      "text": "is"
+    },
+    {
+      "start": 60.0962,
+      "end": 60.3188,
+      "text": "still"
+    },
+    {
+      "start": 60.3188,
+      "end": 60.7641,
+      "text": "unknown."
+    },
+    {
+      "start": 60.7641,
+      "end": 60.9868,
+      "text": "Did"
+    },
+    {
+      "start": 60.9868,
+      "end": 61.4321,
+      "text": "Cooper"
+    },
+    {
+      "start": 61.4321,
+      "end": 61.6548,
+      "text": "die"
+    },
+    {
+      "start": 61.6548,
+      "end": 61.8774,
+      "text": "in"
+    },
+    {
+      "start": 61.8774,
+      "end": 62.1001,
+      "text": "the"
+    },
+    {
+      "start": 62.1001,
+      "end": 62.5454,
+      "text": "jump\u2014or"
+    },
+    {
+      "start": 62.5454,
+      "end": 63.2134,
+      "text": "escape?"
+    },
+    {
+      "start": 63.2134,
+      "end": 63.4361,
+      "text": "The"
+    },
+    {
+      "start": 63.4361,
+      "end": 64.3267,
+      "text": "evidence"
+    },
+    {
+      "start": 64.3267,
+      "end": 64.772,
+      "text": "cannot"
+    },
+    {
+      "start": 64.772,
+      "end": 65.2173,
+      "text": "settle"
+    },
+    {
+      "start": 65.2173,
+      "end": 65.44,
+      "text": "it."
+    }
+  ]
+}

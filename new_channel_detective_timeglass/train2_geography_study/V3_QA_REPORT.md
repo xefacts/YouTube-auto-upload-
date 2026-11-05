@@ -1,0 +1,8 @@
+# V3 technical review
+
+- Final owner-only review master: `FLORIDA_KEYS_FLAT_ATLAS_V3_PRIVATE_1080x1920.mp4` — 62.90 s, 1,887 frames, 1080×1920, 30 fps H.264 High/yuv420p, 48 kHz stereo AAC, 47.6 MB.
+- Source path uses flat 4096² Mercator relief and original illustrated local map plates only; checked V3 standalone map helper does not import the rejected spherical-renderer script. No reference frames or reference audio are in the edit.
+- Frame QA: ffmpeg `blackdetect=d=0.08:pix_th=0.07` reported no black runs; `freezedetect=n=-50dB:d=1.3` reported no >1.3-second holds. A frozen geological insert detected in an earlier render was corrected with a moving reef-camera path and waterline, then the *entire* film was rerendered and rechecked.
+- AAC integrated loudness ≈−16.4 LUFS and decoded true peak about −1.4 dBFS after `loudnorm` target −16 LUFS/−1.5 dBTP. Music is not copied; the original Kokoro narration is foregrounded over a quiet CC0 recorded surf bed.
+- All reference per-frame measurements are included in the owner's source archive as CSV/summary metadata; contact sheets with supplied reference pixels stay private and are not packaged. Editorial inference limits remain documented in `REFERENCE_FORENSICS_V3.md`.
+- **Editorial limitations before publishing:** neither the illustrated local relief, the cyan highway line, the reef cutaway nor the bridge cutaway is validated survey imagery; captions are proportionally phrase-timed, not a phoneme-level forced alignment. Voice selection is a new synthesis approach, not yet approved by the user. The deliverable is an invitation to review, not a claim of exact reference parity or factual GIS precision.

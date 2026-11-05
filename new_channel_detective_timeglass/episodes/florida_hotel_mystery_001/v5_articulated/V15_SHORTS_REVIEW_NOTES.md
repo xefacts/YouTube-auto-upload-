@@ -1,0 +1,17 @@
+# Florida V15 — Shorts-friendly private review (2026-11-03)
+
+**Video:** https://drive.google.com/file/d/1jkGJzObH_2lxxaqUydXN5FGwryLgsFez/view?usp=drivesdk
+
+**9:16 cover:** https://drive.google.com/file/d/1IzXY_EOcrY3chUXNaHwIfi5PEbuZWsyw/view?usp=drivesdk
+
+## What changed from the heavier V14 review
+
+- New **1080×1920** 9:16 Shorts-size render, **24 fps**, H.264 High profile level 4.2, yuv420p, AAC stereo 48 kHz, faststart MP4. Duration **39.25 s** / **942 of 942 frames decoded**. Source file 18,828,564 bytes; SHA-256 `476037fbf7d5c450de3a8abe471d602d71b3994e8c3bf6198f1a12b7122d44aa`.
+- Measured video bitrate **~3.68 Mb/s**, total **~3.84 Mb/s**, AAC audio **~151 kb/s**. Variable-quality CRF 19 with an **8 Mb/s maxrate cap** (not needlessly high constant bitrate on still evidence cards). This does not guarantee identical performance on every device/network; the 1080p H.264 profile is a practical broadly compatible delivery choice. Audio ~−18.6 LUFS and −2.9 dBFS true peak.
+- Retains **all 36.4955 seconds of the chosen narration** and the previous privately supplied music/gunshot/scream SFX. Starting at 36.5 seconds the PCM track has only digital zero; the final animated “COMMENT BELOW” scene runs **36.90–39.25 seconds with NO voice-over and no other audio**. Source-to-export high-pass voice correlations ~0.877–0.984 for sampled windows including the final spoken word. The reported stray terminal “p” has not been verified separable and was not blindly removed.
+- Fixed the late-balcony source pose that showed a magnifier apparently clipped to a coat and separated from the hand: now the selected PRISM pose physically holds the handle. Grounded feet remain at their established balcony position. Wife sprites now have a refined contour key: remove the white studio backdrop, including enclosed sleeve/leg gaps, retain eyes and pearl details, feather only the outer pixel edge. Very fine dark edge ink ties relevant cutouts to their scene. No generated extra hands/changed identity.
+- Cohesive cool-shadow/warm-practical color grade with gentle lifted blacks (not crushed faces/evidence). The final five proof photographs are arranged as a **staggered, slightly rotated, pinned editorial collage** inspired by the *grammar* of the user's Tuk-Tuk reference, not copied from it. Each original SVG red ring is attached to its own correctly pictured clue before rotation. Labels stay integrated into the lower portion of every evidence print. No reference clip pixels/audio/logos or fabricated historic-case claims.
+- Separate [Case Ember vertical cover](https://drive.google.com/file/d/1IzXY_EOcrY3chUXNaHwIfi5PEbuZWsyw/view?usp=drivesdk): 1080×1920, checked at 270×480, original episode illustration only, with a clear **FICTIONAL** label. `new_channel_detective_timeglass/case_ember_brand/build_shorts_cover.py` typesets it exactly; it has not been uploaded/set on YouTube.
+- Both files and their parent Florida private-review folder were checked owner-only. **No public or YouTube upload**; rights/monetization status of supplied music remains unverified.
+
+Source renderer: `render_v15.py` builds on V14/V13 assets. Recreate `.venv-video` with `tooling/creative/video-requirements.txt` and stage the four user-supplied private audio files as documented in `V13_REVIEW_NOTES.md` before re-rendering. The delivered MP4 is ignored by Git; code, SVG paths and 9:16 cover are versioned.
