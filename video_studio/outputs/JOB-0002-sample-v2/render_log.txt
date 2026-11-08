@@ -1,0 +1,155 @@
+/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/video_studio/engine/blender/scene_city.py:104: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  w.use_nodes = True
+/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/video_studio/engine/blender/scene_city.py:44: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m.use_nodes = True
+/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/video_studio/engine/blender/scene_city.py:124: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m.use_nodes = True
+00:17.619  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0001.png'
+SCENE READY: frames 1-72, 480x854, samples 32
+frame 1: 15.4s
+00:32.284  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0002.png'
+frame 2: 14.7s
+00:46.911  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0003.png'
+frame 3: 14.6s
+01:01.533  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0004.png'
+frame 4: 14.6s
+01:16.211  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0005.png'
+frame 5: 14.7s
+01:30.773  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0006.png'
+frame 6: 14.6s
+01:45.423  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0007.png'
+frame 7: 14.7s
+01:59.987  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0008.png'
+frame 8: 14.6s
+02:14.496  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0009.png'
+frame 9: 14.5s
+02:28.974  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0010.png'
+frame 10: 14.5s
+02:43.462  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0011.png'
+frame 11: 14.5s
+02:57.936  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0012.png'
+frame 12: 14.5s
+03:12.350  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0013.png'
+frame 13: 14.4s
+03:26.714  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0014.png'
+frame 14: 14.4s
+03:41.059  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0015.png'
+frame 15: 14.3s
+03:55.372  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0016.png'
+frame 16: 14.3s
+04:09.626  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0017.png'
+frame 17: 14.3s
+04:23.837  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0018.png'
+frame 18: 14.2s
+04:38.025  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0019.png'
+frame 19: 14.2s
+04:52.169  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0020.png'
+frame 20: 14.1s
+05:06.242  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0021.png'
+frame 21: 14.1s
+05:20.266  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0022.png'
+frame 22: 14.0s
+05:34.242  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0023.png'
+frame 23: 14.0s
+05:48.180  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0024.png'
+frame 24: 13.9s
+06:02.060  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0025.png'
+frame 25: 13.9s
+06:15.874  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0026.png'
+frame 26: 13.8s
+06:29.615  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0027.png'
+frame 27: 13.7s
+06:43.276  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0028.png'
+frame 28: 13.7s
+06:56.841  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0029.png'
+frame 29: 13.6s
+07:10.375  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0030.png'
+frame 30: 13.5s
+07:23.832  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0031.png'
+frame 31: 13.5s
+07:37.208  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0032.png'
+frame 32: 13.4s
+07:50.513  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0033.png'
+frame 33: 13.3s
+08:03.731  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0034.png'
+frame 34: 13.2s
+08:16.871  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0035.png'
+frame 35: 13.1s
+08:29.926  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0036.png'
+frame 36: 13.1s
+08:42.916  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0037.png'
+frame 37: 13.0s
+08:55.788  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0038.png'
+frame 38: 12.9s
+09:08.608  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0039.png'
+frame 39: 12.8s
+09:21.356  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0040.png'
+frame 40: 12.7s
+09:34.057  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0041.png'
+frame 41: 12.7s
+09:46.757  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0042.png'
+frame 42: 12.7s
+09:59.372  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0043.png'
+frame 43: 12.6s
+10:12.004  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0044.png'
+frame 44: 12.6s
+10:24.572  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0045.png'
+frame 45: 12.6s
+10:37.134  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0046.png'
+frame 46: 12.6s
+10:49.702  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0047.png'
+frame 47: 12.6s
+11:02.290  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0048.png'
+frame 48: 12.6s
+11:14.825  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0049.png'
+frame 49: 12.5s
+11:27.344  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0050.png'
+frame 50: 12.5s
+11:39.854  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0051.png'
+frame 51: 12.5s
+11:52.346  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0052.png'
+frame 52: 12.5s
+12:04.854  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0053.png'
+frame 53: 12.5s
+12:17.366  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0054.png'
+frame 54: 12.5s
+12:29.866  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0055.png'
+frame 55: 12.5s
+12:42.318  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0056.png'
+frame 56: 12.5s
+12:54.779  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0057.png'
+frame 57: 12.5s
+13:07.248  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0058.png'
+frame 58: 12.5s
+13:19.723  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0059.png'
+frame 59: 12.5s
+13:32.151  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0060.png'
+frame 60: 12.4s
+13:44.574  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0061.png'
+frame 61: 12.4s
+13:56.968  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0062.png'
+frame 62: 12.4s
+14:09.359  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0063.png'
+frame 63: 12.4s
+14:21.740  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0064.png'
+frame 64: 12.4s
+14:34.096  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0065.png'
+frame 65: 12.4s
+14:46.468  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0066.png'
+frame 66: 12.4s
+14:58.832  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0067.png'
+frame 67: 12.4s
+15:11.193  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0068.png'
+frame 68: 12.4s
+15:23.548  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0069.png'
+frame 69: 12.4s
+15:35.888  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0070.png'
+frame 70: 12.3s
+15:48.299  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0071.png'
+frame 71: 12.4s
+16:00.667  render           | Saved: '/home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out/frame_0072.png'
+frame 72: 12.4s
+RENDER DONE -> /home/runner/work/YouTube-auto-upload-/YouTube-auto-upload-/render_out
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:35:05)
+
+Blender quit

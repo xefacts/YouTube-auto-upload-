@@ -1,0 +1,16 @@
+{
+ "blender": "blender-5.2.3-linux-x64.tar.xz",
+ "runner": {
+  "os": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "cores": 4
+ },
+ "inputs": {
+  "frames": "",
+  "width": "",
+  "height": "",
+  "samples": ""
+ },
+ "frames_rendered": 72,
+ "avg_sec_per_frame": 13.31,
+ "total_render_sec": 958.4
+}
