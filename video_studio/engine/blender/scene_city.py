@@ -298,11 +298,15 @@ def cam_at(frame, loc, target, lens=None):
         cam_data.keyframe_insert("lens", frame=frame)
 
 # 0-3s aerial establish + descend; 3-6s track the walker; 6-8s stop + low hero close-up; 8-12s pull-back reveal
-cam_at(0,              (16, -30, 26),  (0, 2.0, 2.0))
-cam_at(int(3 * FPS),   (7, -6, 3.2),   (0, 5.8, 1.7))
+# NOTE: camera path stays over the road corridor (|x| <= 4.4) whenever it is
+# below rooftop height — buildings occupy |x| ~ 7..13.5, poles |x|=5.8,
+# trees x=-7.2. The earlier f0 key (16,-30,26) flew the descent straight
+# through a right-row building (frames ~48-62 rendered pure black).
+cam_at(0,              (1.5, -40, 24),  (0, 2.0, 2.0))
+cam_at(int(3 * FPS),   (2.8, -6, 3.2),  (0, 5.8, 1.7))
 cam_at(int(6 * FPS),   (2.2, 3.8, 1.9), (0, 8.0, 1.7), lens=42)
 cam_at(int(8 * FPS),   (-1.4, 6.2, 1.1), (0, 8.2, 1.9), lens=50)
-cam_at(total,          (-6, 16, 7),    (0, 11.0, 2.2), lens=34)
+cam_at(total,          (-4, 18, 8),     (0, 11.0, 2.2), lens=34)
 
 # ============================== render ==============================
 scn.frame_start, scn.frame_end = FRAME_START, FRAME_END

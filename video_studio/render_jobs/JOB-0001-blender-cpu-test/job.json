@@ -7,7 +7,7 @@
   "samples": 32,
   "fps": 24,
   "engine": "cycles-cpu",
-  "status": "render-ok-encode-retry",
+  "status": "delivered-v1-buggy-camera",
   "created": "2026-11-08",
   "notes": "Phase-8 Blender CPU compatibility test: official portable build, 72 frames 480x854"
 }
