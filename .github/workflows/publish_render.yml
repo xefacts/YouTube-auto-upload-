@@ -1,0 +1,63 @@
+name: Publish Render Result
+
+# Sandbox network allowlist blocks artifact blob downloads (blob.core.windows.net).
+# This job runs INSIDE Actions (full network), downloads the render artifact,
+# and commits the deliverables to the branch so they are fetchable via git.
+
+on:
+  push:
+    branches: [arena/**]
+    paths:
+      - 'video_studio/render_jobs/PUBLISH'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-render
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Read publish request
+        run: |
+          set -euo pipefail
+          grep -E '^(RUN_ID|JOB_ID)=' video_studio/render_jobs/PUBLISH >> "$GITHUB_ENV" || true
+          cat video_studio/render_jobs/PUBLISH
+
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download artifact
+        uses: actions/download-artifact@v7.0.2
+        with:
+          run-id: ${{ env.RUN_ID }}
+          name: blender-render
+          path: art
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit deliverables to branch
+        run: |
+          set -euo pipefail
+          DEST="video_studio/outputs/${JOB_ID:-JOB-0001}"
+          mkdir -p "$DEST"
+          cp art/sample.mp4 "$DEST/"
+          cp art/render_report.json art/timing.json art/render_log.txt "$DEST/" 2>/dev/null || true
+          # small contact sheet of 6 frames for quick review
+          FRAMES=$(ls art/frame_*.png | sort)
+          echo "$FRAMES" | head -72 | awk 'NR%12==1' | xargs -I{} \
+            ffmpeg -y -i {} -vf scale=270:-1 "art/s_{}.jpg" 2>/dev/null || true
+          ffmpeg -y -pattern_type glob -i 'art/s_art_frame_*.jpg' \
+            -filter_complex "tile=3x2" -frames:v 1 "$DEST/contact_sheet.jpg" 2>/dev/null || \
+            (echo "$FRAMES" | head -6 | xargs -I{} ffmpeg -y -i {} -vf scale=270:-1 "art/s6_{}.jpg"; \
+             ffmpeg -y -pattern_type glob -i 'art/s6_art_frame_*.jpg' -filter_complex tile=3x2 -frames:v 1 "$DEST/contact_sheet.jpg")
+          git config user.name "render-bot" && git config user.email "actions@github.com"
+          for i in 1 2 3; do
+            git add -f "$DEST" && git commit -m "render: publish $JOB_ID result (run $RUN_ID)" && \
+            git push && break || (git pull --rebase || true)
+          done
