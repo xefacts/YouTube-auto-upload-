@@ -68,7 +68,14 @@ def main():
 
     char_pos = (1.1, -3.2)
     char_yaw = 200
-    streetlight_xz = info["light_anchors"][1][0], info["light_anchors"][1][2]
+    # Pick the streetlight anchor nearest where the character actually ends up
+    # after the walk shot (-0.1, -7.2), not just the first one in the list --
+    # using a distant anchor made the "interact"/"outro" camera swing across a
+    # huge empty gap of plain ground with nothing in frame (caught by the
+    # automated temporal-flicker QC check, see PHASE_REPORT.md).
+    _end_x, _end_z = char_pos[0] - 1.2, char_pos[1] - 4.0
+    streetlight_anchor = min(info["light_anchors"], key=lambda a: (a[0]-_end_x)**2 + (a[2]-_end_z)**2)
+    streetlight_xz = streetlight_anchor[0], streetlight_anchor[2]
 
     shots = []
     shots.append((rig.tracking_shot((7, 11, 9), (2, 8, 3), (0, 1, -16), (0, 1, -10)), "wide aerial"))
