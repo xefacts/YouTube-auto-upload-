@@ -112,10 +112,13 @@ jobs:
             --outdir render_out 2>&1 | tee render_log.txt
           ls render_out | head
 
+- name: Install ffmpeg (not preinstalled on current ubuntu runners)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
       - name: Assemble MP4
         run: |
           set -euo pipefail
-          FPS=${{ github.event.inputs.fps }}
+          FPS="${FPS:-24}"
           ffmpeg -y -framerate "$FPS" -pattern_type glob -i 'render_out/frame_*.png' \
             -c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p \
             "render_out/sample.mp4"
@@ -150,6 +153,7 @@ jobs:
             render_out/sample.mp4
             render_out/render_report.json
             render_out/timing.json
+            render_out/frame_*.png
             render_log.txt
           retention-days: 14
           if-no-files-found: error
