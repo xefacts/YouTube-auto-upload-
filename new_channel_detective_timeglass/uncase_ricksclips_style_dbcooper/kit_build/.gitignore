@@ -1,0 +1,17 @@
+.venv/
+node_modules/
+frames/
+out/
+voice.wav
+mix.wav
+mix_raw.wav
+*.wav
+stills/review*/
+stills/jump_review*/
+stills/plan/
+stills/plan_*/
+stills/test*/
+stills/contact_plan.jpg
+stills/contact_final.jpg
+stills/contact_review*.jpg
+stills/contact_jump*.jpg

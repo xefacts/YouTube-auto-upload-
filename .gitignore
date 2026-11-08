@@ -12,11 +12,34 @@ youtube_token.json
 .env
 .DS_Store
 
-# User-provided skill screenshots and reference assets (kept local; not for PR)
+# Duplicate lossless Finch sheets are tracked individually; keep the assembled archive local.
+new_channel_detective_timeglass/finch_refined/FINCH_COMPLETE_SHEETS_AND_PROMPTS.zip
+# Download bundle duplicates the tracked Finch V2 storyboard/keyframe sources.
+new_channel_detective_timeglass/finch_branded_intro/FINCH_V2_STORYBOARD_AND_PROMPTS.zip
+# Docket Lantern ZIP duplicates the tracked upload-ready art, masters, previews, and copy.
+new_channel_detective_timeglass/docket_lantern_brand/THE_DOCKET_LANTERN_COMPLETE_BRAND_KIT.zip
+# Downloaded reference screenshots and isolated creative tool environments.
+google_drive/
+.venv-video/
+tooling/creative/node_modules/
+
+# Uncompressed transient audio of the private geography render.
+new_channel_detective_timeglass/train2_geography_study/render_cache/
+# Large source archive is delivered owner-only through Drive; keep local project assets/code tracked.
+new_channel_detective_timeglass/uncase_truecrime_short/UNCASE_MONA_LISA_EDITABLE_SOURCE_KIT.zip
+
+# User-provided and generated working assets (kept local; not for PR)
 new_channel_detective_timeglass/reference_materials/
+image-search/
+workcam_*.png
+workscene_*.png
+workcheck_*.png
+new_channel_detective_timeglass/**/*.mp3
+new_channel_detective_timeglass/**/*.wav
+new_channel_detective_timeglass/**/kit_build/stills/
 
-# local symlink to the shared playwright install
+# Flannan Isles short: local toolchain symlink, encoded output, and the
+# reproducible dummy VO takes (regenerate with prod/vo_synth.py)
 new_channel_detective_timeglass/flannan_isles_short/prod/node_modules
-
-# encoded output + chunk scratch
 new_channel_detective_timeglass/flannan_isles_short/prod/out/
+new_channel_detective_timeglass/flannan_isles_short/prod/vo/

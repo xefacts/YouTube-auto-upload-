@@ -1,0 +1,14 @@
+{
+  "name": "private-review-creative-toolchain",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Local optional tooling for research and film previews; no automatic publishing",
+  "dependencies": {
+    "@ffprobe-installer/ffprobe": "2.1.2",
+    "@svgdotjs/svg.js": "3.2.8",
+    "openfilm": "0.2.7",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.540"
+  }
+}

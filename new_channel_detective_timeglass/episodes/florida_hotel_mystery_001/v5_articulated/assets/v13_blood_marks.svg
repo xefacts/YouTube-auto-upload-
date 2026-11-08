@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 1376" width="768" height="1376">
+  <title>Stylized, non-graphic fictional blood accents</title>
+  <g fill="#7f1b24" fill-opacity="0.84">
+    <path id="falling-stain" d="M 605 718 Q 614 704 626 711 Q 642 705 651 720 L 664 724 Q 665 746 645 751 Q 636 765 618 752 L 601 744 Z" />
+    <path id="collapsed-stain" d="M 593 793 Q 599 778 613 782 Q 626 772 644 788 L 658 797 Q 653 815 642 822 Q 631 831 614 822 L 599 824 Z" />
+  </g>
+  <g fill="#ae3540" fill-opacity="0.64">
+    <path d="M 616 710 Q 623 703 630 708 L 634 718 Q 626 715 620 723 Z" />
+    <path d="M 611 785 Q 619 776 629 784 L 635 792 Q 623 788 616 798 Z" />
+  </g>
+</svg>

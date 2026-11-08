@@ -1,0 +1,20 @@
+# Phase 1 — Florida hotel mystery (image review only)
+
+**Decision, 2026-11-01:** The user confirmed that the video should follow the *actual uploaded 19:34 Adam VO*, not the unrelated Villisca script, and that the eventual 4K export belongs in **private Google Drive**. Both uploaded Adam recordings were checked by offline speech recognition; both describe a Florida hotel-suite locked-room mystery, not Villisca. No independently verifiable real event has been established: present this as a **fictional/unverified mystery**, never a historical true-crime reconstruction. The former Villisca 14s preview paired wrong imagery/audio and is superseded. No YouTube posting.
+
+## Audio and rough opening beat map
+
+Source: `ElevenLabs_2026-11-01T19_34_15_Adam - American, Dark and Tough_eleven_v4.mp3` (the user-selected earlier take). The slightly sped-up and final-line-trimmed ~33.50s edit is `../audio/voice_edit_1934.mp3`; `../audio/percussion_air_draft.mp3` is only a provisional non-melodic synthetic bed. The last-line cut was placed from waveform boundaries and has **not been listening-approved**. Automated ASR is noisy; the below timecodes and paraphrases are *planning estimates*, not a verified word-for-word transcript. Obtain exact spoken text/listening approval before final word-level synchronization.
+
+| Time in edited VO | What the audio appears to say | Still to cut from | Proposed in-edit motion (NOT baked animation) |
+|---|---|---|---|
+| 0.0–2.2s | Florida, 1948 (year requires listening confirmation) | `01_florida_hotel_exterior.png` | Descend through layered palm/rain silhouettes, then push toward the amber suite window. |
+| 2.2–5.1s | Wealthy businessman, found dead inside locked hotel suite | `02_locked_suite_discovery.png` | From doorway advance diagonally across desk toward the slumped man, with subtle foreground door/desk separation. No gore. |
+| 5.1–9.3s | One gunshot; zero forced entry; nobody heard | `03_intact_suite_door.png` | Fast cut on “one”; rapid lateral reveal of intact latch, then a longer silent-feeling push into empty corridor. Restrained editorial emphasis `1` and `0`, no full subtitles. |
+| 9.3–12.6s | Desk, pocket watch, frozen at approximately 3:42 | `04_pocket_watch_clue.png` | Whip/zoom from suite desk to watch, end on sharp macro. Time `03:42` should be set in post only **if confirmed by listening**; AI-drawn dial is approximate and should not be passed off as precision evidence. |
+
+The images are four ORIGINAL independent stills, not a frame-by-frame animated clip. All use the **same deep sea-green + cream Art Deco hotel, rainy palms, amber accents, hand-painted 2D animated-film noir finish**; the matching top-floor amber window, suite desk, lamp and silver watch carry visual continuity. The man is shown only from behind, slumped, without graphic injury. Hotel, clothing, props and faces are fictional illustrations; reference videos inform the editorial *pace/type hierarchy* only, not copied footage, people, audio or logos. No cartoons pasted on photographs. Dark opening, but readable contrast on mobile.
+
+## Production boundary
+
+The user requested three batches of images, with motion made from the stills and **no independently created character animation**. This is only **Phase 1 images**, not a finished video or final soundtrack. Phase 2 should show the footprints/balcony and suspects with distinct camera-friendly clue compositions; Phase 3 should show the thread/coat theory and ambiguous ending without inventing a solved culprit. Final cut: match each word and clue beat to the *approved exact VO*, use new image crops and layered camera motion rather than stretching four static images, balance the approved non-melodic percussion/wordless-vocal-compatible soundscape without melodic instruments, then render a **2160×3840 (vertical 4K) H.264/H.265 review export** to the private Drive folder. Source stills are **768×1376**, so final 4K requires upscaling; do not call them native 4K paintings. Film-like motion cannot be guaranteed from single flattened stills, so layering and judicious cuts must be reviewed before assembly. No public upload or YouTube change.

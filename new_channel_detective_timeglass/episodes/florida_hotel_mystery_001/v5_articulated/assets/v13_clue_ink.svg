@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <title>Original Florida clue annotation strokes – editable vector masters</title>
+  <desc>Five individual proof rings and one restrained case-board linking mark. Draw progressively by tracing the cubic paths. These are fictional editorial marks, not reference-video artwork.</desc>
+  <g fill="none" stroke="#a72f38" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path id="hero-fiber" d="M 565 692 C 624 720 624 830 556 890 C 485 952 367 910 348 826 C 328 748 416 666 500 681 C 532 684 551 687 565 692" />
+    <path id="hero-thread" d="M 597 676 C 651 708 653 803 592 857 C 521 913 415 875 407 797 C 396 720 462 659 540 660 C 563 661 583 667 597 676" />
+    <path id="hero-bolt" d="M 673 695 C 729 742 730 833 660 886 C 581 944 437 907 412 829 C 384 745 461 665 552 663 C 604 659 646 671 673 695" />
+    <path id="hero-door" d="M 736 686 C 792 729 788 838 718 884 C 649 932 533 891 519 802 C 510 729 559 673 633 661 C 681 657 715 668 736 686" />
+    <path id="hero-prints" d="M 649 705 C 711 748 710 850 645 895 C 558 955 440 904 424 812 C 405 720 489 666 575 674 C 608 675 636 690 649 705" />
+  </g>
+  <g fill="none" stroke="#a72f38" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path id="board-fiber" d="M 344 363 C 380 391 373 457 331 477 C 283 503 224 472 225 425 C 225 381 278 346 324 354 C 334 356 340 360 344 363" />
+    <path id="board-thread" d="M 792 324 C 830 348 836 425 784 445 C 740 469 680 441 677 390 C 677 347 724 311 767 314 C 778 315 786 318 792 324" />
+    <path id="board-bolt" d="M 365 823 C 396 854 392 923 344 945 C 290 972 217 937 216 884 C 214 827 279 793 331 803 C 345 806 356 814 365 823" />
+    <path id="board-door" d="M 882 813 C 917 848 910 916 867 939 C 809 965 744 921 747 873 C 751 817 808 784 853 794 C 864 798 874 806 882 813" />
+    <path id="board-prints" d="M 590 1300 C 627 1325 627 1399 578 1430 C 526 1464 455 1430 451 1370 C 448 1324 498 1289 548 1289 C 565 1289 581 1292 590 1300" />
+    <path id="board-link" d="M 315 640 C 389 690 461 694 546 716 C 607 737 696 770 742 845" />
+  </g>
+</svg>
