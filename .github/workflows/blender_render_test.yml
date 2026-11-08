@@ -16,6 +16,15 @@ on:
         description: "Number of frames to render"
         required: false
         default: "24"
+  # workflow_dispatch only fires for workflow files already on the default
+  # branch, which we deliberately never push to from this session. Trigger
+  # on push instead so the test actually runs from this feature branch.
+  push:
+    branches:
+      - "arena/0abc33e0-youtube-auto-upload"
+    paths:
+      - ".github/workflows/blender_render_test.yml"
+      - "blender_test/**"
 
 jobs:
   render:
