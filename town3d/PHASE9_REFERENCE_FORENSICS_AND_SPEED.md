@@ -126,3 +126,15 @@ Extrapolating linearly to a full ~72s video at 24fps (≈1,740 frames, 5.78× th
 Settled by direct inspection/measurement in this document: hardware reality, the 9 references' technical specs and audio loudness stats, visually-confirmed recurring style patterns across the 9 references, three concretely timestamped defects in our own delivered video, and a real (not estimated) parallel-rendering speedup.
 
 Not settled, flagged rather than guessed: exact voiceover wording/accent in any file (no ASR tool available), a literal "face upside-down while running" frame in `Skyline_Town_FINAL.mp4` (not found in the dense sample — see Section 4.1), and whether the 44–55s "road" segment is the specific glitch meant (it's flat/static but I can't confirm it's *the* one without more context).
+
+---
+
+## 7. Phase 10 — an original sample built on this analysis (`town_render/in_this_town_original.mp4`)
+
+A new, original ~15.2s sample ("the red door" — not a copy of any reference or of `Skyline_Town_FINAL.mp4`): original story, original character ("Kian"), original prop (a red door that exists in no other file), new city seed, 576×1024/30fps/stereo audio to match the references' native technical spec instead of our old 720×1280/24fps/mono. Rendered with the Phase 9 two-worker CPU pipeline, AA on only for the four closer/hero shots.
+
+Deliberately applied from Sections 3–5 above: word-by-word bold yellow outlined captions (burned in, synced to the actually-measured TTS clip durations, not guessed), a distinct lighting/color grade every shot (day → dusk → night → red-tinted, confirmed by inspection, never flat/unlit), a real walk cycle with no multi-second frozen pose, and the textured `build_road()` asset (lane line + sidewalk + curb) under every street shot instead of a bare plane.
+
+**Caught by actually inspecting rendered frames before calling it done (not assumed fine because it rendered without errors):** the first render had two real bugs — (1) the door-reveal and walk-toward-door shots placed the camera under ~1 unit from a 1.24-unit-tall object, so the door overflowed the frame as a solid red wall instead of reading as a door; (2) the door-interact shot reused a closeup distance tuned for a still face in Phase 5, and with the reaching-arm pose added here it clipped into the character's head. Both were fixed by increasing camera distance (to ≥2 units for the door shots, ≥2.6 units for the interact shot) and re-rendered; the second render was inspected again and confirmed clean. This QC-catch-fix-reverify cycle is recorded here per the standing instruction not to approve a scene just because it rendered.
+
+**Not yet added:** a background music bed (Section 2 showed every reference carries one; ours is voice-only) and true per-word forced-alignment timing (captions here use an even time-split of each line's measured TTS duration across its words, not real alignment — stated as an approximation, not measured truth).
