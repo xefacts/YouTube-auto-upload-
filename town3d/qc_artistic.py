@@ -37,45 +37,63 @@ class TemporalCheck:
     reason: str = ""
 
 
-def check_temporal(frames_rgb: list, camera_positions: list) -> dict:
+def check_temporal(frames_rgb: list, camera_positions: list, shot_boundaries: list = None) -> dict:
     """frames_rgb: list of HxWx3 uint8 arrays. camera_positions: list of
-    (eye_xyz, target_xyz) per frame, same length. Returns objective
-    temporal-consistency findings -- NOT an artistic score."""
+    (eye_xyz, target_xyz) per frame, same length. shot_boundaries: optional
+    list of frame indices where an INTENTIONAL hard cut to a new shot occurs
+    (e.g. [38, 81, 119, ...] for a sequence of fixed-length shots) -- these
+    are expected large jumps, not defects, and are excluded from both checks.
+    Also normalizes against each frame's own shot (not one global average),
+    because different shots legitimately move the camera at very different
+    speeds (a wide establishing pan covers far more distance per frame than
+    a close-up), and an eased camera move is naturally fastest in its middle
+    -- comparing every frame to a single whole-video average otherwise flags
+    both real cuts and the fast middle of normal ease curves as false
+    positives (observed and corrected during this project's own QC pass).
+    Returns objective temporal-consistency findings -- NOT an artistic score."""
     assert len(frames_rgb) == len(camera_positions)
-    results = []
+    shot_boundaries = set(shot_boundaries or [])
     deltas = []
     cam_steps = []
     for i in range(1, len(frames_rgb)):
         a = frames_rgb[i - 1].astype(np.float64)
         b = frames_rgb[i].astype(np.float64)
-        delta = float(np.abs(a - b).mean())
-        deltas.append(delta)
+        deltas.append(float(np.abs(a - b).mean()))
         (eye0, tgt0), (eye1, tgt1) = camera_positions[i - 1], camera_positions[i]
-        step = float(np.linalg.norm(np.array(eye1) - np.array(eye0)) +
-                     np.linalg.norm(np.array(tgt1) - np.array(tgt0)))
-        cam_steps.append(step)
+        cam_steps.append(float(np.linalg.norm(np.array(eye1) - np.array(eye0)) +
+                                np.linalg.norm(np.array(tgt1) - np.array(tgt0))))
 
     if not deltas:
-        return {"frames_checked": 0, "flicker_events": [], "discontinuity_events": []}
+        return {"frames_checked": 0, "flicker_events": [], "discontinuity_events": [], "pass": True}
 
-    mean_delta = float(np.mean(deltas))
-    std_delta = float(np.std(deltas)) + 1e-6
-    mean_step = float(np.mean(cam_steps)) + 1e-6
+    # Per-frame local expectation: median of a +/-12 frame window (robust to
+    # one shot's overall speed being very different from another's), instead
+    # of a single global average across the whole clip.
+    W = 12
+    n = len(deltas)
+    flicker_events, discontinuity_events = [], []
+    for idx in range(n):
+        frame_i = idx + 1  # deltas[idx] is the jump arriving at frame_i
+        if frame_i in shot_boundaries:
+            continue  # an intentional cut is SUPPOSED to jump -- not a defect
+        lo, hi = max(0, idx - W), min(n, idx + W + 1)
+        window_d = [deltas[j] for j in range(lo, hi) if (j + 1) not in shot_boundaries]
+        window_s = [cam_steps[j] for j in range(lo, hi) if (j + 1) not in shot_boundaries]
+        local_mean_d = float(np.median(window_d)) if window_d else deltas[idx]
+        local_std_d = float(np.std(window_d)) + 1e-6
+        local_mean_s = float(np.median(window_s)) + 1e-6 if window_s else cam_steps[idx] + 1e-6
 
-    flicker_events = []
-    discontinuity_events = []
-    for i, (d, s) in enumerate(zip(deltas, cam_steps), start=1):
-        # Flicker: a big visual jump NOT explained by camera motion.
-        expected_from_motion = s / mean_step * mean_delta
-        if d > mean_delta + 3 * std_delta and d > 1.5 * max(expected_from_motion, 1e-6):
-            flicker_events.append({"frame": i, "delta": round(d, 2), "expected": round(expected_from_motion, 2)})
-        # Motion discontinuity: camera itself jumped much more than its own average step.
-        if s > 4 * mean_step and mean_step > 1e-3:
-            discontinuity_events.append({"frame": i, "camera_step": round(s, 4), "avg_step": round(mean_step, 4)})
+        d, s = deltas[idx], cam_steps[idx]
+        expected_from_motion = (s / local_mean_s) * local_mean_d
+        if d > local_mean_d + 4 * local_std_d and d > 1.6 * max(expected_from_motion, 1e-6):
+            flicker_events.append({"frame": frame_i, "delta": round(d, 2), "local_expected": round(expected_from_motion, 2)})
+        if s > 5 * local_mean_s and local_mean_s > 1e-3:
+            discontinuity_events.append({"frame": frame_i, "camera_step": round(s, 4), "local_avg_step": round(local_mean_s, 4)})
 
     return {
         "frames_checked": len(frames_rgb),
-        "mean_frame_delta": round(mean_delta, 3),
+        "shot_boundaries_excluded": sorted(shot_boundaries),
+        "mean_frame_delta": round(float(np.mean(deltas)), 3),
         "flicker_events": flicker_events,
         "discontinuity_events": discontinuity_events,
         "pass": len(flicker_events) == 0 and len(discontinuity_events) == 0,

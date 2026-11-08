@@ -1,0 +1,16 @@
+{
+  "frames_checked": 301,
+  "shot_boundaries_excluded": [
+    38,
+    81,
+    119,
+    162,
+    200,
+    248,
+    301
+  ],
+  "mean_frame_delta": 11.99,
+  "flicker_events": [],
+  "discontinuity_events": [],
+  "pass": true
+}
