@@ -1,0 +1,17 @@
+{
+  "serial_aa_on": {
+    "frames": 301,
+    "render_s": 178.7,
+    "total_s": 182.0
+  },
+  "parallel2_aa_on": {
+    "frames": 301,
+    "render_s": 90.8,
+    "total_s": 94.1
+  },
+  "parallel2_aa_off": {
+    "frames": 301,
+    "render_s": 34.2,
+    "total_s": 37.2
+  }
+}
