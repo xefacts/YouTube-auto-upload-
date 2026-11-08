@@ -47,11 +47,13 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
           DEST="video_studio/outputs/${JOB_ID:-JOB-0001}"
           mkdir -p "$DEST"
-          cp art/sample.mp4 "$DEST/" 2>/dev/null || echo "WARN: no sample.mp4"
-          cp art/render_report.json art/timing.json art/render_log.txt "$DEST/" 2>/dev/null || true
+          SRC=art; [ -d art/render_out ] && SRC=art/render_out
+          cp "$SRC/sample.mp4" "$DEST/" || echo "WARN: no sample.mp4 in $SRC"
+          cp "$SRC/render_report.json" "$SRC/timing.json" "$DEST/" 2>/dev/null || true
+          cp art/render_log.txt "$DEST/" 2>/dev/null || cp "$SRC/render_log.txt" "$DEST/" 2>/dev/null || true
           # contact sheet (best-effort; never blocks the commit)
           set +e
-          for f in $(ls art/frame_*.png | sort | awk 'NR%12==1' | head -6); do
+          for f in $(ls "$SRC"/frame_*.png | sort | awk 'NR%12==1' | head -6); do
             ffmpeg -y -loglevel error -i "$f" -vf scale=270:-1 "art/s_$(basename "$f" .png).jpg"
           done
           ffmpeg -y -loglevel error -pattern_type glob -i 'art/s_frame_*.jpg' \
