@@ -68,9 +68,25 @@ with captions/narration. Comparison sample renders are the deciding evidence.
   hydrant), walk-cycle with narrative pause+head-turn, cinematic camera
   (aerial establish → track → low hero close-up → pull-back), sun+area
   lights, flat sky. Deterministic (seed 42), writes `timing.json`.
-- Run log: Actions run 42464590811, artifact `blender-render`
-  (mp4 + report + timing + log).
-- **RESULT:** (filled after artifact verification — see §4)
+- Runs: 42464590811 (render ok, encode fixed) + 42466623847 (full success).
+  Artifact `blender-render` (72 PNGs + mp4 + report, 31 MB).
+- Deliverables published to branch by `publish_render.yml` (Actions runner
+  downloads the artifact and commits it — the sandbox allowlist blocks
+  blob.core.windows.net, so artifacts are otherwise unreachable from here):
+  `video_studio/outputs/JOB-0001/` (sample.mp4, render_report.json,
+  timing.json, render_log.txt, contact_sheet.jpg).
+- **RESULT: pipeline WORKS end-to-end on Blender 5.2.3 LTS / 4-core runner —
+  72 frames @ 480x854x32spp, avg 21.3 s/frame, 25.5 min total, free.**
+- **Real defect found by pixel QC and fixed:** frames 48-62 (~2.0-2.6 s) were
+  pure black — the camera's first aerial key (16,-30,26) descended diagonally
+  straight through a building in the right row (buildings occupy x≈7..13.5).
+  Camera path re-routed to stay over the road corridor (|x|<=4.4) whenever
+  below rooftop height; re-verified locally (f1/40/56/60/72 all mean 129-135,
+  std 42-47, zero dark/blank flags). JOB-0002 re-render queued.
+- Sandbox-vs-cloud note: same scene rendered identically on bpy 5.0.1
+  (sandbox) and Blender 5.2.3 LTS (runner) — the defensive node-input code
+  paid off; the black frames reproduced in BOTH, proving it was a scene bug,
+  not a version difference.
 
 ## 4. Local vs cloud render comparison
 
@@ -78,7 +94,7 @@ with captions/narration. Comparison sample renders are the deciding evidence.
 |---|---|---|---|---|
 | Sandbox bpy (stub libs) | 320×568 | 16 | 5.9 | 2 |
 | Sandbox bpy (stub libs) | 405×720 | 32 | 12.7 | 2 |
-| Actions Blender (JOB-0001) | 480×854 | 32 | *(from render_report.json)* | 4 |
+| Actions Blender 5.2.3 LTS (JOB-0001) | 480×854 | 32 | 21.3 | 4 |
 
 Cloud ≈ free (public repo standard runners), durable artifacts, survives
 sandbox resets → **Actions is the primary production renderer; sandbox bpy is
