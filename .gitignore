@@ -3,6 +3,7 @@ __pycache__/
 .venv/
 venv/
 work/
+node_modules/
 client_secret.json
 youtube_token.json
 *.mp4
@@ -10,3 +11,12 @@ youtube_token.json
 *.mkv
 .env
 .DS_Store
+
+# User-provided skill screenshots and reference assets (kept local; not for PR)
+new_channel_detective_timeglass/reference_materials/
+
+# local symlink to the shared playwright install
+new_channel_detective_timeglass/flannan_isles_short/prod/node_modules
+
+# encoded output + chunk scratch
+new_channel_detective_timeglass/flannan_isles_short/prod/out/

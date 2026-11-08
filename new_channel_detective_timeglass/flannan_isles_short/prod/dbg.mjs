@@ -1,0 +1,22 @@
+import { chromium as pw } from 'playwright';
+import chromiumPkg from '@sparticuz/chromium';
+import http from 'http'; import fs from 'fs'; import path from 'path';
+const root = path.resolve('web');
+const srv = http.createServer((q,s)=>{let u=decodeURIComponent(q.url.split('?')[0]); if(u==='/')u='/index.html'; const p=path.resolve(root,`.${u}`); if(!p.startsWith(root+path.sep)||!fs.existsSync(p)||!fs.statSync(p).isFile()){s.writeHead(404);return s.end();} s.writeHead(200,{'Content-Type':p.endsWith('.js')?'text/javascript':'text/html'}); fs.createReadStream(p).pipe(s);}).listen(0);
+await new Promise(r=>srv.on('listening',r));
+const drop=/^--(in-process-gpu|single-process|no-zygote|use-gl|use-angle|enable-unsafe-swiftshader|enable-features|disable-features|ignore-gpu-blocklist|disable-dev-shm-usage)$/;
+const b = await pw.launch({ executablePath: await chromiumPkg.executablePath(), headless: true, args:[...chromiumPkg.args.filter(a=>!drop.test(a)),'--use-gl=swiftshader','--enable-unsafe-swiftshader'] });
+const pg = await b.newPage({ viewport:{width:720,height:1280} });
+pg.on('pageerror', e=>console.log('ERR', e.message));
+await pg.goto(`http://localhost:${srv.address().port}/index.html?sc=0.55&ms=0&sm=512`);
+await pg.waitForFunction(()=>window.ready||window.err,null,{timeout:240000});
+await pg.evaluate(()=>window.renderFrame(7000));
+const r = await pg.evaluate(()=>{
+  const out=[];
+  window.__scene.traverse(o=>{ if(o.isMesh && o.geometry && o.geometry.type==='PlaneGeometry' && o.visible && o.material.map){ const c=o.material.map.image; const g=c.getContext('2d');
+    const d=g.getImageData(2,2,1,1).data, e=g.getImageData(c.width/2,10,1,1).data, m=g.getImageData(c.width/2,c.height/2,1,1).data;
+    out.push({w:c.width,h:c.height, corner:[...d], top:[...e], mid:[...m], hasNd: !!o.userData.nd, matType:o.material.type}); } });
+  return out;
+});
+console.log(JSON.stringify(r,null,1));
+await b.close(); srv.close();
