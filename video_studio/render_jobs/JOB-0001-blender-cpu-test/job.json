@@ -1,0 +1,13 @@
+{
+  "job_id": "JOB-0001",
+  "scene": "scene_city",
+  "frames": "1-72",
+  "width": 480,
+  "height": 854,
+  "samples": 32,
+  "fps": 24,
+  "engine": "cycles-cpu",
+  "status": "queued",
+  "created": "2026-11-08",
+  "notes": "Phase-8 Blender CPU compatibility test: official portable build, 72 frames 480x854"
+}

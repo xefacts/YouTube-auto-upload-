@@ -6,6 +6,12 @@ name: Blender Headless CPU Render
 # Repo is public -> standard runners are free (no GPU assumed, CPU-only by design).
 
 on:
+  push:
+    branches: [arena/**]
+    paths:
+      - 'video_studio/engine/blender/**'
+      - 'video_studio/render_jobs/**'
+      - '.github/workflows/blender_render.yml'
   workflow_dispatch:
     inputs:
       frames:
@@ -60,16 +66,49 @@ jobs:
           ./blender/blender --version | head -2
           echo "BLENDER_VERSION=$TARBALL" >> "$GITHUB_ENV"
 
+      - name: Resolve render job parameters
+        run: |
+          set -euo pipefail
+          JOB=$(ls -d video_studio/render_jobs/*/ 2>/dev/null | sort | tail -1 || true)
+          echo "job dir: $JOB"
+          if [ -n "$JOB" ] && [ -f "$JOB/job.json" ]; then
+            FRAMES=$(jq -r '.frames // "1-72"' "$JOB/job.json")
+            WIDTH=$(jq -r '.width // 480' "$JOB/job.json")
+            HEIGHT=$(jq -r '.height // 854' "$JOB/job.json")
+            SAMPLES=$(jq -r '.samples // 32' "$JOB/job.json")
+            FPS=$(jq -r '.fps // 24' "$JOB/job.json")
+            SCENE=$(jq -r '.scene // "scene_city"' "$JOB/job.json")
+            JOB_ID=$(basename "$JOB")
+          else
+            FRAMES="\${{ github.event.inputs.frames || '1-72' }}"
+            WIDTH="\${{ github.event.inputs.width || '480' }}"
+            HEIGHT="\${{ github.event.inputs.height || '854' }}"
+            SAMPLES="\${{ github.event.inputs.samples || '32' }}"
+            FPS="\${{ github.event.inputs.fps || '24' }}"
+            SCENE="scene_city"
+            JOB_ID="adhoc"
+          fi
+          {
+            echo "FRAMES=$FRAMES"
+            echo "WIDTH=$WIDTH"
+            echo "HEIGHT=$HEIGHT"
+            echo "SAMPLES=$SAMPLES"
+            echo "FPS=$FPS"
+            echo "SCENE=$SCENE"
+            echo "JOB_ID=$JOB_ID"
+          } >> "$GITHUB_ENV"
+          cat "$GITHUB_ENV" | grep -E 'FRAMES|WIDTH|HEIGHT|SAMPLES|FPS|SCENE|JOB_ID'
+
       - name: Render (Cycles CPU, headless)
         run: |
           set -euo pipefail
           mkdir -p render_out
-          ./blender/blender --background --python video_studio/engine/blender/scene_city.py -- \
-            --frames "${{ github.event.inputs.frames }}" \
-            --width  "${{ github.event.inputs.width }}" \
-            --height "${{ github.event.inputs.height }}" \
-            --samples "${{ github.event.inputs.samples }}" \
-            --fps "${{ github.event.inputs.fps }}" \
+          ./blender/blender --background --python "video_studio/engine/blender/$SCENE.py" -- \
+            --frames "$FRAMES" \
+            --width  "$WIDTH" \
+            --height "$HEIGHT" \
+            --samples "$SAMPLES" \
+            --fps "$FPS" \
             --outdir render_out 2>&1 | tee render_log.txt
           ls render_out | head
 
