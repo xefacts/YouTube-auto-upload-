@@ -22,16 +22,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Read publish request
         run: |
           set -euo pipefail
           grep -E '^(RUN_ID|JOB_ID)=' video_studio/render_jobs/PUBLISH >> "$GITHUB_ENV" || true
           cat video_studio/render_jobs/PUBLISH
-
-      - uses: actions/checkout@v7.0.1
-        with:
-          ref: ${{ github.ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download artifact
         uses: actions/download-artifact@v8.0.2
