@@ -1,0 +1,7 @@
+# Genuinely usable, free/open-source, in THIS sandbox (verified by actual
+# install + run, not assumed). See town3d/ARCHITECTURE.md Phase 1 audit for
+# what was tried and rejected, and why.
+numpy
+pillow
+imageio-ffmpeg       # bundles a static ffmpeg binary -- no system ffmpeg exists here
+opencv-python-headless   # image-processing (QC) only; its video decode backend is broken here
