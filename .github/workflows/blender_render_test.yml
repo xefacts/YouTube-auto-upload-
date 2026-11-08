@@ -53,10 +53,29 @@ jobs:
           blender-portable/blender -b --python-expr "import bpy; print('bpy OK, version', bpy.app.version_string)"
 
       - name: Render test scene (Cycles, CPU)
+        env:
+          FRAMES_INPUT: ${{ inputs.frames }}
         run: |
           mkdir -p blender_test/out
-          time blender-portable/blender -b -noaudio -P blender_test/scene.py -- --out blender_test/out --frames ${{ inputs.frames }}
+          FRAMES="${FRAMES_INPUT:-12}"
+          echo "Rendering $FRAMES frames"
+          # --python-exit-code makes a Python exception inside scene.py a
+          # real nonzero process exit, instead of Blender's default of
+          # silently swallowing the error and exiting 0 (which is exactly
+          # what hid a bug -- an empty --frames value -- in the first run
+          # of this workflow: the step reported success with zero frames
+          # actually rendered).
+          time blender-portable/blender -b -noaudio --python-exit-code 1 \
+            -P blender_test/scene.py -- --out blender_test/out --frames "$FRAMES"
+          echo "--- contents of blender_test/out ---"
           ls -la blender_test/out
+          test -f blender_test/out/frame_0001.png || (echo "::error::no frames were rendered" && exit 1)
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version | head -1
 
       - name: Encode MP4 with ffmpeg
         run: |
