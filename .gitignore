@@ -10,3 +10,7 @@ youtube_token.json
 *.mkv
 .env
 .DS_Store
+
+# video_studio: reference videos stay local (frames + sheets are committed)
+video_studio/references/*.mp4
+video_studio/outputs/

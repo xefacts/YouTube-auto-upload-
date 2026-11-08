@@ -1,0 +1,116 @@
+name: Blender Headless CPU Render
+
+# Cloud render worker for the video_studio 3D pipeline.
+# Renders the original stylized scene (video_studio/engine/blender/scene_city.py)
+# with the OFFICIAL portable Blender build + Cycles CPU on ubuntu-latest.
+# Repo is public -> standard runners are free (no GPU assumed, CPU-only by design).
+
+on:
+  workflow_dispatch:
+    inputs:
+      frames:
+        description: "Frame range (e.g. 1-72)"
+        default: "1-72"
+      width:
+        description: "Render width"
+        default: "480"
+      height:
+        description: "Render height"
+        default: "854"
+      samples:
+        description: "Cycles samples"
+        default: "32"
+      fps:
+        description: "FPS"
+        default: "24"
+      blender_version:
+        description: "Blender major.minor (empty = latest stable)"
+        default: ""
+
+concurrency:
+  group: blender-render
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    name: Cycles CPU render
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Pick Blender build (official portable linux-x64)
+        run: |
+          set -euo pipefail
+          BASE=https://download.blender.org/release
+          if [ -n "${{ github.event.inputs.blender_version }}" ]; then
+            VER_DIR="Blender${{ github.event.inputs.blender_version }}"
+          else
+            VER_DIR=$(curl -sSL $BASE/ | grep -oP 'Blender\d+\.\d+/' | sort -V | tail -1 | tr -d '/')
+            echo "latest stable series: $VER_DIR"
+          fi
+          TARBALL=$(curl -sSL "$BASE/$VER_DIR/" | grep -oP 'blender-\d+\.\d+(\.\d+)?-linux-x64\.tar\.xz' | sort -V | tail -1)
+          echo "tarball: $TARBALL"
+          curl -sSL -o blender.tar.xz "$BASE/$VER_DIR/$TARBALL"
+          mkdir -p blender && tar -xf blender.tar.xz -C blender --strip-components=1
+          ./blender/blender --version | head -2
+          echo "BLENDER_VERSION=$TARBALL" >> "$GITHUB_ENV"
+
+      - name: Render (Cycles CPU, headless)
+        run: |
+          set -euo pipefail
+          mkdir -p render_out
+          ./blender/blender --background --python video_studio/engine/blender/scene_city.py -- \
+            --frames "${{ github.event.inputs.frames }}" \
+            --width  "${{ github.event.inputs.width }}" \
+            --height "${{ github.event.inputs.height }}" \
+            --samples "${{ github.event.inputs.samples }}" \
+            --fps "${{ github.event.inputs.fps }}" \
+            --outdir render_out 2>&1 | tee render_log.txt
+          ls render_out | head
+
+      - name: Assemble MP4
+        run: |
+          set -euo pipefail
+          FPS=${{ github.event.inputs.fps }}
+          ffmpeg -y -framerate "$FPS" -pattern_type glob -i 'render_out/frame_*.png' \
+            -c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p \
+            "render_out/sample.mp4"
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 render_out/sample.mp4
+
+      - name: Write render report
+        run: |
+          python3 - <<'PY'
+          import json, os, platform, subprocess, time
+          report = {
+              "blender": os.environ.get("BLENDER_VERSION", "unknown"),
+              "runner": {"os": platform.platform(), "cores": os.cpu_count()},
+              "inputs": {"frames": "${{ github.event.inputs.frames }}",
+                         "width": "${{ github.event.inputs.width }}",
+                         "height": "${{ github.event.inputs.height }}",
+                         "samples": "${{ github.event.inputs.samples }}"},
+          }
+          t = json.load(open("render_out/timing.json"))
+          ft = t["frame_times"]
+          report["frames_rendered"] = len(ft)
+          report["avg_sec_per_frame"] = round(sum(ft)/len(ft), 2) if ft else None
+          report["total_render_sec"] = round(sum(ft), 1)
+          json.dump(report, open("render_out/render_report.json", "w"), indent=1)
+          print(json.dumps(report, indent=1))
+          PY
+
+      - name: Upload render artifact
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: blender-render
+          path: |
+            render_out/sample.mp4
+            render_out/render_report.json
+            render_out/timing.json
+            render_log.txt
+          retention-days: 14
+          if-no-files-found: error
