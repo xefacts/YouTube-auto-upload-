@@ -34,7 +34,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download artifact
-        uses: actions/download-artifact@v7.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           run-id: ${{ env.RUN_ID }}
           name: blender-render
