@@ -1,0 +1,65 @@
+name: Blender Headless Render Test
+
+# Manually-triggered feasibility test ONLY. Verifies, empirically, whether a
+# GitHub Actions ubuntu-latest runner (full internet + apt access, unlike the
+# Arena sandbox where `import bpy` fails on missing libGL/libX11) can:
+#   1. download the official portable Blender Linux build,
+#   2. run it headlessly (`blender -b`) to build+animate a scene via bpy,
+#   3. render frames with Cycles on CPU (no GPU on hosted runners),
+#   4. encode them into an MP4 with ffmpeg.
+# No secrets are required or used. Public repo => Actions minutes are free.
+
+on:
+  workflow_dispatch:
+    inputs:
+      frames:
+        description: "Number of frames to render"
+        required: false
+        default: "24"
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: System info (for the feasibility report)
+        run: |
+          nproc
+          free -h
+          df -h .
+          ffmpeg -version | head -1 || echo "ffmpeg NOT preinstalled"
+
+      - name: Download official Blender portable build
+        run: |
+          curl -L -o blender.tar.xz https://mirror.blender.org/release/Blender4.2/blender-4.2.7-linux-x64.tar.xz
+          tar -xf blender.tar.xz
+          mv blender-4.2.7-linux-x64 blender-portable
+          echo "${GITHUB_WORKSPACE}/blender-portable" >> "$GITHUB_PATH"
+
+      - name: Verify Blender runs headlessly
+        run: |
+          blender-portable/blender --version
+          blender-portable/blender -b --python-expr "import bpy; print('bpy OK, version', bpy.app.version_string)"
+
+      - name: Render test scene (Cycles, CPU)
+        run: |
+          mkdir -p blender_test/out
+          time blender-portable/blender -b -noaudio -P blender_test/scene.py -- --out blender_test/out --frames ${{ inputs.frames }}
+          ls -la blender_test/out
+
+      - name: Encode MP4 with ffmpeg
+        run: |
+          ffmpeg -y -framerate 24 -i blender_test/out/frame_%04d.png -c:v libx264 -pix_fmt yuv420p blender_test/out/sample.mp4
+          ls -la blender_test/out/sample.mp4
+
+      - name: Upload render artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blender-render-test-${{ github.run_id }}
+          path: |
+            blender_test/out/sample.mp4
+            blender_test/out/*.png
+          retention-days: 7
