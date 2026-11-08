@@ -112,7 +112,7 @@ jobs:
             --outdir render_out 2>&1 | tee render_log.txt
           ls render_out | head
 
-- name: Install ffmpeg (not preinstalled on current ubuntu runners)
+      - name: Install ffmpeg (not preinstalled on current ubuntu runners)
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
       - name: Assemble MP4
