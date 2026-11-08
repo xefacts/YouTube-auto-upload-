@@ -1,13 +1,18 @@
 {
-  "job_id": "JOB-0002",
-  "scene": "scene_city",
-  "frames": "1-72",
-  "width": 480,
-  "height": 854,
-  "samples": 32,
-  "fps": 24,
-  "engine": "cycles-cpu",
-  "status": "queued",
-  "created": "2026-11-08",
-  "notes": "Sample v2 after camera-path fix (f0 key flew through a building -> black frames 48-62). Local verify: f1/40/56/60/72 all mean 129-135, std 42-47, no dark/blank."
+ "job_id": "JOB-0002",
+ "scene": "scene_city",
+ "frames": "1-72",
+ "width": 480,
+ "height": 854,
+ "samples": 32,
+ "fps": 24,
+ "engine": "cycles-cpu",
+ "status": "delivered",
+ "created": "2026-11-08",
+ "notes": "Sample v2 after camera-path fix (f0 key flew through a building -> black frames 48-62). Local verify: f1/40/56/60/72 all mean 129-135, std 42-47, no dark/blank.",
+ "result": {
+  "avg_sec_per_frame": 13.31,
+  "total_render_sec": 958.4,
+  "qc": "PASS - no dark/blank frames, character visible 36/36 sampled frames, brightness 131.8, contrast 43.4"
+ }
 }
