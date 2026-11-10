@@ -4,8 +4,16 @@
 animated short: curiosity-loop script → 3D hero shots → narration → burned-in
 captions → impact zooms → procedural score → `mp4`.
 
-Example output: **`shorts/out/tap_your_card.mp4`** — *"What actually happens
-when you tap your card?"* (40 s, 1080×1920, 30 fps).
+Example output:
+
+| file | what |
+| --- | --- |
+| `shorts/out/tap_your_card.mp4` | the short — 40.37 s, 1080×1920, 30 fps, H.264 high + AAC 192 k, `+faststart` |
+| `shorts/out/tap_your_card_thumb.jpg` | 1080×1920 cover |
+| `shorts/out/tap_your_card.json` | title / description / tags / category for the upload |
+
+*What actually happens when you tap your card?* — 8 shots, 8 curiosity loops,
+Piper voiceover, procedural score, everything rendered locally.
 
 ---
 
