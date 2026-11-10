@@ -49,21 +49,47 @@ pipelines, without any external API key.
 | `beats.json` | The curiosity-loop script: 8 beats, one narration line per shot. |
 | `captions.py` | Word-timed uppercase caption pages with pop-in, auto-fit to frame width, scrim. |
 | `render_short.py` | Timeline (VO duration → frames), multiprocess frame renderer, impact zoom/shake on cuts, caption burn-in, JPEG frames. |
+| `say_piper.py` | **Voiceover from a local open-source TTS** (Piper) — no API keys. Fits each line to its shot window, applies a narrator chain (5 % pitch-down, high-pass, compression, presence, room) and writes 48 kHz WAVs. |
 | `audio.py` | Procedural score + SFX (impacts, risers, whooshes, heartbeat pulse, terminal beeps), VO placement, master limit → `mix.wav`. |
 | `measure_voice.py` | ffprobe the VO clips → `timing.json` (beat → seconds). |
 | `assemble.py` | ffmpeg: frames + mix → H.264/AAC 1080×1920 `mp4` with `+faststart`. |
 | `contact.py` | One review frame per shot, as a contact sheet. |
 
-## 3. Run it
+## 3. Voiceover: local Piper, not a cloud API
+
+The narration is synthesised **locally** with [Piper](https://github.com/rhasspy/piper)
+(`rhasspy/piper`, VITS + onnxruntime on CPU). Nothing leaves the machine and no
+key is needed.
+
+```bash
+pip install piper-tts                 # PyPI
+shorts/models/fetch_voice.sh en_US/ryan/medium   # ~63 MB voice (.onnx + .onnx.json)
+python shorts/zackd/say_piper.py --voice en_US-ryan-medium --out shorts/out/vo_piper
+```
+
+`say_piper.py` reads the lines from `beats.json` and the shot windows from
+`timing.json`, so every clip lands exactly inside its shot (the rendered frames
+and the burned-in captions stay in sync). Per line it solves the speaker rate
+(`--length-scale` 1.12-1.38), then trims with a mild `atempo`, then runs the
+narrator chain: 5 % pitch-down with formant shift, 78 Hz high-pass, chest +
+2.6 kHz presence EQ, 3.4:1 compression, limiter.
+
+The voices are kept out of git (`shorts/models/*.onnx` is ignored); the fetch
+script pulls them from a public GitHub mirror that stores the `.onnx` files as
+real blobs, because HuggingFace and LFS assets are not reachable from here.
+
+## 4. Run it
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install numpy pillow imageio-ffmpeg
 cd shorts/zackd
 
-# 1) narration (one clip per beat -> shorts/out/vo/<beat>.mp3)
-#    beats: hook chip terminal energy data vault ledger outro
-# 2) measure it -> timeline
-.venv/bin/python measure_voice.py --vo ../out/vo --pad 0.5
+# 1) narration (one clip per beat -> shorts/out/vo_piper/<beat>.wav)
+.venv/bin/pip install piper-tts
+shorts/models/fetch_voice.sh en_US/ryan/medium
+.venv/bin/python say_piper.py --voice en_US-ryan-medium --out ../out/vo_piper
+# 2) timeline (kept from the first voice pass; regeneration shown below)
+.venv/bin/python measure_voice.py --vo ../out/vo_piper --pad 0.5
 
 # 3) optional look-dev
 python contact.py
@@ -71,14 +97,14 @@ python contact.py
 # 4) render frames (2 workers, ~1.4 s / frame at 810x1440)
 python render_short.py --timing timing.json --out ../out/build --w 810 --h 1440 --fps 30 --workers 2
 
-# 5) score + mix
-python audio.py --timing timing.json --vo ../out/vo --out ../out/build/mix.wav
+# 5) score + mix  (voiceover = the Piper WAVs)
+python audio.py --timing timing.json --vo ../out/vo_piper --out ../out/build/mix.wav
 
 # 6) final cut
 python assemble.py --build ../out/build --out ../out/tap_your_card.mp4
 ```
 
-## 4. The film
+## 5. The film
 
 **Topic:** *What actually happens when you tap your card?* — a personal-finance
 curiosity loop (the niche of this repo) with the Zack-D anatomy-doc pacing.
@@ -99,15 +125,17 @@ one curiosity loop per line, a cut every 2–4 s, camera motion alternating
 push-in / macro / tilt, and a hard impact (zoom punch + sub-bass hit) on every
 cut.
 
-## 5. Swapping the topic
+## 6. Swapping the topic
 
 1. Rewrite the 8 `narration` lines in `beats.json` (keep ≈2.5 words/second).
-2. Regenerate the VO clips, re-run `measure_voice.py`.
+2. Regenerate the VO clips with `say_piper.py`, re-run `measure_voice.py`
+   (which rewrites `timing.json`; pass `--keep` windows if you want to reuse
+   the current edit).
 3. Adjust / add shot functions in `scene.py` (`SHOTS` maps beat → shot).
 
 Everything else (timeline, captions, score, assembly) adapts automatically.
 
-## 6. Feeding the upload pipeline
+## 7. Feeding the upload pipeline
 
 `shorts/out/*.mp4` is gitignored on purpose. To let the existing GitHub Actions
 pipeline pick the short up, copy it into `videos/` (or Drive `Raw_Videos`); the

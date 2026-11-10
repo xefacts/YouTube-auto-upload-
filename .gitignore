@@ -15,3 +15,5 @@ youtube_token.json
 shorts/out/build/
 shorts/out/vo/
 shorts/out/vo_fast/
+shorts/models/*.onnx
+shorts/models/*.onnx.json

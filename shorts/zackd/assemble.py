@@ -19,8 +19,12 @@ def main():
     cmd = [ff, "-y", "-framerate", str(args.fps), "-i", os.path.join(frames, "f_%05d.jpg")]
     if os.path.exists(audio):
         cmd += ["-i", audio]
-    cmd += ["-vf", f"scale={args.size}:flags=lanczos", "-c:v", "libx264", "-profile:v", "high",
-            "-pix_fmt", "yuv420p", "-crf", args.crf, "-preset", "medium", "-g", str(args.fps * 2)]
+    vf = (f"scale={args.size}:flags=lanczos:out_range=tv,format=yuv420p,"
+          "eq=brightness=0.03:contrast=1.08:saturation=1.13,unsharp=5:5:0.4")
+    cmd += ["-vf", vf, "-c:v", "libx264", "-profile:v", "high",
+            "-pix_fmt", "yuv420p", "-color_range", "tv", "-colorspace", "bt709",
+            "-color_primaries", "bt709", "-color_trc", "bt709",
+            "-crf", args.crf, "-preset", "medium", "-g", str(args.fps * 2)]
     if os.path.exists(audio):
         cmd += ["-c:a", "aac", "-b:a", "192k", "-shortest"]
     cmd += ["-movflags", "+faststart", args.out]
