@@ -10,3 +10,8 @@ youtube_token.json
 *.mkv
 .env
 .DS_Store
+
+# zackd short pipeline build artifacts
+shorts/out/build/
+shorts/out/vo/
+shorts/out/vo_fast/

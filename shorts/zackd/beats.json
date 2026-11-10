@@ -1,0 +1,57 @@
+{
+  "project": "tap_your_card",
+  "title": "What Actually Happens When You Tap Your Card?",
+  "aspect": "9:16",
+  "fps": 30,
+  "style_preset": "zackd_3d_stylized",
+  "beats": [
+    {
+      "id": "hook",
+      "shot": "hook",
+      "title_en": "The Tap",
+      "narration": "When you tap your card, your money does not move. Not one single cent."
+    },
+    {
+      "id": "chip",
+      "shot": "chip",
+      "title_en": "Card Becomes A Radio",
+      "narration": "In the two seconds after the beep, your card turns into a tiny radio."
+    },
+    {
+      "id": "terminal",
+      "shot": "terminal",
+      "title_en": "No Battery",
+      "narration": "The chip has no battery. It steals power from the machine, just to whisper."
+    },
+    {
+      "id": "energy",
+      "shot": "energy",
+      "title_en": "Encrypted Whisper",
+      "narration": "That whisper is an encrypted code, different every single time you pay."
+    },
+    {
+      "id": "data",
+      "shot": "data",
+      "title_en": "One Question",
+      "narration": "The terminal asks your bank one question: can this person pay?"
+    },
+    {
+      "id": "vault",
+      "shot": "vault",
+      "title_en": "No Vault",
+      "narration": "And your bank does not open a vault. It just edits a number."
+    },
+    {
+      "id": "ledger",
+      "shot": "ledger",
+      "title_en": "Never There",
+      "narration": "Because your money was never sitting in a box with your name on it."
+    },
+    {
+      "id": "outro",
+      "shot": "outro",
+      "title_en": "A Promise",
+      "narration": "It is a promise. And when the promise breaks, that is when a bank dies."
+    }
+  ]
+}
