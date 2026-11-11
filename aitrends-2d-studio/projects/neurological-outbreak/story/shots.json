@@ -1,0 +1,509 @@
+{
+  "duration": 767.922,
+  "shots": [
+    {
+      "id": "s001",
+      "chapter": 1,
+      "start": 0.0,
+      "end": 9.59,
+      "scene": "Aisle 4 POV: comparing two soup cans as your phone suddenly vibrates",
+      "line": "It's a Tuesday afternoon. You're standing in aisle four of a neighborhood convenience store, comparing two cans of soup, when your phone suddenly vibrates.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s002",
+      "chapter": 1,
+      "start": 9.59,
+      "end": 34.14,
+      "scene": "POV Phone Screen: BIOLOGICAL EMERGENCY national broadcast alert",
+      "line": "You glance at the screen. An emergency alert. Not a weather warning. Not a missing-person notification. A national emergency broadcast. \"BIOLOGICAL EMERGENCY. A neurological outbre",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s003",
+      "chapter": 1,
+      "start": 34.14,
+      "end": 58.72,
+      "scene": "3D Street Outbreak: abandoned car, man chased by three figures & falling",
+      "line": "You turn toward the front windows. A man has abandoned his car in the middle of the road. He's running toward the intersection, looking over his shoulder. Behind him, three people ",
+      "in": {
+        "type": "fade",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s004",
+      "chapter": 1,
+      "start": 58.72,
+      "end": 78.67,
+      "scene": "Intersection Chaos & Locking Both Glass Doors with Heavy Deadbolt",
+      "line": "Within seconds, the street becomes unrecognizable. Cars collide at the intersection. Drivers abandon their vehicles. People run between buildings, knocking over anything in their w",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s005",
+      "chapter": 1,
+      "start": 78.67,
+      "end": 90.6,
+      "scene": "Delivery Driver slams against glass, shouting frantically",
+      "line": "A moment later, someone slams against the glass. It's a delivery driver. You've seen him here dozens of times. He's shouting something, but you can't understand him. You move close",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s006",
+      "chapter": 1,
+      "start": 90.6,
+      "end": 103.3,
+      "scene": "Twitching silhouette approaches behind driver; driver flees in terror",
+      "line": "Then you notice another person approaching behind him. The delivery driver turns around. His expression changes. He starts running again. But this time, he's running away from the ",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s007",
+      "chapter": 1,
+      "start": 103.3,
+      "end": 114.44,
+      "scene": "YOU pull heavy steel security shutters down \u2014 trapped inside",
+      "line": "You step back and pull the security shutters down as far as they will go. For now, you're inside. And outside, the world is falling apart.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s008",
+      "chapter": 2,
+      "start": 114.44,
+      "end": 128.32,
+      "scene": "10 Minutes Later: No service, failed call & eerie quiet outside",
+      "line": "The first ten minutes pass quickly. You check your phone. No useful information. You try calling someone. The call doesn't connect. You look through the windows again. There are fe",
+      "in": {
+        "type": "dip",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s009",
+      "chapter": 2,
+      "start": 128.32,
+      "end": 142.71,
+      "scene": "Surveying the convenience store: 4 aisles, 2 flickering fridges, office, storage",
+      "line": "You walk toward the checkout counter and look around the store. Four aisles. Two refrigerators. A small office. One storage room. It isn't much, but it has walls, a roof, and a loc",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s010",
+      "chapter": 2,
+      "start": 142.71,
+      "end": 159.81,
+      "scene": "Checking empty snack shelves & flickering refrigerators",
+      "line": "Then you start checking the supplies. Aisle one is almost empty. Someone has already taken most of the snacks. Aisle two has a few dented cans, some pickled vegetables, and a bag o",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s011",
+      "chapter": 2,
+      "start": 159.81,
+      "end": 175.89,
+      "scene": "Blueprint Office PC: 2 missing deliveries \u2014 actual stock < 50%",
+      "line": "You open the office and check the inventory computer. The numbers don't make sense. According to the system, the store should have received two deliveries this week. Neither arrive",
+      "in": {
+        "type": "fade",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s012",
+      "chapter": 2,
+      "start": 175.89,
+      "end": 197.045,
+      "scene": "Rationing count: 4L water, 3 protein bars, peanut butter, 2 apples",
+      "line": "Four liters of bottled water. Three protein bars. Half a jar of peanut butter. Two bruised apples. And a handful of canned food. You sit down. If you ration everything carefully, y",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s013",
+      "chapter": 2,
+      "start": 197.045,
+      "end": 220.985,
+      "scene": "Motionless woman outside glass presses palm & mouths 'Help me'",
+      "line": "You look toward the front entrance. Something is standing outside. A woman. She's facing the glass, completely motionless. You watch her for several seconds. Then she slowly raises",
+      "in": {
+        "type": "fade",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s014",
+      "chapter": 2,
+      "start": 220.985,
+      "end": 228.4,
+      "scene": "Time-freeze dread: twitching figure emerges right behind the woman",
+      "line": "You don't move. Because behind her, another figure has just appeared. And it isn't walking normally.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s015",
+      "chapter": 3,
+      "start": 228.4,
+      "end": 249.725,
+      "scene": "Nightfall: Automatic store lights snap on; dragging metal shelves to barricade front",
+      "line": "The sun disappears behind the buildings. The store's automatic lights switch on, illuminating the empty aisles. You decide to barricade the entrance. You drag two metal shelves tow",
+      "in": {
+        "type": "dip",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s016",
+      "chapter": 3,
+      "start": 249.725,
+      "end": 264.345,
+      "scene": "Flashlight walk into dark back corridor: weak wooden door & wire-mesh window",
+      "line": "The delivery entrance. You haven't checked it. You walk toward the storage room with a flashlight. The back door has an old wooden frame, a rusted padlock, and a small wire-mesh wi",
+      "in": {
+        "type": "fade",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s017",
+      "chapter": 3,
+      "start": 264.345,
+      "end": 273.965,
+      "scene": "Bracing heavy hand truck & yellow cargo strap to steel support beam",
+      "line": "You push a heavy hand truck against it and secure the handle with a cargo strap attached to a steel support beam. It's not a perfect solution. But it's something.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s018",
+      "chapter": 3,
+      "start": 273.965,
+      "end": 298.63,
+      "scene": "One quiet hour at counter \u2014 then metallic CLATTER from storage room; flashlight OFF",
+      "line": "You return to the checkout counter. For the next hour, nothing happens. You almost begin to relax. Then you hear a metallic noise. Clatter. It comes from the storage room. You swit",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s019",
+      "chapter": 3,
+      "start": 298.63,
+      "end": 323.58,
+      "scene": "Broken wire-mesh glass: searching infected arm & fingers opening/closing + clicking",
+      "line": "The wire-mesh window has been broken. Glass covers the concrete floor. And something is pushing an arm through the opening. You step backward. The hand is moving. Its fingers repea",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s020",
+      "chapter": 3,
+      "start": 323.58,
+      "end": 334.48,
+      "scene": "Desperate struggle: leaning into hand truck as cargo strap stretches tight",
+      "line": "You grab the hand truck and push its metal base against the door. The creature forces its arm farther through the opening. You lean against the hand truck. For several seconds, you",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s021",
+      "chapter": 3,
+      "start": 334.48,
+      "end": 354.78,
+      "scene": "Multiple shapes behind broken window \u2014 sprinting back to main store floor",
+      "line": "Then another impact comes from outside. Something else has reached the door. You look toward the narrow corridor. There are now multiple shapes moving behind the broken window. You",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s022",
+      "chapter": 4,
+      "start": 354.78,
+      "end": 378.293,
+      "scene": "Exhausted behind checkout counter: shaking hands, counting rations near midnight",
+      "line": "You spend the next hour sitting behind the checkout counter. Your hands are shaking. You check your supplies again. Three protein bars. Four liters of water. Half a jar of peanut b",
+      "in": {
+        "type": "dip",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s023",
+      "chapter": 4,
+      "start": 378.293,
+      "end": 384.113,
+      "scene": "Counter emergency radio: sweeping dead frequencies \u2014 pure static",
+      "line": "You try the radio behind the counter. Static. You switch frequencies. Nothing.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s024",
+      "chapter": 4,
+      "start": 384.113,
+      "end": 413.343,
+      "scene": "Blueprint Offline Map: Municipal Transit Station 2 blocks east + storm drain tunnels",
+      "line": "Finally, you take out your phone and open the offline city map. The nearest major building is a municipal transit station, two blocks away. You zoom in. There's an underground main",
+      "in": {
+        "type": "fade",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s025",
+      "chapter": 4,
+      "start": 413.343,
+      "end": 422.203,
+      "scene": "Sudden eerie sound from front entrance: a mobile phone ringing outside",
+      "line": "You put the phone away. Then you hear something from the front entrance. Not scratching. Not banging. A phone ringing.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s026",
+      "chapter": 4,
+      "start": 422.203,
+      "end": 435.793,
+      "scene": "Peering through shelf gap: motionless infected with ringing pocket phone",
+      "line": "You look through a gap in the shelves. There's a person standing outside. Holding a mobile phone. The sound is coming from their pocket. They don't seem to notice it. They simply s",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s027",
+      "chapter": 4,
+      "start": 435.793,
+      "end": 444.813,
+      "scene": "Second infected stops beside first \u2014 BOTH heads turn toward the store glass",
+      "line": "Then another infected approaches. It stops beside the first one. And both turn toward the glass. You slowly move away.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s028",
+      "chapter": 4,
+      "start": 444.813,
+      "end": 450.08,
+      "scene": "Slowly backing into shadows: the store is attracting attention",
+      "line": "The store isn't just surrounded anymore. It's attracting attention.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s029",
+      "chapter": 5,
+      "start": 450.08,
+      "end": 468.943,
+      "scene": "Cold Dawn Decision: packing water, food, medkit & flashlight into backpack",
+      "line": "By morning, you have made your decision. You're leaving. You pack the remaining food into a small backpack. Four bottles of water. The protein bars. The peanut butter. A first-aid ",
+      "in": {
+        "type": "dip",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s030",
+      "chapter": 5,
+      "start": 468.943,
+      "end": 480.458,
+      "scene": "Rear corridor horror: loose cargo strap, fallen hand truck \u2014 something is inside",
+      "line": "Then you check the rear door. The cargo strap is hanging loose. The hand truck has fallen onto its side. Something has already entered the storage room. You don't wait to find out ",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s031",
+      "chapter": 5,
+      "start": 480.458,
+      "end": 497.878,
+      "scene": "Unbarricading front shelves & unlocking deadbolt into dead silence",
+      "line": "You return to the front entrance. Move the shelves. Remove the crates. Unlock the deadbolt. Before opening the door, you stop. The street is completely silent. No engines. No siren",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s032",
+      "chapter": 5,
+      "start": 497.878,
+      "end": 520.268,
+      "scene": "3D Silent Dead Street: abandoned bus, changing traffic light, infected facing station",
+      "line": "An abandoned bus blocks most of the road. A traffic light continues changing colors over an empty intersection. And several infected figures are standing near the bus. They're not ",
+      "in": {
+        "type": "fade",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s033",
+      "chapter": 5,
+      "start": 520.268,
+      "end": 551.318,
+      "scene": "Stepping into cold street: child's backpack, bicycle & family photo of little boy",
+      "line": "You open the door. Cold air enters the store. You step outside and carefully close it behind you. The first few meters are easy. You move between abandoned vehicles, avoiding broke",
+      "in": {
+        "type": "fade",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s034",
+      "chapter": 5,
+      "start": 551.318,
+      "end": 568.308,
+      "scene": "Footsteps behind you: infected turns head, second emerges \u2014 breaking into a sprint!",
+      "line": "Then you hear footsteps behind you. You turn. An infected man is standing beside the convenience store entrance. He recognizes movement. His head turns. You start walking faster. T",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s035",
+      "chapter": 5,
+      "start": 568.308,
+      "end": 618.43,
+      "scene": "Station stairs: locked shutter, card reader, voice asks 'Are you alone?' -> 'No.' -> pulled inside!",
+      "line": "The station entrance is visible now. Twenty meters. Fifteen. Ten. You reach the stairs and descend as quickly as possible. At the bottom, a metal security shutter blocks the entran",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s036",
+      "chapter": 6,
+      "start": 618.43,
+      "end": 643.323,
+      "scene": "Maintenance Control Room: flashlight beam, desk, radio & guard asking 'How many followed you?'",
+      "line": "The room is small. A desk. Two chairs. An emergency radio. A wall covered with evacuation maps. A man stands near the entrance, holding a flashlight. He looks at your backpack. The",
+      "in": {
+        "type": "dip",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s037",
+      "chapter": 6,
+      "start": 643.323,
+      "end": 669.573,
+      "scene": "Blueprint Evacuation Map Wall: red circles EVACUATED / SEALED \u2014 and YOUR station marked",
+      "line": "You look at the maps. Several underground stations are marked with red circles. Some have handwritten notes beside them. \"EVACUATED.\" \"SEALED.\" \"NO ACCESS.\" One station has a diffe",
+      "in": {
+        "type": "fade",
+        "dur": 0.55
+      }
+    },
+    {
+      "id": "s038",
+      "chapter": 6,
+      "start": 669.573,
+      "end": 690.013,
+      "scene": "Second steel door & narrow maintenance corridor with dim GREEN emergency light",
+      "line": "Instead, he points toward a second door. Beyond it is a narrow maintenance corridor. At the far end, you can see a dim green emergency light. He tells you the underground network c",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s039",
+      "chapter": 6,
+      "start": 690.013,
+      "end": 713.881,
+      "scene": "Radio static erupts: 'Control room, do you copy?' interrupted by child: 'Please don't open the door.'",
+      "line": "Then the radio turns on. Static fills the room. A voice comes through. \"Control room, do you copy?\" The man reaches for the radio. Before he can respond, another voice interrupts. ",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s040",
+      "chapter": 6,
+      "start": 713.881,
+      "end": 726.821,
+      "scene": "THREE KNOCKS on the green corridor door \u2014 'Whatever you do, don't answer it.'",
+      "line": "Then you hear three knocks. From the other side of the second door. The man looks at you. And says something you weren't prepared to hear. \"Whatever you do, don't answer it.\"",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s041",
+      "chapter": 6,
+      "start": 726.821,
+      "end": 755.283,
+      "scene": "Closer radio whisper 'Dad?' \u2014 man goes pale; you look down at silent boy holding your jacket",
+      "line": "You look back at the radio. The child's voice returns. This time, it's much closer. \"Dad?\" You turn toward the man. His face has gone completely pale. Because the voice on the radi",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    },
+    {
+      "id": "s042",
+      "chapter": 6,
+      "start": 755.283,
+      "end": 767.922,
+      "scene": "TWIST CLIMAX: Boy whispers 'That's not my dad.' -> Total Blackout -> Something running toward YOU!",
+      "line": "\"That's not my dad.\" The emergency lights go out. And somewhere inside the maintenance corridor... Something begins running toward you.",
+      "in": {
+        "type": "cut",
+        "dur": 0.0
+      }
+    }
+  ]
+}

@@ -10,3 +10,5 @@ youtube_token.json
 *.mkv
 .env
 .DS_Store
+
+.studio_deps/

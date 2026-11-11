@@ -1,0 +1,1699 @@
+{
+  "title": "What If Your Reaction Time Was 100x Faster?",
+  "duration": 169.3,
+  "shots": [
+    {
+      "id": "s001",
+      "start": 0.0,
+      "end": 2.15,
+      "line": "A fly buzzes past your ear.",
+      "scene": "Medium kitchen shot at sunset: YOU standing calmly by the sunlit counter as a fly zips past your ear with a motion trail; steaming tea mug on the counter.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "fade",
+        "dur": 0.5
+      },
+      "sfx": [
+        {
+          "at": 0.25,
+          "name": "buzz",
+          "gain": -9,
+          "dur": 1.7
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s002",
+      "start": 2.15,
+      "end": 4.85,
+      "line": "You don't look. You just... know.",
+      "scene": "Giant bigFace close-up of YOU facing forward, eyes steady without turning while the blurred fly buzzes past; subtle golden perception rings pulse on 'know'.",
+      "set": "kitchen",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 1.75,
+          "name": "shimmer",
+          "gain": -10
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s003",
+      "start": 4.85,
+      "end": 6.9,
+      "line": "Leo fumbles his phone over the sink,",
+      "scene": "Two-shot at kitchen sink: LEO juggles and fumbles his glowing smartphone above the water-filled sink basin, panicked expression, while YOU stand nearby.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.55,
+          "name": "swish",
+          "gain": -9
+        },
+        {
+          "at": 1.1,
+          "name": "pop",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s004",
+      "start": 6.9,
+      "end": 8.82,
+      "line": "and before it has dropped ten centimeters,",
+      "scene": "TIME-STOP insert over the sink: phone suspended mid-tumble above frozen water droplets, cool blue tint, '100x' badge and glowing '10 cm' dimension arrow.",
+      "set": "kitchen",
+      "bars": "scope",
+      "in": {
+        "type": "flash",
+        "dur": 0.25
+      },
+      "sfx": [
+        {
+          "at": 0.02,
+          "name": "freeze",
+          "gain": -6
+        },
+        {
+          "at": 0.6,
+          "name": "blip",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s005",
+      "start": 8.82,
+      "end": 10.72,
+      "line": "your hand is already there.",
+      "scene": "Macro insert: YOUR red-hoodie sleeve streaks into frame with speed lines and snatches Leo's phone inches above the sink water; shockwave ring.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.25,
+          "name": "whoosh",
+          "gain": -7
+        },
+        {
+          "at": 0.45,
+          "name": "hit",
+          "gain": -8
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s006",
+      "start": 10.72,
+      "end": 12.68,
+      "line": "Then the soccer ball leaves his foot.",
+      "scene": "Golden-hour yard wide shot: LEO winds up and kicks a soccer ball hard across the sunlit grass toward YOU.",
+      "set": "yard",
+      "bars": "wide",
+      "in": {
+        "type": "whip",
+        "dur": 0.3,
+        "dir": 1
+      },
+      "sfx": [
+        {
+          "at": 0.45,
+          "name": "kick",
+          "gain": -6
+        },
+        {
+          "at": 0.55,
+          "name": "whoosh",
+          "gain": -9
+        }
+      ],
+      "amb": {
+        "name": "wind",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s007",
+      "start": 12.68,
+      "end": 14.78,
+      "line": "You watch it... all the way.",
+      "scene": "Extreme slow-mo tracking shot: the spinning soccer ball drifts across golden dust motes while YOUR eyes track every seam effortlessly.",
+      "set": "yard",
+      "bars": "scope",
+      "in": {
+        "type": "flash",
+        "dur": 0.22
+      },
+      "sfx": [
+        {
+          "at": 0.05,
+          "name": "slowmo",
+          "gain": -7
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s008",
+      "start": 14.78,
+      "end": 16.68,
+      "line": "Like it's swimming through honey.",
+      "scene": "3D Three.js golden-hour orbit around the mid-air soccer ball suspended in warm amber light shafts between LEO mid-kick and YOU standing calm.",
+      "set": "yard3d",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.2,
+          "name": "shimmer",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s009",
+      "start": 16.68,
+      "end": 19.75,
+      "line": "And your tea, sitting on the counter? Still hot.",
+      "scene": "Close insert on the kitchen counter: porcelain mug of tea with lush rising steam wisps against warm sunset bokeh; 'STILL HOT' readout.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "whip",
+        "dur": 0.3,
+        "dir": -1
+      },
+      "sfx": [
+        {
+          "at": 1.95,
+          "name": "ding",
+          "gain": -10
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s010",
+      "start": 19.75,
+      "end": 24.6,
+      "line": "Most people react in about a quarter of a second. Two hundred and fifty milliseconds.",
+      "scene": "Blueprint comparison board: line-art human silhouette and animated bar filling to '0.25 s / 250 ms' synced to the spoken numbers.",
+      "set": "blueprint",
+      "bars": "none",
+      "in": {
+        "type": "zoom",
+        "dur": 0.35
+      },
+      "sfx": [
+        {
+          "at": 0.4,
+          "name": "blip",
+          "gain": -12
+        },
+        {
+          "at": 2.8,
+          "name": "counter",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s011",
+      "start": 24.6,
+      "end": 26.68,
+      "line": "Eye, to brain, to hand.",
+      "scene": "Blueprint signal pipeline: glowing pulse travels across three circular nodes — EYE -> BRAIN -> HAND — lighting each in gold on its spoken word.",
+      "set": "blueprint",
+      "bars": "none",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.15,
+          "name": "blip",
+          "gain": -12
+        },
+        {
+          "at": 0.7,
+          "name": "blip",
+          "gain": -12
+        },
+        {
+          "at": 1.25,
+          "name": "blip",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s012",
+      "start": 26.68,
+      "end": 29.45,
+      "line": "You? Two and a half milliseconds.",
+      "scene": "Blueprint comparison reveal: YOUR gold bar snaps instantly to '2.5 ms' right below the long 250 ms human bar, with '100x FASTER' badge.",
+      "set": "blueprint",
+      "bars": "scope",
+      "in": {
+        "type": "flash",
+        "dur": 0.2
+      },
+      "sfx": [
+        {
+          "at": 0.85,
+          "name": "powerup",
+          "gain": -8
+        },
+        {
+          "at": 1.0,
+          "name": "ding",
+          "gain": -9
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s013",
+      "start": 29.45,
+      "end": 31.75,
+      "line": "Here's the rule that runs the whole story.",
+      "scene": "Medium moody shot in dusk apartment: YOU standing silhouetted in front of the tall city window, raising one finger as the camera pushes in.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.2,
+          "name": "riser",
+          "gain": -12,
+          "dur": 1.6
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s014",
+      "start": 31.75,
+      "end": 34.65,
+      "line": "Your brain got faster. Nothing else did.",
+      "scene": "Blueprint anatomical silhouette: brain node blazes bright gold ('100x') while heart, lungs and limbs remain calm blueprint blue ('1x').",
+      "set": "blueprint",
+      "bars": "none",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.25,
+          "name": "powerup",
+          "gain": -10
+        },
+        {
+          "at": 1.8,
+          "name": "tick",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s015",
+      "start": 34.65,
+      "end": 37.15,
+      "line": "Muscles can't move quicker than muscle moves.",
+      "scene": "Blueprint arm mechanics diagram: forearm trajectory arc capped at 'MAX MUSCLE SPEED: 1.0x' with coral limit marker.",
+      "set": "blueprint",
+      "bars": "none",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.4,
+          "name": "blip",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s016",
+      "start": 37.15,
+      "end": 40.75,
+      "line": "The world didn't slow down. You just... started earlier.",
+      "scene": "Dual timeline race diagram: NORMAL waits until 250 ms to start moving; YOU launch at 2.5 ms — huge 'STARTED 247.5 ms EARLIER' gold callout.",
+      "set": "blueprint",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 2.2,
+          "name": "ding",
+          "gain": -8
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s017",
+      "start": 40.75,
+      "end": 43.78,
+      "line": "So what if your reaction time was a hundred times faster?",
+      "scene": "Cinematic dusk city skyline with god rays and glowing title card: 'WHAT IF YOUR REACTION TIME / WAS 100X FASTER?'.",
+      "set": "skyline",
+      "bars": "scope",
+      "in": {
+        "type": "fade",
+        "dur": 0.45
+      },
+      "sfx": [
+        {
+          "at": 0.1,
+          "name": "stinger",
+          "gain": -6
+        }
+      ],
+      "amb": {
+        "name": "city",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s018",
+      "start": 43.78,
+      "end": 46.85,
+      "line": "Plus: you never drop anything. Ever.",
+      "scene": "Medium shot: YOU casually leaning against the kitchen counter catching a tumbling mug behind your back without looking; '+ PLUS' badge.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.25,
+          "name": "pop",
+          "gain": -10
+        },
+        {
+          "at": 2.45,
+          "name": "ding",
+          "gain": -10
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s019",
+      "start": 46.85,
+      "end": 50.15,
+      "line": "Falling keys. Falling eggs. Falling grandma.",
+      "scene": "Dynamic triptych/rapid progression across three beats: snatching falling keys (0.1s), catching three eggs intact (1.1s), and catching slipping GRANDMA in arms (2.1s)!",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "whip",
+        "dur": 0.22,
+        "dir": 1
+      },
+      "sfx": [
+        {
+          "at": 0.25,
+          "name": "swish",
+          "gain": -8
+        },
+        {
+          "at": 1.2,
+          "name": "swish",
+          "gain": -8
+        },
+        {
+          "at": 2.2,
+          "name": "cheer",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s020",
+      "start": 50.15,
+      "end": 53.28,
+      "line": "Plus: video games become ridiculous.",
+      "scene": "Establishing wide of evening living room: glowing TV casting cyan light cone onto YOU and LEO on the couch with controllers.",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "whip",
+        "dur": 0.3,
+        "dir": 1
+      },
+      "sfx": [
+        {
+          "at": 0.3,
+          "name": "powerup",
+          "gain": -9
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s021",
+      "start": 53.28,
+      "end": 55.82,
+      "line": "A screen refreshes sixty times a second.",
+      "scene": "Close insert on the glowing 60Hz gaming monitor with individual scanline frames ticking past and readout 'REFRESH: 60 Hz (16.7 ms)'.",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.4,
+          "name": "counter",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s022",
+      "start": 55.82,
+      "end": 59.15,
+      "line": "You see things seventeen times before anyone else does.",
+      "scene": "Giant close-up of YOUR face lit by screen glow, eyes darting calmly with '17x PERCEPTION' reflection HUD and frame counter.",
+      "set": "livingroom",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.5,
+          "name": "blip",
+          "gain": -11
+        },
+        {
+          "at": 1.6,
+          "name": "shimmer",
+          "gain": -10
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s023",
+      "start": 59.15,
+      "end": 60.95,
+      "line": "Leo spins the controller.",
+      "scene": "Medium couch shot: LEO tosses/spins his game controller in disbelief while 'VICTORY' flashes from the TV onto both figures.",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.3,
+          "name": "swish",
+          "gain": -9
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s024",
+      "start": 60.95,
+      "end": 63.7,
+      "line": "\"Mate. You really have to stop doing that.\"",
+      "scene": "Giant bigFace close-up of LEO in his yellow backwards cap, exasperated-amused expression, lip-synced to exact dialogue words with speech rings.",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s025",
+      "start": 63.7,
+      "end": 66.58,
+      "line": "Minus: everything else is slow.",
+      "scene": "Mood cools: YOU sit sharp at normal speed while LEO in the background moves like a statue and wall clock crawls; '- MINUS' coral badge.",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "dip",
+        "dur": 0.35
+      },
+      "sfx": [
+        {
+          "at": 0.4,
+          "name": "slowmo",
+          "gain": -9
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s026",
+      "start": 66.58,
+      "end": 70.78,
+      "line": "A sentence takes a whole second... and you've already written four replies.",
+      "scene": "Two-shot conversation: one slow speech bubble emerges from LEO ('1.0 s') while four crisp reply bubbles pop up in a stack above YOUR head.",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 2.1,
+          "name": "pop",
+          "gain": -12
+        },
+        {
+          "at": 2.45,
+          "name": "pop",
+          "gain": -12
+        },
+        {
+          "at": 2.8,
+          "name": "pop",
+          "gain": -12
+        },
+        {
+          "at": 3.15,
+          "name": "pop",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "clock",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s027",
+      "start": 70.78,
+      "end": 73.25,
+      "line": "And at night, you can't switch it off.",
+      "scene": "3D Three.js moonlit night bedroom dolly: silver moonlight pours through tall mullioned window onto YOU lying wide awake on the bed.",
+      "set": "bedroom3d",
+      "bars": "scope",
+      "in": {
+        "type": "dip",
+        "dur": 0.4
+      },
+      "sfx": [
+        {
+          "at": 0.5,
+          "name": "clock",
+          "gain": -14
+        }
+      ],
+      "amb": {
+        "name": "wind",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s028",
+      "start": 73.25,
+      "end": 75.55,
+      "line": "You lie there... and count.",
+      "scene": "Top-down close-up of YOU lying awake on the pillow staring up, wide eyes blinking in the moonlight as millisecond counter ticks rapidly overhead.",
+      "set": "bedroom",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.3,
+          "name": "tick",
+          "gain": -10
+        },
+        {
+          "at": 1.3,
+          "name": "tick",
+          "gain": -10
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s029",
+      "start": 75.55,
+      "end": 79.68,
+      "line": "Minus: your brain is now the most expensive organ you own.",
+      "scene": "Data card & glowing brain diagram: 'METABOLIC COST' curve climbing steeply in coral red with '- MINUS' badge.",
+      "set": "blueprint",
+      "bars": "none",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.4,
+          "name": "blip",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s030",
+      "start": 79.68,
+      "end": 82.7,
+      "line": "It already burns about twenty percent of your daily energy.",
+      "scene": "Blueprint energy meter: human body battery gauge showing baseline '20% DAILY ENERGY' pulsing in gold, then surging into overdrive.",
+      "set": "blueprint",
+      "bars": "none",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.5,
+          "name": "counter",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s031",
+      "start": 82.7,
+      "end": 86.55,
+      "line": "Speed costs fuel. Your breakfast... never ends.",
+      "scene": "Medium kitchen table shot: YOU sitting exhausted behind a comical towering stack of empty plates, toast and bowls, still eating.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.3,
+          "name": "pop",
+          "gain": -11
+        },
+        {
+          "at": 1.8,
+          "name": "pop",
+          "gain": -11
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s032",
+      "start": 86.55,
+      "end": 91.9,
+      "line": "And your brain is built on surprise. Predict everything... and nothing surprises you anymore.",
+      "scene": "Moody twilight window shot: YOU watching falling rain droplets outside with dotted prediction trajectories drawn ahead of every drop, expression flat.",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 2.3,
+          "name": "blip",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s033",
+      "start": 91.9,
+      "end": 95.58,
+      "line": "Leo tells a joke. You already saw the punchline in his shoulder.",
+      "scene": "OTS shot: LEO animatedly gesturing as he sets up a joke; a blueprint callout circle highlights his raised shoulder ('PUNCHLINE DETECTED -1.2s').",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 1.6,
+          "name": "blip",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s034",
+      "start": 95.58,
+      "end": 98.85,
+      "line": "So you laugh... a second late. On purpose.",
+      "scene": "Two-shot: a '+1.0 s DELAY' timer finishes above YOUR head before YOU force a polite laugh alongside grinning LEO.",
+      "set": "livingroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 1.1,
+          "name": "tick",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s035",
+      "start": 98.85,
+      "end": 100.2,
+      "line": "Sad, isn't it?",
+      "scene": "Intimate bigFace close-up of YOU as the forced smile fades instantly into quiet, lonely sadness under cool window rim light.",
+      "set": "livingroom",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s036",
+      "start": 100.2,
+      "end": 103.38,
+      "line": "Then there's Mia. Your little sister. She's nine.",
+      "scene": "Warm hallway doorway shot: 9-year-old MIA in her signature pink beanie peeking happily around her warm-lit bedroom doorway, looking up at YOU.",
+      "set": "bedroom",
+      "bars": "wide",
+      "in": {
+        "type": "dip",
+        "dur": 0.4
+      },
+      "sfx": [
+        {
+          "at": 0.4,
+          "name": "shimmer",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s037",
+      "start": 103.38,
+      "end": 106.05,
+      "line": "And she's the only person who can slow you down.",
+      "scene": "Tender medium two-shot: YOU kneel down to MIA's eye level, genuine warm smile returning as soft golden dust motes float.",
+      "set": "bedroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s038",
+      "start": 106.05,
+      "end": 108.18,
+      "line": "Every night she needs the same thing.",
+      "scene": "Night hallway establishing shot: MIA tucked in bed visible through the half-open door while YOU stand gently by the wooden doorframe.",
+      "set": "bedroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s039",
+      "start": 108.18,
+      "end": 110.85,
+      "line": "Two knocks on the frame of her door. Then one.",
+      "scene": "Close insert on YOUR hand gently tapping the wooden doorframe: TWO warm golden ripple rings... pause... THEN ONE wider golden ring.",
+      "set": "bedroom",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.35,
+          "name": "hit",
+          "gain": -11,
+          "pitch": 1.5
+        },
+        {
+          "at": 0.75,
+          "name": "hit",
+          "gain": -11,
+          "pitch": 1.5
+        },
+        {
+          "at": 2.0,
+          "name": "hit",
+          "gain": -10,
+          "pitch": 1.3
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s040",
+      "start": 110.85,
+      "end": 113.15,
+      "line": "That's the deal. That's the language.",
+      "scene": "Close warm shot of MIA in her pink beanie smiling peacefully on her pillow as the doorway light softly dims.",
+      "set": "bedroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.9,
+          "name": "ding",
+          "gain": -13
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s041",
+      "start": 113.15,
+      "end": 115.78,
+      "line": "Then comes the museum. A lamp goes out.",
+      "scene": "3D Three.js grand museum hall orbit: tall columns, mezzanine rail, exhibits — at 114.9s the main overhead lamp sparks and plunges the hall into darkness!",
+      "set": "museum3d",
+      "bars": "scope",
+      "in": {
+        "type": "dip",
+        "dur": 0.35
+      },
+      "sfx": [
+        {
+          "at": 1.72,
+          "name": "glitch",
+          "gain": -5
+        },
+        {
+          "at": 1.8,
+          "name": "impact",
+          "gain": -7
+        }
+      ],
+      "amb": {
+        "name": "murmur",
+        "gain": -24
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s042",
+      "start": 115.78,
+      "end": 118.0,
+      "line": "Emergency lights, red and thin.",
+      "scene": "Wide atmospheric museum shot: thin crimson emergency wall beacons ignite, casting dramatic red light cones and red rim light across the dark hall.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.2,
+          "name": "phonebuzz",
+          "gain": -13
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -21
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s043",
+      "start": 118.0,
+      "end": 120.65,
+      "line": "Mia is across the hall, near the dark stairs.",
+      "scene": "Long shot across the darkened hall: tiny MIA in her pink beanie stands frozen and scared near the shadowy staircase far on the right.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.3,
+          "name": "heartbeat",
+          "gain": -9
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -21
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s044",
+      "start": 120.65,
+      "end": 124.3,
+      "line": "A forty kilo barrier is sliding toward a group of smaller kids.",
+      "scene": "Medium danger shot: a heavy metal exhibit barrier ('40 kg' callout) breaks loose on a sloped ramp, rolling toward two frightened smaller kids.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.4,
+          "name": "riser",
+          "gain": -9,
+          "dur": 2.8
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -21
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s045",
+      "start": 124.3,
+      "end": 126.48,
+      "line": "A screen falls from three meters.",
+      "scene": "Low-angle tilt up: a giant overhead display screen snaps its cable and begins plummeting toward the floor with '3.0 m' vertical dimension line.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.25,
+          "name": "glitch",
+          "gain": -8
+        },
+        {
+          "at": 0.5,
+          "name": "whoosh",
+          "gain": -8
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -21
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s046",
+      "start": 126.48,
+      "end": 127.98,
+      "line": "Eight tenths of a second.",
+      "scene": "TIME-STOP freeze in red-and-blue museum hall: sparks and dust suspended in mid-air, giant glowing '0.8 s' countdown readout at center.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "flash",
+        "dur": 0.2
+      },
+      "sfx": [
+        {
+          "at": 0.02,
+          "name": "freeze",
+          "gain": -5
+        },
+        {
+          "at": 0.3,
+          "name": "heartbeat",
+          "gain": -8
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -22
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s047",
+      "start": 127.98,
+      "end": 131.5,
+      "line": "You cannot run faster. You can only start earlier.",
+      "scene": "Extreme bigFace close-up of YOU under sharp crimson rim light: eyes lock onto the rail then the barrier, jaw set in fierce determination.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.2,
+          "name": "heartbeat",
+          "gain": -8
+        },
+        {
+          "at": 1.85,
+          "name": "powerup",
+          "gain": -7
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -22
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s048",
+      "start": 131.5,
+      "end": 134.95,
+      "line": "You shout it on the metal rail. Two knocks. Then one.",
+      "scene": "Close action shot: YOUR fist slams the steel museum rail — TWO bright gold-and-red acoustic shockwave rings... pause... THEN ONE massive ring!",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 1.87,
+          "name": "hit",
+          "gain": -3,
+          "pitch": 1.8
+        },
+        {
+          "at": 2.22,
+          "name": "hit",
+          "gain": -3,
+          "pitch": 1.8
+        },
+        {
+          "at": 2.75,
+          "name": "hit",
+          "gain": -2,
+          "pitch": 1.5
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -22
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s049",
+      "start": 134.95,
+      "end": 137.6,
+      "line": "Mia freezes. She knows that knock.",
+      "scene": "Medium close-up on MIA near the stairs: the '2 + 1' golden soundwave rings wash past her pink beanie; she stops dead in her tracks, safe from the drop zone.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.25,
+          "name": "ding",
+          "gain": -9
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -23
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s050",
+      "start": 137.6,
+      "end": 141.82,
+      "line": "You lean into the barrier before it is really moving... and the lean wins.",
+      "scene": "Heroic action shot with speed afterimages: YOU lunge early and plant your red-hoodie shoulder into the 40 kg barrier, halting its slide inches from the kids!",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.2,
+          "name": "whoosh",
+          "gain": -6
+        },
+        {
+          "at": 1.8,
+          "name": "impact",
+          "gain": -4
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -22
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s051",
+      "start": 141.82,
+      "end": 144.3,
+      "line": "The screen lands on an empty patch of floor.",
+      "scene": "Wide impact shot with camera shake: the falling 3 m screen crashes harmlessly onto an empty patch of museum floor where Mia would have walked, sparks flying.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 0.6,
+          "name": "impact",
+          "gain": -4
+        },
+        {
+          "at": 0.75,
+          "name": "stinger",
+          "gain": -7
+        }
+      ],
+      "amb": {
+        "name": "hum",
+        "gain": -22
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s052",
+      "start": 144.3,
+      "end": 147.0,
+      "line": "Your sister's hand... is in yours.",
+      "scene": "Emotional macro insert: MIA's small hand reaches into YOUR larger hand and holds tight, warm amber overhead light softly flickering back on.",
+      "set": "museum",
+      "bars": "scope",
+      "in": {
+        "type": "fade",
+        "dur": 0.35
+      },
+      "sfx": [
+        {
+          "at": 0.6,
+          "name": "shimmer",
+          "gain": -10
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s053",
+      "start": 147.0,
+      "end": 150.0,
+      "line": "That night, she knocks twice. Then once.",
+      "scene": "Warm night hallway: MIA stands inside her doorway and taps the wooden frame herself — two soft golden rings, then one.",
+      "set": "bedroom",
+      "bars": "wide",
+      "in": {
+        "type": "dip",
+        "dur": 0.45
+      },
+      "sfx": [
+        {
+          "at": 1.0,
+          "name": "hit",
+          "gain": -11,
+          "pitch": 1.6
+        },
+        {
+          "at": 1.4,
+          "name": "hit",
+          "gain": -11,
+          "pitch": 1.6
+        },
+        {
+          "at": 2.25,
+          "name": "hit",
+          "gain": -10,
+          "pitch": 1.4
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s054",
+      "start": 150.0,
+      "end": 152.05,
+      "line": "You answer... at normal speed.",
+      "scene": "Warm two-shot: YOU pause unhurriedly, smile, and tap back at calm human speed ('1.0x NORMAL SPEED' subtle warm readout) as MIA grins.",
+      "set": "bedroom",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 1.05,
+          "name": "hit",
+          "gain": -11,
+          "pitch": 1.3
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s055",
+      "start": 152.05,
+      "end": 155.8,
+      "line": "The gift didn't disappear. It just stopped mattering as much.",
+      "scene": "Golden dusk kitchen wide shot: YOU, MIA, and LEO hanging out casually around the counter in warm amber window light, laughing naturally together.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "fade",
+        "dur": 0.4
+      },
+      "sfx": [],
+      "amb": {
+        "name": "roomtone",
+        "gain": -25
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s056",
+      "start": 155.8,
+      "end": 159.45,
+      "line": "You've started letting the tea go cold... on purpose.",
+      "scene": "Close insert mirroring Shot 9: the porcelain tea mug sits peacefully on the sunlit counter with NO steam ('COLD — ON PURPOSE'), YOUR hand resting calmly beside it.",
+      "set": "kitchen",
+      "bars": "wide",
+      "in": {
+        "type": "cut"
+      },
+      "sfx": [
+        {
+          "at": 2.4,
+          "name": "shimmer",
+          "gain": -12
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -26
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    },
+    {
+      "id": "s057",
+      "start": 159.45,
+      "end": 169.3,
+      "line": "Tell us in the comments which everyday thing you would save first. And if you felt that second knock... hit like, and subscribe for more What Ifs.",
+      "scene": "End screen: 'Which everyday thing would YOU save first?' in Playfair italic, comment bubble, animated '2+1' knock rings at 164.5s, Subscribe pill, and full cast (YOU, MIA, LEO, GRANDMA) smiling.",
+      "set": "endscreen",
+      "bars": "none",
+      "in": {
+        "type": "fade",
+        "dur": 0.5
+      },
+      "sfx": [
+        {
+          "at": 0.6,
+          "name": "pop",
+          "gain": -10
+        },
+        {
+          "at": 5.9,
+          "name": "ding",
+          "gain": -8
+        }
+      ],
+      "amb": {
+        "name": "roomtone",
+        "gain": -28
+      },
+      "captions": false,
+      "vignette": true,
+      "notes": ""
+    }
+  ],
+  "music": [
+    {
+      "start": 0.0,
+      "end": 19.75,
+      "mood": "wonder",
+      "intensity": 0.55
+    },
+    {
+      "start": 19.75,
+      "end": 40.75,
+      "mood": "mystery",
+      "intensity": 0.5
+    },
+    {
+      "start": 40.75,
+      "end": 63.7,
+      "mood": "playful",
+      "intensity": 0.65
+    },
+    {
+      "start": 63.7,
+      "end": 100.2,
+      "mood": "sad",
+      "intensity": 0.42
+    },
+    {
+      "start": 100.2,
+      "end": 113.15,
+      "mood": "calm",
+      "intensity": 0.38
+    },
+    {
+      "start": 113.15,
+      "end": 131.5,
+      "mood": "tension",
+      "intensity": 0.78
+    },
+    {
+      "start": 131.5,
+      "end": 147.0,
+      "mood": "action",
+      "intensity": 0.85
+    },
+    {
+      "start": 147.0,
+      "end": 169.3,
+      "mood": "hopeful",
+      "intensity": 0.55
+    }
+  ]
+}

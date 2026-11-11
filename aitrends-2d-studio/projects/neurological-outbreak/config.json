@@ -1,0 +1,15 @@
+{
+  "title": "Neurological Outbreak — You Are Inside Aisle Four",
+  "style": "midnight",
+  "aspect": "16:9",
+  "resolution": "1080p",
+  "fps": 24,
+  "bars": "none",
+  "captions": false,
+  "fadeIn": 0.6,
+  "fadeOut": 1.0,
+  "audio": {
+    "voiceover": "input/voiceover_master.mp3",
+    "music": null
+  }
+}

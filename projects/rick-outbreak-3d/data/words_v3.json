@@ -1,0 +1,3902 @@
+{
+  "version": "v3_unedited_elevenlabs_v4",
+  "duration": 260.32,
+  "fps": 30,
+  "total_frames": 7810,
+  "wpm": 152.1,
+  "word_count": 660,
+  "words": [
+    {
+      "word": "The",
+      "start": 0.065,
+      "end": 0.29
+    },
+    {
+      "word": "first",
+      "start": 0.29,
+      "end": 0.78
+    },
+    {
+      "word": "warning",
+      "start": 0.78,
+      "end": 1.53
+    },
+    {
+      "word": "comes",
+      "start": 1.53,
+      "end": 1.96
+    },
+    {
+      "word": "at",
+      "start": 1.96,
+      "end": 2.15
+    },
+    {
+      "word": "4:17",
+      "start": 2.15,
+      "end": 2.9
+    },
+    {
+      "word": "PM.",
+      "start": 2.9,
+      "end": 3.36
+    },
+    {
+      "word": "Your",
+      "start": 3.36,
+      "end": 3.7
+    },
+    {
+      "word": "phone",
+      "start": 3.7,
+      "end": 4.13
+    },
+    {
+      "word": "vibrates.",
+      "start": 4.13,
+      "end": 4.88
+    },
+    {
+      "word": "An",
+      "start": 4.88,
+      "end": 5.03
+    },
+    {
+      "word": "emergency",
+      "start": 5.03,
+      "end": 5.71
+    },
+    {
+      "word": "alert",
+      "start": 5.71,
+      "end": 6.09
+    },
+    {
+      "word": "fills",
+      "start": 6.09,
+      "end": 6.47
+    },
+    {
+      "word": "the",
+      "start": 6.47,
+      "end": 6.68
+    },
+    {
+      "word": "screen.",
+      "start": 6.68,
+      "end": 7.4
+    },
+    {
+      "word": "Stay",
+      "start": 7.4,
+      "end": 7.75
+    },
+    {
+      "word": "indoors.",
+      "start": 7.75,
+      "end": 8.64
+    },
+    {
+      "word": "Avoid",
+      "start": 8.64,
+      "end": 8.96
+    },
+    {
+      "word": "anyone",
+      "start": 8.96,
+      "end": 9.34
+    },
+    {
+      "word": "showing",
+      "start": 9.34,
+      "end": 9.79
+    },
+    {
+      "word": "signs",
+      "start": 9.79,
+      "end": 10.17
+    },
+    {
+      "word": "of",
+      "start": 10.17,
+      "end": 10.25
+    },
+    {
+      "word": "confusion",
+      "start": 10.25,
+      "end": 10.88
+    },
+    {
+      "word": "or",
+      "start": 10.88,
+      "end": 11.01
+    },
+    {
+      "word": "violent",
+      "start": 11.01,
+      "end": 12.0
+    },
+    {
+      "word": "behavior.",
+      "start": 12.0,
+      "end": 12.36
+    },
+    {
+      "word": "Do",
+      "start": 12.36,
+      "end": 12.48
+    },
+    {
+      "word": "not",
+      "start": 12.48,
+      "end": 12.67
+    },
+    {
+      "word": "approach",
+      "start": 12.67,
+      "end": 13.17
+    },
+    {
+      "word": "emergency",
+      "start": 13.17,
+      "end": 13.89
+    },
+    {
+      "word": "responders",
+      "start": 13.89,
+      "end": 14.41
+    },
+    {
+      "word": "unless",
+      "start": 14.41,
+      "end": 14.9
+    },
+    {
+      "word": "instructed.",
+      "start": 14.9,
+      "end": 16.0
+    },
+    {
+      "word": "You",
+      "start": 16.0,
+      "end": 16.28
+    },
+    {
+      "word": "read",
+      "start": 16.28,
+      "end": 16.65
+    },
+    {
+      "word": "it",
+      "start": 16.65,
+      "end": 16.83
+    },
+    {
+      "word": "twice.",
+      "start": 16.83,
+      "end": 17.6
+    },
+    {
+      "word": "Outside,",
+      "start": 17.6,
+      "end": 18.41
+    },
+    {
+      "word": "traffic",
+      "start": 18.41,
+      "end": 19.13
+    },
+    {
+      "word": "slows",
+      "start": 19.13,
+      "end": 19.51
+    },
+    {
+      "word": "to",
+      "start": 19.51,
+      "end": 19.67
+    },
+    {
+      "word": "a",
+      "start": 19.67,
+      "end": 19.76
+    },
+    {
+      "word": "stop.",
+      "start": 19.76,
+      "end": 20.4
+    },
+    {
+      "word": "A",
+      "start": 20.4,
+      "end": 20.49
+    },
+    {
+      "word": "man",
+      "start": 20.49,
+      "end": 20.66
+    },
+    {
+      "word": "stands",
+      "start": 20.66,
+      "end": 21.03
+    },
+    {
+      "word": "in",
+      "start": 21.03,
+      "end": 21.15
+    },
+    {
+      "word": "the",
+      "start": 21.15,
+      "end": 21.34
+    },
+    {
+      "word": "middle",
+      "start": 21.34,
+      "end": 21.72
+    },
+    {
+      "word": "of",
+      "start": 21.72,
+      "end": 21.93
+    },
+    {
+      "word": "the",
+      "start": 21.93,
+      "end": 22.03
+    },
+    {
+      "word": "road,",
+      "start": 22.03,
+      "end": 22.47
+    },
+    {
+      "word": "staring",
+      "start": 22.47,
+      "end": 23.02
+    },
+    {
+      "word": "at",
+      "start": 23.02,
+      "end": 23.19
+    },
+    {
+      "word": "nothing.",
+      "start": 23.19,
+      "end": 24.0
+    },
+    {
+      "word": "Then,",
+      "start": 24.0,
+      "end": 24.48
+    },
+    {
+      "word": "he",
+      "start": 24.48,
+      "end": 24.64
+    },
+    {
+      "word": "suddenly",
+      "start": 24.64,
+      "end": 25.29
+    },
+    {
+      "word": "runs",
+      "start": 25.29,
+      "end": 25.61
+    },
+    {
+      "word": "at",
+      "start": 25.61,
+      "end": 25.77
+    },
+    {
+      "word": "a",
+      "start": 25.77,
+      "end": 25.85
+    },
+    {
+      "word": "passing",
+      "start": 25.85,
+      "end": 26.42
+    },
+    {
+      "word": "car.",
+      "start": 26.42,
+      "end": 26.96
+    },
+    {
+      "word": "The",
+      "start": 26.96,
+      "end": 27.22
+    },
+    {
+      "word": "driver",
+      "start": 27.22,
+      "end": 27.57
+    },
+    {
+      "word": "swerves.",
+      "start": 27.57,
+      "end": 28.2
+    },
+    {
+      "word": "Someone",
+      "start": 28.29,
+      "end": 28.77
+    },
+    {
+      "word": "screams",
+      "start": 28.77,
+      "end": 29.34
+    },
+    {
+      "word": "and",
+      "start": 29.34,
+      "end": 29.59
+    },
+    {
+      "word": "then",
+      "start": 29.59,
+      "end": 29.9
+    },
+    {
+      "word": "every",
+      "start": 29.9,
+      "end": 30.32
+    },
+    {
+      "word": "phone",
+      "start": 30.32,
+      "end": 30.72
+    },
+    {
+      "word": "in",
+      "start": 30.72,
+      "end": 30.88
+    },
+    {
+      "word": "the",
+      "start": 30.88,
+      "end": 31.53
+    },
+    {
+      "word": "store",
+      "start": 31.53,
+      "end": 31.595
+    },
+    {
+      "word": "starts",
+      "start": 31.595,
+      "end": 32.02
+    },
+    {
+      "word": "ringing.",
+      "start": 32.02,
+      "end": 32.88
+    },
+    {
+      "word": "You're",
+      "start": 32.88,
+      "end": 33.24
+    },
+    {
+      "word": "working",
+      "start": 33.24,
+      "end": 33.66
+    },
+    {
+      "word": "alone",
+      "start": 33.66,
+      "end": 33.96
+    },
+    {
+      "word": "at",
+      "start": 33.96,
+      "end": 34.08
+    },
+    {
+      "word": "a",
+      "start": 34.08,
+      "end": 34.15
+    },
+    {
+      "word": "small",
+      "start": 34.15,
+      "end": 34.44
+    },
+    {
+      "word": "convenience",
+      "start": 34.44,
+      "end": 35.1
+    },
+    {
+      "word": "store.",
+      "start": 35.1,
+      "end": 35.6
+    },
+    {
+      "word": "The",
+      "start": 35.6,
+      "end": 35.86
+    },
+    {
+      "word": "front",
+      "start": 35.86,
+      "end": 36.13
+    },
+    {
+      "word": "windows",
+      "start": 36.13,
+      "end": 36.56
+    },
+    {
+      "word": "face",
+      "start": 36.56,
+      "end": 36.81
+    },
+    {
+      "word": "the",
+      "start": 36.81,
+      "end": 37.13
+    },
+    {
+      "word": "street.",
+      "start": 37.13,
+      "end": 37.6
+    },
+    {
+      "word": "The",
+      "start": 37.6,
+      "end": 37.86
+    },
+    {
+      "word": "back",
+      "start": 37.86,
+      "end": 38.08
+    },
+    {
+      "word": "door",
+      "start": 38.08,
+      "end": 38.34
+    },
+    {
+      "word": "opens",
+      "start": 38.34,
+      "end": 38.68
+    },
+    {
+      "word": "into",
+      "start": 38.68,
+      "end": 38.95
+    },
+    {
+      "word": "a",
+      "start": 38.95,
+      "end": 39.13
+    },
+    {
+      "word": "narrow",
+      "start": 39.13,
+      "end": 39.43
+    },
+    {
+      "word": "delivery",
+      "start": 39.43,
+      "end": 39.98
+    },
+    {
+      "word": "alley.",
+      "start": 39.98,
+      "end": 40.6
+    },
+    {
+      "word": "Neither",
+      "start": 40.6,
+      "end": 41.13
+    },
+    {
+      "word": "feels",
+      "start": 41.13,
+      "end": 41.51
+    },
+    {
+      "word": "safe",
+      "start": 41.51,
+      "end": 41.81
+    },
+    {
+      "word": "anymore.",
+      "start": 41.81,
+      "end": 42.6
+    },
+    {
+      "word": "You",
+      "start": 42.6,
+      "end": 42.86
+    },
+    {
+      "word": "lock",
+      "start": 42.86,
+      "end": 43.08
+    },
+    {
+      "word": "the",
+      "start": 43.08,
+      "end": 43.27
+    },
+    {
+      "word": "front",
+      "start": 43.27,
+      "end": 43.61
+    },
+    {
+      "word": "door.",
+      "start": 43.61,
+      "end": 44.12
+    },
+    {
+      "word": "Pull",
+      "start": 44.12,
+      "end": 44.38
+    },
+    {
+      "word": "down",
+      "start": 44.38,
+      "end": 44.65
+    },
+    {
+      "word": "the",
+      "start": 44.65,
+      "end": 44.81
+    },
+    {
+      "word": "metal",
+      "start": 44.81,
+      "end": 45.13
+    },
+    {
+      "word": "shutter.",
+      "start": 45.13,
+      "end": 45.8
+    },
+    {
+      "word": "Then,",
+      "start": 45.8,
+      "end": 46.24
+    },
+    {
+      "word": "you",
+      "start": 46.24,
+      "end": 46.45
+    },
+    {
+      "word": "switch",
+      "start": 46.45,
+      "end": 46.88
+    },
+    {
+      "word": "off",
+      "start": 46.88,
+      "end": 47.1
+    },
+    {
+      "word": "the",
+      "start": 47.1,
+      "end": 47.33
+    },
+    {
+      "word": "lights.",
+      "start": 47.33,
+      "end": 48.0
+    },
+    {
+      "word": "For",
+      "start": 48.0,
+      "end": 48.26
+    },
+    {
+      "word": "a",
+      "start": 48.26,
+      "end": 48.33
+    },
+    {
+      "word": "moment,",
+      "start": 48.33,
+      "end": 48.99
+    },
+    {
+      "word": "the",
+      "start": 48.99,
+      "end": 49.24
+    },
+    {
+      "word": "store",
+      "start": 49.24,
+      "end": 49.65
+    },
+    {
+      "word": "goes",
+      "start": 49.65,
+      "end": 49.98
+    },
+    {
+      "word": "silent.",
+      "start": 49.98,
+      "end": 50.76
+    },
+    {
+      "word": "Then",
+      "start": 50.76,
+      "end": 51.06
+    },
+    {
+      "word": "something",
+      "start": 51.06,
+      "end": 51.75
+    },
+    {
+      "word": "hits",
+      "start": 51.75,
+      "end": 52.04
+    },
+    {
+      "word": "the",
+      "start": 52.04,
+      "end": 52.29
+    },
+    {
+      "word": "glass.",
+      "start": 52.29,
+      "end": 52.92
+    },
+    {
+      "word": "Outside,",
+      "start": 52.92,
+      "end": 53.61
+    },
+    {
+      "word": "a",
+      "start": 53.61,
+      "end": 53.68
+    },
+    {
+      "word": "woman",
+      "start": 53.68,
+      "end": 54.07
+    },
+    {
+      "word": "stands",
+      "start": 54.07,
+      "end": 54.53
+    },
+    {
+      "word": "with",
+      "start": 54.53,
+      "end": 54.84
+    },
+    {
+      "word": "shaking",
+      "start": 54.84,
+      "end": 55.38
+    },
+    {
+      "word": "hands.",
+      "start": 55.38,
+      "end": 56.04
+    },
+    {
+      "word": "She",
+      "start": 56.04,
+      "end": 56.3
+    },
+    {
+      "word": "keeps",
+      "start": 56.3,
+      "end": 56.52
+    },
+    {
+      "word": "looking",
+      "start": 56.52,
+      "end": 56.91
+    },
+    {
+      "word": "over",
+      "start": 56.91,
+      "end": 57.14
+    },
+    {
+      "word": "her",
+      "start": 57.14,
+      "end": 57.31
+    },
+    {
+      "word": "shoulder.",
+      "start": 57.31,
+      "end": 58.0
+    },
+    {
+      "word": "Please,",
+      "start": 58.09,
+      "end": 58.82
+    },
+    {
+      "word": "let",
+      "start": 58.82,
+      "end": 59.13
+    },
+    {
+      "word": "me",
+      "start": 59.13,
+      "end": 59.33
+    },
+    {
+      "word": "in.",
+      "start": 59.33,
+      "end": 59.88
+    },
+    {
+      "word": "You",
+      "start": 59.88,
+      "end": 60.14
+    },
+    {
+      "word": "reach",
+      "start": 60.14,
+      "end": 60.41
+    },
+    {
+      "word": "for",
+      "start": 60.41,
+      "end": 60.61
+    },
+    {
+      "word": "the",
+      "start": 60.61,
+      "end": 60.81
+    },
+    {
+      "word": "lock.",
+      "start": 60.81,
+      "end": 61.28
+    },
+    {
+      "word": "But",
+      "start": 61.28,
+      "end": 61.54
+    },
+    {
+      "word": "behind",
+      "start": 61.54,
+      "end": 61.83
+    },
+    {
+      "word": "her,",
+      "start": 61.83,
+      "end": 62.13
+    },
+    {
+      "word": "across",
+      "start": 62.13,
+      "end": 62.5
+    },
+    {
+      "word": "the",
+      "start": 62.5,
+      "end": 62.81
+    },
+    {
+      "word": "street,",
+      "start": 62.81,
+      "end": 63.2
+    },
+    {
+      "word": "a",
+      "start": 63.2,
+      "end": 63.26
+    },
+    {
+      "word": "police",
+      "start": 63.26,
+      "end": 63.66
+    },
+    {
+      "word": "officer",
+      "start": 63.66,
+      "end": 64.62
+    },
+    {
+      "word": "slowly",
+      "start": 64.62,
+      "end": 64.685
+    },
+    {
+      "word": "backs",
+      "start": 64.685,
+      "end": 65.0
+    },
+    {
+      "word": "away",
+      "start": 65.0,
+      "end": 65.36
+    },
+    {
+      "word": "from",
+      "start": 65.36,
+      "end": 65.56
+    },
+    {
+      "word": "a",
+      "start": 65.56,
+      "end": 65.625
+    },
+    {
+      "word": "group",
+      "start": 65.625,
+      "end": 65.79
+    },
+    {
+      "word": "of",
+      "start": 65.79,
+      "end": 66.17
+    },
+    {
+      "word": "people.",
+      "start": 66.17,
+      "end": 66.84
+    },
+    {
+      "word": "The",
+      "start": 66.84,
+      "end": 67.1
+    },
+    {
+      "word": "woman",
+      "start": 67.1,
+      "end": 67.51
+    },
+    {
+      "word": "turns.",
+      "start": 67.51,
+      "end": 68.2
+    },
+    {
+      "word": "Her",
+      "start": 68.2,
+      "end": 68.46
+    },
+    {
+      "word": "expression",
+      "start": 68.46,
+      "end": 69.19
+    },
+    {
+      "word": "changes.",
+      "start": 69.19,
+      "end": 69.96
+    },
+    {
+      "word": "Please,",
+      "start": 69.96,
+      "end": 70.65
+    },
+    {
+      "word": "open",
+      "start": 70.65,
+      "end": 70.99
+    },
+    {
+      "word": "the",
+      "start": 70.99,
+      "end": 71.25
+    },
+    {
+      "word": "door.",
+      "start": 71.25,
+      "end": 71.88
+    },
+    {
+      "word": "You",
+      "start": 71.88,
+      "end": 72.14
+    },
+    {
+      "word": "step",
+      "start": 72.14,
+      "end": 72.41
+    },
+    {
+      "word": "back.",
+      "start": 72.41,
+      "end": 72.96
+    },
+    {
+      "word": "You",
+      "start": 72.96,
+      "end": 73.22
+    },
+    {
+      "word": "don't",
+      "start": 73.22,
+      "end": 73.38
+    },
+    {
+      "word": "know",
+      "start": 73.38,
+      "end": 73.59
+    },
+    {
+      "word": "if",
+      "start": 73.59,
+      "end": 73.69
+    },
+    {
+      "word": "she's",
+      "start": 73.69,
+      "end": 73.95
+    },
+    {
+      "word": "sick.",
+      "start": 73.95,
+      "end": 74.36
+    },
+    {
+      "word": "You",
+      "start": 74.36,
+      "end": 74.62
+    },
+    {
+      "word": "don't",
+      "start": 74.62,
+      "end": 74.8
+    },
+    {
+      "word": "know",
+      "start": 74.8,
+      "end": 75.01
+    },
+    {
+      "word": "if",
+      "start": 75.01,
+      "end": 75.12
+    },
+    {
+      "word": "she's",
+      "start": 75.12,
+      "end": 75.39
+    },
+    {
+      "word": "scared.",
+      "start": 75.39,
+      "end": 75.92
+    },
+    {
+      "word": "And",
+      "start": 75.92,
+      "end": 76.18
+    },
+    {
+      "word": "you",
+      "start": 76.18,
+      "end": 76.3
+    },
+    {
+      "word": "don't",
+      "start": 76.3,
+      "end": 76.61
+    },
+    {
+      "word": "know",
+      "start": 76.61,
+      "end": 76.86
+    },
+    {
+      "word": "what",
+      "start": 76.86,
+      "end": 77.11
+    },
+    {
+      "word": "happens",
+      "start": 77.11,
+      "end": 77.55
+    },
+    {
+      "word": "if",
+      "start": 77.55,
+      "end": 77.67
+    },
+    {
+      "word": "you",
+      "start": 77.67,
+      "end": 77.86
+    },
+    {
+      "word": "open",
+      "start": 77.86,
+      "end": 78.11
+    },
+    {
+      "word": "that",
+      "start": 78.11,
+      "end": 78.36
+    },
+    {
+      "word": "door.",
+      "start": 78.36,
+      "end": 78.84
+    },
+    {
+      "word": "So",
+      "start": 78.84,
+      "end": 78.99
+    },
+    {
+      "word": "you",
+      "start": 78.99,
+      "end": 79.22
+    },
+    {
+      "word": "leave",
+      "start": 79.22,
+      "end": 79.61
+    },
+    {
+      "word": "it",
+      "start": 79.61,
+      "end": 79.76
+    },
+    {
+      "word": "locked.",
+      "start": 79.76,
+      "end": 80.48
+    },
+    {
+      "word": "An",
+      "start": 80.48,
+      "end": 80.74
+    },
+    {
+      "word": "hour",
+      "start": 80.74,
+      "end": 81.02
+    },
+    {
+      "word": "passes.",
+      "start": 81.02,
+      "end": 81.84
+    },
+    {
+      "word": "Then",
+      "start": 81.84,
+      "end": 82.12
+    },
+    {
+      "word": "another.",
+      "start": 82.12,
+      "end": 82.84
+    },
+    {
+      "word": "The",
+      "start": 82.84,
+      "end": 83.1
+    },
+    {
+      "word": "power",
+      "start": 83.1,
+      "end": 83.47
+    },
+    {
+      "word": "cuts",
+      "start": 83.47,
+      "end": 83.8
+    },
+    {
+      "word": "out.",
+      "start": 83.8,
+      "end": 84.28
+    },
+    {
+      "word": "You",
+      "start": 84.28,
+      "end": 84.54
+    },
+    {
+      "word": "use",
+      "start": 84.54,
+      "end": 84.64
+    },
+    {
+      "word": "your",
+      "start": 84.64,
+      "end": 84.88
+    },
+    {
+      "word": "phone",
+      "start": 84.88,
+      "end": 85.19
+    },
+    {
+      "word": "flashlight",
+      "start": 85.19,
+      "end": 85.81
+    },
+    {
+      "word": "and",
+      "start": 85.81,
+      "end": 85.99
+    },
+    {
+      "word": "check",
+      "start": 85.99,
+      "end": 86.3
+    },
+    {
+      "word": "the",
+      "start": 86.3,
+      "end": 86.48
+    },
+    {
+      "word": "supplies.",
+      "start": 86.48,
+      "end": 87.2
+    },
+    {
+      "word": "Two",
+      "start": 87.28,
+      "end": 87.46
+    },
+    {
+      "word": "bottles",
+      "start": 87.46,
+      "end": 87.94
+    },
+    {
+      "word": "of",
+      "start": 87.94,
+      "end": 88.09
+    },
+    {
+      "word": "water,",
+      "start": 88.09,
+      "end": 88.61
+    },
+    {
+      "word": "a",
+      "start": 88.61,
+      "end": 88.73
+    },
+    {
+      "word": "few",
+      "start": 88.73,
+      "end": 88.9
+    },
+    {
+      "word": "cans,",
+      "start": 88.9,
+      "end": 89.35
+    },
+    {
+      "word": "one",
+      "start": 89.35,
+      "end": 89.54
+    },
+    {
+      "word": "chocolate",
+      "start": 89.54,
+      "end": 90.47
+    },
+    {
+      "word": "bar,",
+      "start": 90.47,
+      "end": 90.77
+    },
+    {
+      "word": "a",
+      "start": 90.77,
+      "end": 90.835
+    },
+    {
+      "word": "first",
+      "start": 90.835,
+      "end": 91.28
+    },
+    {
+      "word": "aid",
+      "start": 91.28,
+      "end": 91.55
+    },
+    {
+      "word": "kit.",
+      "start": 91.55,
+      "end": 92.16
+    },
+    {
+      "word": "Not",
+      "start": 92.16,
+      "end": 92.42
+    },
+    {
+      "word": "enough",
+      "start": 92.42,
+      "end": 92.83
+    },
+    {
+      "word": "to",
+      "start": 92.83,
+      "end": 92.98
+    },
+    {
+      "word": "wait",
+      "start": 92.98,
+      "end": 93.28
+    },
+    {
+      "word": "this",
+      "start": 93.28,
+      "end": 93.69
+    },
+    {
+      "word": "out.",
+      "start": 93.69,
+      "end": 94.04
+    },
+    {
+      "word": "Then",
+      "start": 94.04,
+      "end": 94.31
+    },
+    {
+      "word": "you",
+      "start": 94.31,
+      "end": 94.52
+    },
+    {
+      "word": "hear",
+      "start": 94.52,
+      "end": 94.78
+    },
+    {
+      "word": "a",
+      "start": 94.78,
+      "end": 94.84
+    },
+    {
+      "word": "metal",
+      "start": 94.84,
+      "end": 95.18
+    },
+    {
+      "word": "crash",
+      "start": 95.18,
+      "end": 95.57
+    },
+    {
+      "word": "from",
+      "start": 95.57,
+      "end": 95.79
+    },
+    {
+      "word": "the",
+      "start": 95.79,
+      "end": 95.99
+    },
+    {
+      "word": "delivery",
+      "start": 95.99,
+      "end": 96.54
+    },
+    {
+      "word": "alley.",
+      "start": 96.54,
+      "end": 97.16
+    },
+    {
+      "word": "Someone",
+      "start": 97.16,
+      "end": 97.65
+    },
+    {
+      "word": "is",
+      "start": 97.65,
+      "end": 97.79
+    },
+    {
+      "word": "trying",
+      "start": 97.79,
+      "end": 98.21
+    },
+    {
+      "word": "the",
+      "start": 98.21,
+      "end": 98.43
+    },
+    {
+      "word": "back",
+      "start": 98.43,
+      "end": 98.7
+    },
+    {
+      "word": "door.",
+      "start": 98.7,
+      "end": 99.2
+    },
+    {
+      "word": "You",
+      "start": 99.2,
+      "end": 99.46
+    },
+    {
+      "word": "move",
+      "start": 99.46,
+      "end": 99.6
+    },
+    {
+      "word": "between",
+      "start": 99.6,
+      "end": 100.01
+    },
+    {
+      "word": "the",
+      "start": 100.01,
+      "end": 100.18
+    },
+    {
+      "word": "shelves",
+      "start": 100.18,
+      "end": 100.59
+    },
+    {
+      "word": "and",
+      "start": 100.59,
+      "end": 100.76
+    },
+    {
+      "word": "listen.",
+      "start": 100.76,
+      "end": 101.32
+    },
+    {
+      "word": "A",
+      "start": 101.32,
+      "end": 101.42
+    },
+    {
+      "word": "scrape.",
+      "start": 101.42,
+      "end": 102.32
+    },
+    {
+      "word": "A",
+      "start": 102.32,
+      "end": 102.45
+    },
+    {
+      "word": "pause.",
+      "start": 102.45,
+      "end": 103.56
+    },
+    {
+      "word": "Then",
+      "start": 103.56,
+      "end": 103.96
+    },
+    {
+      "word": "three",
+      "start": 103.96,
+      "end": 104.47
+    },
+    {
+      "word": "slow",
+      "start": 104.47,
+      "end": 104.86
+    },
+    {
+      "word": "knocks.",
+      "start": 104.86,
+      "end": 105.76
+    },
+    {
+      "word": "Hello?",
+      "start": 105.76,
+      "end": 106.76
+    },
+    {
+      "word": "No",
+      "start": 106.76,
+      "end": 107.02
+    },
+    {
+      "word": "answer.",
+      "start": 107.02,
+      "end": 107.76
+    },
+    {
+      "word": "You",
+      "start": 107.76,
+      "end": 108.02
+    },
+    {
+      "word": "look",
+      "start": 108.02,
+      "end": 108.19
+    },
+    {
+      "word": "through",
+      "start": 108.19,
+      "end": 108.62
+    },
+    {
+      "word": "the",
+      "start": 108.62,
+      "end": 108.8
+    },
+    {
+      "word": "tiny",
+      "start": 108.8,
+      "end": 109.05
+    },
+    {
+      "word": "window.",
+      "start": 109.05,
+      "end": 109.64
+    },
+    {
+      "word": "A",
+      "start": 109.64,
+      "end": 109.72
+    },
+    {
+      "word": "shape",
+      "start": 109.72,
+      "end": 110.12
+    },
+    {
+      "word": "stands",
+      "start": 110.12,
+      "end": 110.57
+    },
+    {
+      "word": "outside",
+      "start": 110.57,
+      "end": 111.17
+    },
+    {
+      "word": "facing",
+      "start": 111.17,
+      "end": 111.59
+    },
+    {
+      "word": "the",
+      "start": 111.59,
+      "end": 111.82
+    },
+    {
+      "word": "door.",
+      "start": 111.82,
+      "end": 112.4
+    },
+    {
+      "word": "It",
+      "start": 112.4,
+      "end": 112.66
+    },
+    {
+      "word": "doesn't",
+      "start": 112.66,
+      "end": 113.2
+    },
+    {
+      "word": "move.",
+      "start": 113.2,
+      "end": 113.84
+    },
+    {
+      "word": "Then",
+      "start": 113.84,
+      "end": 114.12
+    },
+    {
+      "word": "your",
+      "start": 114.12,
+      "end": 114.4
+    },
+    {
+      "word": "phone",
+      "start": 114.4,
+      "end": 114.75
+    },
+    {
+      "word": "buzzes.",
+      "start": 114.75,
+      "end": 115.4
+    },
+    {
+      "word": "A",
+      "start": 115.48,
+      "end": 115.66
+    },
+    {
+      "word": "new",
+      "start": 115.66,
+      "end": 115.82
+    },
+    {
+      "word": "emergency",
+      "start": 115.82,
+      "end": 116.45
+    },
+    {
+      "word": "message.",
+      "start": 116.45,
+      "end": 117.16
+    },
+    {
+      "word": "Do",
+      "start": 117.16,
+      "end": 117.31
+    },
+    {
+      "word": "not",
+      "start": 117.31,
+      "end": 117.53
+    },
+    {
+      "word": "respond",
+      "start": 117.53,
+      "end": 118.07
+    },
+    {
+      "word": "to",
+      "start": 118.07,
+      "end": 118.21
+    },
+    {
+      "word": "voices",
+      "start": 118.21,
+      "end": 118.69
+    },
+    {
+      "word": "coming",
+      "start": 118.69,
+      "end": 119.11
+    },
+    {
+      "word": "from",
+      "start": 119.11,
+      "end": 119.41
+    },
+    {
+      "word": "outside.",
+      "start": 119.41,
+      "end": 120.2
+    },
+    {
+      "word": "Some",
+      "start": 120.2,
+      "end": 120.48
+    },
+    {
+      "word": "affected",
+      "start": 120.48,
+      "end": 121.05
+    },
+    {
+      "word": "individuals",
+      "start": 121.05,
+      "end": 121.84
+    },
+    {
+      "word": "may",
+      "start": 121.84,
+      "end": 122.05
+    },
+    {
+      "word": "imitate",
+      "start": 122.05,
+      "end": 122.54
+    },
+    {
+      "word": "familiar",
+      "start": 122.54,
+      "end": 123.55
+    },
+    {
+      "word": "speech.",
+      "start": 123.55,
+      "end": 123.8
+    },
+    {
+      "word": "From",
+      "start": 123.8,
+      "end": 124.06
+    },
+    {
+      "word": "the",
+      "start": 124.06,
+      "end": 124.24
+    },
+    {
+      "word": "other",
+      "start": 124.24,
+      "end": 124.56
+    },
+    {
+      "word": "side",
+      "start": 124.56,
+      "end": 124.81
+    },
+    {
+      "word": "of",
+      "start": 124.81,
+      "end": 124.93
+    },
+    {
+      "word": "the",
+      "start": 124.93,
+      "end": 125.12
+    },
+    {
+      "word": "door,",
+      "start": 125.12,
+      "end": 125.49
+    },
+    {
+      "word": "a",
+      "start": 125.49,
+      "end": 125.55
+    },
+    {
+      "word": "voice",
+      "start": 125.55,
+      "end": 125.87
+    },
+    {
+      "word": "calls",
+      "start": 125.87,
+      "end": 126.2
+    },
+    {
+      "word": "your",
+      "start": 126.2,
+      "end": 126.43
+    },
+    {
+      "word": "name.",
+      "start": 126.43,
+      "end": 126.96
+    },
+    {
+      "word": "Open",
+      "start": 126.96,
+      "end": 127.4
+    },
+    {
+      "word": "up.",
+      "start": 127.4,
+      "end": 127.96
+    },
+    {
+      "word": "It's",
+      "start": 127.96,
+      "end": 128.4
+    },
+    {
+      "word": "me.",
+      "start": 128.4,
+      "end": 128.96
+    },
+    {
+      "word": "It",
+      "start": 128.96,
+      "end": 129.09
+    },
+    {
+      "word": "sounds",
+      "start": 129.09,
+      "end": 129.49
+    },
+    {
+      "word": "exactly",
+      "start": 129.49,
+      "end": 129.96
+    },
+    {
+      "word": "like",
+      "start": 129.96,
+      "end": 130.23
+    },
+    {
+      "word": "your",
+      "start": 130.23,
+      "end": 130.5
+    },
+    {
+      "word": "brother.",
+      "start": 130.5,
+      "end": 131.2
+    },
+    {
+      "word": "You",
+      "start": 131.2,
+      "end": 131.46
+    },
+    {
+      "word": "freeze.",
+      "start": 131.46,
+      "end": 132.2
+    },
+    {
+      "word": "You",
+      "start": 132.2,
+      "end": 132.46
+    },
+    {
+      "word": "haven't",
+      "start": 132.46,
+      "end": 132.82
+    },
+    {
+      "word": "told",
+      "start": 132.82,
+      "end": 133.07
+    },
+    {
+      "word": "anyone",
+      "start": 133.07,
+      "end": 133.44
+    },
+    {
+      "word": "where",
+      "start": 133.44,
+      "end": 133.76
+    },
+    {
+      "word": "you",
+      "start": 133.76,
+      "end": 133.95
+    },
+    {
+      "word": "are.",
+      "start": 133.95,
+      "end": 134.36
+    },
+    {
+      "word": "The",
+      "start": 134.36,
+      "end": 134.62
+    },
+    {
+      "word": "voice",
+      "start": 134.62,
+      "end": 134.96
+    },
+    {
+      "word": "comes",
+      "start": 134.96,
+      "end": 135.34
+    },
+    {
+      "word": "again.",
+      "start": 135.34,
+      "end": 135.96
+    },
+    {
+      "word": "Come",
+      "start": 135.96,
+      "end": 136.4
+    },
+    {
+      "word": "on.",
+      "start": 136.4,
+      "end": 136.96
+    },
+    {
+      "word": "Open",
+      "start": 136.96,
+      "end": 137.4
+    },
+    {
+      "word": "the",
+      "start": 137.4,
+      "end": 137.73
+    },
+    {
+      "word": "door.",
+      "start": 137.73,
+      "end": 138.52
+    },
+    {
+      "word": "You",
+      "start": 138.52,
+      "end": 138.85
+    },
+    {
+      "word": "step",
+      "start": 138.85,
+      "end": 139.29
+    },
+    {
+      "word": "away.",
+      "start": 139.29,
+      "end": 140.08
+    },
+    {
+      "word": "For",
+      "start": 140.08,
+      "end": 140.34
+    },
+    {
+      "word": "the",
+      "start": 140.34,
+      "end": 140.42
+    },
+    {
+      "word": "rest",
+      "start": 140.42,
+      "end": 140.65
+    },
+    {
+      "word": "of",
+      "start": 140.65,
+      "end": 140.76
+    },
+    {
+      "word": "the",
+      "start": 140.76,
+      "end": 140.93
+    },
+    {
+      "word": "night,",
+      "start": 140.93,
+      "end": 141.32
+    },
+    {
+      "word": "you",
+      "start": 141.32,
+      "end": 141.61
+    },
+    {
+      "word": "stay",
+      "start": 141.61,
+      "end": 141.73
+    },
+    {
+      "word": "behind",
+      "start": 141.73,
+      "end": 142.08
+    },
+    {
+      "word": "the",
+      "start": 142.08,
+      "end": 142.25
+    },
+    {
+      "word": "counter,",
+      "start": 142.25,
+      "end": 142.79
+    },
+    {
+      "word": "listening",
+      "start": 142.79,
+      "end": 143.44
+    },
+    {
+      "word": "to",
+      "start": 143.44,
+      "end": 143.505
+    },
+    {
+      "word": "footsteps",
+      "start": 143.505,
+      "end": 143.96
+    },
+    {
+      "word": "move",
+      "start": 143.96,
+      "end": 144.16
+    },
+    {
+      "word": "around",
+      "start": 144.16,
+      "end": 144.48
+    },
+    {
+      "word": "the",
+      "start": 144.57,
+      "end": 144.79
+    },
+    {
+      "word": "building.",
+      "start": 144.79,
+      "end": 145.96
+    },
+    {
+      "word": "At",
+      "start": 145.96,
+      "end": 146.22
+    },
+    {
+      "word": "sunrise,",
+      "start": 146.22,
+      "end": 147.01
+    },
+    {
+      "word": "the",
+      "start": 147.01,
+      "end": 147.29
+    },
+    {
+      "word": "street",
+      "start": 147.29,
+      "end": 147.87
+    },
+    {
+      "word": "is",
+      "start": 147.87,
+      "end": 148.05
+    },
+    {
+      "word": "empty.",
+      "start": 148.05,
+      "end": 148.84
+    },
+    {
+      "word": "Not",
+      "start": 148.84,
+      "end": 149.16
+    },
+    {
+      "word": "peaceful.",
+      "start": 149.16,
+      "end": 150.36
+    },
+    {
+      "word": "Empty.",
+      "start": 150.36,
+      "end": 151.52
+    },
+    {
+      "word": "Cars",
+      "start": 151.52,
+      "end": 151.84
+    },
+    {
+      "word": "are",
+      "start": 151.84,
+      "end": 152.08
+    },
+    {
+      "word": "abandoned.",
+      "start": 152.08,
+      "end": 153.08
+    },
+    {
+      "word": "Shop",
+      "start": 153.08,
+      "end": 153.4
+    },
+    {
+      "word": "windows",
+      "start": 153.4,
+      "end": 153.95
+    },
+    {
+      "word": "are",
+      "start": 153.95,
+      "end": 154.19
+    },
+    {
+      "word": "broken.",
+      "start": 154.19,
+      "end": 154.92
+    },
+    {
+      "word": "A",
+      "start": 154.92,
+      "end": 155.01
+    },
+    {
+      "word": "distant",
+      "start": 155.01,
+      "end": 155.52
+    },
+    {
+      "word": "alarm",
+      "start": 155.52,
+      "end": 155.9
+    },
+    {
+      "word": "keeps",
+      "start": 155.9,
+      "end": 156.45
+    },
+    {
+      "word": "repeating",
+      "start": 156.45,
+      "end": 156.97
+    },
+    {
+      "word": "the",
+      "start": 156.97,
+      "end": 157.18
+    },
+    {
+      "word": "same",
+      "start": 157.18,
+      "end": 157.48
+    },
+    {
+      "word": "warning.",
+      "start": 157.48,
+      "end": 158.28
+    },
+    {
+      "word": "Your",
+      "start": 158.28,
+      "end": 158.6
+    },
+    {
+      "word": "phone",
+      "start": 158.6,
+      "end": 159.0
+    },
+    {
+      "word": "has",
+      "start": 159.0,
+      "end": 159.24
+    },
+    {
+      "word": "one",
+      "start": 159.24,
+      "end": 159.48
+    },
+    {
+      "word": "bar",
+      "start": 159.48,
+      "end": 159.81
+    },
+    {
+      "word": "of",
+      "start": 159.81,
+      "end": 159.88
+    },
+    {
+      "word": "battery",
+      "start": 159.88,
+      "end": 160.44
+    },
+    {
+      "word": "left.",
+      "start": 160.44,
+      "end": 161.04
+    },
+    {
+      "word": "You",
+      "start": 161.04,
+      "end": 161.3
+    },
+    {
+      "word": "open",
+      "start": 161.3,
+      "end": 161.49
+    },
+    {
+      "word": "an",
+      "start": 161.49,
+      "end": 161.62
+    },
+    {
+      "word": "offline",
+      "start": 161.62,
+      "end": 162.07
+    },
+    {
+      "word": "map",
+      "start": 162.07,
+      "end": 162.26
+    },
+    {
+      "word": "and",
+      "start": 162.26,
+      "end": 162.57
+    },
+    {
+      "word": "find",
+      "start": 162.57,
+      "end": 162.71
+    },
+    {
+      "word": "the",
+      "start": 162.71,
+      "end": 162.9
+    },
+    {
+      "word": "nearest",
+      "start": 162.9,
+      "end": 163.34
+    },
+    {
+      "word": "underground",
+      "start": 163.34,
+      "end": 164.4
+    },
+    {
+      "word": "transit",
+      "start": 164.4,
+      "end": 164.62
+    },
+    {
+      "word": "station.",
+      "start": 164.62,
+      "end": 165.24
+    },
+    {
+      "word": "It",
+      "start": 165.24,
+      "end": 165.36
+    },
+    {
+      "word": "has",
+      "start": 165.36,
+      "end": 165.55
+    },
+    {
+      "word": "a",
+      "start": 165.55,
+      "end": 165.61
+    },
+    {
+      "word": "maintenance",
+      "start": 165.61,
+      "end": 166.31
+    },
+    {
+      "word": "entrance",
+      "start": 166.31,
+      "end": 166.82
+    },
+    {
+      "word": "two",
+      "start": 166.82,
+      "end": 167.01
+    },
+    {
+      "word": "streets",
+      "start": 167.01,
+      "end": 167.45
+    },
+    {
+      "word": "away.",
+      "start": 167.45,
+      "end": 167.92
+    },
+    {
+      "word": "It's",
+      "start": 167.92,
+      "end": 168.26
+    },
+    {
+      "word": "your",
+      "start": 168.26,
+      "end": 168.6
+    },
+    {
+      "word": "only",
+      "start": 168.6,
+      "end": 168.94
+    },
+    {
+      "word": "chance.",
+      "start": 168.94,
+      "end": 169.72
+    },
+    {
+      "word": "You",
+      "start": 169.72,
+      "end": 169.98
+    },
+    {
+      "word": "pack",
+      "start": 169.98,
+      "end": 170.25
+    },
+    {
+      "word": "the",
+      "start": 170.25,
+      "end": 170.45
+    },
+    {
+      "word": "water,",
+      "start": 170.45,
+      "end": 170.95
+    },
+    {
+      "word": "the",
+      "start": 170.95,
+      "end": 171.25
+    },
+    {
+      "word": "first",
+      "start": 171.25,
+      "end": 171.55
+    },
+    {
+      "word": "aid",
+      "start": 171.55,
+      "end": 171.77
+    },
+    {
+      "word": "kit,",
+      "start": 171.77,
+      "end": 172.12
+    },
+    {
+      "word": "and",
+      "start": 172.12,
+      "end": 172.35
+    },
+    {
+      "word": "one",
+      "start": 172.35,
+      "end": 172.56
+    },
+    {
+      "word": "can",
+      "start": 172.56,
+      "end": 172.625
+    },
+    {
+      "word": "of",
+      "start": 172.625,
+      "end": 173.08
+    },
+    {
+      "word": "food.",
+      "start": 173.08,
+      "end": 173.52
+    },
+    {
+      "word": "Then",
+      "start": 173.61,
+      "end": 173.81
+    },
+    {
+      "word": "you",
+      "start": 173.81,
+      "end": 174.05
+    },
+    {
+      "word": "wait",
+      "start": 174.05,
+      "end": 174.32
+    },
+    {
+      "word": "until",
+      "start": 174.32,
+      "end": 174.69
+    },
+    {
+      "word": "the",
+      "start": 174.69,
+      "end": 175.05
+    },
+    {
+      "word": "street",
+      "start": 175.05,
+      "end": 175.35
+    },
+    {
+      "word": "is",
+      "start": 175.35,
+      "end": 175.49
+    },
+    {
+      "word": "quiet.",
+      "start": 175.49,
+      "end": 176.12
+    },
+    {
+      "word": "You",
+      "start": 176.12,
+      "end": 176.41
+    },
+    {
+      "word": "unlock",
+      "start": 176.41,
+      "end": 176.99
+    },
+    {
+      "word": "the",
+      "start": 176.99,
+      "end": 177.28
+    },
+    {
+      "word": "back",
+      "start": 177.28,
+      "end": 177.66
+    },
+    {
+      "word": "door.",
+      "start": 177.66,
+      "end": 178.36
+    },
+    {
+      "word": "The",
+      "start": 178.36,
+      "end": 178.62
+    },
+    {
+      "word": "alley",
+      "start": 178.62,
+      "end": 179.06
+    },
+    {
+      "word": "is",
+      "start": 179.06,
+      "end": 179.23
+    },
+    {
+      "word": "clear.",
+      "start": 179.23,
+      "end": 179.96
+    },
+    {
+      "word": "You",
+      "start": 179.96,
+      "end": 180.22
+    },
+    {
+      "word": "move",
+      "start": 180.22,
+      "end": 180.44
+    },
+    {
+      "word": "quickly,",
+      "start": 180.44,
+      "end": 181.08
+    },
+    {
+      "word": "keeping",
+      "start": 181.08,
+      "end": 181.57
+    },
+    {
+      "word": "close",
+      "start": 181.57,
+      "end": 181.92
+    },
+    {
+      "word": "to",
+      "start": 181.92,
+      "end": 182.06
+    },
+    {
+      "word": "the",
+      "start": 182.06,
+      "end": 182.26
+    },
+    {
+      "word": "walls.",
+      "start": 182.26,
+      "end": 182.84
+    },
+    {
+      "word": "At",
+      "start": 182.84,
+      "end": 182.96
+    },
+    {
+      "word": "the",
+      "start": 182.96,
+      "end": 183.14
+    },
+    {
+      "word": "station",
+      "start": 183.14,
+      "end": 183.57
+    },
+    {
+      "word": "entrance,",
+      "start": 183.57,
+      "end": 184.19
+    },
+    {
+      "word": "you",
+      "start": 184.19,
+      "end": 184.37
+    },
+    {
+      "word": "find",
+      "start": 184.37,
+      "end": 184.6
+    },
+    {
+      "word": "the",
+      "start": 184.6,
+      "end": 184.78
+    },
+    {
+      "word": "maintenance",
+      "start": 184.78,
+      "end": 185.44
+    },
+    {
+      "word": "door",
+      "start": 185.44,
+      "end": 186.12
+    },
+    {
+      "word": "hanging",
+      "start": 186.12,
+      "end": 186.2
+    },
+    {
+      "word": "open.",
+      "start": 186.2,
+      "end": 186.6
+    },
+    {
+      "word": "That",
+      "start": 186.6,
+      "end": 186.97
+    },
+    {
+      "word": "makes",
+      "start": 186.97,
+      "end": 187.44
+    },
+    {
+      "word": "no",
+      "start": 187.44,
+      "end": 187.63
+    },
+    {
+      "word": "sense.",
+      "start": 187.63,
+      "end": 188.4
+    },
+    {
+      "word": "You",
+      "start": 188.4,
+      "end": 188.67
+    },
+    {
+      "word": "step",
+      "start": 188.67,
+      "end": 189.03
+    },
+    {
+      "word": "inside.",
+      "start": 189.03,
+      "end": 189.84
+    },
+    {
+      "word": "The",
+      "start": 189.84,
+      "end": 190.1
+    },
+    {
+      "word": "stairwell",
+      "start": 190.1,
+      "end": 190.83
+    },
+    {
+      "word": "smells",
+      "start": 190.83,
+      "end": 191.37
+    },
+    {
+      "word": "of",
+      "start": 191.37,
+      "end": 191.49
+    },
+    {
+      "word": "dust",
+      "start": 191.49,
+      "end": 191.82
+    },
+    {
+      "word": "and",
+      "start": 191.82,
+      "end": 192.07
+    },
+    {
+      "word": "damp",
+      "start": 192.07,
+      "end": 192.4
+    },
+    {
+      "word": "concrete.",
+      "start": 192.4,
+      "end": 193.36
+    },
+    {
+      "word": "Somewhere",
+      "start": 193.36,
+      "end": 194.07
+    },
+    {
+      "word": "below,",
+      "start": 194.07,
+      "end": 194.63
+    },
+    {
+      "word": "a",
+      "start": 194.63,
+      "end": 194.71
+    },
+    {
+      "word": "radio",
+      "start": 194.71,
+      "end": 195.1
+    },
+    {
+      "word": "is",
+      "start": 195.1,
+      "end": 195.27
+    },
+    {
+      "word": "playing.",
+      "start": 195.27,
+      "end": 195.92
+    },
+    {
+      "word": "You",
+      "start": 195.92,
+      "end": 196.18
+    },
+    {
+      "word": "follow",
+      "start": 196.18,
+      "end": 196.7
+    },
+    {
+      "word": "the",
+      "start": 196.7,
+      "end": 196.96
+    },
+    {
+      "word": "sound.",
+      "start": 196.96,
+      "end": 197.68
+    },
+    {
+      "word": "At",
+      "start": 197.68,
+      "end": 197.83
+    },
+    {
+      "word": "the",
+      "start": 197.83,
+      "end": 198.06
+    },
+    {
+      "word": "bottom,",
+      "start": 198.06,
+      "end": 198.67
+    },
+    {
+      "word": "you",
+      "start": 198.67,
+      "end": 198.9
+    },
+    {
+      "word": "find",
+      "start": 198.9,
+      "end": 199.21
+    },
+    {
+      "word": "a",
+      "start": 199.21,
+      "end": 199.28
+    },
+    {
+      "word": "man",
+      "start": 199.28,
+      "end": 199.51
+    },
+    {
+      "word": "sitting",
+      "start": 199.51,
+      "end": 200.03
+    },
+    {
+      "word": "beside",
+      "start": 200.03,
+      "end": 200.5
+    },
+    {
+      "word": "a",
+      "start": 200.5,
+      "end": 200.97
+    },
+    {
+      "word": "young",
+      "start": 200.97,
+      "end": 201.04
+    },
+    {
+      "word": "boy.",
+      "start": 201.04,
+      "end": 201.52
+    },
+    {
+      "word": "Both",
+      "start": 201.52,
+      "end": 201.89
+    },
+    {
+      "word": "look",
+      "start": 201.89,
+      "end": 202.26
+    },
+    {
+      "word": "exhausted.",
+      "start": 202.26,
+      "end": 203.4
+    },
+    {
+      "word": "The",
+      "start": 203.49,
+      "end": 203.66
+    },
+    {
+      "word": "man",
+      "start": 203.66,
+      "end": 203.93
+    },
+    {
+      "word": "raises",
+      "start": 203.93,
+      "end": 204.44
+    },
+    {
+      "word": "one",
+      "start": 204.44,
+      "end": 204.7
+    },
+    {
+      "word": "finger",
+      "start": 204.7,
+      "end": 205.22
+    },
+    {
+      "word": "to",
+      "start": 205.22,
+      "end": 205.39
+    },
+    {
+      "word": "his",
+      "start": 205.39,
+      "end": 205.65
+    },
+    {
+      "word": "lips.",
+      "start": 205.65,
+      "end": 206.28
+    },
+    {
+      "word": "Don't",
+      "start": 206.28,
+      "end": 206.69
+    },
+    {
+      "word": "make",
+      "start": 206.69,
+      "end": 207.02
+    },
+    {
+      "word": "a",
+      "start": 207.02,
+      "end": 207.1
+    },
+    {
+      "word": "sound.",
+      "start": 207.1,
+      "end": 207.8
+    },
+    {
+      "word": "You",
+      "start": 207.8,
+      "end": 208.06
+    },
+    {
+      "word": "crouch",
+      "start": 208.06,
+      "end": 208.55
+    },
+    {
+      "word": "beside",
+      "start": 208.55,
+      "end": 209.04
+    },
+    {
+      "word": "them.",
+      "start": 209.04,
+      "end": 209.64
+    },
+    {
+      "word": "Are",
+      "start": 209.64,
+      "end": 209.9
+    },
+    {
+      "word": "there",
+      "start": 209.9,
+      "end": 210.25
+    },
+    {
+      "word": "others?",
+      "start": 210.25,
+      "end": 210.96
+    },
+    {
+      "word": "The",
+      "start": 210.96,
+      "end": 211.22
+    },
+    {
+      "word": "man",
+      "start": 211.22,
+      "end": 211.44
+    },
+    {
+      "word": "shakes",
+      "start": 211.44,
+      "end": 211.93
+    },
+    {
+      "word": "his",
+      "start": 211.93,
+      "end": 212.17
+    },
+    {
+      "word": "head.",
+      "start": 212.17,
+      "end": 212.76
+    },
+    {
+      "word": "Then",
+      "start": 212.76,
+      "end": 213.08
+    },
+    {
+      "word": "the",
+      "start": 213.08,
+      "end": 213.32
+    },
+    {
+      "word": "radio",
+      "start": 213.32,
+      "end": 213.72
+    },
+    {
+      "word": "crackles.",
+      "start": 213.72,
+      "end": 214.64
+    },
+    {
+      "word": "To",
+      "start": 214.64,
+      "end": 214.9
+    },
+    {
+      "word": "anyone",
+      "start": 214.9,
+      "end": 215.36
+    },
+    {
+      "word": "still",
+      "start": 215.36,
+      "end": 215.81
+    },
+    {
+      "word": "alive.",
+      "start": 215.81,
+      "end": 216.56
+    },
+    {
+      "word": "Proceed",
+      "start": 216.56,
+      "end": 217.14
+    },
+    {
+      "word": "to",
+      "start": 217.14,
+      "end": 217.31
+    },
+    {
+      "word": "platform",
+      "start": 217.31,
+      "end": 218.09
+    },
+    {
+      "word": "three.",
+      "start": 218.09,
+      "end": 218.68
+    },
+    {
+      "word": "Help",
+      "start": 218.68,
+      "end": 219.0
+    },
+    {
+      "word": "is",
+      "start": 219.0,
+      "end": 219.24
+    },
+    {
+      "word": "waiting.",
+      "start": 219.24,
+      "end": 220.04
+    },
+    {
+      "word": "The",
+      "start": 220.04,
+      "end": 220.31
+    },
+    {
+      "word": "boy",
+      "start": 220.31,
+      "end": 220.58
+    },
+    {
+      "word": "looks",
+      "start": 220.58,
+      "end": 221.04
+    },
+    {
+      "word": "up.",
+      "start": 221.04,
+      "end": 221.52
+    },
+    {
+      "word": "That's",
+      "start": 221.52,
+      "end": 222.0
+    },
+    {
+      "word": "my",
+      "start": 222.0,
+      "end": 222.16
+    },
+    {
+      "word": "dad's",
+      "start": 222.16,
+      "end": 222.56
+    },
+    {
+      "word": "voice.",
+      "start": 222.56,
+      "end": 223.24
+    },
+    {
+      "word": "The",
+      "start": 223.24,
+      "end": 223.5
+    },
+    {
+      "word": "man",
+      "start": 223.5,
+      "end": 223.77
+    },
+    {
+      "word": "beside",
+      "start": 223.77,
+      "end": 224.29
+    },
+    {
+      "word": "him",
+      "start": 224.29,
+      "end": 224.55
+    },
+    {
+      "word": "goes",
+      "start": 224.55,
+      "end": 224.9
+    },
+    {
+      "word": "pale.",
+      "start": 224.9,
+      "end": 225.56
+    },
+    {
+      "word": "He",
+      "start": 225.56,
+      "end": 225.82
+    },
+    {
+      "word": "slowly",
+      "start": 225.82,
+      "end": 226.24
+    },
+    {
+      "word": "turns",
+      "start": 226.24,
+      "end": 226.66
+    },
+    {
+      "word": "toward",
+      "start": 226.66,
+      "end": 227.17
+    },
+    {
+      "word": "the",
+      "start": 227.17,
+      "end": 227.42
+    },
+    {
+      "word": "boy.",
+      "start": 227.42,
+      "end": 227.96
+    },
+    {
+      "word": "No.",
+      "start": 227.96,
+      "end": 228.96
+    },
+    {
+      "word": "Your",
+      "start": 228.96,
+      "end": 229.3
+    },
+    {
+      "word": "dad",
+      "start": 229.3,
+      "end": 229.56
+    },
+    {
+      "word": "never",
+      "start": 229.56,
+      "end": 229.99
+    },
+    {
+      "word": "used",
+      "start": 229.99,
+      "end": 230.33
+    },
+    {
+      "word": "that",
+      "start": 230.33,
+      "end": 230.67
+    },
+    {
+      "word": "radio.",
+      "start": 230.67,
+      "end": 231.4
+    },
+    {
+      "word": "The",
+      "start": 231.4,
+      "end": 231.66
+    },
+    {
+      "word": "radio",
+      "start": 231.66,
+      "end": 232.04
+    },
+    {
+      "word": "crackles",
+      "start": 232.04,
+      "end": 232.68
+    },
+    {
+      "word": "again.",
+      "start": 232.68,
+      "end": 233.36
+    },
+    {
+      "word": "This",
+      "start": 233.45,
+      "end": 233.65
+    },
+    {
+      "word": "time,",
+      "start": 233.65,
+      "end": 234.08
+    },
+    {
+      "word": "the",
+      "start": 234.08,
+      "end": 234.3
+    },
+    {
+      "word": "voice",
+      "start": 234.3,
+      "end": 234.66
+    },
+    {
+      "word": "is",
+      "start": 234.66,
+      "end": 234.89
+    },
+    {
+      "word": "clearer.",
+      "start": 234.89,
+      "end": 235.56
+    },
+    {
+      "word": "I'm",
+      "start": 235.56,
+      "end": 235.92
+    },
+    {
+      "word": "right",
+      "start": 235.92,
+      "end": 236.53
+    },
+    {
+      "word": "behind",
+      "start": 236.53,
+      "end": 237.26
+    },
+    {
+      "word": "you.",
+      "start": 237.26,
+      "end": 238.0
+    },
+    {
+      "word": "You",
+      "start": 238.0,
+      "end": 238.26
+    },
+    {
+      "word": "turn",
+      "start": 238.26,
+      "end": 238.57
+    },
+    {
+      "word": "toward",
+      "start": 238.57,
+      "end": 239.06
+    },
+    {
+      "word": "the",
+      "start": 239.06,
+      "end": 239.3
+    },
+    {
+      "word": "dark",
+      "start": 239.3,
+      "end": 239.63
+    },
+    {
+      "word": "tunnel.",
+      "start": 239.63,
+      "end": 240.4
+    },
+    {
+      "word": "Nothing",
+      "start": 240.4,
+      "end": 241.07
+    },
+    {
+      "word": "moves.",
+      "start": 241.07,
+      "end": 241.84
+    },
+    {
+      "word": "Then,",
+      "start": 241.84,
+      "end": 242.26
+    },
+    {
+      "word": "from",
+      "start": 242.26,
+      "end": 242.54
+    },
+    {
+      "word": "somewhere",
+      "start": 242.54,
+      "end": 243.19
+    },
+    {
+      "word": "deep",
+      "start": 243.19,
+      "end": 243.46
+    },
+    {
+      "word": "underground,",
+      "start": 243.46,
+      "end": 244.44
+    },
+    {
+      "word": "you",
+      "start": 244.44,
+      "end": 244.63
+    },
+    {
+      "word": "hear",
+      "start": 244.63,
+      "end": 244.69
+    },
+    {
+      "word": "a",
+      "start": 244.69,
+      "end": 245.2
+    },
+    {
+      "word": "child's",
+      "start": 245.2,
+      "end": 245.59
+    },
+    {
+      "word": "voice",
+      "start": 245.59,
+      "end": 245.97
+    },
+    {
+      "word": "call",
+      "start": 245.97,
+      "end": 246.52
+    },
+    {
+      "word": "out.",
+      "start": 246.52,
+      "end": 246.8
+    },
+    {
+      "word": "Dad?",
+      "start": 246.8,
+      "end": 247.8
+    },
+    {
+      "word": "The",
+      "start": 247.8,
+      "end": 248.06
+    },
+    {
+      "word": "boy",
+      "start": 248.06,
+      "end": 248.2
+    },
+    {
+      "word": "beside",
+      "start": 248.2,
+      "end": 248.59
+    },
+    {
+      "word": "you",
+      "start": 248.59,
+      "end": 248.79
+    },
+    {
+      "word": "grabs",
+      "start": 248.79,
+      "end": 249.12
+    },
+    {
+      "word": "your",
+      "start": 249.12,
+      "end": 249.38
+    },
+    {
+      "word": "sleeve.",
+      "start": 249.38,
+      "end": 250.0
+    },
+    {
+      "word": "Don't",
+      "start": 250.0,
+      "end": 250.35
+    },
+    {
+      "word": "answer.",
+      "start": 250.35,
+      "end": 251.0
+    },
+    {
+      "word": "That's",
+      "start": 251.0,
+      "end": 251.63
+    },
+    {
+      "word": "not",
+      "start": 251.63,
+      "end": 251.94
+    },
+    {
+      "word": "me.",
+      "start": 251.94,
+      "end": 252.48
+    },
+    {
+      "word": "And",
+      "start": 252.48,
+      "end": 252.74
+    },
+    {
+      "word": "then,",
+      "start": 252.74,
+      "end": 253.21
+    },
+    {
+      "word": "the",
+      "start": 253.21,
+      "end": 253.44
+    },
+    {
+      "word": "radio",
+      "start": 253.44,
+      "end": 254.01
+    },
+    {
+      "word": "switches",
+      "start": 254.01,
+      "end": 254.53
+    },
+    {
+      "word": "off.",
+      "start": 254.53,
+      "end": 255.04
+    },
+    {
+      "word": "Behind",
+      "start": 255.04,
+      "end": 255.46
+    },
+    {
+      "word": "you,",
+      "start": 255.46,
+      "end": 255.81
+    },
+    {
+      "word": "the",
+      "start": 255.81,
+      "end": 256.02
+    },
+    {
+      "word": "maintenance",
+      "start": 256.02,
+      "end": 256.79
+    },
+    {
+      "word": "door",
+      "start": 256.79,
+      "end": 257.07
+    },
+    {
+      "word": "begins",
+      "start": 257.07,
+      "end": 257.49
+    },
+    {
+      "word": "to",
+      "start": 257.49,
+      "end": 257.63
+    },
+    {
+      "word": "close.",
+      "start": 257.63,
+      "end": 258.2
+    },
+    {
+      "word": "Slowly,",
+      "start": 258.2,
+      "end": 258.97
+    },
+    {
+      "word": "by",
+      "start": 258.97,
+      "end": 259.16
+    },
+    {
+      "word": "itself.",
+      "start": 259.16,
+      "end": 260.04
+    }
+  ],
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.36,
+      "text": "The first warning comes at 4:17 PM."
+    },
+    {
+      "start": 3.36,
+      "end": 4.88,
+      "text": "Your phone vibrates."
+    },
+    {
+      "start": 4.88,
+      "end": 7.4,
+      "text": "An emergency alert fills the screen."
+    },
+    {
+      "start": 7.4,
+      "end": 8.64,
+      "text": "Stay indoors."
+    },
+    {
+      "start": 8.64,
+      "end": 12.36,
+      "text": "Avoid anyone showing signs of confusion or violent behavior."
+    },
+    {
+      "start": 12.36,
+      "end": 16.0,
+      "text": "Do not approach emergency responders unless instructed."
+    },
+    {
+      "start": 16.0,
+      "end": 17.6,
+      "text": "You read it twice."
+    },
+    {
+      "start": 17.6,
+      "end": 20.4,
+      "text": "Outside, traffic slows to a stop."
+    },
+    {
+      "start": 20.4,
+      "end": 24.0,
+      "text": "A man stands in the middle of the road, staring at nothing."
+    },
+    {
+      "start": 24.0,
+      "end": 26.96,
+      "text": "Then, he suddenly runs at a passing car."
+    },
+    {
+      "start": 26.96,
+      "end": 28.2,
+      "text": "The driver swerves."
+    },
+    {
+      "start": 28.2,
+      "end": 32.88,
+      "text": "Someone screams and then every phone in the store starts ringing."
+    },
+    {
+      "start": 32.88,
+      "end": 35.6,
+      "text": "You're working alone at a small convenience store."
+    },
+    {
+      "start": 35.6,
+      "end": 37.6,
+      "text": "The front windows face the street."
+    },
+    {
+      "start": 37.6,
+      "end": 40.6,
+      "text": "The back door opens into a narrow delivery alley."
+    },
+    {
+      "start": 40.6,
+      "end": 42.6,
+      "text": "Neither feels safe anymore."
+    },
+    {
+      "start": 42.6,
+      "end": 44.12,
+      "text": "You lock the front door."
+    },
+    {
+      "start": 44.12,
+      "end": 45.8,
+      "text": "Pull down the metal shutter."
+    },
+    {
+      "start": 45.8,
+      "end": 48.0,
+      "text": "Then, you switch off the lights."
+    },
+    {
+      "start": 48.0,
+      "end": 50.76,
+      "text": "For a moment, the store goes silent."
+    },
+    {
+      "start": 50.76,
+      "end": 52.92,
+      "text": "Then something hits the glass."
+    },
+    {
+      "start": 52.92,
+      "end": 56.04,
+      "text": "Outside, a woman stands with shaking hands."
+    },
+    {
+      "start": 56.04,
+      "end": 58.0,
+      "text": "She keeps looking over her shoulder."
+    },
+    {
+      "start": 58.0,
+      "end": 59.88,
+      "text": "Please, let me in."
+    },
+    {
+      "start": 59.88,
+      "end": 61.28,
+      "text": "You reach for the lock."
+    },
+    {
+      "start": 61.28,
+      "end": 66.84,
+      "text": "But behind her, across the street, a police officer slowly backs away from a group of people."
+    },
+    {
+      "start": 66.84,
+      "end": 68.2,
+      "text": "The woman turns."
+    },
+    {
+      "start": 68.2,
+      "end": 69.96,
+      "text": "Her expression changes."
+    },
+    {
+      "start": 69.96,
+      "end": 71.88,
+      "text": "Please, open the door."
+    },
+    {
+      "start": 71.88,
+      "end": 72.96,
+      "text": "You step back."
+    },
+    {
+      "start": 72.96,
+      "end": 74.36,
+      "text": "You don't know if she's sick."
+    },
+    {
+      "start": 74.36,
+      "end": 75.92,
+      "text": "You don't know if she's scared."
+    },
+    {
+      "start": 75.92,
+      "end": 78.84,
+      "text": "And you don't know what happens if you open that door."
+    },
+    {
+      "start": 78.84,
+      "end": 80.48,
+      "text": "So you leave it locked."
+    },
+    {
+      "start": 80.48,
+      "end": 81.84,
+      "text": "An hour passes."
+    },
+    {
+      "start": 81.84,
+      "end": 82.84,
+      "text": "Then another."
+    },
+    {
+      "start": 82.84,
+      "end": 84.28,
+      "text": "The power cuts out."
+    },
+    {
+      "start": 84.28,
+      "end": 87.2,
+      "text": "You use your phone flashlight and check the supplies."
+    },
+    {
+      "start": 87.2,
+      "end": 92.16,
+      "text": "Two bottles of water, a few cans, one chocolate bar, a first aid kit."
+    },
+    {
+      "start": 92.16,
+      "end": 94.04,
+      "text": "Not enough to wait this out."
+    },
+    {
+      "start": 94.04,
+      "end": 97.16,
+      "text": "Then you hear a metal crash from the delivery alley."
+    },
+    {
+      "start": 97.16,
+      "end": 99.2,
+      "text": "Someone is trying the back door."
+    },
+    {
+      "start": 99.2,
+      "end": 101.32,
+      "text": "You move between the shelves and listen."
+    },
+    {
+      "start": 101.32,
+      "end": 102.32,
+      "text": "A scrape."
+    },
+    {
+      "start": 102.32,
+      "end": 103.56,
+      "text": "A pause."
+    },
+    {
+      "start": 103.56,
+      "end": 105.76,
+      "text": "Then three slow knocks."
+    },
+    {
+      "start": 105.76,
+      "end": 106.76,
+      "text": "Hello?"
+    },
+    {
+      "start": 106.76,
+      "end": 107.76,
+      "text": "No answer."
+    },
+    {
+      "start": 107.76,
+      "end": 109.64,
+      "text": "You look through the tiny window."
+    },
+    {
+      "start": 109.64,
+      "end": 112.4,
+      "text": "A shape stands outside facing the door."
+    },
+    {
+      "start": 112.4,
+      "end": 113.84,
+      "text": "It doesn't move."
+    },
+    {
+      "start": 113.84,
+      "end": 115.4,
+      "text": "Then your phone buzzes."
+    },
+    {
+      "start": 115.4,
+      "end": 117.16,
+      "text": "A new emergency message."
+    },
+    {
+      "start": 117.16,
+      "end": 120.2,
+      "text": "Do not respond to voices coming from outside."
+    },
+    {
+      "start": 120.2,
+      "end": 123.8,
+      "text": "Some affected individuals may imitate familiar speech."
+    },
+    {
+      "start": 123.8,
+      "end": 126.96,
+      "text": "From the other side of the door, a voice calls your name."
+    },
+    {
+      "start": 126.96,
+      "end": 127.96,
+      "text": "Open up."
+    },
+    {
+      "start": 127.96,
+      "end": 128.96,
+      "text": "It's me."
+    },
+    {
+      "start": 128.96,
+      "end": 131.2,
+      "text": "It sounds exactly like your brother."
+    },
+    {
+      "start": 131.2,
+      "end": 132.2,
+      "text": "You freeze."
+    },
+    {
+      "start": 132.2,
+      "end": 134.36,
+      "text": "You haven't told anyone where you are."
+    },
+    {
+      "start": 134.36,
+      "end": 135.96,
+      "text": "The voice comes again."
+    },
+    {
+      "start": 135.96,
+      "end": 136.96,
+      "text": "Come on."
+    },
+    {
+      "start": 136.96,
+      "end": 138.52,
+      "text": "Open the door."
+    },
+    {
+      "start": 138.52,
+      "end": 140.08,
+      "text": "You step away."
+    },
+    {
+      "start": 140.08,
+      "end": 144.48,
+      "text": "For the rest of the night, you stay behind the counter, listening to footsteps move around"
+    },
+    {
+      "start": 144.48,
+      "end": 145.96,
+      "text": "the building."
+    },
+    {
+      "start": 145.96,
+      "end": 148.84,
+      "text": "At sunrise, the street is empty."
+    },
+    {
+      "start": 148.84,
+      "end": 150.36,
+      "text": "Not peaceful."
+    },
+    {
+      "start": 150.36,
+      "end": 151.52,
+      "text": "Empty."
+    },
+    {
+      "start": 151.52,
+      "end": 153.08,
+      "text": "Cars are abandoned."
+    },
+    {
+      "start": 153.08,
+      "end": 154.92,
+      "text": "Shop windows are broken."
+    },
+    {
+      "start": 154.92,
+      "end": 158.28,
+      "text": "A distant alarm keeps repeating the same warning."
+    },
+    {
+      "start": 158.28,
+      "end": 161.04,
+      "text": "Your phone has one bar of battery left."
+    },
+    {
+      "start": 161.04,
+      "end": 165.24,
+      "text": "You open an offline map and find the nearest underground transit station."
+    },
+    {
+      "start": 165.24,
+      "end": 167.92,
+      "text": "It has a maintenance entrance two streets away."
+    },
+    {
+      "start": 167.92,
+      "end": 169.72,
+      "text": "It's your only chance."
+    },
+    {
+      "start": 169.72,
+      "end": 173.52,
+      "text": "You pack the water, the first aid kit, and one can of food."
+    },
+    {
+      "start": 173.52,
+      "end": 176.12,
+      "text": "Then you wait until the street is quiet."
+    },
+    {
+      "start": 176.12,
+      "end": 178.36,
+      "text": "You unlock the back door."
+    },
+    {
+      "start": 178.36,
+      "end": 179.96,
+      "text": "The alley is clear."
+    },
+    {
+      "start": 179.96,
+      "end": 182.84,
+      "text": "You move quickly, keeping close to the walls."
+    },
+    {
+      "start": 182.84,
+      "end": 186.6,
+      "text": "At the station entrance, you find the maintenance door hanging open."
+    },
+    {
+      "start": 186.6,
+      "end": 188.4,
+      "text": "That makes no sense."
+    },
+    {
+      "start": 188.4,
+      "end": 189.84,
+      "text": "You step inside."
+    },
+    {
+      "start": 189.84,
+      "end": 193.36,
+      "text": "The stairwell smells of dust and damp concrete."
+    },
+    {
+      "start": 193.36,
+      "end": 195.92,
+      "text": "Somewhere below, a radio is playing."
+    },
+    {
+      "start": 195.92,
+      "end": 197.68,
+      "text": "You follow the sound."
+    },
+    {
+      "start": 197.68,
+      "end": 201.52,
+      "text": "At the bottom, you find a man sitting beside a young boy."
+    },
+    {
+      "start": 201.52,
+      "end": 203.4,
+      "text": "Both look exhausted."
+    },
+    {
+      "start": 203.4,
+      "end": 206.28,
+      "text": "The man raises one finger to his lips."
+    },
+    {
+      "start": 206.28,
+      "end": 207.8,
+      "text": "Don't make a sound."
+    },
+    {
+      "start": 207.8,
+      "end": 209.64,
+      "text": "You crouch beside them."
+    },
+    {
+      "start": 209.64,
+      "end": 210.96,
+      "text": "Are there others?"
+    },
+    {
+      "start": 210.96,
+      "end": 212.76,
+      "text": "The man shakes his head."
+    },
+    {
+      "start": 212.76,
+      "end": 214.64,
+      "text": "Then the radio crackles."
+    },
+    {
+      "start": 214.64,
+      "end": 216.56,
+      "text": "To anyone still alive."
+    },
+    {
+      "start": 216.56,
+      "end": 218.68,
+      "text": "Proceed to platform three."
+    },
+    {
+      "start": 218.68,
+      "end": 220.04,
+      "text": "Help is waiting."
+    },
+    {
+      "start": 220.04,
+      "end": 221.52,
+      "text": "The boy looks up."
+    },
+    {
+      "start": 221.52,
+      "end": 223.24,
+      "text": "That's my dad's voice."
+    },
+    {
+      "start": 223.24,
+      "end": 225.56,
+      "text": "The man beside him goes pale."
+    },
+    {
+      "start": 225.56,
+      "end": 227.96,
+      "text": "He slowly turns toward the boy."
+    },
+    {
+      "start": 227.96,
+      "end": 228.96,
+      "text": "No."
+    },
+    {
+      "start": 228.96,
+      "end": 231.4,
+      "text": "Your dad never used that radio."
+    },
+    {
+      "start": 231.4,
+      "end": 233.36,
+      "text": "The radio crackles again."
+    },
+    {
+      "start": 233.36,
+      "end": 235.56,
+      "text": "This time, the voice is clearer."
+    },
+    {
+      "start": 235.56,
+      "end": 238.0,
+      "text": "I'm right behind you."
+    },
+    {
+      "start": 238.0,
+      "end": 240.4,
+      "text": "You turn toward the dark tunnel."
+    },
+    {
+      "start": 240.4,
+      "end": 241.84,
+      "text": "Nothing moves."
+    },
+    {
+      "start": 241.84,
+      "end": 246.8,
+      "text": "Then, from somewhere deep underground, you hear a child's voice call out."
+    },
+    {
+      "start": 246.8,
+      "end": 247.8,
+      "text": "Dad?"
+    },
+    {
+      "start": 247.8,
+      "end": 250.0,
+      "text": "The boy beside you grabs your sleeve."
+    },
+    {
+      "start": 250.0,
+      "end": 251.0,
+      "text": "Don't answer."
+    },
+    {
+      "start": 251.0,
+      "end": 252.48,
+      "text": "That's not me."
+    },
+    {
+      "start": 252.48,
+      "end": 255.04,
+      "text": "And then, the radio switches off."
+    },
+    {
+      "start": 255.04,
+      "end": 258.2,
+      "text": "Behind you, the maintenance door begins to close."
+    },
+    {
+      "start": 258.2,
+      "end": 260.04,
+      "text": "Slowly, by itself."
+    }
+  ]
+}

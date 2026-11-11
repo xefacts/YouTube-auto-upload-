@@ -1,0 +1,418 @@
+[
+ {
+  "i": 0,
+  "start": 0.0,
+  "speechStart": 0.0,
+  "speechEnd": 4.48,
+  "text": "A fly buzzes past your ear. You don't look. You just... know.",
+  "end": 4.9
+ },
+ {
+  "i": 1,
+  "start": 4.9,
+  "speechStart": 5.05,
+  "speechEnd": 10.34,
+  "text": "Leo fumbles his phone over the sink, and before it has dropped ten centimeters, your hand is already there.",
+  "end": 10.73
+ },
+ {
+  "i": 2,
+  "start": 10.73,
+  "speechStart": 10.88,
+  "speechEnd": 14.48,
+  "text": "Then the soccer ball leaves his foot. You watch it... all the way.",
+  "end": 14.77
+ },
+ {
+  "i": 3,
+  "start": 14.77,
+  "speechStart": 14.92,
+  "speechEnd": 16.32,
+  "text": "Like it's swimming through honey.",
+  "end": 16.65
+ },
+ {
+  "i": 4,
+  "start": 16.65,
+  "speechStart": 16.8,
+  "speechEnd": 19.29,
+  "text": "And your tea, sitting on the counter? Still hot.",
+  "end": 19.77
+ },
+ {
+  "i": 5,
+  "start": 19.77,
+  "speechStart": 19.92,
+  "speechEnd": 22.21,
+  "text": "Most people react in about a quarter of a second.",
+  "end": 22.39
+ },
+ {
+  "i": 6,
+  "start": 22.39,
+  "speechStart": 22.54,
+  "speechEnd": 24.4,
+  "text": "Two hundred and fifty milliseconds.",
+  "end": 24.6
+ },
+ {
+  "i": 7,
+  "start": 24.6,
+  "speechStart": 24.75,
+  "speechEnd": 27.1,
+  "text": "Eye, to brain, to hand. You?",
+  "end": 27.42
+ },
+ {
+  "i": 8,
+  "start": 27.42,
+  "speechStart": 27.57,
+  "speechEnd": 29.04,
+  "text": "Two and a half milliseconds.",
+  "end": 29.46
+ },
+ {
+  "i": 9,
+  "start": 29.46,
+  "speechStart": 29.61,
+  "speechEnd": 31.46,
+  "text": "Here's the rule that runs the whole story.",
+  "end": 31.74
+ },
+ {
+  "i": 10,
+  "start": 31.74,
+  "speechStart": 31.89,
+  "speechEnd": 34.35,
+  "text": "Your brain got faster. Nothing else did.",
+  "end": 34.64
+ },
+ {
+  "i": 11,
+  "start": 34.64,
+  "speechStart": 34.79,
+  "speechEnd": 36.92,
+  "text": "Muscles can't move quicker than muscle moves.",
+  "end": 37.14
+ },
+ {
+  "i": 12,
+  "start": 37.14,
+  "speechStart": 37.29,
+  "speechEnd": 40.33,
+  "text": "The world didn't slow down. You just... started earlier.",
+  "end": 40.74
+ },
+ {
+  "i": 13,
+  "start": 40.74,
+  "speechStart": 40.89,
+  "speechEnd": 44.36,
+  "text": "So what if your reaction time was a hundred times faster? Plus:",
+  "end": 44.39
+ },
+ {
+  "i": 14,
+  "start": 44.39,
+  "speechStart": 44.54,
+  "speechEnd": 50.93,
+  "text": "you never drop anything. Ever. Falling keys. Falling eggs. Falling grandma. Plus:",
+  "end": 50.79
+ },
+ {
+  "i": 15,
+  "start": 50.79,
+  "speechStart": 50.94,
+  "speechEnd": 53.03,
+  "text": "video games become ridiculous.",
+  "end": 53.28
+ },
+ {
+  "i": 16,
+  "start": 53.28,
+  "speechStart": 53.43,
+  "speechEnd": 55.67,
+  "text": "A screen refreshes sixty times a second.",
+  "end": 55.82
+ },
+ {
+  "i": 17,
+  "start": 55.82,
+  "speechStart": 55.97,
+  "speechEnd": 58.84,
+  "text": "You see things seventeen times before anyone else does.",
+  "end": 59.19
+ },
+ {
+  "i": 18,
+  "start": 59.19,
+  "speechStart": 59.34,
+  "speechEnd": 61.61,
+  "text": "Leo spins the controller. \"Mate.",
+  "end": 61.47
+ },
+ {
+  "i": 19,
+  "start": 61.47,
+  "speechStart": 61.62,
+  "speechEnd": 64.49,
+  "text": "You really have to stop doing that.\" Minus:",
+  "end": 64.71
+ },
+ {
+  "i": 20,
+  "start": 64.71,
+  "speechStart": 64.86,
+  "speechEnd": 66.34,
+  "text": "everything else is slow.",
+  "end": 66.61
+ },
+ {
+  "i": 21,
+  "start": 66.61,
+  "speechStart": 66.76,
+  "speechEnd": 68.48,
+  "text": "A sentence takes a whole second...",
+  "end": 68.55
+ },
+ {
+  "i": 22,
+  "start": 68.55,
+  "speechStart": 68.7,
+  "speechEnd": 70.55,
+  "text": "and you've already written four replies.",
+  "end": 70.82
+ },
+ {
+  "i": 23,
+  "start": 70.82,
+  "speechStart": 70.97,
+  "speechEnd": 76.4,
+  "text": "And at night, you can't switch it off. You lie there... and count. Minus:",
+  "end": 76.65
+ },
+ {
+  "i": 24,
+  "start": 76.65,
+  "speechStart": 76.8,
+  "speechEnd": 79.42,
+  "text": "your brain is now the most expensive organ you own.",
+  "end": 79.76
+ },
+ {
+  "i": 25,
+  "start": 79.76,
+  "speechStart": 79.91,
+  "speechEnd": 82.5,
+  "text": "It already burns about twenty percent of your daily energy.",
+  "end": 82.75
+ },
+ {
+  "i": 26,
+  "start": 82.75,
+  "speechStart": 82.9,
+  "speechEnd": 86.35,
+  "text": "Speed costs fuel. Your breakfast... never ends.",
+  "end": 86.57
+ },
+ {
+  "i": 27,
+  "start": 86.57,
+  "speechStart": 86.72,
+  "speechEnd": 89.78,
+  "text": "And your brain is built on surprise. Predict everything...",
+  "end": 89.87
+ },
+ {
+  "i": 28,
+  "start": 89.87,
+  "speechStart": 90.02,
+  "speechEnd": 93.12,
+  "text": "and nothing surprises you anymore. Leo tells a joke.",
+  "end": 93.25
+ },
+ {
+  "i": 29,
+  "start": 93.25,
+  "speechStart": 93.4,
+  "speechEnd": 99.85,
+  "text": "You already saw the punchline in his shoulder. So you laugh... a second late. On purpose. Sad, isn't it?",
+  "end": 100.25
+ },
+ {
+  "i": 30,
+  "start": 100.25,
+  "speechStart": 100.4,
+  "speechEnd": 103.23,
+  "text": "Then there's Mia. Your little sister. She's nine.",
+  "end": 103.37
+ },
+ {
+  "i": 31,
+  "start": 103.37,
+  "speechStart": 103.52,
+  "speechEnd": 105.76,
+  "text": "And she's the only person who can slow you down.",
+  "end": 106.11
+ },
+ {
+  "i": 32,
+  "start": 106.11,
+  "speechStart": 106.26,
+  "speechEnd": 107.97,
+  "text": "Every night she needs the same thing.",
+  "end": 108.18
+ },
+ {
+  "i": 33,
+  "start": 108.18,
+  "speechStart": 108.33,
+  "speechEnd": 114.44,
+  "text": "Two knocks on the frame of her door. Then one. That's the deal. That's the language. Then comes the museum.",
+  "end": 114.68
+ },
+ {
+  "i": 34,
+  "start": 114.68,
+  "speechStart": 114.83,
+  "speechEnd": 115.62,
+  "text": "A lamp goes out.",
+  "end": 115.76
+ },
+ {
+  "i": 35,
+  "start": 115.76,
+  "speechStart": 115.91,
+  "speechEnd": 117.81,
+  "text": "Emergency lights, red and thin.",
+  "end": 118.01
+ },
+ {
+  "i": 36,
+  "start": 118.01,
+  "speechStart": 118.16,
+  "speechEnd": 120.44,
+  "text": "Mia is across the hall, near the dark stairs.",
+  "end": 120.66
+ },
+ {
+  "i": 37,
+  "start": 120.66,
+  "speechStart": 120.81,
+  "speechEnd": 124.13,
+  "text": "A forty kilo barrier is sliding toward a group of smaller kids.",
+  "end": 124.34
+ },
+ {
+  "i": 38,
+  "start": 124.34,
+  "speechStart": 124.49,
+  "speechEnd": 127.79,
+  "text": "A screen falls from three meters. Eight tenths of a second.",
+  "end": 127.99
+ },
+ {
+  "i": 39,
+  "start": 127.99,
+  "speechStart": 128.14,
+  "speechEnd": 129.55,
+  "text": "You cannot run faster.",
+  "end": 129.61
+ },
+ {
+  "i": 40,
+  "start": 129.61,
+  "speechStart": 129.76,
+  "speechEnd": 131.28,
+  "text": "You can only start earlier.",
+  "end": 131.54
+ },
+ {
+  "i": 41,
+  "start": 131.54,
+  "speechStart": 131.69,
+  "speechEnd": 137.42,
+  "text": "You shout it on the metal rail. Two knocks. Then one. Mia freezes. She knows that knock.",
+  "end": 137.64
+ },
+ {
+  "i": 42,
+  "start": 137.64,
+  "speechStart": 137.79,
+  "speechEnd": 140.19,
+  "text": "You lean into the barrier before it is really moving...",
+  "end": 140.29
+ },
+ {
+  "i": 43,
+  "start": 140.29,
+  "speechStart": 140.44,
+  "speechEnd": 141.67,
+  "text": "and the lean wins.",
+  "end": 141.83
+ },
+ {
+  "i": 44,
+  "start": 141.83,
+  "speechStart": 141.98,
+  "speechEnd": 146.7,
+  "text": "The screen lands on an empty patch of floor. Your sister's hand... is in yours.",
+  "end": 147.04
+ },
+ {
+  "i": 45,
+  "start": 147.04,
+  "speechStart": 147.19,
+  "speechEnd": 151.83,
+  "text": "That night, she knocks twice. Then once. You answer... at normal speed.",
+  "end": 152.08
+ },
+ {
+  "i": 46,
+  "start": 152.08,
+  "speechStart": 152.23,
+  "speechEnd": 153.6,
+  "text": "The gift didn't disappear.",
+  "end": 153.76
+ },
+ {
+  "i": 47,
+  "start": 153.76,
+  "speechStart": 153.91,
+  "speechEnd": 155.71,
+  "text": "It just stopped mattering as much.",
+  "end": 155.75
+ },
+ {
+  "i": 48,
+  "start": 155.75,
+  "speechStart": 155.9,
+  "speechEnd": 159.11,
+  "text": "You've started letting the tea go cold... on purpose.",
+  "end": 159.54
+ },
+ {
+  "i": 49,
+  "start": 159.54,
+  "speechStart": 159.69,
+  "speechEnd": 162.95,
+  "text": "Tell us in the comments which everyday thing you would save first.",
+  "end": 163.15
+ },
+ {
+  "i": 50,
+  "start": 163.15,
+  "speechStart": 163.3,
+  "speechEnd": 164.99,
+  "text": "And if you felt that second knock...",
+  "end": 165.13
+ },
+ {
+  "i": 51,
+  "start": 165.13,
+  "speechStart": 165.28,
+  "speechEnd": 167.76,
+  "text": "hit like, and subscribe for more What Ifs.",
+  "end": 169.26
+ }
+]
