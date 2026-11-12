@@ -607,11 +607,11 @@ function makePhoneScreenTex(mode = 'alert1') {
   const chrome = (wall, time, pct, lowBatt) => {
     g.fillStyle = wall; g.fillRect(0, 0, W, H);
     // status bar
-    g.fillStyle = '#eef1f5'; g.font = 'bold 26px Arial'; g.textAlign = 'left';
+    g.fillStyle = '#eef1f5'; g.font = 'bold 20px Arial'; g.textAlign = 'left';
     g.fillText(time, 34, 46);
     // signal bars
     for (let i = 0; i < 4; i++) g.fillRect(300 + i * 9, 40 - (7 + i * 4), 6, 7 + i * 4);
-    g.font = 'bold 19px Arial'; g.fillText('LTE', 268, 46);
+    g.font = 'bold 15px Arial'; g.fillText('LTE', 268, 46);
     // wifi arcs
     g.strokeStyle = '#eef1f5'; g.lineWidth = 3.4;
     for (let rr = 5; rr <= 15; rr += 5) { g.beginPath(); g.arc(356, 42, rr, Math.PI * 1.25, Math.PI * 1.75); g.stroke(); }
@@ -622,7 +622,7 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.fillStyle = lowBatt ? '#ff4438' : '#eef1f5';
     g.fillRect(395, 27, Math.max(3, Math.round(40 * pct)), 14);
     g.fillRect(439, 29, 5, 10);
-    g.font = 'bold 19px Arial'; g.textAlign = 'right'; g.fillText(`${Math.round(pct * 100)}%`, 384, 46);
+    g.font = 'bold 15px Arial'; g.textAlign = 'right'; g.fillText(`${Math.round(pct * 100)}%`, 384, 46);
     // dynamic island
     g.fillStyle = '#000000';
     g.beginPath(); g.roundRect(165, 12, 150, 32, 16); g.fill();
@@ -639,51 +639,51 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.fillStyle = wall; g.fillRect(0, 0, W, H);
     // fb header
     g.fillStyle = '#ffffff'; g.fillRect(0, 52, W, 76);
-    g.fillStyle = '#1877f2'; g.font = '900 40px Arial'; g.textAlign = 'left';
+    g.fillStyle = '#1877f2'; g.font = '900 31px Arial'; g.textAlign = 'left';
     g.fillText('facebook', 30, 104);
     // search + messenger circles
     g.fillStyle = '#e4e6eb'; g.beginPath(); g.arc(366, 90, 25, 0, 7); g.fill();
-    g.fillStyle = '#65676b'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText('Q', 366, 100);
+    g.fillStyle = '#65676b'; g.font = '900 20px Arial'; g.textAlign = 'center'; g.fillText('Q', 366, 100);
     g.fillStyle = '#e4e6eb'; g.beginPath(); g.arc(428, 90, 25, 0, 7); g.fill();
     g.strokeStyle = '#0084ff'; g.lineWidth = 3;
     g.beginPath(); g.moveTo(418, 84); g.lineTo(438, 84); g.moveTo(418, 94); g.lineTo(432, 94); g.stroke(); // messenger bolt
     if (mode === 'social1') {
       g.fillStyle = '#e41e3f'; g.beginPath(); g.arc(448, 70, 14, 0, 7); g.fill();
-      g.fillStyle = '#fff'; g.font = 'bold 18px Arial'; g.fillText('9', 448, 76);
+      g.fillStyle = '#fff'; g.font = 'bold 14px Arial'; g.fillText('9', 448, 76);
     }
     // ===== post 1: city news page =====
     g.fillStyle = '#ffffff'; g.fillRect(0, 128, W, 300);
     g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(30, 152, 56, 56, 12); g.fill();
-    g.fillStyle = '#fff'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText('OCN', 58, 188);
-    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 26px Arial';
+    g.fillStyle = '#fff'; g.font = '900 20px Arial'; g.textAlign = 'center'; g.fillText('OCN', 58, 188);
+    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 20px Arial';
     g.fillText('Outbreak City News', 102, 172);
     g.fillStyle = '#0084ff'; g.beginPath(); g.arc(340, 164, 9, 0, 7); g.fill();
     g.fillStyle = '#fff'; g.font = 'bold 13px Arial'; g.fillText('✓', 336, 169);
-    g.fillStyle = '#65676b'; g.font = 'normal 20px Arial'; g.fillText('Sponsored · 4m', 102, 198);
-    g.fillStyle = '#050505'; g.font = 'normal 24px Arial';
+    g.fillStyle = '#65676b'; g.font = 'normal 16px Arial'; g.fillText('Sponsored · 4m', 102, 198);
+    g.fillStyle = '#050505'; g.font = 'normal 19px Arial';
     g.fillText('BREAKING: Hospitals report a fast-spreading', 30, 246);
     g.fillText('illness. Officials urge everyone to stay', 30, 278);
     g.fillText('indoors until further notice.', 30, 310);
     // link preview with LIVE tag
     g.fillStyle = '#1c1e21'; g.fillRect(30, 330, 420, 56);
     g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(40, 344, 58, 26, 5); g.fill();
-    g.fillStyle = '#fff'; g.font = '900 17px Arial'; g.textAlign = 'center'; g.fillText('LIVE', 69, 363);
-    g.fillStyle = '#d8dbe1'; g.textAlign = 'left'; g.font = 'bold 21px Arial';
+    g.fillStyle = '#fff'; g.font = '900 13px Arial'; g.textAlign = 'center'; g.fillText('LIVE', 69, 363);
+    g.fillStyle = '#d8dbe1'; g.textAlign = 'left'; g.font = 'bold 16px Arial';
     g.fillText('LIVE: Emergency briefing — city lockdown', 110, 366);
     // reactions row (drawn icons — no emoji)
     g.fillStyle = '#1877f2'; g.beginPath(); g.arc(48, 412, 12, 0, 7); g.fill();
     g.fillStyle = '#e41e3f'; g.beginPath(); g.arc(63, 412, 12, 0, 7); g.fill();
-    g.fillStyle = '#65676b'; g.font = 'normal 21px Arial';
+    g.fillStyle = '#65676b'; g.font = 'normal 16px Arial';
     g.fillText('15.2K', 84, 419);
     g.textAlign = 'right'; g.fillText('612 comments · 4.1K shares', 450, 419);
     // ===== post 2 (partial): community panic =====
     g.fillStyle = '#ffffff'; g.fillRect(0, 442, W, 210);
     g.fillStyle = '#7a5af8'; g.beginPath(); g.roundRect(30, 466, 56, 56, 28); g.fill();
-    g.fillStyle = '#fff'; g.font = '900 24px Arial'; g.textAlign = 'center'; g.fillText('CA', 58, 502);
-    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 26px Arial';
+    g.fillStyle = '#fff'; g.font = '900 19px Arial'; g.textAlign = 'center'; g.fillText('CA', 58, 502);
+    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 20px Arial';
     g.fillText('Community Alert Group', 102, 486);
-    g.fillStyle = '#65676b'; g.font = 'normal 20px Arial'; g.fillText('1m · Public', 102, 512);
-    g.fillStyle = '#050505'; g.font = 'normal 24px Arial';
+    g.fillStyle = '#65676b'; g.font = 'normal 16px Arial'; g.fillText('1m · Public', 102, 512);
+    g.fillStyle = '#050505'; g.font = 'normal 19px Arial';
     g.fillText('They are NOT sick. They are not people', 30, 558);
     g.fillText('anymore. Lock your doors. Do not open', 30, 590);
     g.fillText('for ANYONE.', 30, 622);
@@ -696,13 +696,13 @@ function makePhoneScreenTex(mode = 'alert1') {
       g.strokeStyle = 'rgba(20,24,34,0.18)'; g.lineWidth = 2;
       g.beginPath(); g.roundRect(21, 67, 438, 116, 25); g.stroke();
       g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(40, 84, 64, 64, 16); g.fill();
-      g.fillStyle = '#fff'; g.font = '900 40px Arial'; g.textAlign = 'center'; g.fillText('!', 72, 130);
-      g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = '900 24px Arial';
+      g.fillStyle = '#fff'; g.font = '900 31px Arial'; g.textAlign = 'center'; g.fillText('!', 72, 130);
+      g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = '900 19px Arial';
       g.fillText('EMERGENCY ALERTS', 120, 108);
-      g.fillStyle = '#3a3d42'; g.font = 'normal 21px Arial';
+      g.fillStyle = '#3a3d42'; g.font = 'normal 16px Arial';
       g.fillText('Severe threat in this area. Tap', 120, 138);
       g.fillStyle = '#3a3d42'; g.fillText('to read the full alert', 120, 164);
-      g.fillStyle = '#8a8d91'; g.font = 'normal 17px Arial'; g.textAlign = 'right'; g.fillText('now', 444, 108);
+      g.fillStyle = '#8a8d91'; g.font = 'normal 13px Arial'; g.textAlign = 'right'; g.fillText('now', 444, 108);
     }
   } else if (mode === 'alert1') {
     // ================= iOS GOVERNMENT EMERGENCY ALERT (4:17 PM) =================
@@ -716,21 +716,21 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.fillStyle = '#f7f5f0'; g.beginPath(); g.roundRect(28, 210, 424, 400, 30); g.fill();
     g.restore();
     g.textAlign = 'center';
-    g.fillStyle = '#b25000'; g.font = '900 34px Arial';
+    g.fillStyle = '#b25000'; g.font = '900 27px Arial';
     g.fillText('EMERGENCY ALERT', 240, 276);
-    g.fillStyle = '#8d939c'; g.font = 'bold 22px Arial';
+    g.fillStyle = '#8d939c'; g.font = 'bold 17px Arial';
     g.fillText('CIVIL DANGER WARNING', 240, 312);
     g.strokeStyle = '#d9d4c8'; g.lineWidth = 2; g.beginPath(); g.moveTo(60, 338); g.lineTo(420, 338); g.stroke();
-    g.fillStyle = '#15181d'; g.font = '900 44px Arial';
+    g.fillStyle = '#15181d'; g.font = '900 34px Arial';
     g.fillText('STAY INDOORS', 240, 398);
-    g.fillStyle = '#33383f'; g.font = 'bold 26px Arial';
+    g.fillStyle = '#33383f'; g.font = 'bold 20px Arial';
     for (const [i, ln] of [
       'Avoid confused or violent', 'individuals.', '',
       'Do not approach emergency', 'responders unless instructed.',
     ].entries()) g.fillText(ln, 240, 452 + i * 42);
     // realistic Dismiss button
     g.fillStyle = '#e8e4da'; g.beginPath(); g.roundRect(150, 528, 180, 56, 28); g.fill();
-    g.fillStyle = '#007aff'; g.font = '900 26px Arial'; g.fillText('Dismiss', 240, 564);
+    g.fillStyle = '#007aff'; g.font = '900 20px Arial'; g.fillText('Dismiss', 240, 564);
   } else if (mode === 'alert2') {
     // ================= 2:14 AM CRITICAL UPDATE + missed-message stack =================
     chrome('#0a0507', '2:14', 0.17, true);
@@ -739,10 +739,10 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.fillStyle = '#b8171e'; g.beginPath(); g.roundRect(28, 140, 424, 210, 28); g.fill();
     g.restore();
     g.textAlign = 'center'; g.fillStyle = '#ffffff';
-    g.font = '900 36px Arial'; g.fillText('CRITICAL UPDATE', 240, 206);
-    g.font = 'bold 23px Arial'; g.fillStyle = '#ffd9d4'; g.fillText('NEW EMERGENCY MESSAGE', 240, 244);
+    g.font = '900 28px Arial'; g.fillText('CRITICAL UPDATE', 240, 206);
+    g.font = 'bold 18px Arial'; g.fillStyle = '#ffd9d4'; g.fillText('NEW EMERGENCY MESSAGE', 240, 244);
     g.strokeStyle = 'rgba(255,255,255,0.35)'; g.lineWidth = 2; g.beginPath(); g.moveTo(60, 268); g.lineTo(420, 268); g.stroke();
-    g.fillStyle = '#ffffff'; g.font = '900 30px Arial';
+    g.fillStyle = '#ffffff'; g.font = '900 23px Arial';
     g.fillText('Do not respond to voices outside.', 240, 310);
     // missed messages stack (the dread of an unread world)
     for (const [yy, icon, iconCol, name, body, when] of [
@@ -754,22 +754,22 @@ function makePhoneScreenTex(mode = 'alert1') {
       g.fillStyle = '#1c1f26'; g.beginPath(); g.roundRect(28, yy, 424, 108, 24); g.fill();
       g.restore();
       g.fillStyle = iconCol; g.beginPath(); g.roundRect(48, yy + 24, 56, 56, 14); g.fill();
-      g.fillStyle = '#fff'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText(icon, 76, yy + 60);
-      g.textAlign = 'left'; g.fillStyle = '#e8eaee'; g.font = 'bold 24px Arial';
+      g.fillStyle = '#fff'; g.font = '900 20px Arial'; g.textAlign = 'center'; g.fillText(icon, 76, yy + 60);
+      g.textAlign = 'left'; g.fillStyle = '#e8eaee'; g.font = 'bold 19px Arial';
       g.fillText(name, 122, yy + 42);
-      g.fillStyle = '#9aa0a8'; g.font = 'normal 21px Arial';
+      g.fillStyle = '#9aa0a8'; g.font = 'normal 16px Arial';
       g.fillText(body, 122, yy + 74);
-      g.textAlign = 'right'; g.fillStyle = '#6b7280'; g.font = 'normal 17px Arial';
+      g.textAlign = 'right'; g.fillStyle = '#6b7280'; g.font = 'normal 13px Arial';
       g.fillText(when, 432, yy + 40);
     }
-    g.textAlign = 'center'; g.fillStyle = '#ff4f42'; g.font = '900 27px Arial';
+    g.textAlign = 'center'; g.fillStyle = '#ff4f42'; g.font = '900 21px Arial';
     g.fillText('AFFECTED MAY IMITATE FAMILIAR SPEECH', 240, 664);
-    g.fillStyle = '#ffd24c'; g.font = 'bold 24px Arial';
+    g.fillStyle = '#ffd24c'; g.font = 'bold 19px Arial';
     g.fillText('KEEP ALL DOORS LOCKED', 240, 704);
   } else {
     // ================= SUNRISE OFFLINE MAP (4% battery) =================
     chrome('#0c1824', '6:12', 0.04, true);
-    g.fillStyle = '#9ec0d8'; g.font = 'bold 22px Arial'; g.textAlign = 'left';
+    g.fillStyle = '#9ec0d8'; g.font = 'bold 17px Arial'; g.textAlign = 'left';
     g.fillText('OFFLINE MAP', 34, 96);
     g.fillStyle = '#132638'; g.beginPath(); g.roundRect(24, 120, 432, 470, 18); g.fill();
     g.save(); g.beginPath(); g.roundRect(24, 120, 432, 470, 18); g.clip();
@@ -783,11 +783,11 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.strokeStyle = '#ff4438'; g.lineWidth = 4;
     g.beginPath(); g.arc(350, 210, 26 + 6 * Math.sin(Date.now() * 0.004), 0, 7); g.stroke();
     g.restore();
-    g.textAlign = 'center'; g.fillStyle = '#ffffff'; g.font = '900 28px Arial';
+    g.textAlign = 'center'; g.fillStyle = '#ffffff'; g.font = '900 22px Arial';
     g.fillText('TRANSIT STATION', 240, 636);
-    g.fillStyle = '#ffd24c'; g.font = 'bold 23px Arial';
+    g.fillStyle = '#ffd24c'; g.font = 'bold 18px Arial';
     g.fillText('MAINTENANCE ENTRANCE', 240, 672);
-    g.fillStyle = '#9ec0d8'; g.font = 'bold 21px Arial';
+    g.fillStyle = '#9ec0d8'; g.font = 'bold 16px Arial';
     g.fillText('2 STREETS AWAY · ALLEY ROUTE', 240, 708);
   }
   const t = new THREE.CanvasTexture(c);
