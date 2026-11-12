@@ -2059,11 +2059,20 @@ export function buildOutbreakWorld(scene) {
     map: makeIntroMapTex(),
     title: makeTitleTex(),
     end: makeEndTex(),
+    // V7 ORIGINS text cards (render-time; captions stay ASS-side)
     intro1: makeStripTex('IT BEGAN LIKE ANY OTHER DAY'),
-    intro2: makeStripTex('SOMEWHERE, IT HAD ALREADY BEGUN'),
+    intro1b: makeStripTex('SCHOOL  •  OFFICE  •  AN ORDINARY MORNING'),
+    intro2: makeStripTex('ONE LAB CHANGED EVERYTHING'),
     intro3: makeStripTex('IT SPREAD IN HOURS'),
+    intro4: makeStripTex('SPECIMEN 47 — LIVE TEST'),
+    intro5: makeStripTex('EVERY SCREEN SAID THE SAME THING'),
     locator1: makeLocatorTex('OUTBREAK — DAY 1', '4:17 PM  •  CITY LOCKDOWN IN EFFECT'),
     locator2: makeLocatorTex('DAY 2 — SUNRISE', '6:12 AM  •  THE STREET IS EMPTY'),
+    black: (() => {
+      const c = document.createElement('canvas'); c.width = 8; c.height = 8;
+      const g = c.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, 8, 8);
+      const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+    })(),
   };
 
   // =========================================================================
@@ -2147,6 +2156,11 @@ export function buildOutbreakWorld(scene) {
   const labGroup = new THREE.Group();
   labGroup.position.set(-40, 0, -12);
   let labAlarmMat, cageDoor;
+  let labContainers = [];
+  let labConsole = null;
+  let labButtonBase = null;
+  let labButtonCover = null;
+  let labButtonMat = null;
   {
     labGroup.add(ibox(14, 0.12, 10, '#191d23', { y: -0.06, thick: 0.02, cast: false }));           // floor
     labGroup.add(ibox(14, 3.8, 0.18, '#252b34', { y: 1.9, z: -5, thick: 0.02, cast: false }));      // back wall
@@ -2245,6 +2259,61 @@ export function buildOutbreakWorld(scene) {
     // hazard stripes on floor in front of cage
     for (let hy = 0; hy < 6; hy++)
       labGroup.add(ibox(1.9 - hy * 0.12, 0.012, 0.16, hy % 2 ? '#c9a227' : '#23262b', { x: 3.1, y: 0.008, z: -0.85 + hy * 0.3, thick: 0.002, edges: false, cast: false }));
+    // ---- V7: THE GLASS CONTAINERS — where the subjects turn ----
+    labContainers = [];
+    const containDefs = [[-0.62, -2.10], [0.75, -2.05]];
+    for (const [ci, [cxx, czz]] of containDefs.entries()) {
+      const cg = new THREE.Group(); cg.position.set(cxx, 0, czz);
+      // frosted-glass tall cylinder (open-topped vessel)
+      const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.66, 0.72, 2.0, 24, 1, true),
+        new THREE.MeshBasicMaterial({ color: '#2c4b3f', transparent: true, opacity: 0.30, side: THREE.DoubleSide, toneMapped: false }));
+      glass.position.y = 1.22; cg.add(glass);
+      // steel base + rim rings
+      cg.add(icyl(0.80, 0.86, 0.14, '#39424c', { y: 0.07, thick: 0.008, cast: false }));
+      cg.add(icyl(0.78, 0.78, 0.07, '#39424c', { y: 2.26, thick: 0.006, cast: false }));
+      // side hose to ceiling
+      cg.add(icyl(0.045, 0.045, 1.3, '#2b322a', { x: 0.55, y: 1.75, rz: Math.PI / 2 - 0.35, seg: 8, thick: 0.006, cast: false }));
+      // CHEMICAL RAIN — falling droplet instanced planes inside the glass (set by updateIntroLab)
+      const rainMat = new THREE.MeshBasicMaterial({ color: '#8fffc4', transparent: true, opacity: 0.9, toneMapped: false, depthWrite: false });
+      const rainGeo = new THREE.PlaneGeometry(0.028, 0.11);
+      const rain = new THREE.InstancedMesh(rainGeo, rainMat, 34);
+      rain.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+      rain.frustumCulled = false;
+      cg.add(rain);
+      // venting vapor puffs at the base
+      const fogMat = new THREE.MeshBasicMaterial({ color: '#b9ffd9', transparent: true, opacity: 0.16, toneMapped: false, depthWrite: false });
+      const fog = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.7, 0.7), fogMat, 8);
+      fog.instanceMatrix.setUsage(THREE.DynamicDrawUsage); fog.frustumCulled = false;
+      cg.add(fog);
+      // sickly fill-glow at the bottom (grows as they turn)
+      const fillMat = new THREE.MeshBasicMaterial({ color: '#59d98c', transparent: true, opacity: 0.0, toneMapped: false, depthWrite: false });
+      const fill = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.68, 2.0, 20, 1, true), fillMat);
+      fill.position.y = 1.22; cg.add(fill);
+      // top spotlight cone (always visible — the specimens are always lit)
+      const cone = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.92, 2.35, 20, 1, true),
+        new THREE.MeshBasicMaterial({ color: '#eafff4', transparent: true, opacity: 0.10, side: THREE.DoubleSide, toneMapped: false, depthWrite: false }));
+      cone.position.y = 1.30; cg.add(cone);
+      labGroup.add(cg);
+      labContainers.push({ group: cg, rain, fog, fill, seed: ci * 1.37 + 2.0 });
+    }
+    // ---- V7: THE BUTTON — a heavy red master-switch console beside the containers ----
+    labConsole = new THREE.Group(); labConsole.position.set(1.85, 0, -2.35);
+    labConsole.add(ibox(0.66, 0.9, 0.44, '#262c34', { y: 0.45, ry: -0.10, thick: 0.012, cast: false }));
+    labConsole.add(ibox(0.60, 0.05, 0.40, '#11161b', { y: 0.93, ry: -0.10, thick: 0.006, cast: false }));
+    for (const [px, pz] of [[-0.14, -0.06], [0.02, 0.06]])
+      labConsole.add(ibox(0.11, 0.035, 0.11, '#c9a227', { x: px, y: 0.95, z: pz, ry: -0.10, thick: 0.004, cast: false }));
+    // the big covered red button — glass safety cover flips up when armed!
+    labButtonBase = new THREE.Group(); labButtonBase.position.set(0.12, 0.945, -0.02); labButtonBase.rotation.y = -0.10;
+    labButtonBase.add(icyl(0.09, 0.10, 0.05, '#101317', { thick: 0.004, cast: false }));
+    labButtonMat = new THREE.MeshBasicMaterial({ color: '#ff2f1e', toneMapped: false });
+    const labButtonCap = new THREE.Mesh(new THREE.SphereGeometry(0.065, 14, 10), labButtonMat);
+    labButtonCap.position.y = 0.035; labButtonBase.add(labButtonCap);
+    labConsole.add(labButtonBase);
+    const cover = new THREE.Mesh(new THREE.SphereGeometry(0.105, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: '#ffd24c', transparent: true, opacity: 0.30, toneMapped: false }));
+    cover.position.y = 0.045; labButtonBase.add(cover);
+    labButtonCover = cover;
+    labGroup.add(labConsole);
     // ceiling alarm beacon
     labAlarmMat = new THREE.MeshBasicMaterial({ color: '#ff2a1a', toneMapped: false });
     const labAlarm = new THREE.Mesh(new THREE.SphereGeometry(0.085, 12, 10), labAlarmMat);
@@ -2274,7 +2343,7 @@ export function buildOutbreakWorld(scene) {
     ng.fillStyle = '#ffffff'; ng.font = '900 56px Arial'; ng.textAlign = 'left';
     ng.fillText('BREAKING NEWS', 36, 62);
     ng.fillStyle = '#ffffff'; ng.font = '900 40px Arial';
-    ng.fillText('UNKNOWN ILLNESS SPREADING — STAY INDOORS', 36, 148);
+    ng.fillText('DEADLY VIRUS SPREADING — STAY INDOORS', 36, 148);
     ng.fillStyle = '#9fc3e8'; ng.font = 'bold 30px Arial';
     ng.fillText('HOSPITALS OVERWHELMED · SCHOOLS CLOSED · TRANSIT HALTED', 36, 196);
     ng.fillStyle = '#c8102e'; ng.font = 'bold 34px Arial';
@@ -2308,6 +2377,51 @@ export function buildOutbreakWorld(scene) {
     }
   }
   scene.add(newsGroup);
+
+  // =========================================================================
+  // 6b-V7. GLASS-CONTAINER CHEMICAL RAIN + MASTER BUTTON UPDATER
+  // (pure render-time function of t — deterministic under any render order)
+  // =========================================================================
+  function updateIntroLab(t) {
+    if (!labContainers.length) return;
+    const drip = Math.max(0, Math.min(1, (t - 4.30) / 0.80));
+    const turn = (t >= 5.70 && t < 6.60) ? 1 : 0;
+    const pressed = (t >= 4.30) ? 1 : 0;
+    const M = new THREE.Matrix4();
+    for (const ct of labContainers) {
+      const { group, rain, fog, fill, seed } = ct;
+      if (drip > 0) {
+        const n = Math.max(1, Math.round(34 * drip));
+        for (let i = 0; i < 34; i++) {
+          const ang = seed * 2.1 + i * 2.399963;
+          const rr = (i / 34) * 0.58 + 0.03;
+          const speed = 0.30 + ((i * 7 + Math.round(seed * 13)) % 10) * 0.055;
+          const yy = 2.25 - ((t * speed + i * 0.317) % 1.0) * 2.15;
+          M.makeRotationY(-group.rotation.y);
+          M.setPosition(group.position.x + Math.cos(ang) * rr, yy, group.position.z + Math.sin(ang) * rr);
+          if (i >= n) M.setPosition(0, -9, 0);
+          rain.setMatrixAt(i, M);
+        }
+        rain.count = 34;
+        rain.instanceMatrix.needsUpdate = true;
+      } else {
+        rain.count = 0;
+      }
+      for (let i = 0; i < 8; i++) {
+        const fa = t * 0.4 + i * 0.785398 + seed;
+        const fy = 0.14 + ((t * 0.12 + i * 0.125 + seed * 0.1) % 1.0) * 0.65 * drip;
+        M.makeRotationY(-group.rotation.y);
+        M.setPosition(group.position.x + Math.cos(fa) * 0.48, fy, group.position.z + Math.sin(fa) * 0.48);
+        fog.setMatrixAt(i, M);
+      }
+      fog.count = drip > 0 ? 8 : 0;
+      fog.instanceMatrix.needsUpdate = true;
+      fill.material.opacity = turn ? 0.26 : (drip > 0 ? 0.10 : 0);
+      fill.material.color.set(turn ? '#49ff8e' : '#59d98c');
+    }
+    if (labButtonCover) labButtonCover.rotation.x = pressed ? -1.45 : 0;
+    if (labButtonBase) labButtonBase.children[1].position.y = pressed ? 0.018 : 0.035;
+  }
 
   // =========================================================================
   // 6c. INTRO DESTRUCTION PROPS — fire glows, embers source, smoke billboards
@@ -2411,6 +2525,10 @@ export function buildOutbreakWorld(scene) {
     labGroup,
     labAlarmMat,
     cageDoor,
+    labContainers,
+    labConsole,
+    labButtonMat,
+    updateIntroLab,
     newsGroup,
     tickerTex,
     introFireGroup,

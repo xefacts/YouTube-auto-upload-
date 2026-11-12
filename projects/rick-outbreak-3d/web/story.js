@@ -58,18 +58,25 @@ export const SHOTS = [
   // Busy family life -> HIDDEN LAB (masked evil scientist) -> THE RELEASE -> breaking news
   // -> nationwide destruction -> OUTBREAK TITLE SMASH -> hard cut to the bright ordinary afternoon.
   // `lx` = per-beat cinematic light override (hard montage cuts, no slow crossfade).
-  { id: 200, t0: 0.00, t1: 0.62, zone: 'street', p0: [2.6, 1.12, 15.0], p1: [0.9, 1.06, 14.6], l0: [1.2, 0.90, 13.5], l1: [-0.2, 0.85, 13.5], fov0: 44, fov1: 40, roll: 1.1, shake: 0.014,
+  { id: 300, t0: 0.00, t1: 1.60, zone: 'street', p0: [2.6, 1.12, 15.0], p1: [0.9, 1.06, 14.6], l0: [1.2, 0.90, 13.5], l1: [-0.2, 0.85, 13.5], fov0: 44, fov1: 40, roll: 1.1, shake: 0.014,
     lx: { sky: '#8fb4d4', sun: 1.68, amb: 0.92, store: 0.85, fridge: 0.80, tint: '#fff3e2', shaft: 0.050, dome: '#d8eaf8', win: 0.00 } },
-  { id: 201, t0: 0.62, t1: 1.24, zone: 'lab',   p0: [-38.1, 1.75, -9.7], p1: [-39.1, 1.62, -10.5], l0: [-40.2, 1.25, -14.9], l1: [-40.3, 1.30, -14.9], fov0: 46, fov1: 41, roll: -1.4,
+  { id: 301, t0: 1.60, t1: 2.40, zone: 'street', p0: [-1.5, 1.30, 14.9], p1: [-0.5, 1.24, 14.6], l0: [-1.9, 1.05, 16.2], l1: [-0.2, 1.00, 16.2], fov0: 42, fov1: 38, roll: -1.0, shake: 0.010,
+    lx: { sky: '#8fb4d4', sun: 1.68, amb: 0.92, store: 0.85, fridge: 0.80, tint: '#fff3e2', shaft: 0.050, dome: '#d8eaf8', win: 0.00 } },
+  { id: 302, t0: 2.40, t1: 3.40, zone: 'lab',   p0: [-38.1, 1.75, -9.7], p1: [-39.1, 1.62, -10.5], l0: [-40.2, 1.25, -14.9], l1: [-40.3, 1.30, -14.9], fov0: 46, fov1: 41, roll: -1.4,
     lx: { sky: '#0a0e14', sun: 0.00, amb: 0.60, store: 0.00, fridge: 0.00, tint: '#cfe4ff', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
-  { id: 202, t0: 1.24, t1: 1.80, zone: 'lab',   p0: [-39.55, 1.52, -13.15], p1: [-39.66, 1.49, -13.32], l0: [-40.50, 1.56, -14.55], l1: [-40.54, 1.55, -14.60], fov0: 33, fov1: 29, roll: 1.8, shake: 0.010,
+  { id: 303, t0: 3.40, t1: 4.30, zone: 'lab',   p0: [-39.55, 1.52, -13.15], p1: [-39.66, 1.49, -13.32], l0: [-40.50, 1.56, -14.55], l1: [-40.54, 1.55, -14.60], fov0: 33, fov1: 29, roll: 1.8, shake: 0.010,
     lx: { sky: '#0a0e14', sun: 0.00, amb: 0.52, store: 0.00, fridge: 0.00, tint: '#cfe4ff', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
-  { id: 203, t0: 1.80, t1: 2.42, zone: 'lab',   p0: [-35.20, 1.38, -11.20], p1: [-35.90, 1.30, -11.95], l0: [-36.85, 1.05, -14.10], l1: [-36.95, 1.00, -14.30], fov0: 49, fov1: 45, shake: 0.062, roll: -2.4,
-    lx: { sky: '#0a0e14', sun: 0.00, amb: 0.48, store: 0.00, fridge: 0.00, tint: '#ffcfc4', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
-  { id: 204, t0: 2.42, t1: 2.94, zone: 'news',  p0: [-38.35, 1.62, -45.5], p1: [-39.15, 1.56, -46.3], l0: [-40.0, 1.40, -49.7], l1: [-40.0, 1.35, -49.9], fov0: 44, fov1: 38, roll: 1.2,
-    lx: { sky: '#0a0d12', sun: 0.00, amb: 0.62, store: 0.00, fridge: 0.00, tint: '#ffd9d4', shaft: 0.000, dome: '#0a0d12', win: 0.00 } },
-  { id: 205, t0: 2.94, t1: 3.36, zone: 'street', p0: [0.7, 1.62, 8.6],  p1: [-0.4, 1.56, 9.3],  l0: [0.0, 1.05, 16.5], l1: [0.0, 1.00, 16.8],  fov0: 50, fov1: 46, shake: 0.048, roll: 2.0,
+  { id: 304, t0: 4.30, t1: 5.70, zone: 'lab',   p0: [-35.9, 1.50, -9.30], p1: [-36.5, 1.46, -9.90], l0: [-39.90, 1.05, -13.90], l1: [-39.95, 1.02, -14.05], fov0: 48, fov1: 44, roll: -1.6, shake: 0.012,
+    lx: { sky: '#0a0e14', sun: 0.00, amb: 0.50, store: 0.00, fridge: 0.00, tint: '#d6f5e0', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
+  { id: 305, t0: 5.70, t1: 6.60, zone: 'lab',   p0: [-38.3, 1.45, -12.1], p1: [-38.5, 1.42, -12.35], l0: [-38.9, 1.32, -13.6], l1: [-38.9, 1.30, -13.65], fov0: 30, fov1: 27, roll: 1.2, shake: 0.014,
+    lx: { sky: '#0a0e14', sun: 0.00, amb: 0.44, store: 0.00, fridge: 0.00, tint: '#b8ecc9', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
+  { id: 306, t0: 6.60, t1: 7.60, zone: 'lab',   p0: [-40.02, 1.60, -13.88], p1: [-40.12, 1.58, -13.98], l0: [-40.55, 1.62, -14.55], l1: [-40.55, 1.61, -14.58], fov0: 26, fov1: 23, roll: -2.2, shake: 0.010,
+    lx: { sky: '#0a0e14', sun: 0.00, amb: 0.52, store: 0.00, fridge: 0.00, tint: '#cfe4ff', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
+  { id: 307, t0: 7.60, t1: 8.70, zone: 'street', p0: [0.7, 1.62, 8.6],  p1: [-0.4, 1.56, 9.3],  l0: [0.0, 1.05, 16.5], l1: [0.0, 1.00, 16.8],  fov0: 50, fov1: 46, shake: 0.048, roll: 2.0,
     lx: { sky: '#2b0d08', sun: 0.20, amb: 0.68, store: 0.00, fridge: 0.00, tint: '#ffd9c4', shaft: 0.000, dome: '#431409', win: 0.00 } },
+  { id: 308, t0: 8.70, t1: 9.40, zone: 'news',  p0: [-38.35, 1.62, -45.5], p1: [-39.15, 1.56, -46.3], l0: [-40.0, 1.40, -49.7], l1: [-40.0, 1.35, -49.9], fov0: 44, fov1: 38, roll: 1.2,
+    lx: { sky: '#0a0d12', sun: 0.00, amb: 0.62, store: 0.00, fridge: 0.00, tint: '#ffd9d4', shaft: 0.000, dome: '#0a0d12', win: 0.00 } },
+  { id: 309, t0: 9.10, t1: 12.40, zone: 'news',  p0: [-39.15, 1.56, -46.3], p1: [-39.15, 1.56, -46.3], l0: [-40.0, 1.35, -49.9], l1: [-40.0, 1.35, -49.9], fov0: 38, fov1: 38 },
   // ================= ACT I: 4:17 PM ALERT & STREET CHAOS (0.00 - 42.60s) =================
   // Hard cut out of the nightmare: BRIGHT peaceful afternoon — the quiet world before it ended.
   { id: 0,  t0: 3.36, t1: 4.10, zone: 'street', p0: [9.5, 12.5, 22.5], p1: [4.5, 6.0, 19.5],    l0: [0.0, 1.7, 8.0],  l1: [0.4, 1.6, 9.0],   fov0: 50, fov1: 45 },
@@ -206,15 +213,27 @@ export const SHOTS = [
   { id: 82, t0: 255.04,t1: 260.45,zone: 'underground', p0: [0.00, 1.15, -58.85], p1: [0.00, 1.48, -56.95], l0: [0.00, 3.35, -52.18], l1: [0.00, 3.40, -52.18], fov0: 44, fov1: 35, roll: -1.6 },
 ];
 
-export function getShotAt(t) {
+export function getShotAt(t, introMode = false) {
+  // V7: intro shots 300-309 live in RENDER time [0, 12.40); the story shots live in
+  // story time. After the intro re-map both spaces overlap numerically in [3.36, 12.40),
+  // so the pool MUST be chosen by mode — never by find-first alone!
   for (let i = 0; i < SHOTS.length; i++) {
-    if (t >= SHOTS[i].t0 && t < SHOTS[i].t1) return SHOTS[i];
+    const s = SHOTS[i];
+    if (introMode !== (s.id >= 300)) continue;
+    if (t >= s.t0 && t < s.t1) return s;
   }
-  return SHOTS[SHOTS.length - 1];
+  return introMode ? SHOTS.find((s) => s.id === 309) : SHOTS[SHOTS.length - 1];
 }
 
 export function evaluateScene(t) {
-  const shot = getShotAt(t);
+  // ============ V7 CINEMATIC INTRO TIME MAP ============
+  // Render time [0, 12.40) plays the new ORIGINS montage directly (shots 300-309,
+  // ending with the 3.00s pure-black beat). From 12.40 the render timeline maps 1:1
+  // onto the original story timeline (street/store begins at story 3.36), so every
+  // later beat — phone, characters, overlays, lights — keeps its proven story tuning.
+  const introMode = t < 12.40;
+  if (t >= 12.40) t = 3.36 + (t - 12.40);
+  const shot = getShotAt(t, introMode);
   const u = clamp01((t - shot.t0) / Math.max(0.001, shot.t1 - shot.t0));
   const su = smootherstep(u);
 
@@ -370,12 +389,14 @@ export function evaluateScene(t) {
   let abandonedCarPos = [-5.2, 0, 13.0]; // parked — no ghost slide
   // V6: one ordinary sedan cruising the near lane during the peaceful aerial establishing shot
   // (0-6s). It leaves the world at x=-25 while every camera is indoors — zero pop, pure normalcy.
-  const trafficCarVis = (t >= 3.36 && t < 6.2); // V6: normal traffic ONLY in the bright post-title beat
+  const trafficCarVis = shot.id < 300 && (t >= 3.36 && t < 6.2); // V7: normal traffic ONLY in the bright post-intro beat (never during the intro!)
   const trafficCarPos = [lerp(21.0, -25.0, clamp01((t - 3.36) / 2.84)), 0, 15.30];
   const trafficCarRot = -Math.PI / 2;
   let abandonedCarRot = 0.10;
   let swerveCarVis = false, swerveCarPos = [8.5, 0, 16.2], swerveCarRot = -Math.PI / 2;
-  let patrolCarVis = false, patrolCarPos = [-2.4, 0, 19.6], patrolCarRot = 0.38;
+  // V7: cruiser nudged back to z=20.9 — the retreating officer's path at z=17.5
+  // now clears the front bumper (no more walking through/over the patrol car!).
+  let patrolCarVis = false, patrolCarPos = [-2.4, 0, 20.9], patrolCarRot = 0.38;
 
   if (t >= 17.60 && t < 33.0) {
     swerveCarVis = true;
@@ -390,8 +411,8 @@ export function evaluateScene(t) {
       swerveCarPos = [lerp(6.6, -2.6, swU), 0, lerp(15.30, 13.90, swU)];
       swerveCarRot = lerp(-Math.PI / 2, -Math.PI / 2 + 0.58, swU);
     }
-  } else if ((t >= 2.94 && t < 3.36) || (t >= 59.88 && t < 69.96)) {
-    patrolCarVis = true; // V6.5: strobes wash the destruction beat + the Act II police standoff
+  } else if ((t >= 7.60 && t < 8.70) || (t >= 59.88 && t < 69.96)) {
+    patrolCarVis = true; // V7: strobes wash the city-falls beat (render 7.60-8.70) + the Act II police standoff
   } else if (t >= 145.9) {
     // Sunrise abandoned cars scattered askew across empty street!
     abandonedCarPos = [8.5, 0, 22.5]; abandonedCarRot = 0.55;
@@ -401,15 +422,25 @@ export function evaluateScene(t) {
 
   // V6.5 CINEMATIC OVERLAYS: origins beat cards -> OUTBREAK title smash -> DAY cards -> TO BE CONTINUED.
   let introOverlay = null;
-  if (t < 0.62) {
-    introOverlay = { tex: 'intro1', op: clamp01((t - 0.08) / 0.16) * clamp01((0.56 - t) / 0.09) };
-  } else if (t >= 0.62 && t < 1.24) {
-    introOverlay = { tex: 'intro2', op: clamp01((t - 0.68) / 0.16) * clamp01((1.18 - t) / 0.09) };
-  } else if (t >= 2.42 && t < 2.94) {
-    introOverlay = { tex: 'intro3', op: clamp01((t - 2.48) / 0.16) * clamp01((2.88 - t) / 0.09) };
-  } else if (t >= 2.94 && t < 3.36) {
-    const fl2 = Math.sin(t * 47.0) > 0.82 ? 0.80 : 1.0; // title glitch flicker
-    introOverlay = { tex: 'title', op: clamp01((t - 2.94) / 0.05) * clamp01((3.36 - t) / 0.12) * fl2 };
+  const inV7Intro = shot.id >= 300;
+  if (inV7Intro) {
+    // V7 ORIGINS text cards (render time). Pure black beat carries the VO's opening
+    // words ("THE FIRST WARNING...") as 1-2 word captions — title-card style.
+    if (t < 1.60) {
+      introOverlay = { tex: 'intro1', op: clamp01((t - 0.10) / 0.20) * clamp01((1.50 - t) / 0.14) };
+    } else if (t < 2.40) {
+      introOverlay = { tex: 'intro1b', op: clamp01((t - 1.66) / 0.16) * clamp01((2.32 - t) / 0.10) };
+    } else if (t < 3.40) {
+      introOverlay = { tex: 'intro2', op: clamp01((t - 2.50) / 0.16) * clamp01((3.30 - t) / 0.10) };
+    } else if (t >= 4.42 && t < 5.58) {
+      introOverlay = { tex: 'intro4', op: clamp01((t - 4.48) / 0.16) * clamp01((5.52 - t) / 0.10) };
+    } else if (t >= 7.66 && t < 8.62) {
+      introOverlay = { tex: 'intro3', op: clamp01((t - 7.72) / 0.14) * clamp01((8.56 - t) / 0.10) };
+    } else if (t >= 8.72 && t < 9.06) {
+      introOverlay = { tex: 'intro5', op: clamp01((t - 8.74) / 0.08) * clamp01((9.04 - t) / 0.06) };
+    } else if (t >= 9.10) {
+      introOverlay = { tex: 'black', op: 1.0 }; // V7: pure 3.30s BLACK SCREEN — the VO's opening line lands here
+    }
   } else if (t >= 3.50 && t < 6.30) {
     introOverlay = { tex: 'locator1', op: clamp01((t - 3.50) / 0.4) * clamp01((6.30 - t) / 0.5) };
   } else if (t >= 146.30 && t < 149.30) {
@@ -636,53 +667,68 @@ export function evaluateScene(t) {
     }
   }
 
-  // ---------------- 0. V6.5 ORIGINS COLD OPEN CHOREOGRAPHY (0.00 - 3.36s) ----------------
-  if (shot.id === 200) {
-    // Busy ordinary afternoon: a boy sprints ahead playing, his mom walks behind, a jogger passes.
-    placeMoving(chars.survBoy, 2.0, 13.50, -1.0, 13.50, 0.00, 0.68, true, false);
-    placeMoving(chars.woman, 3.1, 13.10, 1.9, 13.10, 0.00, 0.68, false, false);
-    placeMoving(chars.runA, -2.2, 16.60, 1.9, 16.60, 0.00, 0.68, true, false);
+  // ---------------- 0. V7 ORIGINS CINEMATIC CHOREOGRAPHY (render 0.00 - 9.40s) ----------------
+  if (shot.id === 300) {
+    // NORMAL LIFE: the boy skips ahead toward school; mom waves him off; a jogger passes.
+    placeMoving(chars.survBoy, 2.0, 13.50, -1.0, 13.50, 0.00, 1.55, true, false);
+    placeMoving(chars.woman, 3.1, 13.10, 1.9, 13.10, 0.00, 1.55, false, false);
+    chars.woman.armPose = 'wave';
+    placeMoving(chars.runA, -2.2, 16.60, 1.9, 16.60, 0.00, 1.55, true, false);
   }
-  if (shot.id === 201 || shot.id === 202) {
+  if (shot.id === 301) {
+    // The elder marches off to the office with the morning commuters.
+    placeMoving(chars.runB, -2.6, 16.20, 0.9, 16.20, 1.60, 2.38, false, false);
+  }
+  if (shot.id === 302 || shot.id === 303) {
     // The hidden evil scientist at his bench — masked, gloved, calm. Total control.
     chars.scientist.visible = true;
     chars.scientist.pos = [-40.55, 0, -14.55];
-    chars.scientist.view = shot.id === 201 ? 'backFull' : 'threeQuarter';
+    chars.scientist.view = shot.id === 302 ? 'backFull' : 'threeQuarter';
     chars.scientist.flipX = false;
     chars.scientist.armPose = 'labWork';
     chars.scientist.breath = 0;
   }
-  if (shot.id === 203) {
-    // THE RELEASE: cage door slides, three infected sprint loose into the world.
+  if (shot.id === 304) {
+    // THE BUTTON: he presses it — the chemical starts raining into the glass containers.
     chars.scientist.visible = true;
-    chars.scientist.pos = [-41.45, 0, -13.10];
-    chars.scientist.view = 'side'; chars.scientist.flipX = true;
+    chars.scientist.pos = [-39.95, 0, -13.95];
+    chars.scientist.view = 'threeQuarter'; chars.scientist.flipX = false;
     chars.scientist.armPose = 'labWork';
-    placeMoving(chars.infA, -36.9, -14.2, -34.9, -11.2, 1.80, 2.46, true, false);
-    chars.infA.armPose = 'zombieReach';
-    placeMoving(chars.infB, -36.9, -14.2, -35.5, -11.9, 1.80, 2.46, true, false);
-    chars.infB.armPose = 'zombieReach';
-    placeMoving(chars.infC, -36.6, -14.6, -34.6, -12.4, 1.80, 2.46, true, false);
-    chars.infC.armPose = 'zombieReach';
   }
-  if (shot.id === 204) {
-    // News anchor, live, reading the end of the world — ticker running.
+  if (shot.id === 305) {
+    // TRANSFORMATION: the subjects writhe inside the containers as the chemical takes hold.
+    chars.scientist.visible = true;
+    chars.scientist.pos = [-39.60, 0, -13.30];
+    chars.scientist.view = 'side'; chars.scientist.flipX = false;
+    chars.scientist.armPose = 'labWork';
+  }
+  if (shot.id === 306) {
+    // THE EVIL LAUGH: the mask fills the frame; below the lenses, a slow, wrong smile.
+    chars.scientist.visible = true;
+    chars.scientist.pos = [-40.55, 0, -14.55];
+    chars.scientist.view = 'front'; chars.scientist.flipX = false;
+    chars.scientist.expr = 'evilGrin';
+    chars.scientist.armPose = 'labWork';
+    chars.scientist.shake = 0.008 + 0.006 * Math.abs(Math.sin(t * 16.0));
+  }
+  if (shot.id === 307) {
+    // THE CITY FALLS: fires, smoke, the horde loose in the strobing dark.
+    placeMoving(chars.infA, -3.4, 16.30, 3.2, 16.30, 7.60, 8.68, true, false);
+    chars.infA.armPose = 'zombieReach';
+    placeMoving(chars.infB, -4.5, 17.30, 1.6, 17.30, 7.60, 8.68, true, false);
+    chars.infB.armPose = 'zombieReach';
+    placeMoving(chars.infC, -1.2, 15.10, 1.5, 12.60, 7.60, 8.68, true, false);
+    chars.infC.armPose = 'zombieReach';
+    placeMoving(chars.runA, 3.9, 15.90, 1.1, 15.90, 7.60, 8.62, true, false);
+    chars.runA.expr = 'extreme_panic';
+  }
+  if (shot.id === 308) {
+    // News anchor, live, reading the end of the world — every screen, every channel.
     chars.anchor.visible = true;
     chars.anchor.pos = [-40.0, 0, -50.30];
     chars.anchor.view = 'front'; chars.anchor.flipX = false;
     chars.anchor.crouchSit = true;
     chars.anchor.talk = 0.30 + 0.50 * Math.abs(Math.sin(t * 11.0));
-  }
-  if (shot.id === 205) {
-    // Nationwide destruction: fires, smoke, the horde loose in the strobing dark.
-    placeMoving(chars.infA, -3.4, 16.30, 3.2, 16.30, 2.94, 3.46, true, false);
-    chars.infA.armPose = 'zombieReach';
-    placeMoving(chars.infB, -4.5, 17.30, 1.6, 17.30, 2.94, 3.46, true, false);
-    chars.infB.armPose = 'zombieReach';
-    placeMoving(chars.infC, -1.2, 15.10, 1.5, 12.60, 2.94, 3.46, true, false);
-    chars.infC.armPose = 'zombieReach';
-    placeMoving(chars.runA, 3.9, 15.90, 1.1, 15.90, 2.94, 3.42, true, false);
-    chars.runA.expr = 'extreme_panic';
   }
 
   // ---------------- 2. STREET ATTACKER (`carMan`) & FLEEING CIVILIANS (`runA`, `runB`) ----------------
@@ -888,9 +934,12 @@ export function evaluateScene(t) {
       ? { x: 3.05, z: 17.00, s: 0.55 + 0.55 * clamp01((t - 27.35) / 2.2), a: clamp01((t - 27.35) / 0.5) }
       : null,
     // V6.5 ORIGINS states
-    cageDoorU: easeOut(t, 1.86, 2.16),
-    alarmInt: (t >= 1.80 && t < 2.42) ? (0.55 + 0.45 * Math.sin(t * 17.0)) : ((t >= 1.24 && t < 1.80) ? 0.30 : 0.0),
-    introFire: shot.id === 205,
+    cageDoorU: easeOut(t, 4.35, 4.65),
+    alarmInt: (t >= 4.42 && t < 6.60) ? (0.55 + 0.45 * Math.sin(t * 17.0)) : ((t >= 4.30 && t < 4.42) ? 0.30 : 0.0),
+    introFire: shot.id === 307,
+    introDrip: (shot.id >= 304 && shot.id <= 306) ? clamp01((t - 4.30) / 0.80) : 0,
+    introTurn: (shot.id >= 305 && shot.id <= 306) ? 1 : 0,
+    introButton: (shot.id >= 304 && t >= 4.28) ? 1 : 0,
     patrolCarVis,
     patrolCarPos,
     patrolCarRot,

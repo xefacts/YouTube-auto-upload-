@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // V3 Master Full-Length 3D Horror Renderer + 1080x1920 1-Word Captions Encoder
-// Renders all 7,810 frames (260.320s @ 30fps) via 3 load-balanced SwiftShader Chromium workers,
+// Renders all 8,081 frames (269.366s @ 30fps — V7 intro +9.04s) via 3 load-balanced SwiftShader Chromium workers,
 // captures lossless MJPEG chunks, then upscales to 1080x1920 + burns 660 synced 1-word pop captions
 // + muxes the unedited ElevenLabs v4 voiceover horror master (-14.2 LUFS) into final H.264 MP4 (< 100 MB).
 
@@ -21,7 +21,7 @@ const AUDIO_WAV = '/tmp/rick_study/v3/master_audio_v3.wav';
 const OUT_DIR   = '/tmp/rick_study/v3/render_chunks';
 const FINAL_MP4 = '/tmp/rick_study/v3/Rick_Clips_Outbreak_V3_Final_1080x1920.mp4';
 
-const TOTAL_FRAMES = 7810; // 260.320s @ 30fps
+const TOTAL_FRAMES = 8081; // 269.366s @ 30fps (V7: +271 frames for the new 12.40s intro)
 const FPS   = 30;
 const RW    = 540;
 const RH    = 960;
@@ -61,9 +61,9 @@ console.log(`[V3] Local scene server ready on 127.0.0.1:${port}`);
 
 // Cost-balanced 3-worker split across 7,810 frames
 const RANGES = [
-  { id: 0, start: 0,    end: 2260 }, // 2260 frames (street chase + store lock)
-  { id: 1, start: 2260, end: 5060 }, // 2800 frames (power cut, flashlight, mimic, brother)
-  { id: 2, start: 5060, end: TOTAL_FRAMES }, // 2750 frames (sunrise, platform, tunnel, door)
+  { id: 0, start: 0,    end: 2340 }, // 2340 frames (V7 origins intro + street chase + store lock)
+  { id: 1, start: 2340, end: 5240 }, // 2900 frames (power cut, flashlight, mimic, brother)
+  { id: 2, start: 5240, end: TOTAL_FRAMES }, // 2841 frames (sunrise, platform, tunnel, door)
 ];
 
 const tGlobal = Date.now();

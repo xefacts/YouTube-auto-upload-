@@ -75,7 +75,7 @@ function drawModernHairFront(p, R, H, cx, hc, u, ow, thick, light) {
 }
 
 /** V6.5 Gas-Mask Face for the hidden evil scientist — no skin, no eyes, NO identity. */
-function drawGasMaskFace(p, cx, hc, H, u, ow, facing, light) {
+function drawGasMaskFace(p, cx, hc, H, u, ow, facing, light, grin = 0) {
   const fx = cx + facing * 12 * u;
   // Rubber hood shading wash
   p.ell(fx, hc - 6 * u, H.a * 0.98, H.b * 0.94, "rgba(21,26,23,0.30)", 0);
@@ -105,6 +105,27 @@ function drawGasMaskFace(p, cx, hc, H, u, ow, facing, light) {
   p.ell(fx, fy + 12 * u, 13 * u, 4.2 * u, "#171c15", ow * 0.4);
   // Side hose curling from the right cheek down out of frame
   p.stroke([[fx + H.a * 0.88, lensY + 8 * u], [fx + H.a * 1.04, lensY + 26 * u], [fx + H.a * 0.80, lensY + 44 * u]], 7.5 * u, "#2b322a", "round");
+  if (grin > 0) {
+    // V7 THE EVIL LAUGH: a slow, wrong smile curling out from under the voice-filter.
+    // The mask hides the face — but the mouth area tightens, twists, rises. Genuinely wrong.
+    const gy = fy + 1.5 * u;
+    // shadowed smile crease rising asymmetrically around the filter cylinder
+    p.stroke([[fx - 26 * u, gy + 7 * u], [fx - 15 * u, gy + 1 * u], [fx - 6 * u, gy - 1.5 * u]],
+             3.4 * u, "rgba(6,8,6,0.78)", "round");
+    p.stroke([[fx + 26 * u, gy + 4 * u], [fx + 15 * u, gy - 1 * u], [fx + 6 * u, gy - 1.5 * u]],
+             3.4 * u, "rgba(6,8,6,0.78)", "round");
+    // upper lip pressure bulge over the filter — he is pressing the smile OUT
+    p.ell(fx, fy - 7.5 * u, 16 * u, 5.0 * u, "rgba(10,13,10,0.55)", 0);
+    // cheek-hitch folds driving the asymmetry upward on his left
+    p.stroke([[fx - 20 * u, fy - 12 * u], [fx - 24 * u, fy - 20 * u]], 2.6 * u, "rgba(8,10,8,0.60)", "round");
+    p.stroke([[fx + 19 * u, fy - 11 * u], [fx + 23 * u, fy - 18 * u]], 2.2 * u, "rgba(8,10,8,0.50)", "round");
+    // twin catchlights in the lenses flick brighter as the laugh builds (cold joy)
+    const glr = H.a * 0.30, gly = hc - 2 * u;
+    for (const side of [-1, 1]) {
+      const glx = fx + side * H.a * 0.46;
+      p.ell(glx - glr * 0.30, gly - glr * 0.30, glr * 0.20, glr * 0.13, "rgba(220,245,255,0.85)", 0);
+    }
+  }
 }
 
 /** Upgraded Nightmare Horror Zombie Face: Necrotic Veins, Torn Scar, Sunken Sockets, Glowing Eyes & Bloody Fangs */
@@ -744,7 +765,7 @@ export function rickChar(p, roleKey = "you", opts = {}) {
   for (let i = 0; i < 2; i++) if (arms[i].front && !arms[i].overHead) drawOneArm(arms[i]);
 
   // ---- Head ----
-  const infTwitch = R.infected ? (20 + Math.sin(step * Math.PI * 6 + seed) * 9) : 0;
+  const infTwitch = R.infected ? (4 + Math.sin(step * Math.PI * 3 + seed) * 4) : 0; // V7: neck stays straight, only a faint unsteady sway
   const totHeadRot = rad(autoLean * 0.45 + headTilt + infTwitch);
   p.rot = totHeadRot ? [totHeadRot, cx + jx, chin] : null;
   const hp = blobPts(cx + jx, hc, H);
@@ -753,7 +774,7 @@ export function rickChar(p, roleKey = "you", opts = {}) {
   p.inkRing(hp, ow * 1.04, thick);
 
   if (R.gasMask) {
-    drawGasMaskFace(p, cx + jx, hc + 4 * u, H, u, ow, facing, light);
+    drawGasMaskFace(p, cx + jx, hc + 4 * u, H, u, ow, facing, light, expr === 'evilGrin' ? 1 : 0);
   } else if (R.infected) {
     drawHorrorInfectedFace(p, cx + jx, hc + 4 * u, H, u, ow, facing, jawAnim, seed);
   } else {

@@ -41,7 +41,7 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.shadowMap.enabled = false;
 // V6: Hollywood filmic shoulder — kills highlight blow-outs (flashlight snaps, neon, sun).
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.18;
+renderer.toneMappingExposure = 1.28; // V7: brighter, friendlier grade
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#5d84a6');
@@ -619,6 +619,7 @@ export function renderAt(t) {
     labAlarmLight.intensity = ai * 1.6;
     world.labAlarmMat.color.setRGB(0.55 + 0.45 * ai, 0.08, 0.05);
     world.cageDoor.position.x = -1.78 * (st.cageDoorU || 0); // slides open at the release beat
+    world.updateIntroLab(t); // V7: glass-container chemical rain + master-button state
   } else {
     labLight.intensity = 0; labBenchLight.intensity = 0; vialGlowLight.intensity = 0; labAlarmLight.intensity = 0;
   }
@@ -712,6 +713,7 @@ export function renderAt(t) {
       else if (cs.armPose === 'plead')     { Larm = 'hang'; Rarm = 'plead'; }
       else if (cs.armPose === 'shush')     { Larm = 'hang'; Rarm = 'shush'; }
       else if (cs.armPose === 'grabSleeve'){ Larm = 'grabSleeve'; Rarm = 'grabSleeve'; }
+      else if (cs.armPose === 'wave')     { Larm = 'hang'; Rarm = 'wave'; } // V7: parents waving the boy off to school
       else if (cs.armPose === 'labWork')  { Larm = 'labWork'; Rarm = 'labWork'; }
       else if (rig.roleCfg.infected)       { Larm = 'zombieReach'; Rarm = 'zombieReach'; }
       else if (cs.isRunning)               { Larm = 'run'; Rarm = 'run'; }

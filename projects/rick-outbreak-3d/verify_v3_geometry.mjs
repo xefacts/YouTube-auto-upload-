@@ -71,7 +71,7 @@ const results = await page.evaluate(() => {
   }
 
   // ---- 1. Shots 1-2: YOU head/chest clearly in frame, bottles to the RIGHT ----
-  for (const [t, nm] of [[4.2, 'Shot1-early'], [4.7, 'Shot1-late']]) { // V6: shot 1 now 4.10-4.88
+  for (const [t, nm] of [[13.24, 'Shot1-early'], [13.74, 'Shot1-late']]) { // V7 render time (story 4.2/4.7 + 9.04)
     const cam = cameraAt(t);
     const head = project(cam, [3.10, 1.62, 3.05]);
     const chest = project(cam, [3.10, 1.30, 3.05]);
@@ -87,9 +87,9 @@ const results = await page.evaluate(() => {
   }
 
   // ---- 2. Phone inserts: all 4 phone corners inside frame ----
-  const phonePos = { 6.0: [3.02, 1.35, 3.10], 8.5: [3.02, 1.35, 3.10], 14.0: [3.02, 1.35, 3.10],
-                     118.0: [2.66, 1.35, -13.80], 121.5: [2.66, 1.35, -13.80],
-                     159.5: [3.02, 1.35, 3.10], 163.0: [3.02, 1.35, 3.10] };
+  const phonePos = { 15.04: [3.02, 1.35, 3.10], 17.54: [3.02, 1.35, 3.10], 23.04: [3.02, 1.35, 3.10],
+                     127.04: [2.66, 1.35, -13.80], 130.54: [2.66, 1.35, -13.80],
+                     168.54: [3.02, 1.35, 3.10], 172.04: [3.02, 1.35, 3.10] }; // V7 render time (story + 9.04)
   for (const [tStr, pos] of Object.entries(phonePos)) {
     const t = parseFloat(tStr);
     const cam = cameraAt(t);
@@ -108,7 +108,7 @@ const results = await page.evaluate(() => {
 
   // ---- 3. Street: carMan & police clear of abandoned car ----
   {
-    const cam = cameraAt(22.0);
+    const cam = cameraAt(31.04);
     const man = project(cam, [-2.40, 1.5, 16.20]);
     const car = project(cam, [-5.2, 0.9, 13.0]);
     log('Shot9 carMan in frame, abandonedCar off sightline',
@@ -123,7 +123,7 @@ const results = await page.evaluate(() => {
       const u1 = Math.min(1, Math.max(0, (tt - 61.28) / 4.02));
       const uL = Math.min(1, Math.max(0, (tt - 65.30) / 0.90));
       const infX = tt < 65.30 ? lerp(1.90, 0.32, u1) : lerp(0.32, -2.30, uL);
-      const cam = cameraAt(tt);
+      const cam = cameraAt(tt + 9.04); // V7: story math on tt, render probe + 9.04
       const pol = project(cam, [lerp(-0.40, -3.10, Math.min(1, (tt - 61.28) / 5.56)), 1.45, 17.50]);
       const inf = project(cam, [infX, 1.45, 17.35]);
       log(`Shot27/28 t=${tt} police+lead-infected both framed`,
@@ -134,7 +134,7 @@ const results = await page.evaluate(() => {
 
   // ---- 4. Woman uncanny close-up: full face + mouth above captions ----
   {
-    const cam = cameraAt(70.5);
+    const cam = cameraAt(79.54);
     const top = project(cam, [0.55, 1.68, 7.95]);
     const mouth = project(cam, [0.55, 1.42, 7.95]);
     const chin = project(cam, [0.55, 1.28, 7.95]);
@@ -145,7 +145,7 @@ const results = await page.evaluate(() => {
 
   // ---- 5. Peep window at y=1.55 aligned with mimic face ----
   {
-    const cam = cameraAt(111.5);
+    const cam = cameraAt(120.54);
     const win = project(cam, [2.80, 1.55, -16.32]);
     const face = project(cam, [2.80, 1.52, -17.10]);
     const d = Math.hypot(win.x - face.x, win.y - face.y);
@@ -157,7 +157,7 @@ const results = await page.evaluate(() => {
   {
     // Heights measured from the frozen_terror texture: content top row 228/1000 -> y1.36,
     // face centroid row 414 -> y1.03 (eyes ~1.08, chin ~0.95).
-    const cam = cameraAt(132.5);
+    const cam = cameraAt(141.54);
     const top = project(cam, [2.65, 1.38, -13.95]);
     const chin = project(cam, [2.65, 0.95, -13.95]);
     const eyes = project(cam, [2.65, 1.08, -13.95]);
@@ -168,7 +168,7 @@ const results = await page.evaluate(() => {
 
   // ---- 7. Alley maintenance door + hazard/lamp visible, doorway NOT bricked ----
   {
-    const cam = cameraAt(185.0);
+    const cam = cameraAt(194.04);
     const door = project(cam, [0.0, 1.4, -35.0]);
     const voidDark = project(cam, [0.0, 1.4, -36.4]);
     log('Shot63 maint door + stairwell void in frame', door.z > 0 && Math.abs(door.x) < 0.65 && Math.abs(voidDark.x) < 0.8,
@@ -177,7 +177,7 @@ const results = await page.evaluate(() => {
 
   // ---- 8. Underground boy-grab two-shot: you AND boy both in frame ----
   {
-    const cam = cameraAt(249.5);
+    const cam = cameraAt(258.54);
     const you = project(cam, [1.28, 0.95, -62.80]);
     const boy = project(cam, [0.85, 0.85, -62.95]);
     log('Shot80 you+boy sleeve-grab two-shot', you.z > 0 && boy.z > 0 && Math.abs(you.x) < 0.85 && Math.abs(boy.x) < 0.85 && you.y > -0.9 && boy.y > -0.9,
@@ -186,7 +186,7 @@ const results = await page.evaluate(() => {
 
   // ---- 9. Shot 82: self-closing door + hazard bulkhead region in frame ----
   {
-    const cam = cameraAt(258.4);
+    const cam = cameraAt(267.44);
     const doorTop = project(cam, [0.0, 3.4, -52.10]);
     const doorMid = project(cam, [0.0, 3.0, -52.10]);
     log('Shot82 closing door framed w/ hazard trim', doorTop.z > 0 && doorMid.z > 0 && doorTop.y < 0.9 && doorMid.y > -0.9 && Math.abs(doorMid.x) < 0.6,
@@ -195,7 +195,7 @@ const results = await page.evaluate(() => {
 
   // ---- 10. Flashlight rations: labeled cluster in frame ----
   {
-    const cam = cameraAt(89.5);
+    const cam = cameraAt(98.54);
     const c1 = project(cam, [3.44, 1.25, 4.30]);
     const c2 = project(cam, [4.00, 1.18, 4.15]);
     const c3 = project(cam, [4.05, 1.20, 3.94]);
@@ -217,7 +217,7 @@ const results = await page.evaluate(() => {
   }
   {
     // 201 lab wide: scientist at the bench, monitors behind
-    const cam = cameraAt(0.90);
+    const cam = cameraAt(2.70);
     const sci = project(cam, [-40.55, 1.55, -14.55]);
     const mon = project(cam, [-40.0, 1.6, -16.0]);
     log('Origins 201 lab wide: masked scientist + monitor wall in frame',
@@ -226,7 +226,7 @@ const results = await page.evaluate(() => {
   }
   {
     // 202 lab close: the gas-mask face fills the frame
-    const cam = cameraAt(1.50);
+    const cam = cameraAt(3.85);
     const mask = project(cam, [-40.55, 1.60, -14.55]);
     const vials = project(cam, [-41.3, 1.1, -15.6]);
     log('Origins 202 lab close: mask face large + vial glow present',
@@ -234,24 +234,31 @@ const results = await page.evaluate(() => {
       `mask(${mask.x.toFixed(2)},${mask.y.toFixed(2)}) vials(${vials.x.toFixed(2)},${vials.y.toFixed(2)})`);
   }
   {
-    // 203 release: sprinting infected burst out of the cage toward camera
-    const cam = cameraAt(2.10);
+    // V7 304 the button: scientist at the console, glass containers + chemical rain in frame
+    const cam = cameraAt(5.00);
     const st = cam.st;
-    let inFrame = 0;
-    for (const k of ['infA', 'infB', 'infC']) {
-      const c = st.chars[k];
-      if (!c.visible) continue;
-      const p = project(cam, [c.pos[0], 1.2, c.pos[2]]);
-      if (p.z > 0 && Math.abs(p.x) < 0.9 && Math.abs(p.y) < 0.95) inFrame++;
-    }
-    const cageDoorWorld = project(cam, [-36.85, 1.1, -13.25]);
-    log('Origins 203 release: infected loose + cage in frame',
-      inFrame >= 2 && cageDoorWorld.z > 0 && Math.abs(cageDoorWorld.x) < 1.05,
-      `inFrame=${inFrame} cage(${cageDoorWorld.x.toFixed(2)},${cageDoorWorld.y.toFixed(2)})`);
+    const sci = st.chars.scientist;
+    const sciP = project(cam, [sci.pos[0], 1.45, sci.pos[2]]);
+    const contA = project(cam, [-40.62, 1.1, -14.10]);
+    const contB = project(cam, [-39.25, 1.1, -14.05]);
+    log('Origins 304 containers: scientist + both glass vessels framed, rain on',
+      sci.visible && sciP.z > 0 && Math.abs(sciP.x) < 0.85 && Math.abs(sciP.y) < 0.9 &&
+      contA.z > 0 && contB.z > 0 && Math.abs(contA.x) < 1.0 && Math.abs(contB.x) < 1.0 && (st.introDrip || 0) > 0.2,
+      `sci(${sciP.x.toFixed(2)},${sciP.y.toFixed(2)}) contA(${contA.x.toFixed(2)},${contA.y.toFixed(2)}) contB(${contB.x.toFixed(2)},${contB.y.toFixed(2)}) drip=${(st.introDrip || 0).toFixed(2)}`);
+  }
+  {
+    // V7 306 evil laugh: mask fills frame, evilGrin expr + laugh shake active
+    const cam = cameraAt(7.00);
+    const st = cam.st;
+    const sci = st.chars.scientist;
+    const mask = project(cam, [sci.pos[0], 1.60, sci.pos[2]]);
+    log('Origins 306 evil grin: mask centered + evilGrin expr + shake',
+      sci.visible && sci.expr === 'evilGrin' && mask.z > 0 && Math.abs(mask.x) < 0.45 && Math.abs(mask.y) < 0.6 && sci.shake > 0.004,
+      `mask(${mask.x.toFixed(2)},${mask.y.toFixed(2)}) expr=${sci.expr} shake=${sci.shake.toFixed(4)}`);
   }
   {
     // 204 news: anchor centered, breaking-news wall behind
-    const cam = cameraAt(2.65);
+    const cam = cameraAt(9.00);
     const anchor = project(cam, [-40.0, 1.35, -50.30]);
     const wallTop = project(cam, [-40.0, 2.6, -51.5]);
     log('Origins 204 news: anchor + breaking wall in frame',
@@ -260,7 +267,7 @@ const results = await page.evaluate(() => {
   }
   {
     // 205 destruction: horde running + fire glow zone in frame
-    const cam = cameraAt(3.15);
+    const cam = cameraAt(8.10);
     const st = cam.st;
     let inFrame = 0;
     for (const k of ['infA', 'infB', 'infC']) {
@@ -276,15 +283,15 @@ const results = await page.evaluate(() => {
   }
   {
     // Phone sequence: social feed -> banner -> alert mode timeline (VO-synced)
-    const m = (tt) => window.__evaluateScene(tt).phoneState.mode;
-    const seq = [m(5.10), m(5.50), m(6.00)];
+    const m = (tt) => window.__evaluateScene(tt).phoneState.mode; // probes in RENDER time (story + 9.04)
+    const seq = [m(14.14), m(14.54), m(15.04)];
     log('Origins phone timeline: social0 -> social1 -> alert1',
       seq[0] === 'social0' && seq[1] === 'social1' && seq[2] === 'alert1', JSON.stringify(seq));
   }
 
   // ---- 11. Sunrise: abandoned cars visible but off store sightline ----
   {
-    const cam = cameraAt(154.6);
+    const cam = cameraAt(163.64);
     const swerve = project(cam, [3.8, 1.0, 19.0]);
     log('Shot54 sunrise abandoned car in frame', swerve.z > 0 && Math.abs(swerve.x) < 0.9, `(${swerve.x.toFixed(2)},${swerve.y.toFixed(2)})`);
   }
@@ -319,15 +326,15 @@ const results = await page.evaluate(() => {
 
   // 12a. Phone alert banner red present in upper-middle, dark bezel rows at very top of phone area
   {
-    const d = probe(8.5);
+    const d = probe(17.54);
     const redFrac = countColor(d, 160, 220, 380, 340, (r, g, b) => r > 120 && g < 90 && b < 90);
     const whiteFrac = countColor(d, 160, 220, 380, 340, (r, g, b) => r > 200 && g > 195 && b > 185);
     log('Pixel: alert1 card visible on phone (V6 white/amber)', redFrac > 0.08 || whiteFrac > 0.08, `redFrac=${redFrac.toFixed(3)} whiteFrac=${whiteFrac.toFixed(3)}`);
   }
   // 12b. Counter rations: red can + white FAK + gold chocolate pixels present (projection-driven region!)
   {
-    const d = probe(89.5);
-    const cam = cameraAt(89.5);
+    const d = probe(98.54);
+    const cam = cameraAt(98.54);
     const [x0, y0, x1, y1] = pxRect(cam, [3.72, 1.18, 4.10], 0.42, 0.30);
     const redFrac = countColor(d, x0, y0, x1, y1, (r, g, b) => r > 115 && g < 95 && b < 95);
     const whiteFrac = countColor(d, x0, y0, x1, y1, (r, g, b) => r > 195 && g > 195 && b > 190);
@@ -337,35 +344,35 @@ const results = await page.evaluate(() => {
   }
   // 12c. Neon: cyan pixels around the right storefront window (shot 12 pan end, powered)
   {
-    const d = probe(30.7);
-    const cam = cameraAt(30.7);
+    const d = probe(39.74);
+    const cam = cameraAt(39.74);
     const [x0, y0, x1, y1] = pxRect(cam, [3.35, 2.62, 7.24], 0.30, 0.22);
     const cyanFrac = countColor(d, x0, y0, x1, y1, (r, g, b) => b > 140 && g > 130 && r < 160);
     log('Pixel: OPEN 24 HRS neon cyan glow', cyanFrac > 0.004, `rect=${x0.toFixed(0)},${y0.toFixed(0)}-${x1.toFixed(0)},${y1.toFixed(0)} cyanFrac=${cyanFrac.toFixed(4)}`);
   }
   // 12d. Underground: warm amber bulkhead visible while door still partly open (t=256.6)
   {
-    const d = probe(256.6);
-    const cam = cameraAt(256.6);
+    const d = probe(265.64);
+    const cam = cameraAt(265.64);
     const [x0, y0, x1, y1] = pxRect(cam, [0.60, 4.46, -51.74], 0.20, 0.18);
     const warmFrac = countColor(d, x0, y0, x1, y1, (r, g, b) => r > 145 && g > 85 && b < 130);
     log('Pixel: warm bulkhead glow above door', warmFrac > 0.006, `rect=${x0.toFixed(0)},${y0.toFixed(0)}-${x1.toFixed(0)},${y1.toFixed(0)} warmFrac=${warmFrac.toFixed(4)}`);
   }
   // 12e. Alley hazard: yellow-black stripes near door top
   {
-    const d = probe(185.0);
+    const d = probe(194.04);
     const yelFrac = countColor(d, 100, 60, 440, 700, (r, g, b) => r > 160 && g > 120 && b < 100);
     log('Pixel: hazard yellow near alley door', yelFrac > 0.004, `yelFrac=${yelFrac.toFixed(4)}`);
   }
   // 12f. Shelf products: colored rows in store background (shot 14 at 34s pans store)
   {
-    const d = probe(34.5);
+    const d = probe(43.54);
     const colorFrac = countColor(d, 60, 300, 480, 900, (r, g, b) => (r > 130 && g < 100 && b < 100) || (b > 130 && r < 110) || (r > 150 && g > 110 && b < 110));
     log('Pixel: labeled shelf product colors visible', colorFrac > 0.02, `colorFrac=${colorFrac.toFixed(3)}`);
   }
   // 12g. Phone map: yellow route on blue map bg
   {
-    const d = probe(162.5);
+    const d = probe(171.54);
     const mapFrac = countColor(d, 140, 200, 400, 700, (r, g, b) => (b > 60 && b < 130 && g > 60 && r < 80) || (r > 190 && g > 150 && b < 110));
     log('Pixel: offline map route visible', mapFrac > 0.02, `mapFrac=${mapFrac.toFixed(3)}`); // V6: ACES palette
   }
