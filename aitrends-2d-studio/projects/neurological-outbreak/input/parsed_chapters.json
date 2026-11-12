@@ -1,0 +1,2710 @@
+{
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "Part 1: Aisle Four \u2014 Biological Emergency",
+      "items": [
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "calm",
+          "text": "It's a Tuesday afternoon. You're standing in aisle four of a neighborhood convenience store, comparing two cans of soup, when your phone suddenly vibrates.",
+          "spoken": "It's a Tuesday afternoon. You're standing in aisle four of a neighborhood convenience store, comparing two cans of soup, when your phone suddenly vibrates."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "calm"
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "You glance at the screen.",
+          "spoken": "You glance at the screen."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "An emergency alert.",
+          "spoken": "An emergency alert."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "Not a weather warning. Not a missing-person notification.",
+          "spoken": "Not a weather warning. Not a missing-person notification."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "A national emergency broadcast.",
+          "spoken": "A national emergency broadcast."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "\"BIOLOGICAL EMERGENCY. A neurological outbreak has been confirmed. Avoid all contact with infected individuals. Seek immediate shelter. Secure all doors and windows.\"",
+          "spoken": "BIOLOGICAL EMERGENCY. A neurological outbreak has been confirmed. Avoid all contact with infected individuals. Seek immediate shelter. Secure all doors and windows."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "serious"
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "uneasy",
+          "text": "You read it again.",
+          "spoken": "You read it again."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "uneasy",
+          "text": "Then someone screams outside.",
+          "spoken": "Then someone screams outside."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "You turn toward the front windows.",
+          "spoken": "You turn toward the front windows."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "A man has abandoned his car in the middle of the road. He's running toward the intersection, looking over his shoulder.",
+          "spoken": "A man has abandoned his car in the middle of the road. He's running toward the intersection, looking over his shoulder."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "Behind him, three people are chasing him.",
+          "spoken": "Behind him, three people are chasing him."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "At first, you think it's an accident. Maybe a fight. Maybe something you don't want to get involved in.",
+          "spoken": "At first, you think it's an accident. Maybe a fight. Maybe something you don't want to get involved in."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "Then the man falls.",
+          "spoken": "Then the man falls."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "quietly"
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "shocked",
+          "text": "The three people reach him.",
+          "spoken": "The three people reach him."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "shocked",
+          "text": "And they don't help him.",
+          "spoken": "And they don't help him."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "shocked"
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Within seconds, the street becomes unrecognizable.",
+          "spoken": "Within seconds, the street becomes unrecognizable."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Cars collide at the intersection. Drivers abandon their vehicles. People run between buildings, knocking over anything in their way.",
+          "spoken": "Cars collide at the intersection. Drivers abandon their vehicles. People run between buildings, knocking over anything in their way."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You step backward.",
+          "spoken": "You step backward."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "The store entrance is only a few meters away.",
+          "spoken": "The store entrance is only a few meters away."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You rush toward it, grab the heavy metal deadbolt, and lock both doors.",
+          "spoken": "You rush toward it, grab the heavy metal deadbolt, and lock both doors."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "A moment later, someone slams against the glass.",
+          "spoken": "A moment later, someone slams against the glass."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "It's a delivery driver.",
+          "spoken": "It's a delivery driver."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "You've seen him here dozens of times.",
+          "spoken": "You've seen him here dozens of times."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "He's shouting something, but you can't understand him.",
+          "spoken": "He's shouting something, but you can't understand him."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "You move closer.",
+          "spoken": "You move closer."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Then you notice another person approaching behind him.",
+          "spoken": "Then you notice another person approaching behind him."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "The delivery driver turns around.",
+          "spoken": "The delivery driver turns around."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "His expression changes.",
+          "spoken": "His expression changes."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "He starts running again.",
+          "spoken": "He starts running again."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "But this time, he's running away from the store.",
+          "spoken": "But this time, he's running away from the store."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "whispering"
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "You step back and pull the security shutters down as far as they will go.",
+          "spoken": "You step back and pull the security shutters down as far as they will go."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "For now, you're inside.",
+          "spoken": "For now, you're inside."
+        },
+        {
+          "type": "speech",
+          "chapter": 1,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "And outside, the world is falling apart.",
+          "spoken": "And outside, the world is falling apart."
+        }
+      ]
+    },
+    {
+      "chapter": 2,
+      "title": "Part 2: Half Stock \u2014 The Woman at the Glass",
+      "items": [
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "calm",
+          "text": "The first ten minutes pass quickly.",
+          "spoken": "The first ten minutes pass quickly."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "calm",
+          "text": "You check your phone. No useful information.",
+          "spoken": "You check your phone. No useful information."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "calm",
+          "text": "You try calling someone. The call doesn't connect.",
+          "spoken": "You try calling someone. The call doesn't connect."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "calm",
+          "text": "You look through the windows again.",
+          "spoken": "You look through the windows again."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "calm",
+          "text": "There are fewer people running now.",
+          "spoken": "There are fewer people running now."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "That's almost worse.",
+          "spoken": "That's almost worse."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "You walk toward the checkout counter and look around the store.",
+          "spoken": "You walk toward the checkout counter and look around the store."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "Four aisles.",
+          "spoken": "Four aisles."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "Two refrigerators.",
+          "spoken": "Two refrigerators."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "A small office.",
+          "spoken": "A small office."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "One storage room.",
+          "spoken": "One storage room."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "It isn't much, but it has walls, a roof, and a lock.",
+          "spoken": "It isn't much, but it has walls, a roof, and a lock."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "You tell yourself that should be enough.",
+          "spoken": "You tell yourself that should be enough."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "Then you start checking the supplies.",
+          "spoken": "Then you start checking the supplies."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "Aisle one is almost empty. Someone has already taken most of the snacks.",
+          "spoken": "Aisle one is almost empty. Someone has already taken most of the snacks."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "Aisle two has a few dented cans, some pickled vegetables, and a bag of rice with a torn corner.",
+          "spoken": "Aisle two has a few dented cans, some pickled vegetables, and a bag of rice with a torn corner."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "The refrigerators are still running, but the power keeps flickering.",
+          "spoken": "The refrigerators are still running, but the power keeps flickering."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "You open the office and check the inventory computer.",
+          "spoken": "You open the office and check the inventory computer."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "The numbers don't make sense.",
+          "spoken": "The numbers don't make sense."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "According to the system, the store should have received two deliveries this week.",
+          "spoken": "According to the system, the store should have received two deliveries this week."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "Neither arrived.",
+          "spoken": "Neither arrived."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "The actual stock is less than half the recorded amount.",
+          "spoken": "The actual stock is less than half the recorded amount."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "You check the shelves again.",
+          "spoken": "You check the shelves again."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "Four liters of bottled water.",
+          "spoken": "Four liters of bottled water."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "Three protein bars.",
+          "spoken": "Three protein bars."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "Half a jar of peanut butter.",
+          "spoken": "Half a jar of peanut butter."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "Two bruised apples.",
+          "spoken": "Two bruised apples."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "And a handful of canned food.",
+          "spoken": "And a handful of canned food."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "confused"
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "disappointed",
+          "text": "You sit down.",
+          "spoken": "You sit down."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "disappointed",
+          "text": "If you ration everything carefully, you might manage for a few days.",
+          "spoken": "If you ration everything carefully, you might manage for a few days."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "disappointed",
+          "text": "But that's assuming the water stays clean, the refrigerators keep working, and nothing gets inside.",
+          "spoken": "But that's assuming the water stays clean, the refrigerators keep working, and nothing gets inside."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You look toward the front entrance.",
+          "spoken": "You look toward the front entrance."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Something is standing outside.",
+          "spoken": "Something is standing outside."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "A woman.",
+          "spoken": "A woman."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "She's facing the glass, completely motionless.",
+          "spoken": "She's facing the glass, completely motionless."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You watch her for several seconds.",
+          "spoken": "You watch her for several seconds."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Then she slowly raises her hand and presses it against the window.",
+          "spoken": "Then she slowly raises her hand and presses it against the window."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Her mouth moves.",
+          "spoken": "Her mouth moves."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You can't hear anything through the glass.",
+          "spoken": "You can't hear anything through the glass."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "But you can read her lips.",
+          "spoken": "But you can read her lips."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "\"Help me.\"",
+          "spoken": "Help me."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "whispering"
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "You don't move.",
+          "spoken": "You don't move."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "Because behind her, another figure has just appeared.",
+          "spoken": "Because behind her, another figure has just appeared."
+        },
+        {
+          "type": "speech",
+          "chapter": 2,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "And it isn't walking normally.",
+          "spoken": "And it isn't walking normally."
+        }
+      ]
+    },
+    {
+      "chapter": 3,
+      "title": "Part 3: The Storage Room Window",
+      "items": [
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "slowly",
+          "text": "The sun disappears behind the buildings.",
+          "spoken": "The sun disappears behind the buildings."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "slowly",
+          "text": "The store's automatic lights switch on, illuminating the empty aisles.",
+          "spoken": "The store's automatic lights switch on, illuminating the empty aisles."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "slowly",
+          "text": "You decide to barricade the entrance.",
+          "spoken": "You decide to barricade the entrance."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "slowly",
+          "text": "You drag two metal shelves toward the front doors and stack crates behind them.",
+          "spoken": "You drag two metal shelves toward the front doors and stack crates behind them."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "slowly",
+          "text": "It's exhausting work, but eventually the entrance is blocked.",
+          "spoken": "It's exhausting work, but eventually the entrance is blocked."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "slowly",
+          "text": "Then you remember something.",
+          "spoken": "Then you remember something."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "slowly"
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "The delivery entrance.",
+          "spoken": "The delivery entrance."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "You haven't checked it.",
+          "spoken": "You haven't checked it."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "You walk toward the storage room with a flashlight.",
+          "spoken": "You walk toward the storage room with a flashlight."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "The back door has an old wooden frame, a rusted padlock, and a small wire-mesh window.",
+          "spoken": "The back door has an old wooden frame, a rusted padlock, and a small wire-mesh window."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "It looks considerably weaker than the front entrance.",
+          "spoken": "It looks considerably weaker than the front entrance."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "You push a heavy hand truck against it and secure the handle with a cargo strap attached to a steel support beam.",
+          "spoken": "You push a heavy hand truck against it and secure the handle with a cargo strap attached to a steel support beam."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "It's not a perfect solution.",
+          "spoken": "It's not a perfect solution."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "But it's something.",
+          "spoken": "But it's something."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "You return to the checkout counter.",
+          "spoken": "You return to the checkout counter."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "For the next hour, nothing happens.",
+          "spoken": "For the next hour, nothing happens."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "concerned",
+          "text": "You almost begin to relax.",
+          "spoken": "You almost begin to relax."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Then you hear a metallic noise.",
+          "spoken": "Then you hear a metallic noise."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "whispering"
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "Clatter.",
+          "spoken": "Clatter."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "It comes from the storage room.",
+          "spoken": "It comes from the storage room."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "You switch off your flashlight.",
+          "spoken": "You switch off your flashlight."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "Another noise.",
+          "spoken": "Another noise."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "This time, something drags across the floor.",
+          "spoken": "This time, something drags across the floor."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "You move toward the back corridor.",
+          "spoken": "You move toward the back corridor."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "The emergency lights flicker overhead.",
+          "spoken": "The emergency lights flicker overhead."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "You reach the doorway and look inside.",
+          "spoken": "You reach the doorway and look inside."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "shocked",
+          "text": "The wire-mesh window has been broken.",
+          "spoken": "The wire-mesh window has been broken."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "shocked",
+          "text": "Glass covers the concrete floor.",
+          "spoken": "Glass covers the concrete floor."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "shocked",
+          "text": "And something is pushing an arm through the opening.",
+          "spoken": "And something is pushing an arm through the opening."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "shocked",
+          "text": "You step backward.",
+          "spoken": "You step backward."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "shocked",
+          "text": "The hand is moving.",
+          "spoken": "The hand is moving."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "shocked",
+          "text": "Its fingers repeatedly open and close, searching for something to grab.",
+          "spoken": "Its fingers repeatedly open and close, searching for something to grab."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Then you hear another sound.",
+          "spoken": "Then you hear another sound."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "A low clicking noise.",
+          "spoken": "A low clicking noise."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Something is trying to squeeze through the broken window.",
+          "spoken": "Something is trying to squeeze through the broken window."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You look at the cargo strap.",
+          "spoken": "You look at the cargo strap."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "It's already stretched tight.",
+          "spoken": "It's already stretched tight."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "whispering"
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You grab the hand truck and push its metal base against the door.",
+          "spoken": "You grab the hand truck and push its metal base against the door."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "The creature forces its arm farther through the opening.",
+          "spoken": "The creature forces its arm farther through the opening."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You lean against the hand truck.",
+          "spoken": "You lean against the hand truck."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "For several seconds, you manage to hold it.",
+          "spoken": "For several seconds, you manage to hold it."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "Then another impact comes from outside.",
+          "spoken": "Then another impact comes from outside."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "Something else has reached the door.",
+          "spoken": "Something else has reached the door."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "You look toward the narrow corridor.",
+          "spoken": "You look toward the narrow corridor."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "There are now multiple shapes moving behind the broken window.",
+          "spoken": "There are now multiple shapes moving behind the broken window."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You abandon the storage room and run back toward the main floor.",
+          "spoken": "You abandon the storage room and run back toward the main floor."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Your barricade is no longer a temporary inconvenience.",
+          "spoken": "Your barricade is no longer a temporary inconvenience."
+        },
+        {
+          "type": "speech",
+          "chapter": 3,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "It's the only thing keeping you alive.",
+          "spoken": "It's the only thing keeping you alive."
+        }
+      ]
+    },
+    {
+      "chapter": 4,
+      "title": "Part 4: Midnight Map \u2014 The Ringing Phone",
+      "items": [
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "You spend the next hour sitting behind the checkout counter.",
+          "spoken": "You spend the next hour sitting behind the checkout counter."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "Your hands are shaking.",
+          "spoken": "Your hands are shaking."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "You check your supplies again.",
+          "spoken": "You check your supplies again."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "Three protein bars.",
+          "spoken": "Three protein bars."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "Four liters of water.",
+          "spoken": "Four liters of water."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "Half a jar of peanut butter.",
+          "spoken": "Half a jar of peanut butter."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "You calculate the amount you can afford to consume.",
+          "spoken": "You calculate the amount you can afford to consume."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "Then you look at the store's clock.",
+          "spoken": "Then you look at the store's clock."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "It's almost midnight.",
+          "spoken": "It's almost midnight."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "You've been inside for hours, and you still have no idea whether the emergency services are operating.",
+          "spoken": "You've been inside for hours, and you still have no idea whether the emergency services are operating."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "You try the radio behind the counter.",
+          "spoken": "You try the radio behind the counter."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "Static.",
+          "spoken": "Static."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "You switch frequencies.",
+          "spoken": "You switch frequencies."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "Nothing.",
+          "spoken": "Nothing."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "exhausted",
+          "text": "Finally, you take out your phone and open the offline city map.",
+          "spoken": "Finally, you take out your phone and open the offline city map."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "The nearest major building is a municipal transit station, two blocks away.",
+          "spoken": "The nearest major building is a municipal transit station, two blocks away."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "You zoom in.",
+          "spoken": "You zoom in."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "There's an underground maintenance entrance on the eastern side.",
+          "spoken": "There's an underground maintenance entrance on the eastern side."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "The station has reinforced concrete walls, emergency generators, and access corridors connected to the old storm drainage network.",
+          "spoken": "The station has reinforced concrete walls, emergency generators, and access corridors connected to the old storm drainage network."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "It might be a better shelter.",
+          "spoken": "It might be a better shelter."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "But getting there means crossing the street.",
+          "spoken": "But getting there means crossing the street."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "thoughtful",
+          "text": "And you have no idea what's waiting outside.",
+          "spoken": "And you have no idea what's waiting outside."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "thoughtful"
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You put the phone away.",
+          "spoken": "You put the phone away."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Then you hear something from the front entrance.",
+          "spoken": "Then you hear something from the front entrance."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Not scratching.",
+          "spoken": "Not scratching."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Not banging.",
+          "spoken": "Not banging."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "A phone ringing.",
+          "spoken": "A phone ringing."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You look through a gap in the shelves.",
+          "spoken": "You look through a gap in the shelves."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "There's a person standing outside.",
+          "spoken": "There's a person standing outside."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Holding a mobile phone.",
+          "spoken": "Holding a mobile phone."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "The sound is coming from their pocket.",
+          "spoken": "The sound is coming from their pocket."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "They don't seem to notice it.",
+          "spoken": "They don't seem to notice it."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "They simply stand there, staring at the store.",
+          "spoken": "They simply stand there, staring at the store."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Then another infected approaches.",
+          "spoken": "Then another infected approaches."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "It stops beside the first one.",
+          "spoken": "It stops beside the first one."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "And both turn toward the glass.",
+          "spoken": "And both turn toward the glass."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You slowly move away.",
+          "spoken": "You slowly move away."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "The store isn't just surrounded anymore.",
+          "spoken": "The store isn't just surrounded anymore."
+        },
+        {
+          "type": "speech",
+          "chapter": 4,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "It's attracting attention.",
+          "spoken": "It's attracting attention."
+        }
+      ]
+    },
+    {
+      "chapter": 5,
+      "title": "Part 5: Dead Street \u2014 Are You Alone?",
+      "items": [
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "By morning, you have made your decision.",
+          "spoken": "By morning, you have made your decision."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "You're leaving.",
+          "spoken": "You're leaving."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "You pack the remaining food into a small backpack.",
+          "spoken": "You pack the remaining food into a small backpack."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "Four bottles of water.",
+          "spoken": "Four bottles of water."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "The protein bars.",
+          "spoken": "The protein bars."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "The peanut butter.",
+          "spoken": "The peanut butter."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "A first-aid kit.",
+          "spoken": "A first-aid kit."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "A flashlight.",
+          "spoken": "A flashlight."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "You also take a jacket and a spare phone charger.",
+          "spoken": "You also take a jacket and a spare phone charger."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "You check the front barricade.",
+          "spoken": "You check the front barricade."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "Still standing.",
+          "spoken": "Still standing."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "Then you check the rear door.",
+          "spoken": "Then you check the rear door."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "The cargo strap is hanging loose.",
+          "spoken": "The cargo strap is hanging loose."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "determined",
+          "text": "The hand truck has fallen onto its side.",
+          "spoken": "The hand truck has fallen onto its side."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Something has already entered the storage room.",
+          "spoken": "Something has already entered the storage room."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You don't wait to find out what.",
+          "spoken": "You don't wait to find out what."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You return to the front entrance.",
+          "spoken": "You return to the front entrance."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Move the shelves.",
+          "spoken": "Move the shelves."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Remove the crates.",
+          "spoken": "Remove the crates."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Unlock the deadbolt.",
+          "spoken": "Unlock the deadbolt."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "whispering"
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "Before opening the door, you stop.",
+          "spoken": "Before opening the door, you stop."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "The street is completely silent.",
+          "spoken": "The street is completely silent."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "No engines.",
+          "spoken": "No engines."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "No sirens.",
+          "spoken": "No sirens."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "No shouting.",
+          "spoken": "No shouting."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "You look through the glass.",
+          "spoken": "You look through the glass."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "An abandoned bus blocks most of the road.",
+          "spoken": "An abandoned bus blocks most of the road."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "A traffic light continues changing colors over an empty intersection.",
+          "spoken": "A traffic light continues changing colors over an empty intersection."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "And several infected figures are standing near the bus.",
+          "spoken": "And several infected figures are standing near the bus."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "They're not moving.",
+          "spoken": "They're not moving."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "They're just facing the same direction.",
+          "spoken": "They're just facing the same direction."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "tense"
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Toward the underground station.",
+          "spoken": "Toward the underground station."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You step away from the window.",
+          "spoken": "You step away from the window."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Something is happening down there.",
+          "spoken": "Something is happening down there."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "But staying here is no longer an option.",
+          "spoken": "But staying here is no longer an option."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You open the door.",
+          "spoken": "You open the door."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Cold air enters the store.",
+          "spoken": "Cold air enters the store."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You step outside and carefully close it behind you.",
+          "spoken": "You step outside and carefully close it behind you."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "The first few meters are easy.",
+          "spoken": "The first few meters are easy."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You move between abandoned vehicles, avoiding broken glass and anything that might make noise.",
+          "spoken": "You move between abandoned vehicles, avoiding broken glass and anything that might make noise."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Halfway down the street, you notice a child's backpack lying beside a bicycle.",
+          "spoken": "Halfway down the street, you notice a child's backpack lying beside a bicycle."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You stop.",
+          "spoken": "You stop."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "There's a small photograph attached to it.",
+          "spoken": "There's a small photograph attached to it."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "A family.",
+          "spoken": "A family."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Two parents and a little boy.",
+          "spoken": "Two parents and a little boy."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You look around.",
+          "spoken": "You look around."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Nothing.",
+          "spoken": "Nothing."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You continue toward the station.",
+          "spoken": "You continue toward the station."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "Then you hear footsteps behind you.",
+          "spoken": "Then you hear footsteps behind you."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "You turn.",
+          "spoken": "You turn."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "An infected man is standing beside the convenience store entrance.",
+          "spoken": "An infected man is standing beside the convenience store entrance."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "He recognizes movement.",
+          "spoken": "He recognizes movement."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "His head turns.",
+          "spoken": "His head turns."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "You start walking faster.",
+          "spoken": "You start walking faster."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "Then another figure emerges from between two cars.",
+          "spoken": "Then another figure emerges from between two cars."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You break into a run.",
+          "spoken": "You break into a run."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "The station entrance is visible now.",
+          "spoken": "The station entrance is visible now."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Twenty meters.",
+          "spoken": "Twenty meters."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Fifteen.",
+          "spoken": "Fifteen."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Ten.",
+          "spoken": "Ten."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You reach the stairs and descend as quickly as possible.",
+          "spoken": "You reach the stairs and descend as quickly as possible."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "At the bottom, a metal security shutter blocks the entrance.",
+          "spoken": "At the bottom, a metal security shutter blocks the entrance."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You pull it.",
+          "spoken": "You pull it."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Nothing.",
+          "spoken": "Nothing."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Locked.",
+          "spoken": "Locked."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You look around for another way in.",
+          "spoken": "You look around for another way in."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Then you notice a card reader beside a narrow maintenance door.",
+          "spoken": "Then you notice a card reader beside a narrow maintenance door."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You remember the municipal station map.",
+          "spoken": "You remember the municipal station map."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "There should be an emergency access point nearby.",
+          "spoken": "There should be an emergency access point nearby."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "You search the backpack for something useful.",
+          "spoken": "You search the backpack for something useful."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "urgent",
+          "text": "Nothing.",
+          "spoken": "Nothing."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "urgent"
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Then a voice comes from behind the door.",
+          "spoken": "Then a voice comes from behind the door."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "\"Are you alone?\"",
+          "spoken": "Are you alone?"
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You freeze.",
+          "spoken": "You freeze."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You look back toward the stairs.",
+          "spoken": "You look back toward the stairs."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "The infected are approaching.",
+          "spoken": "The infected are approaching."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You have seconds to decide whether to trust whoever is on the other side.",
+          "spoken": "You have seconds to decide whether to trust whoever is on the other side."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "You answer.",
+          "spoken": "You answer."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "quietly",
+          "text": "\"No.\"",
+          "spoken": "No."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "quietly"
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "The lock clicks.",
+          "spoken": "The lock clicks."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "The door opens.",
+          "spoken": "The door opens."
+        },
+        {
+          "type": "speech",
+          "chapter": 5,
+          "speaker": "narrator",
+          "emotion": "tense",
+          "text": "And someone pulls you inside.",
+          "spoken": "And someone pulls you inside."
+        }
+      ]
+    },
+    {
+      "chapter": 6,
+      "title": "Part 6: Control Room \u2014 That's Not My Dad",
+      "items": [
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "calm, slightly breathless",
+          "text": "The room is small.",
+          "spoken": "The room is small."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "calm, slightly breathless",
+          "text": "A desk.",
+          "spoken": "A desk."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "calm, slightly breathless",
+          "text": "Two chairs.",
+          "spoken": "Two chairs."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "calm, slightly breathless",
+          "text": "An emergency radio.",
+          "spoken": "An emergency radio."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "calm, slightly breathless",
+          "text": "A wall covered with evacuation maps.",
+          "spoken": "A wall covered with evacuation maps."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "calm, slightly breathless",
+          "text": "A man stands near the entrance, holding a flashlight.",
+          "spoken": "A man stands near the entrance, holding a flashlight."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "calm, slightly breathless",
+          "text": "He looks at your backpack.",
+          "spoken": "He looks at your backpack."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "calm, slightly breathless",
+          "text": "Then at your face.",
+          "spoken": "Then at your face."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "\"How many followed you?\"",
+          "spoken": "How many followed you?"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "You don't answer immediately.",
+          "spoken": "You don't answer immediately."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "You ask where you are.",
+          "spoken": "You ask where you are."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "He tells you it's a municipal maintenance control room.",
+          "spoken": "He tells you it's a municipal maintenance control room."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "The station has been closed since the outbreak began.",
+          "spoken": "The station has been closed since the outbreak began."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "You look at the maps.",
+          "spoken": "You look at the maps."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "Several underground stations are marked with red circles.",
+          "spoken": "Several underground stations are marked with red circles."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "Some have handwritten notes beside them.",
+          "spoken": "Some have handwritten notes beside them."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "\"EVACUATED.\"",
+          "spoken": "EVACUATED."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "\"SEALED.\"",
+          "spoken": "SEALED."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "\"NO ACCESS.\"",
+          "spoken": "NO ACCESS."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "One station has a different marking.",
+          "spoken": "One station has a different marking."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "Yours.",
+          "spoken": "Yours."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "You ask him what happened here.",
+          "spoken": "You ask him what happened here."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "He looks at the radio.",
+          "spoken": "He looks at the radio."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "serious",
+          "text": "Then at the map.",
+          "spoken": "Then at the map."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "\"People came down here yesterday. We locked the doors to keep the infected outside.\"",
+          "spoken": "People came down here yesterday. We locked the doors to keep the infected outside."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "You ask how many people survived.",
+          "spoken": "You ask how many people survived."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "He doesn't answer.",
+          "spoken": "He doesn't answer."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "Instead, he points toward a second door.",
+          "spoken": "Instead, he points toward a second door."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "Beyond it is a narrow maintenance corridor.",
+          "spoken": "Beyond it is a narrow maintenance corridor."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "At the far end, you can see a dim green emergency light.",
+          "spoken": "At the far end, you can see a dim green emergency light."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "He tells you the underground network connects to an older storm drainage tunnel.",
+          "spoken": "He tells you the underground network connects to an older storm drainage tunnel."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "If the main station becomes compromised, there's another way out.",
+          "spoken": "If the main station becomes compromised, there's another way out."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low",
+          "text": "You finally begin to relax.",
+          "spoken": "You finally begin to relax."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "low"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Then the radio turns on.",
+          "spoken": "Then the radio turns on."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Static fills the room.",
+          "spoken": "Static fills the room."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "A voice comes through.",
+          "spoken": "A voice comes through."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "\"Control room, do you copy?\"",
+          "spoken": "Control room, do you copy?"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "The man reaches for the radio.",
+          "spoken": "The man reaches for the radio."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Before he can respond, another voice interrupts.",
+          "spoken": "Before he can respond, another voice interrupts."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "A child.",
+          "spoken": "A child."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "child",
+          "emotion": "childlike, frightened",
+          "text": "\"Please don't open the door.\"",
+          "spoken": "Please don't open the door."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "childlike, frightened"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "You look toward the maintenance corridor.",
+          "spoken": "You look toward the maintenance corridor."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "The man slowly lowers his hand.",
+          "spoken": "The man slowly lowers his hand."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "You ask him what that was.",
+          "spoken": "You ask him what that was."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "He doesn't respond.",
+          "spoken": "He doesn't respond."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "Then you hear three knocks.",
+          "spoken": "Then you hear three knocks."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "confused",
+          "text": "From the other side of the second door.",
+          "spoken": "From the other side of the second door."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "confused"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "The man looks at you.",
+          "spoken": "The man looks at you."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "And says something you weren't prepared to hear.",
+          "spoken": "And says something you weren't prepared to hear."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low, serious",
+          "text": "\"Whatever you do, don't answer it.\"",
+          "spoken": "Whatever you do, don't answer it."
+        },
+        {
+          "type": "pause",
+          "sec": 1.5,
+          "emotion": "low, serious"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low, serious",
+          "text": "You look back at the radio.",
+          "spoken": "You look back at the radio."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low, serious",
+          "text": "The child's voice returns.",
+          "spoken": "The child's voice returns."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "low, serious",
+          "text": "This time, it's much closer.",
+          "spoken": "This time, it's much closer."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "child",
+          "emotion": "childlike, whispering",
+          "text": "\"Dad?\"",
+          "spoken": "Dad?"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "childlike, whispering",
+          "text": "You turn toward the man.",
+          "spoken": "You turn toward the man."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "childlike, whispering",
+          "text": "His face has gone completely pale.",
+          "spoken": "His face has gone completely pale."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "childlike, whispering",
+          "text": "Because the voice on the radio belongs to his son.",
+          "spoken": "Because the voice on the radio belongs to his son."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "childlike, whispering",
+          "text": "And his son is standing right beside you.",
+          "spoken": "And his son is standing right beside you."
+        },
+        {
+          "type": "pause",
+          "sec": 1.0,
+          "emotion": "childlike, whispering"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "slowly, fearful",
+          "text": "You slowly look down.",
+          "spoken": "You slowly look down."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "slowly, fearful",
+          "text": "The boy who came with you from the street is still holding your jacket.",
+          "spoken": "The boy who came with you from the street is still holding your jacket."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "slowly, fearful",
+          "text": "He hasn't spoken once since entering the room.",
+          "spoken": "He hasn't spoken once since entering the room."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "slowly, fearful",
+          "text": "Now he looks up at you.",
+          "spoken": "Now he looks up at you."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "slowly, fearful",
+          "text": "And whispers:",
+          "spoken": "And whispers:"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "child",
+          "emotion": "childlike, terrified",
+          "text": "\"That's not my dad.\"",
+          "spoken": "That's not my dad."
+        },
+        {
+          "type": "pause",
+          "sec": 1.5,
+          "emotion": "childlike, terrified"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "tense whisper",
+          "text": "The emergency lights go out.",
+          "spoken": "The emergency lights go out."
+        },
+        {
+          "type": "pause",
+          "sec": 0.85,
+          "emotion": "tense whisper"
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "And somewhere inside the maintenance corridor...",
+          "spoken": "And somewhere inside the maintenance corridor..."
+        },
+        {
+          "type": "speech",
+          "chapter": 6,
+          "speaker": "narrator",
+          "emotion": "whispering",
+          "text": "Something begins running toward you.",
+          "spoken": "Something begins running toward you."
+        }
+      ]
+    }
+  ],
+  "packed_clips": [
+    {
+      "id": "nar_01",
+      "speaker": "narrator",
+      "chars": 1472,
+      "text": "It's a Tuesday afternoon. You're standing in aisle four of a neighborhood convenience store, comparing two cans of soup, when your phone suddenly vibrates. You glance at the screen. An emergency alert. Not a weather warning. Not a missing-person notification. A national emergency broadcast. BIOLOGICAL EMERGENCY. A neurological outbreak has been confirmed. Avoid all contact with infected individuals. Seek immediate shelter. Secure all doors and windows. You read it again. Then someone screams outside. You turn toward the front windows. A man has abandoned his car in the middle of the road. He's running toward the intersection, looking over his shoulder. Behind him, three people are chasing him. At first, you think it's an accident. Maybe a fight. Maybe something you don't want to get involved in. Then the man falls. The three people reach him. And they don't help him. Within seconds, the street becomes unrecognizable. Cars collide at the intersection. Drivers abandon their vehicles. People run between buildings, knocking over anything in their way. You step backward. The store entrance is only a few meters away. You rush toward it, grab the heavy metal deadbolt, and lock both doors. A moment later, someone slams against the glass. It's a delivery driver. You've seen him here dozens of times. He's shouting something, but you can't understand him. You move closer. Then you notice another person approaching behind him. The delivery driver turns around."
+    },
+    {
+      "id": "nar_02",
+      "speaker": "narrator",
+      "chars": 1441,
+      "text": "His expression changes. He starts running again. But this time, he's running away from the store. You step back and pull the security shutters down as far as they will go. For now, you're inside. And outside, the world is falling apart. The first ten minutes pass quickly. You check your phone. No useful information. You try calling someone. The call doesn't connect. You look through the windows again. There are fewer people running now. That's almost worse. You walk toward the checkout counter and look around the store. Four aisles. Two refrigerators. A small office. One storage room. It isn't much, but it has walls, a roof, and a lock. You tell yourself that should be enough. Then you start checking the supplies. Aisle one is almost empty. Someone has already taken most of the snacks. Aisle two has a few dented cans, some pickled vegetables, and a bag of rice with a torn corner. The refrigerators are still running, but the power keeps flickering. You open the office and check the inventory computer. The numbers don't make sense. According to the system, the store should have received two deliveries this week. Neither arrived. The actual stock is less than half the recorded amount. You check the shelves again. Four liters of bottled water. Three protein bars. Half a jar of peanut butter. Two bruised apples. And a handful of canned food. You sit down. If you ration everything carefully, you might manage for a few days."
+    },
+    {
+      "id": "nar_03",
+      "speaker": "narrator",
+      "chars": 1464,
+      "text": "But that's assuming the water stays clean, the refrigerators keep working, and nothing gets inside. You look toward the front entrance. Something is standing outside. A woman. She's facing the glass, completely motionless. You watch her for several seconds. Then she slowly raises her hand and presses it against the window. Her mouth moves. You can't hear anything through the glass. But you can read her lips. Help me. You don't move. Because behind her, another figure has just appeared. And it isn't walking normally. The sun disappears behind the buildings. The store's automatic lights switch on, illuminating the empty aisles. You decide to barricade the entrance. You drag two metal shelves toward the front doors and stack crates behind them. It's exhausting work, but eventually the entrance is blocked. Then you remember something. The delivery entrance. You haven't checked it. You walk toward the storage room with a flashlight. The back door has an old wooden frame, a rusted padlock, and a small wire-mesh window. It looks considerably weaker than the front entrance. You push a heavy hand truck against it and secure the handle with a cargo strap attached to a steel support beam. It's not a perfect solution. But it's something. You return to the checkout counter. For the next hour, nothing happens. You almost begin to relax. Then you hear a metallic noise. Clatter. It comes from the storage room. You switch off your flashlight. Another noise."
+    },
+    {
+      "id": "nar_04",
+      "speaker": "narrator",
+      "chars": 1393,
+      "text": "This time, something drags across the floor. You move toward the back corridor. The emergency lights flicker overhead. You reach the doorway and look inside. The wire-mesh window has been broken. Glass covers the concrete floor. And something is pushing an arm through the opening. You step backward. The hand is moving. Its fingers repeatedly open and close, searching for something to grab. Then you hear another sound. A low clicking noise. Something is trying to squeeze through the broken window. You look at the cargo strap. It's already stretched tight. You grab the hand truck and push its metal base against the door. The creature forces its arm farther through the opening. You lean against the hand truck. For several seconds, you manage to hold it. Then another impact comes from outside. Something else has reached the door. You look toward the narrow corridor. There are now multiple shapes moving behind the broken window. You abandon the storage room and run back toward the main floor. Your barricade is no longer a temporary inconvenience. It's the only thing keeping you alive. You spend the next hour sitting behind the checkout counter. Your hands are shaking. You check your supplies again. Three protein bars. Four liters of water. Half a jar of peanut butter. You calculate the amount you can afford to consume. Then you look at the store's clock. It's almost midnight."
+    },
+    {
+      "id": "nar_05",
+      "speaker": "narrator",
+      "chars": 1466,
+      "text": "You've been inside for hours, and you still have no idea whether the emergency services are operating. You try the radio behind the counter. Static. You switch frequencies. Nothing. Finally, you take out your phone and open the offline city map. The nearest major building is a municipal transit station, two blocks away. You zoom in. There's an underground maintenance entrance on the eastern side. The station has reinforced concrete walls, emergency generators, and access corridors connected to the old storm drainage network. It might be a better shelter. But getting there means crossing the street. And you have no idea what's waiting outside. You put the phone away. Then you hear something from the front entrance. Not scratching. Not banging. A phone ringing. You look through a gap in the shelves. There's a person standing outside. Holding a mobile phone. The sound is coming from their pocket. They don't seem to notice it. They simply stand there, staring at the store. Then another infected approaches. It stops beside the first one. And both turn toward the glass. You slowly move away. The store isn't just surrounded anymore. It's attracting attention. By morning, you have made your decision. You're leaving. You pack the remaining food into a small backpack. Four bottles of water. The protein bars. The peanut butter. A first-aid kit. A flashlight. You also take a jacket and a spare phone charger. You check the front barricade. Still standing."
+    },
+    {
+      "id": "nar_06",
+      "speaker": "narrator",
+      "chars": 1483,
+      "text": "Then you check the rear door. The cargo strap is hanging loose. The hand truck has fallen onto its side. Something has already entered the storage room. You don't wait to find out what. You return to the front entrance. Move the shelves. Remove the crates. Unlock the deadbolt. Before opening the door, you stop. The street is completely silent. No engines. No sirens. No shouting. You look through the glass. An abandoned bus blocks most of the road. A traffic light continues changing colors over an empty intersection. And several infected figures are standing near the bus. They're not moving. They're just facing the same direction. Toward the underground station. You step away from the window. Something is happening down there. But staying here is no longer an option. You open the door. Cold air enters the store. You step outside and carefully close it behind you. The first few meters are easy. You move between abandoned vehicles, avoiding broken glass and anything that might make noise. Halfway down the street, you notice a child's backpack lying beside a bicycle. You stop. There's a small photograph attached to it. A family. Two parents and a little boy. You look around. Nothing. You continue toward the station. Then you hear footsteps behind you. You turn. An infected man is standing beside the convenience store entrance. He recognizes movement. His head turns. You start walking faster. Then another figure emerges from between two cars. You break into a run."
+    },
+    {
+      "id": "nar_07",
+      "speaker": "narrator",
+      "chars": 1474,
+      "text": "The station entrance is visible now. Twenty meters. Fifteen. Ten. You reach the stairs and descend as quickly as possible. At the bottom, a metal security shutter blocks the entrance. You pull it. Nothing. Locked. You look around for another way in. Then you notice a card reader beside a narrow maintenance door. You remember the municipal station map. There should be an emergency access point nearby. You search the backpack for something useful. Nothing. Then a voice comes from behind the door. Are you alone? You freeze. You look back toward the stairs. The infected are approaching. You have seconds to decide whether to trust whoever is on the other side. You answer. No. The lock clicks. The door opens. And someone pulls you inside. The room is small. A desk. Two chairs. An emergency radio. A wall covered with evacuation maps. A man stands near the entrance, holding a flashlight. He looks at your backpack. Then at your face. How many followed you? You don't answer immediately. You ask where you are. He tells you it's a municipal maintenance control room. The station has been closed since the outbreak began. You look at the maps. Several underground stations are marked with red circles. Some have handwritten notes beside them. EVACUATED. SEALED. NO ACCESS. One station has a different marking. Yours. You ask him what happened here. He looks at the radio. Then at the map. People came down here yesterday. We locked the doors to keep the infected outside."
+    },
+    {
+      "id": "nar_08",
+      "speaker": "narrator",
+      "chars": 1381,
+      "text": "You ask how many people survived. He doesn't answer. Instead, he points toward a second door. Beyond it is a narrow maintenance corridor. At the far end, you can see a dim green emergency light. He tells you the underground network connects to an older storm drainage tunnel. If the main station becomes compromised, there's another way out. You finally begin to relax. Then the radio turns on. Static fills the room. A voice comes through. Control room, do you copy? The man reaches for the radio. Before he can respond, another voice interrupts. A child. You look toward the maintenance corridor. The man slowly lowers his hand. You ask him what that was. He doesn't respond. Then you hear three knocks. From the other side of the second door. The man looks at you. And says something you weren't prepared to hear. Whatever you do, don't answer it. You look back at the radio. The child's voice returns. This time, it's much closer. You turn toward the man. His face has gone completely pale. Because the voice on the radio belongs to his son. And his son is standing right beside you. You slowly look down. The boy who came with you from the street is still holding your jacket. He hasn't spoken once since entering the room. Now he looks up at you. And whispers: The emergency lights go out. And somewhere inside the maintenance corridor... Something begins running toward you."
+    },
+    {
+      "id": "child_all",
+      "speaker": "child",
+      "chars": 72,
+      "text": "Please don't open the door... ... ... Dad?... ... ... That's not my dad."
+    }
+  ]
+}

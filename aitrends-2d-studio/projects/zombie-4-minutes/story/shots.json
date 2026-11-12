@@ -1,0 +1,83 @@
+{
+  "title": "What If a Zombie Apocalypse Started and You Only Had 4 Minutes?",
+  "duration": 48.0,
+  "shots": [
+    {
+      "id": "s001", "start": 0.0, "end": 4.0, "bars": "wide", "in": { "type": "fade", "dur": 0.4 },
+      "line": "[04:00] Your phone screams first. Every screen in the city flashes the same four words: DO NOT GO OUTSIDE.",
+      "scene": "Apartment wide two-shot: YOU and SAM freeze as TV and phones blast crimson EMERGENCY ALERT — 04:00 countdown begins.",
+      "set": "apartment"
+    },
+    {
+      "id": "s002", "start": 4.0, "end": 8.0, "bars": "scope", "in": { "type": "cut" },
+      "line": "[03:45] Sirens wail across the skyline. You don't have hours to prepare — you have four minutes.",
+      "scene": "Giant bigFace close-up of YOU lit by pulsing emergency glow, eyes locking in focus with '03:45' corner countdown.",
+      "set": "apartment"
+    },
+    {
+      "id": "s003", "start": 8.0, "end": 12.0, "bars": "scope", "in": { "type": "fade", "dur": 0.35 },
+      "line": "[03:30] What if a zombie apocalypse started right now... and you only had four minutes?",
+      "scene": "Cinematic city skyline with smoke plumes, searchlight beams, and glowing title card: WHAT IF ZOMBIES STARTED / YOU ONLY HAVE 4 MINUTES.",
+      "set": "skyline"
+    },
+    {
+      "id": "s004", "start": 12.0, "end": 16.0, "bars": "scope", "in": { "type": "cut" },
+      "line": "[03:10] Minute One: Outside, gridlock hits in thirty seconds. Infected silhouettes surge down the avenue.",
+      "scene": "3D Three.js street orbit: lit apartment blocks, streetlamps, and a horde of shambling zombie figures advancing up the avenue.",
+      "set": "street3d"
+    },
+    {
+      "id": "s005", "start": 16.0, "end": 20.0, "bars": "none", "in": { "type": "zoom", "dur": 0.3 },
+      "line": "[02:45] One bite takes twenty seconds to turn. By minute four, one case becomes four thousand.",
+      "scene": "Blueprint exponential outbreak data card: INFECTION CURVE climbing steeply from 1 to 4,096 cases in 4.0 min.",
+      "set": "blueprint"
+    },
+    {
+      "id": "s006", "start": 20.0, "end": 24.0, "bars": "wide", "in": { "type": "cut" },
+      "line": "[02:15] Minute Two: Ignore weapons — grab water. Pressure drops the moment power plants go unmanned.",
+      "scene": "Macro kitchen sink insert: YOU with speed-trail arms filling every bottle and pot under a blasting faucet ('02:15 — FILL WATER FIRST').",
+      "set": "kitchen"
+    },
+    {
+      "id": "s007", "start": 24.0, "end": 28.0, "bars": "wide", "in": { "type": "cut" },
+      "line": "[01:45] Heavy footsteps hit your hallway. You and Sam slam the couch straight into the front door.",
+      "scene": "Dynamic hallway action two-shot: YOU and SAM brace a heavy sofa against the rattling apartment door as dust flies ('01:45').",
+      "set": "hallway"
+    },
+    {
+      "id": "s008", "start": 28.0, "end": 32.0, "bars": "none", "in": { "type": "cut" },
+      "line": "[01:15] Minute Three: Kill every light and sound. One lit window in a dark block is a dinner bell.",
+      "scene": "Blueprint + silhouette diagram: SOUND & LIGHT = BAIT — breaker switch flips OFF as soundwave rings pass harmlessly outside ('01:15').",
+      "set": "blueprint"
+    },
+    {
+      "id": "s009", "start": 32.0, "end": 36.0, "bars": "wide", "in": { "type": "whip", "dur": 0.25, "dir": 1 },
+      "line": "[00:45] Never take the ground stairs — everyone runs down. You climb up toward the roof hatch.",
+      "scene": "Vertical split/cutaway stairwell: zombie silhouettes swarming the lower stairs ('GROUND = TRAP') while YOU and SAM climb the roof ladder ('GO UP').",
+      "set": "stairwell"
+    },
+    {
+      "id": "s010", "start": 36.0, "end": 40.0, "bars": "scope", "in": { "type": "flash", "dur": 0.25 },
+      "line": "[00:15] Fifteen seconds left! The hallway door splinters — time freezes as you haul Sam through the hatch!",
+      "scene": "SIGNATURE TIME-STOP: Frozen wood splinters and floating droplets in blue-crimson tint as zombie hands breach below; '00:15' badge.",
+      "set": "stairwell"
+    },
+    {
+      "id": "s011", "start": 40.0, "end": 44.0, "bars": "scope", "in": { "type": "cut" },
+      "line": "[00:00] Zero hour. The steel hatch locks behind you as sirens echo across the burning city.",
+      "scene": "Epic rooftop wide shot: YOU and SAM silhouetted on the roof against searchlights and dusk sky as countdown hits '00:00 — SURVIVED'.",
+      "set": "rooftop"
+    },
+    {
+      "id": "s012", "start": 44.0, "end": 48.0, "bars": "none", "in": { "type": "fade", "dur": 0.4 },
+      "line": "Four minutes. What are the first three things YOU grab? Tell us in the comments and subscribe.",
+      "scene": "End screen: 'What would YOU grab in 4 minutes?' in serif italic, comment bubble, Subscribe pill, YOU, SAM, and two shambling zombies.",
+      "set": "endscreen"
+    }
+  ],
+  "music": [
+    { "start": 0.0, "end": 16.0, "mood": "tension", "intensity": 0.7 },
+    { "start": 16.0, "end": 32.0, "mood": "action", "intensity": 0.8 },
+    { "start": 32.0, "end": 48.0, "mood": "epic", "intensity": 0.85 }
+  ]
+}

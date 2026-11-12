@@ -1,0 +1,2822 @@
+{
+  "duration": 767.922,
+  "sentences": [
+    {
+      "id": 1,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "calm",
+      "start": 0.35,
+      "end": 8.5,
+      "text": "It's a Tuesday afternoon. You're standing in aisle four of a neighborhood convenience store, comparing two cans of soup, when your phone suddenly vibrates."
+    },
+    {
+      "id": 2,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 9.59,
+      "end": 10.74,
+      "text": "You glance at the screen."
+    },
+    {
+      "id": 3,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 11.08,
+      "end": 12.4,
+      "text": "An emergency alert."
+    },
+    {
+      "id": 4,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 12.74,
+      "end": 15.93,
+      "text": "Not a weather warning. Not a missing-person notification."
+    },
+    {
+      "id": 5,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 16.17,
+      "end": 18.29,
+      "text": "A national emergency broadcast."
+    },
+    {
+      "id": 6,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 18.53,
+      "end": 29.67,
+      "text": "\"BIOLOGICAL EMERGENCY. A neurological outbreak has been confirmed. Avoid all contact with infected individuals. Seek immediate shelter. Secure all doors and windows.\""
+    },
+    {
+      "id": 7,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "uneasy",
+      "start": 30.76,
+      "end": 31.66,
+      "text": "You read it again."
+    },
+    {
+      "id": 8,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "uneasy",
+      "start": 32.0,
+      "end": 33.9,
+      "text": "Then someone screams outside."
+    },
+    {
+      "id": 9,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 34.14,
+      "end": 35.97,
+      "text": "You turn toward the front windows."
+    },
+    {
+      "id": 10,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 36.21,
+      "end": 42.24,
+      "text": "A man has abandoned his car in the middle of the road. He's running toward the intersection, looking over his shoulder."
+    },
+    {
+      "id": 11,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 42.48,
+      "end": 45.04,
+      "text": "Behind him, three people are chasing him."
+    },
+    {
+      "id": 12,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 45.28,
+      "end": 51.69,
+      "text": "At first, you think it's an accident. Maybe a fight. Maybe something you don't want to get involved in."
+    },
+    {
+      "id": 13,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 51.93,
+      "end": 53.43,
+      "text": "Then the man falls."
+    },
+    {
+      "id": 14,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "shocked",
+      "start": 54.62,
+      "end": 55.97,
+      "text": "The three people reach him."
+    },
+    {
+      "id": 15,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "shocked",
+      "start": 56.31,
+      "end": 57.53,
+      "text": "And they don't help him."
+    },
+    {
+      "id": 16,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 58.72,
+      "end": 61.79,
+      "text": "Within seconds, the street becomes unrecognizable."
+    },
+    {
+      "id": 17,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 62.03,
+      "end": 69.57,
+      "text": "Cars collide at the intersection. Drivers abandon their vehicles. People run between buildings, knocking over anything in their way."
+    },
+    {
+      "id": 18,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 69.81,
+      "end": 70.93,
+      "text": "You step backward."
+    },
+    {
+      "id": 19,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 71.27,
+      "end": 73.72,
+      "text": "The store entrance is only a few meters away."
+    },
+    {
+      "id": 20,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 73.96,
+      "end": 78.43,
+      "text": "You rush toward it, grab the heavy metal deadbolt, and lock both doors."
+    },
+    {
+      "id": 21,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 78.67,
+      "end": 81.74,
+      "text": "A moment later, someone slams against the glass."
+    },
+    {
+      "id": 22,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 81.98,
+      "end": 83.27,
+      "text": "It's a delivery driver."
+    },
+    {
+      "id": 23,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 83.61,
+      "end": 85.8,
+      "text": "You've seen him here dozens of times."
+    },
+    {
+      "id": 24,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 86.04,
+      "end": 88.93,
+      "text": "He's shouting something, but you can't understand him."
+    },
+    {
+      "id": 25,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 89.17,
+      "end": 90.26,
+      "text": "You move closer."
+    },
+    {
+      "id": 26,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 90.6,
+      "end": 93.24,
+      "text": "Then you notice another person approaching behind him."
+    },
+    {
+      "id": 27,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 93.62,
+      "end": 95.55,
+      "text": "The delivery driver turns around."
+    },
+    {
+      "id": 28,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 95.93,
+      "end": 97.36,
+      "text": "His expression changes."
+    },
+    {
+      "id": 29,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 97.84,
+      "end": 99.1,
+      "text": "He starts running again."
+    },
+    {
+      "id": 30,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 99.58,
+      "end": 102.07,
+      "text": "But this time, he's running away from the store."
+    },
+    {
+      "id": 31,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 103.3,
+      "end": 107.69,
+      "text": "You step back and pull the security shutters down as far as they will go."
+    },
+    {
+      "id": 32,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 107.93,
+      "end": 109.76,
+      "text": "For now, you're inside."
+    },
+    {
+      "id": 33,
+      "chapter": 1,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 110.1,
+      "end": 112.85,
+      "text": "And outside, the world is falling apart."
+    },
+    {
+      "id": 34,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "calm",
+      "start": 114.44,
+      "end": 116.24,
+      "text": "The first ten minutes pass quickly."
+    },
+    {
+      "id": 35,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "calm",
+      "start": 116.48,
+      "end": 119.13,
+      "text": "You check your phone. No useful information."
+    },
+    {
+      "id": 36,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "calm",
+      "start": 119.37,
+      "end": 122.29,
+      "text": "You try calling someone. The call doesn't connect."
+    },
+    {
+      "id": 37,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "calm",
+      "start": 122.53,
+      "end": 124.12,
+      "text": "You look through the windows again."
+    },
+    {
+      "id": 38,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "calm",
+      "start": 124.36,
+      "end": 126.25,
+      "text": "There are fewer people running now."
+    },
+    {
+      "id": 39,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 126.49,
+      "end": 127.98,
+      "text": "That's almost worse."
+    },
+    {
+      "id": 40,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 128.32,
+      "end": 131.3,
+      "text": "You walk toward the checkout counter and look around the store."
+    },
+    {
+      "id": 41,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 131.54,
+      "end": 132.51,
+      "text": "Four aisles."
+    },
+    {
+      "id": 42,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 132.85,
+      "end": 133.95,
+      "text": "Two refrigerators."
+    },
+    {
+      "id": 43,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 134.29,
+      "end": 135.29,
+      "text": "A small office."
+    },
+    {
+      "id": 44,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 135.63,
+      "end": 136.73,
+      "text": "One storage room."
+    },
+    {
+      "id": 45,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 137.07,
+      "end": 140.47,
+      "text": "It isn't much, but it has walls, a roof, and a lock."
+    },
+    {
+      "id": 46,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 140.71,
+      "end": 142.47,
+      "text": "You tell yourself that should be enough."
+    },
+    {
+      "id": 47,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 142.71,
+      "end": 144.82,
+      "text": "Then you start checking the supplies."
+    },
+    {
+      "id": 48,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 145.06,
+      "end": 149.49,
+      "text": "Aisle one is almost empty. Someone has already taken most of the snacks."
+    },
+    {
+      "id": 49,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 149.73,
+      "end": 155.76,
+      "text": "Aisle two has a few dented cans, some pickled vegetables, and a bag of rice with a torn corner."
+    },
+    {
+      "id": 50,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 156.0,
+      "end": 159.57,
+      "text": "The refrigerators are still running, but the power keeps flickering."
+    },
+    {
+      "id": 51,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 159.81,
+      "end": 162.67,
+      "text": "You open the office and check the inventory computer."
+    },
+    {
+      "id": 52,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 162.91,
+      "end": 164.51,
+      "text": "The numbers don't make sense."
+    },
+    {
+      "id": 53,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 164.75,
+      "end": 169.1,
+      "text": "According to the system, the store should have received two deliveries this week."
+    },
+    {
+      "id": 54,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 169.34,
+      "end": 170.47,
+      "text": "Neither arrived."
+    },
+    {
+      "id": 55,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 170.81,
+      "end": 174.0,
+      "text": "The actual stock is less than half the recorded amount."
+    },
+    {
+      "id": 56,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 174.24,
+      "end": 175.65,
+      "text": "You check the shelves again."
+    },
+    {
+      "id": 57,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 175.89,
+      "end": 177.72,
+      "text": "Four liters of bottled water."
+    },
+    {
+      "id": 58,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 177.96,
+      "end": 179.34,
+      "text": "Three protein bars."
+    },
+    {
+      "id": 59,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 179.68,
+      "end": 181.35,
+      "text": "Half a jar of peanut butter."
+    },
+    {
+      "id": 60,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 181.59,
+      "end": 182.86,
+      "text": "Two bruised apples."
+    },
+    {
+      "id": 61,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 183.2,
+      "end": 184.81,
+      "text": "And a handful of canned food."
+    },
+    {
+      "id": 62,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "disappointed",
+      "start": 185.9,
+      "end": 186.76,
+      "text": "You sit down."
+    },
+    {
+      "id": 63,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "disappointed",
+      "start": 187.1,
+      "end": 190.88,
+      "text": "If you ration everything carefully, you might manage for a few days."
+    },
+    {
+      "id": 64,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "disappointed",
+      "start": 191.12,
+      "end": 196.805,
+      "text": "But that's assuming the water stays clean, the refrigerators keep working, and nothing gets inside."
+    },
+    {
+      "id": 65,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 197.045,
+      "end": 198.835,
+      "text": "You look toward the front entrance."
+    },
+    {
+      "id": 66,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 199.215,
+      "end": 200.925,
+      "text": "Something is standing outside."
+    },
+    {
+      "id": 67,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 201.305,
+      "end": 201.895,
+      "text": "A woman."
+    },
+    {
+      "id": 68,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 202.375,
+      "end": 205.575,
+      "text": "She's facing the glass, completely motionless."
+    },
+    {
+      "id": 69,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 205.955,
+      "end": 207.815,
+      "text": "You watch her for several seconds."
+    },
+    {
+      "id": 70,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 208.195,
+      "end": 212.365,
+      "text": "Then she slowly raises her hand and presses it against the window."
+    },
+    {
+      "id": 71,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 212.745,
+      "end": 214.025,
+      "text": "Her mouth moves."
+    },
+    {
+      "id": 72,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 214.505,
+      "end": 216.365,
+      "text": "You can't hear anything through the glass."
+    },
+    {
+      "id": 73,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 216.745,
+      "end": 218.665,
+      "text": "But you can read her lips."
+    },
+    {
+      "id": 74,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 219.145,
+      "end": 219.655,
+      "text": "\"Help me.\""
+    },
+    {
+      "id": 75,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 220.985,
+      "end": 221.895,
+      "text": "You don't move."
+    },
+    {
+      "id": 76,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 222.235,
+      "end": 225.175,
+      "text": "Because behind her, another figure has just appeared."
+    },
+    {
+      "id": 77,
+      "chapter": 2,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 225.415,
+      "end": 226.805,
+      "text": "And it isn't walking normally."
+    },
+    {
+      "id": 78,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "slowly",
+      "start": 228.395,
+      "end": 230.645,
+      "text": "The sun disappears behind the buildings."
+    },
+    {
+      "id": 79,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "slowly",
+      "start": 231.025,
+      "end": 235.205,
+      "text": "The store's automatic lights switch on, illuminating the empty aisles."
+    },
+    {
+      "id": 80,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "slowly",
+      "start": 235.585,
+      "end": 237.535,
+      "text": "You decide to barricade the entrance."
+    },
+    {
+      "id": 81,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "slowly",
+      "start": 237.915,
+      "end": 242.695,
+      "text": "You drag two metal shelves toward the front doors and stack crates behind them."
+    },
+    {
+      "id": 82,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "slowly",
+      "start": 243.075,
+      "end": 246.585,
+      "text": "It's exhausting work, but eventually the entrance is blocked."
+    },
+    {
+      "id": 83,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "slowly",
+      "start": 246.965,
+      "end": 248.495,
+      "text": "Then you remember something."
+    },
+    {
+      "id": 84,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 249.725,
+      "end": 251.025,
+      "text": "The delivery entrance."
+    },
+    {
+      "id": 85,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 251.365,
+      "end": 252.385,
+      "text": "You haven't checked it."
+    },
+    {
+      "id": 86,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 252.725,
+      "end": 255.285,
+      "text": "You walk toward the storage room with a flashlight."
+    },
+    {
+      "id": 87,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 255.525,
+      "end": 261.085,
+      "text": "The back door has an old wooden frame, a rusted padlock, and a small wire-mesh window."
+    },
+    {
+      "id": 88,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 261.325,
+      "end": 264.105,
+      "text": "It looks considerably weaker than the front entrance."
+    },
+    {
+      "id": 89,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 264.345,
+      "end": 270.365,
+      "text": "You push a heavy hand truck against it and secure the handle with a cargo strap attached to a steel support beam."
+    },
+    {
+      "id": 90,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 270.605,
+      "end": 272.195,
+      "text": "It's not a perfect solution."
+    },
+    {
+      "id": 91,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 272.435,
+      "end": 273.625,
+      "text": "But it's something."
+    },
+    {
+      "id": 92,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 273.965,
+      "end": 275.585,
+      "text": "You return to the checkout counter."
+    },
+    {
+      "id": 93,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 275.825,
+      "end": 278.085,
+      "text": "For the next hour, nothing happens."
+    },
+    {
+      "id": 94,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "concerned",
+      "start": 278.325,
+      "end": 279.985,
+      "text": "You almost begin to relax."
+    },
+    {
+      "id": 95,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 280.325,
+      "end": 282.425,
+      "text": "Then you hear a metallic noise."
+    },
+    {
+      "id": 96,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 283.655,
+      "end": 284.225,
+      "text": "Clatter."
+    },
+    {
+      "id": 97,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 284.565,
+      "end": 286.005,
+      "text": "It comes from the storage room."
+    },
+    {
+      "id": 98,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 286.245,
+      "end": 287.675,
+      "text": "You switch off your flashlight."
+    },
+    {
+      "id": 99,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 287.915,
+      "end": 288.935,
+      "text": "Another noise."
+    },
+    {
+      "id": 100,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 289.275,
+      "end": 291.87,
+      "text": "This time, something drags across the floor."
+    },
+    {
+      "id": 101,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 292.11,
+      "end": 293.75,
+      "text": "You move toward the back corridor."
+    },
+    {
+      "id": 102,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 293.99,
+      "end": 296.06,
+      "text": "The emergency lights flicker overhead."
+    },
+    {
+      "id": 103,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 296.3,
+      "end": 298.39,
+      "text": "You reach the doorway and look inside."
+    },
+    {
+      "id": 104,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "shocked",
+      "start": 298.63,
+      "end": 300.65,
+      "text": "The wire-mesh window has been broken."
+    },
+    {
+      "id": 105,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "shocked",
+      "start": 300.89,
+      "end": 302.67,
+      "text": "Glass covers the concrete floor."
+    },
+    {
+      "id": 106,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "shocked",
+      "start": 302.91,
+      "end": 305.25,
+      "text": "And something is pushing an arm through the opening."
+    },
+    {
+      "id": 107,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "shocked",
+      "start": 305.49,
+      "end": 306.53,
+      "text": "You step backward."
+    },
+    {
+      "id": 108,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "shocked",
+      "start": 306.87,
+      "end": 308.01,
+      "text": "The hand is moving."
+    },
+    {
+      "id": 109,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "shocked",
+      "start": 308.35,
+      "end": 312.34,
+      "text": "Its fingers repeatedly open and close, searching for something to grab."
+    },
+    {
+      "id": 110,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 312.58,
+      "end": 314.09,
+      "text": "Then you hear another sound."
+    },
+    {
+      "id": 111,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 314.47,
+      "end": 315.67,
+      "text": "A low clicking noise."
+    },
+    {
+      "id": 112,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 316.15,
+      "end": 318.73,
+      "text": "Something is trying to squeeze through the broken window."
+    },
+    {
+      "id": 113,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 319.11,
+      "end": 320.47,
+      "text": "You look at the cargo strap."
+    },
+    {
+      "id": 114,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 320.85,
+      "end": 322.35,
+      "text": "It's already stretched tight."
+    },
+    {
+      "id": 115,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 323.58,
+      "end": 327.11,
+      "text": "You grab the hand truck and push its metal base against the door."
+    },
+    {
+      "id": 116,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 327.35,
+      "end": 329.9,
+      "text": "The creature forces its arm farther through the opening."
+    },
+    {
+      "id": 117,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 330.14,
+      "end": 331.64,
+      "text": "You lean against the hand truck."
+    },
+    {
+      "id": 118,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 331.88,
+      "end": 334.24,
+      "text": "For several seconds, you manage to hold it."
+    },
+    {
+      "id": 119,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 334.48,
+      "end": 336.84,
+      "text": "Then another impact comes from outside."
+    },
+    {
+      "id": 120,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 337.08,
+      "end": 338.69,
+      "text": "Something else has reached the door."
+    },
+    {
+      "id": 121,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 338.93,
+      "end": 340.73,
+      "text": "You look toward the narrow corridor."
+    },
+    {
+      "id": 122,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 340.97,
+      "end": 344.2,
+      "text": "There are now multiple shapes moving behind the broken window."
+    },
+    {
+      "id": 123,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 344.44,
+      "end": 347.88,
+      "text": "You abandon the storage room and run back toward the main floor."
+    },
+    {
+      "id": 124,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 348.12,
+      "end": 350.99,
+      "text": "Your barricade is no longer a temporary inconvenience."
+    },
+    {
+      "id": 125,
+      "chapter": 3,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 351.23,
+      "end": 353.19,
+      "text": "It's the only thing keeping you alive."
+    },
+    {
+      "id": 126,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 354.78,
+      "end": 357.8,
+      "text": "You spend the next hour sitting behind the checkout counter."
+    },
+    {
+      "id": 127,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 358.04,
+      "end": 359.31,
+      "text": "Your hands are shaking."
+    },
+    {
+      "id": 128,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 359.65,
+      "end": 361.09,
+      "text": "You check your supplies again."
+    },
+    {
+      "id": 129,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 361.33,
+      "end": 362.68,
+      "text": "Three protein bars."
+    },
+    {
+      "id": 130,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 363.02,
+      "end": 364.36,
+      "text": "Four liters of water."
+    },
+    {
+      "id": 131,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 364.7,
+      "end": 366.23,
+      "text": "Half a jar of peanut butter."
+    },
+    {
+      "id": 132,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 366.47,
+      "end": 368.93,
+      "text": "You calculate the amount you can afford to consume."
+    },
+    {
+      "id": 133,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 369.17,
+      "end": 370.73,
+      "text": "Then you look at the store's clock."
+    },
+    {
+      "id": 134,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 370.97,
+      "end": 372.258,
+      "text": "It's almost midnight."
+    },
+    {
+      "id": 135,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 372.598,
+      "end": 378.053,
+      "text": "You've been inside for hours, and you still have no idea whether the emergency services are operating."
+    },
+    {
+      "id": 136,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 378.293,
+      "end": 380.343,
+      "text": "You try the radio behind the counter."
+    },
+    {
+      "id": 137,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 380.583,
+      "end": 381.203,
+      "text": "Static."
+    },
+    {
+      "id": 138,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 381.543,
+      "end": 382.883,
+      "text": "You switch frequencies."
+    },
+    {
+      "id": 139,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 383.223,
+      "end": 383.773,
+      "text": "Nothing."
+    },
+    {
+      "id": 140,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "exhausted",
+      "start": 384.113,
+      "end": 388.123,
+      "text": "Finally, you take out your phone and open the offline city map."
+    },
+    {
+      "id": 141,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 388.363,
+      "end": 392.683,
+      "text": "The nearest major building is a municipal transit station, two blocks away."
+    },
+    {
+      "id": 142,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 392.923,
+      "end": 393.743,
+      "text": "You zoom in."
+    },
+    {
+      "id": 143,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 394.083,
+      "end": 397.223,
+      "text": "There's an underground maintenance entrance on the eastern side."
+    },
+    {
+      "id": 144,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 397.463,
+      "end": 405.363,
+      "text": "The station has reinforced concrete walls, emergency generators, and access corridors connected to the old storm drainage network."
+    },
+    {
+      "id": 145,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 405.603,
+      "end": 406.973,
+      "text": "It might be a better shelter."
+    },
+    {
+      "id": 146,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 407.213,
+      "end": 409.743,
+      "text": "But getting there means crossing the street."
+    },
+    {
+      "id": 147,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "thoughtful",
+      "start": 409.983,
+      "end": 412.253,
+      "text": "And you have no idea what's waiting outside."
+    },
+    {
+      "id": 148,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 413.343,
+      "end": 414.523,
+      "text": "You put the phone away."
+    },
+    {
+      "id": 149,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 415.003,
+      "end": 417.573,
+      "text": "Then you hear something from the front entrance."
+    },
+    {
+      "id": 150,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 417.953,
+      "end": 418.913,
+      "text": "Not scratching."
+    },
+    {
+      "id": 151,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 419.393,
+      "end": 420.213,
+      "text": "Not banging."
+    },
+    {
+      "id": 152,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 420.693,
+      "end": 421.723,
+      "text": "A phone ringing."
+    },
+    {
+      "id": 153,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 422.203,
+      "end": 424.033,
+      "text": "You look through a gap in the shelves."
+    },
+    {
+      "id": 154,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 424.413,
+      "end": 426.233,
+      "text": "There's a person standing outside."
+    },
+    {
+      "id": 155,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 426.613,
+      "end": 427.973,
+      "text": "Holding a mobile phone."
+    },
+    {
+      "id": 156,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 428.453,
+      "end": 430.533,
+      "text": "The sound is coming from their pocket."
+    },
+    {
+      "id": 157,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 430.913,
+      "end": 432.323,
+      "text": "They don't seem to notice it."
+    },
+    {
+      "id": 158,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 432.703,
+      "end": 435.413,
+      "text": "They simply stand there, staring at the store."
+    },
+    {
+      "id": 159,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 435.793,
+      "end": 437.883,
+      "text": "Then another infected approaches."
+    },
+    {
+      "id": 160,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 438.263,
+      "end": 440.113,
+      "text": "It stops beside the first one."
+    },
+    {
+      "id": 161,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 440.493,
+      "end": 442.643,
+      "text": "And both turn toward the glass."
+    },
+    {
+      "id": 162,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 443.023,
+      "end": 444.333,
+      "text": "You slowly move away."
+    },
+    {
+      "id": 163,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 444.813,
+      "end": 446.763,
+      "text": "The store isn't just surrounded anymore."
+    },
+    {
+      "id": 164,
+      "chapter": 4,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 447.003,
+      "end": 448.393,
+      "text": "It's attracting attention."
+    },
+    {
+      "id": 165,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 450.083,
+      "end": 452.263,
+      "text": "By morning, you have made your decision."
+    },
+    {
+      "id": 166,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 452.503,
+      "end": 453.213,
+      "text": "You're leaving."
+    },
+    {
+      "id": 167,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 453.553,
+      "end": 456.153,
+      "text": "You pack the remaining food into a small backpack."
+    },
+    {
+      "id": 168,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 456.393,
+      "end": 457.693,
+      "text": "Four bottles of water."
+    },
+    {
+      "id": 169,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 458.033,
+      "end": 459.093,
+      "text": "The protein bars."
+    },
+    {
+      "id": 170,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 459.433,
+      "end": 460.403,
+      "text": "The peanut butter."
+    },
+    {
+      "id": 171,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 460.743,
+      "end": 461.853,
+      "text": "A first-aid kit."
+    },
+    {
+      "id": 172,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 462.193,
+      "end": 463.003,
+      "text": "A flashlight."
+    },
+    {
+      "id": 173,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 463.343,
+      "end": 465.933,
+      "text": "You also take a jacket and a spare phone charger."
+    },
+    {
+      "id": 174,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 466.173,
+      "end": 467.573,
+      "text": "You check the front barricade."
+    },
+    {
+      "id": 175,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 467.813,
+      "end": 468.603,
+      "text": "Still standing."
+    },
+    {
+      "id": 176,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 468.943,
+      "end": 470.648,
+      "text": "Then you check the rear door."
+    },
+    {
+      "id": 177,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 470.888,
+      "end": 472.768,
+      "text": "The cargo strap is hanging loose."
+    },
+    {
+      "id": 178,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "determined",
+      "start": 473.008,
+      "end": 475.378,
+      "text": "The hand truck has fallen onto its side."
+    },
+    {
+      "id": 179,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 475.618,
+      "end": 477.858,
+      "text": "Something has already entered the storage room."
+    },
+    {
+      "id": 180,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 478.238,
+      "end": 480.078,
+      "text": "You don't wait to find out what."
+    },
+    {
+      "id": 181,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 480.458,
+      "end": 482.128,
+      "text": "You return to the front entrance."
+    },
+    {
+      "id": 182,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 482.508,
+      "end": 483.488,
+      "text": "Move the shelves."
+    },
+    {
+      "id": 183,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 483.968,
+      "end": 485.038,
+      "text": "Remove the crates."
+    },
+    {
+      "id": 184,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 485.518,
+      "end": 486.708,
+      "text": "Unlock the deadbolt."
+    },
+    {
+      "id": 185,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 488.038,
+      "end": 490.088,
+      "text": "Before opening the door, you stop."
+    },
+    {
+      "id": 186,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 490.328,
+      "end": 492.328,
+      "text": "The street is completely silent."
+    },
+    {
+      "id": 187,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 492.568,
+      "end": 493.448,
+      "text": "No engines."
+    },
+    {
+      "id": 188,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 493.788,
+      "end": 494.698,
+      "text": "No sirens."
+    },
+    {
+      "id": 189,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 495.038,
+      "end": 495.938,
+      "text": "No shouting."
+    },
+    {
+      "id": 190,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 496.278,
+      "end": 497.538,
+      "text": "You look through the glass."
+    },
+    {
+      "id": 191,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 497.878,
+      "end": 500.248,
+      "text": "An abandoned bus blocks most of the road."
+    },
+    {
+      "id": 192,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 500.488,
+      "end": 503.908,
+      "text": "A traffic light continues changing colors over an empty intersection."
+    },
+    {
+      "id": 193,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 504.148,
+      "end": 506.968,
+      "text": "And several infected figures are standing near the bus."
+    },
+    {
+      "id": 194,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 507.208,
+      "end": 508.648,
+      "text": "They're not moving."
+    },
+    {
+      "id": 195,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 508.988,
+      "end": 510.818,
+      "text": "They're just facing the same direction."
+    },
+    {
+      "id": 196,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 511.908,
+      "end": 513.528,
+      "text": "Toward the underground station."
+    },
+    {
+      "id": 197,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 513.908,
+      "end": 515.308,
+      "text": "You step away from the window."
+    },
+    {
+      "id": 198,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 515.688,
+      "end": 517.478,
+      "text": "Something is happening down there."
+    },
+    {
+      "id": 199,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 517.858,
+      "end": 519.888,
+      "text": "But staying here is no longer an option."
+    },
+    {
+      "id": 200,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 520.268,
+      "end": 521.308,
+      "text": "You open the door."
+    },
+    {
+      "id": 201,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 521.788,
+      "end": 523.518,
+      "text": "Cold air enters the store."
+    },
+    {
+      "id": 202,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 523.998,
+      "end": 527.258,
+      "text": "You step outside and carefully close it behind you."
+    },
+    {
+      "id": 203,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 527.638,
+      "end": 529.488,
+      "text": "The first few meters are easy."
+    },
+    {
+      "id": 204,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 529.868,
+      "end": 535.268,
+      "text": "You move between abandoned vehicles, avoiding broken glass and anything that might make noise."
+    },
+    {
+      "id": 205,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 535.648,
+      "end": 539.808,
+      "text": "Halfway down the street, you notice a child's backpack lying beside a bicycle."
+    },
+    {
+      "id": 206,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 540.188,
+      "end": 540.838,
+      "text": "You stop."
+    },
+    {
+      "id": 207,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 541.318,
+      "end": 543.528,
+      "text": "There's a small photograph attached to it."
+    },
+    {
+      "id": 208,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 543.908,
+      "end": 544.568,
+      "text": "A family."
+    },
+    {
+      "id": 209,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 545.048,
+      "end": 546.628,
+      "text": "Two parents and a little boy."
+    },
+    {
+      "id": 210,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 547.008,
+      "end": 547.888,
+      "text": "You look around."
+    },
+    {
+      "id": 211,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 548.368,
+      "end": 548.878,
+      "text": "Nothing."
+    },
+    {
+      "id": 212,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 549.358,
+      "end": 550.938,
+      "text": "You continue toward the station."
+    },
+    {
+      "id": 213,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 551.318,
+      "end": 553.008,
+      "text": "Then you hear footsteps behind you."
+    },
+    {
+      "id": 214,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 553.248,
+      "end": 553.958,
+      "text": "You turn."
+    },
+    {
+      "id": 215,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 554.298,
+      "end": 557.668,
+      "text": "An infected man is standing beside the convenience store entrance."
+    },
+    {
+      "id": 216,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 557.908,
+      "end": 559.438,
+      "text": "He recognizes movement."
+    },
+    {
+      "id": 217,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 559.778,
+      "end": 561.038,
+      "text": "His head turns."
+    },
+    {
+      "id": 218,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 561.378,
+      "end": 562.848,
+      "text": "You start walking faster."
+    },
+    {
+      "id": 219,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 563.188,
+      "end": 566.478,
+      "text": "Then another figure emerges from between two cars."
+    },
+    {
+      "id": 220,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 566.718,
+      "end": 567.968,
+      "text": "You break into a run."
+    },
+    {
+      "id": 221,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 568.308,
+      "end": 570.273,
+      "text": "The station entrance is visible now."
+    },
+    {
+      "id": 222,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 570.513,
+      "end": 571.433,
+      "text": "Twenty meters."
+    },
+    {
+      "id": 223,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 571.773,
+      "end": 572.513,
+      "text": "Fifteen."
+    },
+    {
+      "id": 224,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 572.853,
+      "end": 573.333,
+      "text": "Ten."
+    },
+    {
+      "id": 225,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 573.673,
+      "end": 576.463,
+      "text": "You reach the stairs and descend as quickly as possible."
+    },
+    {
+      "id": 226,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 576.703,
+      "end": 580.233,
+      "text": "At the bottom, a metal security shutter blocks the entrance."
+    },
+    {
+      "id": 227,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 580.473,
+      "end": 581.243,
+      "text": "You pull it."
+    },
+    {
+      "id": 228,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 581.583,
+      "end": 582.083,
+      "text": "Nothing."
+    },
+    {
+      "id": 229,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 582.423,
+      "end": 582.913,
+      "text": "Locked."
+    },
+    {
+      "id": 230,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 583.253,
+      "end": 584.913,
+      "text": "You look around for another way in."
+    },
+    {
+      "id": 231,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 585.153,
+      "end": 588.183,
+      "text": "Then you notice a card reader beside a narrow maintenance door."
+    },
+    {
+      "id": 232,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 588.423,
+      "end": 590.333,
+      "text": "You remember the municipal station map."
+    },
+    {
+      "id": 233,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 590.573,
+      "end": 592.793,
+      "text": "There should be an emergency access point nearby."
+    },
+    {
+      "id": 234,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 593.033,
+      "end": 595.113,
+      "text": "You search the backpack for something useful."
+    },
+    {
+      "id": 235,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "urgent",
+      "start": 595.353,
+      "end": 595.883,
+      "text": "Nothing."
+    },
+    {
+      "id": 236,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 597.073,
+      "end": 599.093,
+      "text": "Then a voice comes from behind the door."
+    },
+    {
+      "id": 237,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 599.473,
+      "end": 600.353,
+      "text": "\"Are you alone?\""
+    },
+    {
+      "id": 238,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 600.833,
+      "end": 601.623,
+      "text": "You freeze."
+    },
+    {
+      "id": 239,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 602.103,
+      "end": 603.663,
+      "text": "You look back toward the stairs."
+    },
+    {
+      "id": 240,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 604.043,
+      "end": 605.513,
+      "text": "The infected are approaching."
+    },
+    {
+      "id": 241,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 605.893,
+      "end": 609.223,
+      "text": "You have seconds to decide whether to trust whoever is on the other side."
+    },
+    {
+      "id": 242,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 609.603,
+      "end": 610.273,
+      "text": "You answer."
+    },
+    {
+      "id": 243,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "quietly",
+      "start": 610.753,
+      "end": 611.223,
+      "text": "\"No.\""
+    },
+    {
+      "id": 244,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 612.413,
+      "end": 613.413,
+      "text": "The lock clicks."
+    },
+    {
+      "id": 245,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 613.753,
+      "end": 614.793,
+      "text": "The door opens."
+    },
+    {
+      "id": 246,
+      "chapter": 5,
+      "speaker": "narrator",
+      "emotion": "tense",
+      "start": 615.133,
+      "end": 616.843,
+      "text": "And someone pulls you inside."
+    },
+    {
+      "id": 247,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "calm, slightly breathless",
+      "start": 618.433,
+      "end": 619.473,
+      "text": "The room is small."
+    },
+    {
+      "id": 248,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "calm, slightly breathless",
+      "start": 619.813,
+      "end": 620.513,
+      "text": "A desk."
+    },
+    {
+      "id": 249,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "calm, slightly breathless",
+      "start": 620.853,
+      "end": 621.703,
+      "text": "Two chairs."
+    },
+    {
+      "id": 250,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "calm, slightly breathless",
+      "start": 622.043,
+      "end": 623.243,
+      "text": "An emergency radio."
+    },
+    {
+      "id": 251,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "calm, slightly breathless",
+      "start": 623.583,
+      "end": 625.723,
+      "text": "A wall covered with evacuation maps."
+    },
+    {
+      "id": 252,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "calm, slightly breathless",
+      "start": 625.963,
+      "end": 629.003,
+      "text": "A man stands near the entrance, holding a flashlight."
+    },
+    {
+      "id": 253,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "calm, slightly breathless",
+      "start": 629.243,
+      "end": 630.493,
+      "text": "He looks at your backpack."
+    },
+    {
+      "id": 254,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "calm, slightly breathless",
+      "start": 630.833,
+      "end": 632.083,
+      "text": "Then at your face."
+    },
+    {
+      "id": 255,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 632.423,
+      "end": 633.533,
+      "text": "\"How many followed you?\""
+    },
+    {
+      "id": 256,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 633.873,
+      "end": 635.363,
+      "text": "You don't answer immediately."
+    },
+    {
+      "id": 257,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 635.603,
+      "end": 636.773,
+      "text": "You ask where you are."
+    },
+    {
+      "id": 258,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 637.113,
+      "end": 639.933,
+      "text": "He tells you it's a municipal maintenance control room."
+    },
+    {
+      "id": 259,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 640.173,
+      "end": 643.083,
+      "text": "The station has been closed since the outbreak began."
+    },
+    {
+      "id": 260,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 643.323,
+      "end": 644.353,
+      "text": "You look at the maps."
+    },
+    {
+      "id": 261,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 644.693,
+      "end": 647.713,
+      "text": "Several underground stations are marked with red circles."
+    },
+    {
+      "id": 262,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 647.953,
+      "end": 650.163,
+      "text": "Some have handwritten notes beside them."
+    },
+    {
+      "id": 263,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 650.403,
+      "end": 651.323,
+      "text": "\"EVACUATED.\""
+    },
+    {
+      "id": 264,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 651.663,
+      "end": 652.313,
+      "text": "\"SEALED.\""
+    },
+    {
+      "id": 265,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 652.653,
+      "end": 653.593,
+      "text": "\"NO ACCESS.\""
+    },
+    {
+      "id": 266,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 653.933,
+      "end": 655.783,
+      "text": "One station has a different marking."
+    },
+    {
+      "id": 267,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 656.023,
+      "end": 656.643,
+      "text": "Yours."
+    },
+    {
+      "id": 268,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 656.983,
+      "end": 658.413,
+      "text": "You ask him what happened here."
+    },
+    {
+      "id": 269,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 658.653,
+      "end": 659.553,
+      "text": "He looks at the radio."
+    },
+    {
+      "id": 270,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "serious",
+      "start": 659.893,
+      "end": 660.883,
+      "text": "Then at the map."
+    },
+    {
+      "id": 271,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 661.223,
+      "end": 665.613,
+      "text": "\"People came down here yesterday. We locked the doors to keep the infected outside.\""
+    },
+    {
+      "id": 272,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 665.853,
+      "end": 668.023,
+      "text": "You ask how many people survived."
+    },
+    {
+      "id": 273,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 668.263,
+      "end": 669.233,
+      "text": "He doesn't answer."
+    },
+    {
+      "id": 274,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 669.573,
+      "end": 672.263,
+      "text": "Instead, he points toward a second door."
+    },
+    {
+      "id": 275,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 672.503,
+      "end": 674.903,
+      "text": "Beyond it is a narrow maintenance corridor."
+    },
+    {
+      "id": 276,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 675.143,
+      "end": 678.783,
+      "text": "At the far end, you can see a dim green emergency light."
+    },
+    {
+      "id": 277,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 679.023,
+      "end": 683.013,
+      "text": "He tells you the underground network connects to an older storm drainage tunnel."
+    },
+    {
+      "id": 278,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 683.253,
+      "end": 686.673,
+      "text": "If the main station becomes compromised, there's another way out."
+    },
+    {
+      "id": 279,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low",
+      "start": 686.913,
+      "end": 688.823,
+      "text": "You finally begin to relax."
+    },
+    {
+      "id": 280,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 690.013,
+      "end": 691.963,
+      "text": "Then the radio turns on."
+    },
+    {
+      "id": 281,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 692.443,
+      "end": 693.803,
+      "text": "Static fills the room."
+    },
+    {
+      "id": 282,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 694.283,
+      "end": 695.423,
+      "text": "A voice comes through."
+    },
+    {
+      "id": 283,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 695.903,
+      "end": 697.623,
+      "text": "\"Control room, do you copy?\""
+    },
+    {
+      "id": 284,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 698.003,
+      "end": 699.583,
+      "text": "The man reaches for the radio."
+    },
+    {
+      "id": 285,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 699.963,
+      "end": 702.793,
+      "text": "Before he can respond, another voice interrupts."
+    },
+    {
+      "id": 286,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 703.173,
+      "end": 703.883,
+      "text": "A child."
+    },
+    {
+      "id": 287,
+      "chapter": 6,
+      "speaker": "child",
+      "emotion": "childlike, frightened",
+      "start": 704.363,
+      "end": 705.471,
+      "text": "\"Please don't open the door.\""
+    },
+    {
+      "id": 288,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 706.561,
+      "end": 708.321,
+      "text": "You look toward the maintenance corridor."
+    },
+    {
+      "id": 289,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 708.561,
+      "end": 710.471,
+      "text": "The man slowly lowers his hand."
+    },
+    {
+      "id": 290,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 710.711,
+      "end": 712.171,
+      "text": "You ask him what that was."
+    },
+    {
+      "id": 291,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 712.511,
+      "end": 713.541,
+      "text": "He doesn't respond."
+    },
+    {
+      "id": 292,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 713.881,
+      "end": 715.541,
+      "text": "Then you hear three knocks."
+    },
+    {
+      "id": 293,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "confused",
+      "start": 715.881,
+      "end": 717.831,
+      "text": "From the other side of the second door."
+    },
+    {
+      "id": 294,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 718.921,
+      "end": 719.881,
+      "text": "The man looks at you."
+    },
+    {
+      "id": 295,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 720.361,
+      "end": 722.581,
+      "text": "And says something you weren't prepared to hear."
+    },
+    {
+      "id": 296,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low, serious",
+      "start": 722.961,
+      "end": 725.081,
+      "text": "\"Whatever you do, don't answer it.\""
+    },
+    {
+      "id": 297,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low, serious",
+      "start": 726.821,
+      "end": 728.051,
+      "text": "You look back at the radio."
+    },
+    {
+      "id": 298,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low, serious",
+      "start": 728.391,
+      "end": 729.921,
+      "text": "The child's voice returns."
+    },
+    {
+      "id": 299,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "low, serious",
+      "start": 730.261,
+      "end": 732.091,
+      "text": "This time, it's much closer."
+    },
+    {
+      "id": 300,
+      "chapter": 6,
+      "speaker": "child",
+      "emotion": "childlike, whispering",
+      "start": 732.331,
+      "end": 732.813,
+      "text": "\"Dad?\""
+    },
+    {
+      "id": 301,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "childlike, whispering",
+      "start": 733.293,
+      "end": 734.603,
+      "text": "You turn toward the man."
+    },
+    {
+      "id": 302,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "childlike, whispering",
+      "start": 735.083,
+      "end": 737.033,
+      "text": "His face has gone completely pale."
+    },
+    {
+      "id": 303,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "childlike, whispering",
+      "start": 737.413,
+      "end": 739.773,
+      "text": "Because the voice on the radio belongs to his son."
+    },
+    {
+      "id": 304,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "childlike, whispering",
+      "start": 740.153,
+      "end": 742.383,
+      "text": "And his son is standing right beside you."
+    },
+    {
+      "id": 305,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "slowly, fearful",
+      "start": 743.763,
+      "end": 745.293,
+      "text": "You slowly look down."
+    },
+    {
+      "id": 306,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "slowly, fearful",
+      "start": 745.773,
+      "end": 749.043,
+      "text": "The boy who came with you from the street is still holding your jacket."
+    },
+    {
+      "id": 307,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "slowly, fearful",
+      "start": 749.423,
+      "end": 751.803,
+      "text": "He hasn't spoken once since entering the room."
+    },
+    {
+      "id": 308,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "slowly, fearful",
+      "start": 752.183,
+      "end": 753.483,
+      "text": "Now he looks up at you."
+    },
+    {
+      "id": 309,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "slowly, fearful",
+      "start": 753.963,
+      "end": 754.803,
+      "text": "And whispers:"
+    },
+    {
+      "id": 310,
+      "chapter": 6,
+      "speaker": "child",
+      "emotion": "childlike, terrified",
+      "start": 755.283,
+      "end": 756.292,
+      "text": "\"That's not my dad.\""
+    },
+    {
+      "id": 311,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "tense whisper",
+      "start": 758.132,
+      "end": 759.682,
+      "text": "The emergency lights go out."
+    },
+    {
+      "id": 312,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 760.912,
+      "end": 763.692,
+      "text": "And somewhere inside the maintenance corridor..."
+    },
+    {
+      "id": 313,
+      "chapter": 6,
+      "speaker": "narrator",
+      "emotion": "whispering",
+      "start": 764.072,
+      "end": 766.192,
+      "text": "Something begins running toward you."
+    }
+  ]
+}

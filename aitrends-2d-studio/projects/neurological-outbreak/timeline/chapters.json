@@ -1,0 +1,47 @@
+{
+  "duration": 767.922,
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "Part 1: Aisle Four \u2014 Biological Emergency",
+      "start": 0.0,
+      "end": 114.44,
+      "duration": 114.44
+    },
+    {
+      "chapter": 2,
+      "title": "Part 2: Half Stock \u2014 The Woman at the Glass",
+      "start": 114.44,
+      "end": 228.395,
+      "duration": 113.955
+    },
+    {
+      "chapter": 3,
+      "title": "Part 3: The Storage Room Window",
+      "start": 228.395,
+      "end": 354.78,
+      "duration": 126.385
+    },
+    {
+      "chapter": 4,
+      "title": "Part 4: Midnight Map \u2014 The Ringing Phone",
+      "start": 354.78,
+      "end": 450.083,
+      "duration": 95.303
+    },
+    {
+      "chapter": 5,
+      "title": "Part 5: Dead Street \u2014 Are You Alone?",
+      "start": 450.083,
+      "end": 618.433,
+      "duration": 168.35
+    },
+    {
+      "chapter": 6,
+      "title": "Part 6: Control Room \u2014 That's Not My Dad",
+      "start": 618.433,
+      "end": 767.922,
+      "duration": 149.489
+    }
+  ]
+}
