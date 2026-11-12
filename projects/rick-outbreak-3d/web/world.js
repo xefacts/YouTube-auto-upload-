@@ -598,102 +598,197 @@ export function makeSignBoard(title, sub = '', { w = 1.6, h = 0.48, bg = '#f4ead
   return ink(m, 0.015, true);
 }
 
-/** Custom High-Contrast V3 Smartphone Screen Textures matching exact spoken narration! */
+/** V6.5 REAL SMARTPHONE SCREENS (480x852, dynamic-island chrome, real app UIs). */
 function makePhoneScreenTex(mode = 'alert1') {
-  const [c, g] = cv(384, 680);
-  // shared status bar painter: time + battery icon
-  const statusBar = (time, pct, low = false) => {
-    g.fillStyle = '#d8c2c5'; g.font = 'bold 20px Arial, sans-serif'; g.textAlign = 'left';
-    g.fillText(time, 26, 36);
-    g.strokeStyle = low ? '#ff4438' : '#d8c2c5'; g.lineWidth = 2.5;
-    g.strokeRect(306, 18, 46, 20); g.fillStyle = low ? '#ff4438' : '#d8c2c5'; g.fillRect(354, 23, 5, 10);
-    const fill = Math.max(2, Math.round(40 * pct));
-    g.fillRect(309, 21, fill, 14);
-    g.textAlign = 'right'; g.font = 'bold 17px Arial, sans-serif';
-    g.fillText(`${Math.round(pct * 100)}%`, 296, 36);
+  const [c, g] = cv(480, 852);
+  const W = 480, H = 852;
+
+  // ---- shared real-phone chrome: wallpaper, status bar, dynamic island, home bar ----
+  const chrome = (wall, time, pct, lowBatt) => {
+    g.fillStyle = wall; g.fillRect(0, 0, W, H);
+    // status bar
+    g.fillStyle = '#eef1f5'; g.font = 'bold 26px Arial'; g.textAlign = 'left';
+    g.fillText(time, 34, 46);
+    // signal bars
+    for (let i = 0; i < 4; i++) g.fillRect(300 + i * 9, 40 - (7 + i * 4), 6, 7 + i * 4);
+    g.font = 'bold 19px Arial'; g.fillText('LTE', 268, 46);
+    // wifi arcs
+    g.strokeStyle = '#eef1f5'; g.lineWidth = 3.4;
+    for (let rr = 5; rr <= 15; rr += 5) { g.beginPath(); g.arc(356, 42, rr, Math.PI * 1.25, Math.PI * 1.75); g.stroke(); }
+    g.fillStyle = '#eef1f5'; g.beginPath(); g.arc(356, 42, 3.2, 0, 7); g.fill();
+    // battery
+    g.strokeStyle = lowBatt ? '#ff4438' : '#eef1f5'; g.lineWidth = 3;
+    g.strokeRect(392, 24, 46, 20);
+    g.fillStyle = lowBatt ? '#ff4438' : '#eef1f5';
+    g.fillRect(395, 27, Math.max(3, Math.round(40 * pct)), 14);
+    g.fillRect(439, 29, 5, 10);
+    g.font = 'bold 19px Arial'; g.textAlign = 'right'; g.fillText(`${Math.round(pct * 100)}%`, 384, 46);
+    // dynamic island
+    g.fillStyle = '#000000';
+    g.beginPath(); g.roundRect(165, 12, 150, 32, 16); g.fill();
+    g.fillStyle = '#10141c'; g.beginPath(); g.arc(288, 28, 6.5, 0, 7); g.fill();
+    g.fillStyle = '#233043'; g.beginPath(); g.arc(288, 28, 2.6, 0, 7); g.fill();
+    // home indicator
+    g.fillStyle = 'rgba(238,241,245,0.85)';
+    g.beginPath(); g.roundRect(180, 826, 120, 6, 3); g.fill();
   };
-  if (mode === 'alert1') {
-    // 4:17 PM Emergency Alert ("Stay indoors. Avoid anyone showing signs of confusion or violent behavior...")
-    // V6: realistic wireless-emergency-alert styling (white card, amber header) — the opening
-    // reads as a NORMAL day interrupted, not an alarm video.
-    g.fillStyle = '#10131a'; g.fillRect(0, 0, 384, 680);
-    statusBar('4:17 PM', 0.78);
-    g.fillStyle = '#f5f2ec'; g.fillRect(22, 54, 340, 106);
-    g.strokeStyle = '#c9c2b4'; g.lineWidth = 3; g.strokeRect(22, 54, 340, 106);
-    g.fillStyle = '#b25000'; g.textAlign = 'center';
-    g.font = '900 28px Arial, sans-serif';
-    g.fillText('EMERGENCY ALERT', 192, 98);
-    g.font = 'bold 19px Arial, sans-serif';
-    g.fillStyle = '#3a3f47';
-    g.fillText('CIVIL DANGER WARNING', 192, 136);
 
-    g.fillStyle = '#1d2129'; g.font = '900 30px Arial, sans-serif';
-    g.fillText('STAY INDOORS', 192, 222);
-
-    g.fillStyle = '#33383f'; g.font = 'bold 19px Arial, sans-serif';
-    const lines = [
-      '• AVOID CONFUSED OR',
-      '  VIOLENT INDIVIDUALS',
-      '',
-      '• DO NOT APPROACH',
-      '  EMERGENCY RESPONDERS',
-      '  UNLESS INSTRUCTED',
-    ];
-    lines.forEach((ln, i) => g.fillText(ln, 192, 286 + i * 38));
+  if (mode === 'social0' || mode === 'social1') {
+    // ================= FACEBOOK-STYLE SOCIAL FEED (bright normal life, pre-alert) =================
+    const wall = '#e9edf3';
+    g.fillStyle = wall; g.fillRect(0, 0, W, H);
+    // fb header
+    g.fillStyle = '#ffffff'; g.fillRect(0, 52, W, 76);
+    g.fillStyle = '#1877f2'; g.font = '900 40px Arial'; g.textAlign = 'left';
+    g.fillText('facebook', 30, 104);
+    // search + messenger circles
+    g.fillStyle = '#e4e6eb'; g.beginPath(); g.arc(366, 90, 25, 0, 7); g.fill();
+    g.fillStyle = '#65676b'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText('Q', 366, 100);
+    g.fillStyle = '#e4e6eb'; g.beginPath(); g.arc(428, 90, 25, 0, 7); g.fill();
+    g.strokeStyle = '#0084ff'; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(418, 84); g.lineTo(438, 84); g.moveTo(418, 94); g.lineTo(432, 94); g.stroke(); // messenger bolt
+    if (mode === 'social1') {
+      g.fillStyle = '#e41e3f'; g.beginPath(); g.arc(448, 70, 14, 0, 7); g.fill();
+      g.fillStyle = '#fff'; g.font = 'bold 18px Arial'; g.fillText('9', 448, 76);
+    }
+    // ===== post 1: city news page =====
+    g.fillStyle = '#ffffff'; g.fillRect(0, 128, W, 300);
+    g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(30, 152, 56, 56, 12); g.fill();
+    g.fillStyle = '#fff'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText('OCN', 58, 188);
+    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 26px Arial';
+    g.fillText('Outbreak City News', 102, 172);
+    g.fillStyle = '#0084ff'; g.beginPath(); g.arc(340, 164, 9, 0, 7); g.fill();
+    g.fillStyle = '#fff'; g.font = 'bold 13px Arial'; g.fillText('✓', 336, 169);
+    g.fillStyle = '#65676b'; g.font = 'normal 20px Arial'; g.fillText('Sponsored · 4m', 102, 198);
+    g.fillStyle = '#050505'; g.font = 'normal 24px Arial';
+    g.fillText('BREAKING: Hospitals report a fast-spreading', 30, 246);
+    g.fillText('illness. Officials urge everyone to stay', 30, 278);
+    g.fillText('indoors until further notice.', 30, 310);
+    // link preview with LIVE tag
+    g.fillStyle = '#1c1e21'; g.fillRect(30, 330, 420, 56);
+    g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(40, 344, 58, 26, 5); g.fill();
+    g.fillStyle = '#fff'; g.font = '900 17px Arial'; g.textAlign = 'center'; g.fillText('LIVE', 69, 363);
+    g.fillStyle = '#d8dbe1'; g.textAlign = 'left'; g.font = 'bold 21px Arial';
+    g.fillText('LIVE: Emergency briefing — city lockdown', 110, 366);
+    // reactions row (drawn icons — no emoji)
+    g.fillStyle = '#1877f2'; g.beginPath(); g.arc(48, 412, 12, 0, 7); g.fill();
+    g.fillStyle = '#e41e3f'; g.beginPath(); g.arc(63, 412, 12, 0, 7); g.fill();
+    g.fillStyle = '#65676b'; g.font = 'normal 21px Arial';
+    g.fillText('15.2K', 84, 419);
+    g.textAlign = 'right'; g.fillText('612 comments · 4.1K shares', 450, 419);
+    // ===== post 2 (partial): community panic =====
+    g.fillStyle = '#ffffff'; g.fillRect(0, 442, W, 210);
+    g.fillStyle = '#7a5af8'; g.beginPath(); g.roundRect(30, 466, 56, 56, 28); g.fill();
+    g.fillStyle = '#fff'; g.font = '900 24px Arial'; g.textAlign = 'center'; g.fillText('CA', 58, 502);
+    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 26px Arial';
+    g.fillText('Community Alert Group', 102, 486);
+    g.fillStyle = '#65676b'; g.font = 'normal 20px Arial'; g.fillText('1m · Public', 102, 512);
+    g.fillStyle = '#050505'; g.font = 'normal 24px Arial';
+    g.fillText('They are NOT sick. They are not people', 30, 558);
+    g.fillText('anymore. Lock your doors. Do not open', 30, 590);
+    g.fillText('for ANYONE.', 30, 622);
+    // ===== notification banner (social1 only) — the moment the world changes =====
+    if (mode === 'social1') {
+      g.save();
+      g.shadowColor = 'rgba(10,12,18,0.55)'; g.shadowBlur = 34; g.shadowOffsetY = 14;
+      g.fillStyle = '#ffffff'; g.beginPath(); g.roundRect(20, 66, 440, 118, 26); g.fill();
+      g.restore();
+      g.strokeStyle = 'rgba(20,24,34,0.18)'; g.lineWidth = 2;
+      g.beginPath(); g.roundRect(21, 67, 438, 116, 25); g.stroke();
+      g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(40, 84, 64, 64, 16); g.fill();
+      g.fillStyle = '#fff'; g.font = '900 40px Arial'; g.textAlign = 'center'; g.fillText('!', 72, 130);
+      g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = '900 24px Arial';
+      g.fillText('EMERGENCY ALERTS', 120, 108);
+      g.fillStyle = '#3a3d42'; g.font = 'normal 21px Arial';
+      g.fillText('Severe threat in this area. Tap', 120, 138);
+      g.fillStyle = '#3a3d42'; g.fillText('to read the full alert', 120, 164);
+      g.fillStyle = '#8a8d91'; g.font = 'normal 17px Arial'; g.textAlign = 'right'; g.fillText('now', 444, 108);
+    }
+  } else if (mode === 'alert1') {
+    // ================= iOS GOVERNMENT EMERGENCY ALERT (4:17 PM) =================
+    chrome('#12233c', '4:17', 0.78, false);
+    // dim wallpaper stripes for depth
+    g.fillStyle = 'rgba(255,255,255,0.028)';
+    for (let y = 60; y < 852; y += 44) g.fillRect(0, y, W, 16);
+    // alert card
+    g.save();
+    g.shadowColor = 'rgba(0,0,0,0.5)'; g.shadowBlur = 30; g.shadowOffsetY = 12;
+    g.fillStyle = '#f7f5f0'; g.beginPath(); g.roundRect(28, 210, 424, 400, 30); g.fill();
+    g.restore();
+    g.textAlign = 'center';
+    g.fillStyle = '#b25000'; g.font = '900 34px Arial';
+    g.fillText('EMERGENCY ALERT', 240, 276);
+    g.fillStyle = '#8d939c'; g.font = 'bold 22px Arial';
+    g.fillText('CIVIL DANGER WARNING', 240, 312);
+    g.strokeStyle = '#d9d4c8'; g.lineWidth = 2; g.beginPath(); g.moveTo(60, 338); g.lineTo(420, 338); g.stroke();
+    g.fillStyle = '#15181d'; g.font = '900 44px Arial';
+    g.fillText('STAY INDOORS', 240, 398);
+    g.fillStyle = '#33383f'; g.font = 'bold 26px Arial';
+    for (const [i, ln] of [
+      'Avoid confused or violent', 'individuals.', '',
+      'Do not approach emergency', 'responders unless instructed.',
+    ].entries()) g.fillText(ln, 240, 452 + i * 42);
+    // realistic Dismiss button
+    g.fillStyle = '#e8e4da'; g.beginPath(); g.roundRect(150, 528, 180, 56, 28); g.fill();
+    g.fillStyle = '#007aff'; g.font = '900 26px Arial'; g.fillText('Dismiss', 240, 564);
   } else if (mode === 'alert2') {
-    // 2:14 AM Critical Update ("Do not respond to voices coming from outside...")
-    g.fillStyle = '#160507'; g.fillRect(0, 0, 384, 680);
-    statusBar('2:14 AM', 0.17, true);
-    g.fillStyle = '#b8171e'; g.fillRect(22, 54, 340, 106);
-    g.strokeStyle = '#ff6b6b'; g.lineWidth = 3; g.strokeRect(22, 54, 340, 106);
-    g.fillStyle = '#ffffff'; g.textAlign = 'center';
-    g.font = '900 26px Arial, sans-serif';
-    g.fillText('CRITICAL UPDATE', 192, 98);
-    g.font = 'bold 18px Arial, sans-serif';
-    g.fillText('NEW EMERGENCY MESSAGE', 192, 134);
-
-    g.fillStyle = '#ff4f42'; g.font = '900 24px Arial, sans-serif';
-    g.fillText('DO NOT RESPOND', 192, 214);
-    g.fillText('TO VOICES OUTSIDE', 192, 248);
-
-    g.fillStyle = '#ffd24c'; g.font = 'bold 20px Arial, sans-serif';
-    const lines = [
-      'AFFECTED INDIVIDUALS',
-      'MAY IMITATE',
-      'FAMILIAR SPEECH',
-      '',
-      'KEEP ALL DOORS LOCKED',
-    ];
-    lines.forEach((ln, i) => g.fillText(ln, 192, 318 + i * 38));
+    // ================= 2:14 AM CRITICAL UPDATE + missed-message stack =================
+    chrome('#0a0507', '2:14', 0.17, true);
+    g.save();
+    g.shadowColor = 'rgba(0,0,0,0.6)'; g.shadowBlur = 30; g.shadowOffsetY = 12;
+    g.fillStyle = '#b8171e'; g.beginPath(); g.roundRect(28, 140, 424, 210, 28); g.fill();
+    g.restore();
+    g.textAlign = 'center'; g.fillStyle = '#ffffff';
+    g.font = '900 36px Arial'; g.fillText('CRITICAL UPDATE', 240, 206);
+    g.font = 'bold 23px Arial'; g.fillStyle = '#ffd9d4'; g.fillText('NEW EMERGENCY MESSAGE', 240, 244);
+    g.strokeStyle = 'rgba(255,255,255,0.35)'; g.lineWidth = 2; g.beginPath(); g.moveTo(60, 268); g.lineTo(420, 268); g.stroke();
+    g.fillStyle = '#ffffff'; g.font = '900 30px Arial';
+    g.fillText('Do not respond to voices outside.', 240, 310);
+    // missed messages stack (the dread of an unread world)
+    for (const [yy, icon, iconCol, name, body, when] of [
+      [372, 'M', '#34c759', 'Mom', 'please answer your phone', '2:02 AM'],
+      [500, 'f', '#1877f2', 'facebook', '1,204 new alerts near you', '1:58 AM'],
+    ]) {
+      g.save();
+      g.shadowColor = 'rgba(0,0,0,0.5)'; g.shadowBlur = 18; g.shadowOffsetY = 8;
+      g.fillStyle = '#1c1f26'; g.beginPath(); g.roundRect(28, yy, 424, 108, 24); g.fill();
+      g.restore();
+      g.fillStyle = iconCol; g.beginPath(); g.roundRect(48, yy + 24, 56, 56, 14); g.fill();
+      g.fillStyle = '#fff'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText(icon, 76, yy + 60);
+      g.textAlign = 'left'; g.fillStyle = '#e8eaee'; g.font = 'bold 24px Arial';
+      g.fillText(name, 122, yy + 42);
+      g.fillStyle = '#9aa0a8'; g.font = 'normal 21px Arial';
+      g.fillText(body, 122, yy + 74);
+      g.textAlign = 'right'; g.fillStyle = '#6b7280'; g.font = 'normal 17px Arial';
+      g.fillText(when, 432, yy + 40);
+    }
+    g.textAlign = 'center'; g.fillStyle = '#ff4f42'; g.font = '900 27px Arial';
+    g.fillText('AFFECTED MAY IMITATE FAMILIAR SPEECH', 240, 664);
+    g.fillStyle = '#ffd24c'; g.font = 'bold 24px Arial';
+    g.fillText('KEEP ALL DOORS LOCKED', 240, 704);
   } else {
-    // Sunrise 1-Bar Battery + Offline Transit Map
-    g.fillStyle = '#0c1824'; g.fillRect(0, 0, 384, 680);
-    g.fillStyle = '#9ec0d8'; g.font = 'bold 18px Arial, sans-serif';
-    g.textAlign = 'left'; g.fillText('OFFLINE MAP', 24, 36);
-    // Red 1-bar battery icon!
-    g.strokeStyle = '#ff4438'; g.lineWidth = 3; g.strokeRect(298, 18, 56, 24);
-    g.fillStyle = '#ff4438'; g.fillRect(302, 22, 11, 16);
-    g.textAlign = 'right'; g.fillText('4%', 290, 36);
-
-    // Street grid map
-    g.fillStyle = '#132638'; g.fillRect(22, 58, 340, 420);
-    g.strokeStyle = '#294866'; g.lineWidth = 14;
-    for (const gx of [95, 192, 288]) { g.beginPath(); g.moveTo(gx, 58); g.lineTo(gx, 478); g.stroke(); }
-    for (const gy of [140, 265, 390]) { g.beginPath(); g.moveTo(22, gy); g.lineTo(362, gy); g.stroke(); }
-
-    // Highlighted route (2 streets away -> Transit Maintenance Entrance!)
-    g.strokeStyle = '#ffd24c'; g.lineWidth = 8;
-    g.beginPath(); g.moveTo(95, 390); g.lineTo(95, 140); g.lineTo(288, 140); g.stroke();
-    // Start dot (YOU) & Destination pulse (TRANSIT STATION)
-    g.fillStyle = '#3ad4ff'; g.beginPath(); g.arc(95, 390, 11, 0, 7); g.fill();
-    g.fillStyle = '#ff4438'; g.beginPath(); g.arc(288, 140, 14, 0, 7); g.fill();
-
-    g.fillStyle = '#ffffff'; g.textAlign = 'center'; g.font = '900 22px Arial, sans-serif';
-    g.fillText('TRANSIT STATION', 192, 530);
-    g.fillStyle = '#ffd24c'; g.font = 'bold 19px Arial, sans-serif';
-    g.fillText('MAINTENANCE ENTRANCE', 192, 564);
-    g.fillStyle = '#9ec0d8'; g.font = 'bold 18px Arial, sans-serif';
-    g.fillText('2 STREETS AWAY · ALLEY ROUTE', 192, 602);
+    // ================= SUNRISE OFFLINE MAP (4% battery) =================
+    chrome('#0c1824', '6:12', 0.04, true);
+    g.fillStyle = '#9ec0d8'; g.font = 'bold 22px Arial'; g.textAlign = 'left';
+    g.fillText('OFFLINE MAP', 34, 96);
+    g.fillStyle = '#132638'; g.beginPath(); g.roundRect(24, 120, 432, 470, 18); g.fill();
+    g.save(); g.beginPath(); g.roundRect(24, 120, 432, 470, 18); g.clip();
+    g.strokeStyle = '#294866'; g.lineWidth = 16;
+    for (const gx of [130, 240, 350]) { g.beginPath(); g.moveTo(gx, 120); g.lineTo(gx, 590); g.stroke(); }
+    for (const gy of [210, 340, 470]) { g.beginPath(); g.moveTo(24, gy); g.lineTo(456, gy); g.stroke(); }
+    g.strokeStyle = '#ffd24c'; g.lineWidth = 9;
+    g.beginPath(); g.moveTo(130, 470); g.lineTo(130, 210); g.lineTo(350, 210); g.stroke();
+    g.fillStyle = '#3ad4ff'; g.beginPath(); g.arc(130, 470, 13, 0, 7); g.fill();
+    g.fillStyle = '#ff4438'; g.beginPath(); g.arc(350, 210, 16, 0, 7); g.fill();
+    g.strokeStyle = '#ff4438'; g.lineWidth = 4;
+    g.beginPath(); g.arc(350, 210, 26 + 6 * Math.sin(Date.now() * 0.004), 0, 7); g.stroke();
+    g.restore();
+    g.textAlign = 'center'; g.fillStyle = '#ffffff'; g.font = '900 28px Arial';
+    g.fillText('TRANSIT STATION', 240, 636);
+    g.fillStyle = '#ffd24c'; g.font = 'bold 23px Arial';
+    g.fillText('MAINTENANCE ENTRANCE', 240, 672);
+    g.fillStyle = '#9ec0d8'; g.font = 'bold 21px Arial';
+    g.fillText('2 STREETS AWAY · ALLEY ROUTE', 240, 708);
   }
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
@@ -1945,10 +2040,28 @@ export function buildOutbreakWorld(scene) {
     g.fillText(l2, 116, 1730);
     const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
   }
+  function makeStripTex(text) {
+    // Cinematic bottom-third beat card: letterspaced caps on a dark gradient band, red keyline.
+    const c = document.createElement('canvas'); c.width = 1080; c.height = 1920;
+    const g = c.getContext('2d');
+    const bg = g.createLinearGradient(0, 1480, 0, 1780);
+    bg.addColorStop(0, 'rgba(2,4,8,0)');
+    bg.addColorStop(0.42, 'rgba(2,4,8,0.66)');
+    bg.addColorStop(1, 'rgba(2,4,8,0.82)');
+    g.fillStyle = bg; g.fillRect(0, 1480, 1080, 440);
+    g.fillStyle = '#c81e14'; g.fillRect(140, 1608, 14, 96);
+    g.textAlign = 'left';
+    g.fillStyle = '#f2ede4'; g.font = '900 58px Arial, sans-serif';
+    g.fillText(text.split(' ').join('\u2002'), 190, 1676);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+  }
   const introOverlayTex = {
     map: makeIntroMapTex(),
     title: makeTitleTex(),
     end: makeEndTex(),
+    intro1: makeStripTex('IT BEGAN LIKE ANY OTHER DAY'),
+    intro2: makeStripTex('SOMEWHERE, IT HAD ALREADY BEGUN'),
+    intro3: makeStripTex('IT SPREAD IN HOURS'),
     locator1: makeLocatorTex('OUTBREAK — DAY 1', '4:17 PM  •  CITY LOCKDOWN IN EFFECT'),
     locator2: makeLocatorTex('DAY 2 — SUNRISE', '6:12 AM  •  THE STREET IS EMPTY'),
   };
@@ -1957,20 +2070,279 @@ export function buildOutbreakWorld(scene) {
   // 6. HELD CLOSE-UP PROPS (Hand-Gripped Smartphone + Volumetric Flashlight Cone)
   // =========================================================================
   const heldPhone = new THREE.Group();
-  const phoneBody = ibox(0.24, 0.43, 0.028, '#1a1d24', { thick: 0.009, cast: false });
+  // --- Rounded real-phone body (extruded rounded slab + metal buttons) ---
+  const bw = 0.24, bh = 0.43, br = 0.034;
+  const bodyShape = new THREE.Shape();
+  bodyShape.moveTo(-bw / 2 + br, -bh / 2);
+  bodyShape.lineTo(bw / 2 - br, -bh / 2); bodyShape.quadraticCurveTo(bw / 2, -bh / 2, bw / 2, -bh / 2 + br);
+  bodyShape.lineTo(bw / 2, bh / 2 - br); bodyShape.quadraticCurveTo(bw / 2, bh / 2, bw / 2 - br, bh / 2);
+  bodyShape.lineTo(-bw / 2 + br, bh / 2); bodyShape.quadraticCurveTo(-bw / 2, bh / 2, -bw / 2, bh / 2 - br);
+  bodyShape.lineTo(-bw / 2, -bh / 2 + br); bodyShape.quadraticCurveTo(-bw / 2, -bh / 2, -bw / 2 + br, -bh / 2);
+  const phoneBody = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(bodyShape, { depth: 0.020, bevelEnabled: true, bevelThickness: 0.005, bevelSize: 0.004, bevelSegments: 2 }),
+    toon('#171a20'));
+  phoneBody.position.z = -0.0125;
+  ink(phoneBody, 0.006, false); phoneBody.castShadow = false;
+  // side buttons (left edge — thumb side): volume rocker x2 + power
+  const btnMat = toon('#2b313a');
+  const mkBtn = (by, blen) => {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(0.0085, blen, 0.011), btnMat);
+    b.position.set(-bw / 2 - 0.0015, by, 0.0); ink(b, 0.003, false); b.castShadow = false; return b;
+  };
+  const btnVolUp = mkBtn(0.150, 0.052), btnVolDn = mkBtn(0.088, 0.052), btnPwr = mkBtn(0.028, 0.062);
   const alert1Tex = makePhoneScreenTex('alert1');
   const alert2Tex = makePhoneScreenTex('alert2');
   const mapTex    = makePhoneScreenTex('map1bar');
+  const social0Tex = makePhoneScreenTex('social0');
+  const social1Tex = makePhoneScreenTex('social1');
   const phoneScrMat = new THREE.MeshBasicMaterial({ map: alert1Tex });
-  const phoneScr = new THREE.Mesh(new THREE.PlaneGeometry(0.214, 0.382), phoneScrMat);
-  phoneScr.position.z = 0.016;
-  const thumb = icyl(0.024, 0.026, 0.095, '#f7f3ea', { x: -0.118, y: -0.055, z: 0.018, rz: -0.48, thick: 0.005 });
-  const finger1 = icyl(0.020, 0.022, 0.075, '#f7f3ea', { x: 0.122, y: 0.035, z: 0.008, rz: 0.25, thick: 0.005 });
-  const finger2 = icyl(0.020, 0.022, 0.075, '#f7f3ea', { x: 0.122, y: -0.025, z: 0.008, rz: 0.25, thick: 0.005 });
-  const finger3 = icyl(0.019, 0.021, 0.070, '#f7f3ea', { x: 0.120, y: -0.085, z: 0.008, rz: 0.25, thick: 0.005 });
-  const wristSleeve = icyl(0.058, 0.072, 0.26, '#2c5b7c', { x: -0.045, y: -0.31, z: -0.02, rz: -0.22, thick: 0.008 });
-  heldPhone.add(phoneBody, phoneScr, thumb, finger1, finger2, finger3, wristSleeve);
+  const phoneScr = new THREE.Mesh(new THREE.PlaneGeometry(0.216, 0.398), phoneScrMat);
+  phoneScr.position.z = 0.0165;
+  // --- Glass glare sheet: diagonal reflections streaking across the screen ---
+  const [glc, glg] = cv(256, 512);
+  {
+    const grd = glg.createLinearGradient(0, 512, 256, 0);
+    grd.addColorStop(0.00, 'rgba(255,255,255,0.30)');
+    grd.addColorStop(0.34, 'rgba(255,255,255,0.13)');
+    grd.addColorStop(0.46, 'rgba(255,255,255,0.0)');
+    grd.addColorStop(0.80, 'rgba(255,255,255,0.0)');
+    grd.addColorStop(0.94, 'rgba(255,255,255,0.08)');
+    grd.addColorStop(1.00, 'rgba(255,255,255,0.0)');
+    glg.fillStyle = grd; glg.fillRect(0, 0, 256, 512);
+  }
+  const glareTex = new THREE.CanvasTexture(glc); glareTex.colorSpace = THREE.SRGBColorSpace;
+  const phoneGlareMat = new THREE.MeshBasicMaterial({
+    map: glareTex, transparent: true, opacity: 0.34, depthWrite: false,
+    blending: THREE.AdditiveBlending, toneMapped: false,
+  });
+  const phoneGlare = new THREE.Mesh(new THREE.PlaneGeometry(0.222, 0.408), phoneGlareMat);
+  phoneGlare.position.z = 0.0185;
+  // --- Living hand: palm behind, curled side fingers w/ fingertip pads, thumb OVER the bottom bezel ---
+  const skinCol = '#f2ecdf';
+  const palm = new THREE.Mesh(new THREE.BoxGeometry(0.135, 0.185, 0.052), toon(skinCol));
+  palm.position.set(0.012, -0.145, -0.049); ink(palm, 0.007, false); palm.castShadow = false;
+  const mkSideFinger = (fy) => {
+    const f = new THREE.Group();
+    const seg = icyl(0.0195, 0.0215, 0.088, skinCol, { thick: 0.005, cast: false });
+    seg.rotation.z = Math.PI / 2 - 0.22; seg.position.set(0.0, 0.0, 0.0);
+    const tip = new THREE.Mesh(new THREE.SphereGeometry(0.0205, 12, 10), toon('#f6f1e6'));
+    tip.position.set(0.052, 0.0085, 0.0095); ink(tip, 0.004, false); tip.castShadow = false;
+    f.add(seg, tip); f.position.set(0.116, fy, 0.006);
+    return f;
+  };
+  const finger1 = mkSideFinger(0.032), finger2 = mkSideFinger(-0.030), finger3 = mkSideFinger(-0.092);
+  // thumb crossing the bottom-left bezel IN FRONT of the screen (the classic one-hand grip)
+  const thumb = icyl(0.0235, 0.0255, 0.105, skinCol, { thick: 0.005, cast: false, rz: 1.28 });
+  thumb.position.set(-0.028, -0.196, 0.0135);
+  const thumbTip = new THREE.Mesh(new THREE.SphereGeometry(0.0235, 12, 10), toon('#f6f1e6'));
+  thumbTip.position.set(-0.072, -0.183, 0.0145); ink(thumbTip, 0.004, false); thumbTip.castShadow = false;
+  const wristSleeve = icyl(0.058, 0.075, 0.27, '#2c5b7c', { x: 0.010, y: -0.325, z: -0.055, rz: -0.16, thick: 0.008, cast: false });
+  const cuff = icyl(0.064, 0.062, 0.05, '#22384c', { x: 0.006, y: -0.205, z: -0.052, rz: -0.16, thick: 0.007, cast: false });
+  heldPhone.add(phoneBody, btnVolUp, btnVolDn, btnPwr, phoneScr, phoneGlare, palm, finger1, finger2, finger3, thumb, thumbTip, wristSleeve, cuff);
   scene.add(heldPhone);
+
+  // =========================================================================
+  // 6b. V6.5 ORIGINS COLD-OPEN SETS — HIDDEN LAB (evil scientist) + NEWSROOM
+  // =========================================================================
+  const labGroup = new THREE.Group();
+  labGroup.position.set(-40, 0, -12);
+  let labAlarmMat, cageDoor;
+  {
+    labGroup.add(ibox(14, 0.12, 10, '#191d23', { y: -0.06, thick: 0.02, cast: false }));           // floor
+    labGroup.add(ibox(14, 3.8, 0.18, '#252b34', { y: 1.9, z: -5, thick: 0.02, cast: false }));      // back wall
+    labGroup.add(ibox(0.18, 3.8, 10, '#20252d', { y: 1.9, x: -7, thick: 0.02, cast: false }));      // left wall
+    labGroup.add(ibox(0.18, 3.8, 10, '#20252d', { y: 1.9, x: 7, thick: 0.02, cast: false }));       // right wall
+    // ceiling fluorescent strips (cold)
+    for (const lx of [-2.2, 2.2]) {
+      const strip = ibox(4.6, 0.07, 0.34, '#cfe4ff', { x: lx, y: 3.45, z: -1.5, thick: 0.008, cast: false });
+      strip.material = new THREE.MeshBasicMaterial({ color: '#d7ecff' });
+      labGroup.add(strip);
+    }
+    // workbench + legs
+    labGroup.add(ibox(3.4, 0.09, 0.95, '#333941', { y: 0.95, z: -3.7, thick: 0.014, cast: false }));
+    for (const [lx, lz] of [[-1.6, -4.1], [1.6, -4.1], [-1.6, -3.3], [1.6, -3.3]])
+      labGroup.add(ibox(0.07, 0.95, 0.07, '#262b31', { x: lx, y: 0.475, z: lz, thick: 0.008, cast: false }));
+    // monitors: charts, SPECIMEN-47 telemetry, DNA scanner
+    const mkMonTex = (kind) => {
+      const [mc, mg] = cv(256, 176);
+      mg.fillStyle = '#04120c'; mg.fillRect(0, 0, 256, 176);
+      mg.strokeStyle = '#0f3d2a'; mg.lineWidth = 1;
+      for (let gx = 0; gx < 256; gx += 16) { mg.beginPath(); mg.moveTo(gx, 0); mg.lineTo(gx, 176); mg.stroke(); }
+      for (let gy = 0; gy < 176; gy += 16) { mg.beginPath(); mg.moveTo(0, gy); mg.lineTo(256, gy); mg.stroke(); }
+      mg.fillStyle = '#37ffa8'; mg.font = 'bold 15px monospace';
+      if (kind === 0) {
+        mg.fillText('SPECIMEN 47 — VIRULENCE', 12, 24);
+        mg.fillText('98.2%   LETHALITY 91%', 12, 44);
+        mg.strokeStyle = '#37ffa8'; mg.lineWidth = 2.4; mg.beginPath();
+        for (let px = 0; px < 240; px++) {
+          const py = 150 - 62 * Math.abs(Math.sin(px * 0.055) * Math.sin(px * 0.013));
+          px === 0 ? mg.moveTo(8 + px, py) : mg.lineTo(8 + px, py);
+        }
+        mg.stroke();
+      } else if (kind === 1) {
+        mg.fillText('DISPERSAL VECTOR: AIRBORNE', 12, 24);
+        mg.fillText('INCUBATION 00:04:00', 12, 44);
+        // world dots going red
+        for (let i = 0; i < 26; i++) {
+          mg.fillStyle = i < 19 ? '#ff5f4a' : '#37ffa8';
+          mg.beginPath(); mg.arc(16 + (i * 37) % 224, 66 + (i * 53) % 92, 3.4, 0, 7); mg.fill();
+        }
+      } else {
+        mg.fillText('GENOME SPLICING ACTIVE', 12, 24);
+        mg.strokeStyle = '#37ffa8'; mg.lineWidth = 3;
+        for (let s = 0; s < 2; s++) {
+          mg.beginPath();
+          for (let px = 0; px <= 232; px += 4) {
+            const py = 110 + s * 26 - 22 * Math.sin(px * 0.048);
+            px === 0 ? mg.moveTo(12 + px, py) : mg.lineTo(12 + px, py);
+          }
+          mg.stroke();
+        }
+        for (let px = 12; px <= 244; px += 26) {
+          mg.strokeStyle = '#1f8f5f'; mg.lineWidth = 1.6;
+          mg.beginPath(); mg.moveTo(px, 110 - 22 * Math.sin(px * 0.048)); mg.lineTo(px, 136 - 22 * Math.sin(px * 0.048)); mg.stroke();
+        }
+      }
+      const mt = new THREE.CanvasTexture(mc); mt.colorSpace = THREE.SRGBColorSpace; return mt;
+    };
+    for (const [mi, mx] of [[0, -1.15], [1, 0], [2, 1.15]]) {
+      const mon = new THREE.Mesh(new THREE.PlaneGeometry(0.92, 0.62),
+        new THREE.MeshBasicMaterial({ map: mkMonTex(mi), toneMapped: false }));
+      mon.position.set(mx, 1.62, -4.05); mon.rotation.y = 0.14 - mi * 0.14;
+      labGroup.add(mon);
+      labGroup.add(ibox(0.98, 0.05, 0.06, '#14171b', { x: mx, y: 1.28, z: -4.02, ry: 0.14 - mi * 0.14, thick: 0.006, cast: false }));
+    }
+    // glowing vial rack (the weapon itself)
+    const vialGlowMat = new THREE.MeshBasicMaterial({ color: '#8effc0', toneMapped: false });
+    for (const [vx, vc] of [[-1.52, '#8effc0'], [-1.42, '#ffd25c'], [-1.32, '#8effc0'], [-1.22, '#ff7a5c']]) {
+      labGroup.add(icyl(0.030, 0.030, 0.15, '#bfe8d2', { x: vx, y: 1.07, z: -3.62, thick: 0.004, cast: false }));
+      const glow = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.024, 10), vialGlowMat);
+      glow.position.set(vx, 1.155, -3.62); labGroup.add(glow);
+    }
+    // specimen CAGE (right side) with sliding door — this is where they keep "them"
+    const cage = new THREE.Group(); cage.position.set(3.1, 0, -2.2);
+    const barMat = toon('#4a5158');
+    for (let bx = -0.95; bx <= 0.95; bx += 0.19) {
+      const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 2.5, 8), barMat);
+      bar.position.set(bx, 1.25, -0.95); cage.add(bar);
+    }
+    for (const bz of [-0.95, 0.0, 0.95]) {
+      const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 2.5, 8), barMat);
+      bar.position.set(-0.95, 1.25, bz); cage.add(bar);
+    }
+    cage.add(ibox(2.1, 0.09, 2.1, '#3a4046', { y: 2.52, thick: 0.01, cast: false }));
+    cageDoor = new THREE.Group();
+    for (let dx = -0.76; dx <= 0.76; dx += 0.19) {
+      const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 2.5, 8), barMat);
+      bar.position.set(dx, 1.25, 0.95); cageDoor.add(bar);
+    }
+    cageDoor.add(ibox(1.7, 0.08, 0.08, '#3a4046', { y: 2.45, z: 0.95, thick: 0.008, cast: false }));
+    cageDoor.add(ibox(1.7, 0.08, 0.08, '#3a4046', { y: 0.06, z: 0.95, thick: 0.008, cast: false }));
+    cage.add(cageDoor);
+    const cageDark = ibox(1.9, 2.4, 1.9, '#07090c', { y: 1.2, thick: 0.0, edges: false, cast: false });
+    cage.add(cageDark);
+    labGroup.add(cage);
+    // hazard stripes on floor in front of cage
+    for (let hy = 0; hy < 6; hy++)
+      labGroup.add(ibox(1.9 - hy * 0.12, 0.012, 0.16, hy % 2 ? '#c9a227' : '#23262b', { x: 3.1, y: 0.008, z: -0.85 + hy * 0.3, thick: 0.002, edges: false, cast: false }));
+    // ceiling alarm beacon
+    labAlarmMat = new THREE.MeshBasicMaterial({ color: '#ff2a1a', toneMapped: false });
+    const labAlarm = new THREE.Mesh(new THREE.SphereGeometry(0.085, 12, 10), labAlarmMat);
+    labAlarm.position.set(2.4, 3.3, -2.2); labGroup.add(labAlarm);
+  }
+  scene.add(labGroup);
+
+  const newsGroup = new THREE.Group();
+  newsGroup.position.set(-40, 0, -48);
+  let tickerTex;
+  {
+    newsGroup.add(ibox(13, 0.12, 9, '#14171d', { y: -0.06, thick: 0.02, cast: false }));
+    newsGroup.add(ibox(13, 4.2, 0.18, '#10141b', { y: 2.1, z: -3.6, thick: 0.02, cast: false }));
+    // studio backdrop: BREAKING NEWS wall (big) + red lower band
+    const [nc, ng] = cv(1024, 320);
+    ng.fillStyle = '#081a33'; ng.fillRect(0, 0, 1024, 320);
+    // skyline silhouette
+    ng.fillStyle = '#0c2444';
+    for (let b = 0; b < 16; b++) {
+      const bw2 = 34 + (b * 37) % 40, bh2 = 70 + (b * 61) % 150, bx2 = b * 64;
+      ng.fillRect(bx2, 320 - bh2, bw2, bh2);
+      ng.fillStyle = '#123058';
+      for (let wy = 320 - bh2 + 12; wy < 312; wy += 22) for (let wx = bx2 + 6; wx < bx2 + bw2 - 8; wx += 14) ng.fillRect(wx, wy, 6, 9);
+      ng.fillStyle = '#0c2444';
+    }
+    ng.fillStyle = '#c8102e'; ng.fillRect(0, 0, 1024, 86);
+    ng.fillStyle = '#ffffff'; ng.font = '900 56px Arial'; ng.textAlign = 'left';
+    ng.fillText('BREAKING NEWS', 36, 62);
+    ng.fillStyle = '#ffffff'; ng.font = '900 40px Arial';
+    ng.fillText('UNKNOWN ILLNESS SPREADING — STAY INDOORS', 36, 148);
+    ng.fillStyle = '#9fc3e8'; ng.font = 'bold 30px Arial';
+    ng.fillText('HOSPITALS OVERWHELMED · SCHOOLS CLOSED · TRANSIT HALTED', 36, 196);
+    ng.fillStyle = '#c8102e'; ng.font = 'bold 34px Arial';
+    ng.fillText('NATIONWIDE EMERGENCY DECLARED', 36, 252);
+    const newsWallTex = new THREE.CanvasTexture(nc); newsWallTex.colorSpace = THREE.SRGBColorSpace;
+    const newsWall = new THREE.Mesh(new THREE.PlaneGeometry(9.6, 3.0),
+      new THREE.MeshBasicMaterial({ map: newsWallTex, toneMapped: false }));
+    newsWall.position.set(0, 2.15, -3.5); newsGroup.add(newsWall);
+    // scrolling ticker strip (texture offset animated in main)
+    const [tkc, tkg] = cv(2048, 96);
+    tkg.fillStyle = '#c8102e'; tkg.fillRect(0, 0, 2048, 96);
+    tkg.fillStyle = '#ffffff'; tkg.font = '900 44px Arial'; tkg.textAlign = 'left';
+    tkg.fillText('BREAKING: FAST-SPREADING ILLNESS REPORTED CITYWIDE · AUTHORITIES URGE RESIDENTS TO STAY INDOORS · DO NOT APPROACH ANYONE ACTING CONFUSED OR VIOLENT · HOSPITALS OVERWHELMED · SCHOOLS AND TRANSIT CLOSED · ', 18, 62);
+    tickerTex = new THREE.CanvasTexture(tkc); tickerTex.colorSpace = THREE.SRGBColorSpace;
+    tickerTex.wrapS = THREE.RepeatWrapping; tickerTex.repeat.x = 0.5;
+    const ticker = new THREE.Mesh(new THREE.PlaneGeometry(9.6, 0.44),
+      new THREE.MeshBasicMaterial({ map: tickerTex, toneMapped: false }));
+    ticker.position.set(0, 0.62, -3.48); newsGroup.add(ticker);
+    // anchor desk
+    newsGroup.add(ibox(3.4, 0.1, 1.15, '#2a2f3a', { y: 0.78, z: -1.25, thick: 0.014, cast: false }));
+    newsGroup.add(ibox(3.4, 0.72, 0.1, '#20242e', { y: 0.42, z: -0.72, thick: 0.012, cast: false }));
+    // desk papers + laptop
+    newsGroup.add(ibox(0.34, 0.012, 0.26, '#e8e4da', { x: -0.95, y: 0.835, z: -1.3, ry: 0.3, thick: 0.003, cast: false }));
+    newsGroup.add(ibox(0.42, 0.015, 0.3, '#191d24', { x: 0.95, y: 0.84, z: -1.3, ry: -0.16, thick: 0.004, cast: false }));
+    // side LIVE screens
+    for (const sx of [-4.4, 4.4]) {
+      const sc = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.06),
+        new THREE.MeshBasicMaterial({ map: newsWallTex, toneMapped: false }));
+      sc.position.set(sx, 2.0, -3.44); sc.rotation.y = sx > 0 ? -0.22 : 0.22;
+      newsGroup.add(sc);
+    }
+  }
+  scene.add(newsGroup);
+
+  // =========================================================================
+  // 6c. INTRO DESTRUCTION PROPS — fire glows, embers source, smoke billboards
+  // =========================================================================
+  const introFireGroup = new THREE.Group();
+  {
+    const fireMat = new THREE.MeshBasicMaterial({
+      color: '#ff7a26', transparent: true, opacity: 0.85, depthWrite: false,
+      blending: THREE.AdditiveBlending, toneMapped: false,
+    });
+    for (const [fx2, fy2, fz2, fs2] of [[-1.9, 0.75, 17.5, 1.0], [2.3, 0.95, 15.2, 1.3], [-3.2, 0.6, 14.8, 0.8]]) {
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(0.55 * fs2, 1.7 * fs2, 10, 3, true), fireMat);
+      flame.position.set(fx2, fy2, fz2);
+      introFireGroup.add(flame);
+    }
+  }
+  scene.add(introFireGroup);
+  const smokeGroup = new THREE.Group();
+  {
+    const [smc, smg] = cv(128, 128);
+    for (let i = 0; i < 14; i++) {
+      const sx2 = 24 + (i * 41) % 84, sy2 = 24 + (i * 67) % 84, sr2 = 14 + (i * 29) % 22;
+      const grd2 = smg.createRadialGradient(sx2, sy2, 1, sx2, sy2, sr2);
+      grd2.addColorStop(0, 'rgba(30,26,28,0.5)'); grd2.addColorStop(1, 'rgba(30,26,28,0)');
+      smg.fillStyle = grd2; smg.beginPath(); smg.arc(sx2, sy2, sr2, 0, 7); smg.fill();
+    }
+    const smokeTex = new THREE.CanvasTexture(smc); smokeTex.colorSpace = THREE.SRGBColorSpace;
+    for (const [px2, py2, pz2, ps2] of [[-1.9, 2.6, 17.5, 2.6], [2.3, 3.0, 15.2, 3.3], [-3.2, 2.4, 14.8, 2.2]]) {
+      const sm = new THREE.Mesh(new THREE.PlaneGeometry(ps2, ps2),
+        new THREE.MeshBasicMaterial({ map: smokeTex, transparent: true, opacity: 0.5, depthWrite: false, toneMapped: false }));
+      sm.position.set(px2, py2, pz2);
+      smokeGroup.add(sm);
+    }
+  }
+  scene.add(smokeGroup);
 
   const shaftMat = new THREE.MeshBasicMaterial({ color: '#ffe6b8', transparent: true, opacity: 0.07, depthWrite: false, side: THREE.DoubleSide });
   const lightShafts = new THREE.Group();
@@ -2030,9 +2402,19 @@ export function buildOutbreakWorld(scene) {
     tunnelEyes,
     heldPhone,
     phoneScrMat,
+    phoneGlareMat,
     alert1Tex,
     alert2Tex,
     mapTex,
+    social0Tex,
+    social1Tex,
+    labGroup,
+    labAlarmMat,
+    cageDoor,
+    newsGroup,
+    tickerTex,
+    introFireGroup,
+    smokeGroup,
     lightShafts,
     shaftMat,
     flashCone,

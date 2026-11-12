@@ -8,16 +8,19 @@ import { createRequire } from 'node:module';
 const require = createRequire('/tmp/studio_env/node/package.json');
 const { chromium } = require('playwright-core');
 
-const WEB_ROOT = path.resolve('projects/rick-outbreak-3d/web');
+const HERE = path.dirname(new URL(import.meta.url).pathname);
+const WEB_ROOT = path.resolve(HERE, 'web');
 const OUT_DIR  = '/tmp/rick_study/v3/qa_stills';
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const BEATS = [
-  [0.40,   '00a_ColdOpen_InfectionMap'],
-  [1.10,   '00b_ColdOpen_Maul'],
-  [2.00,   '00c_ColdOpen_HordeStrobes'],
-  [2.90,   '00d_ColdOpen_TitleSmash'],
-  [3.70,   '00e_PeaceAerial_Day1'],
+  [0.30,   '00a_Origins_BusyLife'],
+  [0.95,   '00b_Origins_LabWide'],
+  [1.50,   '00c_Origins_LabClose_Mask'],
+  [2.10,   '00d_Origins_Release'],
+  [2.65,   '00e_Origins_News'],
+  [3.15,   '00f_Origins_Destruction_Title'],
+  [3.70,   '00g_PeaceAerial_Day1'],
   [4.40,   '01_CalmWork_417PM'],
   [6.00,   '02_Startled_PhoneBuzz'],
   [8.50,   '03_Alert1_StayIndoors'],

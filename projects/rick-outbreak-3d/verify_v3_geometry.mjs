@@ -9,7 +9,8 @@ import { createRequire } from 'node:module';
 const require = createRequire('/tmp/studio_env/node/package.json');
 const { chromium } = require('playwright-core');
 
-const WEB_ROOT = path.resolve('projects/rick-outbreak-3d/web');
+const HERE = path.dirname(new URL(import.meta.url).pathname);
+const WEB_ROOT = path.resolve(HERE, 'web');
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json' };
 const server = http.createServer((req, res) => {
   const u = new URL(req.url, 'http://127.0.0.1');
@@ -200,6 +201,85 @@ const results = await page.evaluate(() => {
     const c3 = project(cam, [4.05, 1.20, 3.94]);
     log('Shot35 labeled rations cluster in frame', c1.z > 0 && c2.z > 0 && c3.z > 0 && Math.abs(c1.x) < 0.9 && Math.abs(c2.x) < 0.9 && Math.abs(c3.x) < 0.95 && c1.y > -0.9 && c3.y > -0.9,
       `w(${c1.x.toFixed(2)},${c1.y.toFixed(2)}) can(${c2.x.toFixed(2)},${c2.y.toFixed(2)}) fak(${c3.x.toFixed(2)},${c3.y.toFixed(2)})`);
+  }
+
+  // ---- 10b. V6.5 ORIGINS COLD OPEN: every montage beat framed correctly ----
+  {
+    // 200 busy life: the running boy mid-frame, mom behind
+    const cam = cameraAt(0.30);
+    const st = cam.st;
+    const boy = st.chars.survBoy, mom = st.chars.woman;
+    const boyHead = project(cam, [boy.pos[0], 1.12, boy.pos[2]]);
+    const momHead = project(cam, [mom.pos[0], 1.55, mom.pos[2]]);
+    log('Origins 200 busy life: boy running in frame + mom behind',
+      boy.visible && mom.visible && boyHead.z > 0 && Math.abs(boyHead.x) < 0.55 && Math.abs(boyHead.y) < 0.75,
+      `boy(${boyHead.x.toFixed(2)},${boyHead.y.toFixed(2)}) momVis=${mom.visible} momHead(${momHead.x.toFixed(2)},${momHead.y.toFixed(2)})`);
+  }
+  {
+    // 201 lab wide: scientist at the bench, monitors behind
+    const cam = cameraAt(0.90);
+    const sci = project(cam, [-40.55, 1.55, -14.55]);
+    const mon = project(cam, [-40.0, 1.6, -16.0]);
+    log('Origins 201 lab wide: masked scientist + monitor wall in frame',
+      sci.z > 0 && Math.abs(sci.x) < 0.7 && Math.abs(sci.y) < 0.8 && mon.z > 0 && Math.abs(mon.x) < 0.9,
+      `sci(${sci.x.toFixed(2)},${sci.y.toFixed(2)}) mon(${mon.x.toFixed(2)},${mon.y.toFixed(2)})`);
+  }
+  {
+    // 202 lab close: the gas-mask face fills the frame
+    const cam = cameraAt(1.50);
+    const mask = project(cam, [-40.55, 1.60, -14.55]);
+    const vials = project(cam, [-41.3, 1.1, -15.6]);
+    log('Origins 202 lab close: mask face large + vial glow present',
+      mask.z > 0 && Math.abs(mask.x) < 0.45 && Math.abs(mask.y) < 0.6 && vials.z > 0 && Math.abs(vials.x) < 1.0,
+      `mask(${mask.x.toFixed(2)},${mask.y.toFixed(2)}) vials(${vials.x.toFixed(2)},${vials.y.toFixed(2)})`);
+  }
+  {
+    // 203 release: sprinting infected burst out of the cage toward camera
+    const cam = cameraAt(2.10);
+    const st = cam.st;
+    let inFrame = 0;
+    for (const k of ['infA', 'infB', 'infC']) {
+      const c = st.chars[k];
+      if (!c.visible) continue;
+      const p = project(cam, [c.pos[0], 1.2, c.pos[2]]);
+      if (p.z > 0 && Math.abs(p.x) < 0.9 && Math.abs(p.y) < 0.95) inFrame++;
+    }
+    const cageDoorWorld = project(cam, [-36.85, 1.1, -13.25]);
+    log('Origins 203 release: infected loose + cage in frame',
+      inFrame >= 2 && cageDoorWorld.z > 0 && Math.abs(cageDoorWorld.x) < 1.05,
+      `inFrame=${inFrame} cage(${cageDoorWorld.x.toFixed(2)},${cageDoorWorld.y.toFixed(2)})`);
+  }
+  {
+    // 204 news: anchor centered, breaking-news wall behind
+    const cam = cameraAt(2.65);
+    const anchor = project(cam, [-40.0, 1.35, -50.30]);
+    const wallTop = project(cam, [-40.0, 2.6, -51.5]);
+    log('Origins 204 news: anchor + breaking wall in frame',
+      anchor.z > 0 && Math.abs(anchor.x) < 0.5 && Math.abs(anchor.y) < 0.8 && wallTop.z > 0 && wallTop.y > -0.2,
+      `anchor(${anchor.x.toFixed(2)},${anchor.y.toFixed(2)}) wallTopY=${wallTop.y.toFixed(2)}`);
+  }
+  {
+    // 205 destruction: horde running + fire glow zone in frame
+    const cam = cameraAt(3.15);
+    const st = cam.st;
+    let inFrame = 0;
+    for (const k of ['infA', 'infB', 'infC']) {
+      const c = st.chars[k];
+      if (!c.visible) continue;
+      const p = project(cam, [c.pos[0], 1.2, c.pos[2]]);
+      if (p.z > 0 && Math.abs(p.x) < 0.95 && Math.abs(p.y) < 0.95) inFrame++;
+    }
+    const fire = project(cam, [-1.9, 0.9, 17.5]);
+    log('Origins 205 destruction: horde + fires in frame, introFire on',
+      inFrame >= 2 && fire.z > 0 && Math.abs(fire.x) < 0.95 && st.introFire,
+      `inFrame=${inFrame} fire(${fire.x.toFixed(2)},${fire.y.toFixed(2)}) introFire=${st.introFire}`);
+  }
+  {
+    // Phone sequence: social feed -> banner -> alert mode timeline (VO-synced)
+    const m = (tt) => window.__evaluateScene(tt).phoneState.mode;
+    const seq = [m(5.10), m(5.50), m(6.00)];
+    log('Origins phone timeline: social0 -> social1 -> alert1',
+      seq[0] === 'social0' && seq[1] === 'social1' && seq[2] === 'alert1', JSON.stringify(seq));
   }
 
   // ---- 11. Sunrise: abandoned cars visible but off store sightline ----

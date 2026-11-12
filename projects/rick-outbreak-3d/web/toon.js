@@ -2471,6 +2471,9 @@ export const ROLES = {
   infectedA: { jacket: "#364045", jacket2: "#22292d", pants: "#1f2427", hair: "#181b1d", skin: INF_HEAD, infected: true, jawOpen: 0.90, seed: 83 },
   infectedB: { jacket: "#474037", jacket2: "#2e2923", pants: "#23201c", hair: "#211b18", skin: "#94a69d", infected: true, jawOpen: 0.78, seed: 89 },
   infectedC: { jacket: "#2f3744", jacket2: "#1d232c", pants: "#1a1e25", hair: "#15171b", skin: "#a8b8b0", infected: true, jawOpen: 0.96, seed: 97 },
+  // V6.5 ORIGINS: hidden evil scientist (full gas mask — identity NEVER revealed) + news anchor
+  scientist: { jacket: "#dfe2df", jacket2: "#b6bab6", trim: "#39413c", pants: "#262b31", hair: "#20242a", skin: "#3a4038", gasMask: true, labGloves: true, seed: 101 },
+  anchor:    { jacket: "#242a36", jacket2: "#171c26", trim: "#b8342c", pants: "#1d222b", hair: "#221c16", skin: RICK_HEAD, seed: 107 },
 };
 
 function drawModernHairFront(p, R, H, cx, hc, u, ow, thick, light) {
@@ -2517,6 +2520,39 @@ function drawModernHairFront(p, R, H, cx, hc, u, ow, thick, light) {
     });
   }
   p.inkRing(hairPoly, ow * 0.88, thick);
+}
+
+/** V6.5 Gas-Mask Face for the hidden evil scientist — no skin, no eyes, NO identity. */
+function drawGasMaskFace(p, cx, hc, H, u, ow, facing, light) {
+  const fx = cx + facing * 12 * u;
+  // Rubber hood shading wash
+  p.ell(fx, hc - 6 * u, H.a * 0.98, H.b * 0.94, "rgba(21,26,23,0.30)", 0);
+  // Forehead reinforcement ridge + strap
+  p.band([[fx - H.a * 0.78, hc - H.b * 0.52], [fx + H.a * 0.78, hc - H.b * 0.56]], "#20261f", 7.5 * u, ow * 0.5, "round");
+  // Twin circular lenses — dark glass with a cold glint
+  const lensY = hc - 2 * u;
+  for (const side of [-1, 1]) {
+    const lx = fx + side * H.a * 0.46;
+    const lr = H.a * 0.30;
+    p.ell(lx, lensY, lr * 1.14, lr * 1.14, "#1a2118", ow * 0.9);          // rubber seat
+    p.ell(lx, lensY, lr, lr, "#0d1420", 0);                                // glass
+    const glintAng = light + 0.6;
+    p.stroke([[lx + Math.cos(glintAng) * lr * 0.55, lensY + Math.sin(glintAng) * lr * 0.55],
+              [lx + Math.cos(glintAng + 0.5) * lr * 0.28, lensY + Math.sin(glintAng + 0.5) * lr * 0.28]],
+             4.2 * u, "rgba(168,214,255,0.85)", "round");
+    p.ell(lx - lr * 0.34, lensY - lr * 0.34, lr * 0.16, lr * 0.10, "rgba(190,230,255,0.5)", 0);
+  }
+  // Bridge plate between lenses
+  p.poly([[fx - H.a * 0.16, lensY - 6 * u], [fx + H.a * 0.16, lensY - 6 * u], [fx + H.a * 0.20, lensY + 7 * u], [fx - H.a * 0.20, lensY + 7 * u]], "#242a22", ow * 0.5);
+  // Voice-filter cylinder at the mouth with ridged rings
+  const fy = hc + H.b * 0.42;
+  p.poly([[fx - 13 * u, fy - 11 * u], [fx + 13 * u, fy - 11 * u], [fx + 15 * u, fy + 12 * u], [fx - 15 * u, fy + 12 * u]], "#3d453b", ow * 0.62);
+  for (const ry of [-4, 2, 8]) {
+    p.band([[fx - 14 * u, fy + ry * u], [fx + 14 * u, fy + ry * u]], "#2a3026", 2.6 * u, 0, "round");
+  }
+  p.ell(fx, fy + 12 * u, 13 * u, 4.2 * u, "#171c15", ow * 0.4);
+  // Side hose curling from the right cheek down out of frame
+  p.stroke([[fx + H.a * 0.88, lensY + 8 * u], [fx + H.a * 1.04, lensY + 26 * u], [fx + H.a * 0.80, lensY + 44 * u]], 7.5 * u, "#2b322a", "round");
 }
 
 /** Upgraded Nightmare Horror Zombie Face: Necrotic Veins, Torn Scar, Sunken Sockets, Glowing Eyes & Bloody Fangs */
@@ -2818,6 +2854,7 @@ export function rickChar(p, roleKey = "you", opts = {}) {
   const skin = (expr === "pale_horror" || expr === "woman_uncanny")
     ? PALE_HEAD
     : (R.skin || RICK_HEAD);
+  const handCol = R.labGloves ? "#23282b" : skin;
 
   const sole = 968;
   const moveDir = facing < -0.05 ? -1 : 1;
@@ -3041,6 +3078,9 @@ export function rickChar(p, roleKey = "you", opts = {}) {
         const sh = Math.sin(shakeAmt * 48 + side * 2) * 4 * u;
         return { pts: [s, [X(14), s[1] + 0.28 * HH], [tcx + side * 0.34 * T.a + sh, s[1] + 0.12 * HH]], front: true, fist: true };
       }
+      case "labWork":
+        // Scientist leaning into the bench, hands forward at working height
+        return { pts: [s, [X(22), s[1] - 0.02 * HH], [X(38), s[1] - 0.26 * HH]], front: isNearArm, holdVial: isNearArm };
       case "zombieReach": {
         const tw = Math.sin(seed * 5 + step * Math.PI * 4 + side) * 7 * u;
         const reachF = isRunning ? 58 : 46;
@@ -3068,29 +3108,34 @@ export function rickChar(p, roleKey = "you", opts = {}) {
     const [hx, hy] = a.pts[2];
 
     if (a.palmSpread) {
-      p.ell(hx, hy, 8.8 * u, 9.8 * u, skin, ow * 0.62);
+      p.ell(hx, hy, 8.8 * u, 9.8 * u, handCol, ow * 0.62);
       for (let f = -2; f <= 2; f++) {
         const ang = rad(f * 18 - 90);
         p.band([[hx + Math.cos(ang) * 5 * u, hy + Math.sin(ang) * 5 * u],
-                [hx + Math.cos(ang) * 13 * u, hy + Math.sin(ang) * 14 * u]], skin, 3.8 * u, ow * 0.35, "round");
+                [hx + Math.cos(ang) * 13 * u, hy + Math.sin(ang) * 14 * u]], handCol, 3.8 * u, ow * 0.35, "round");
       }
     } else if (a.shushFinger) {
-      p.ell(hx, hy, 7.2 * u, 6.8 * u, skin, ow * 0.58);
-      p.band([[hx, hy - 3 * u], [hx, hy - 19 * u]], skin, 4.2 * u, ow * 0.42, "round");
+      p.ell(hx, hy, 7.2 * u, 6.8 * u, handCol, ow * 0.58);
+      p.band([[hx, hy - 3 * u], [hx, hy - 19 * u]], handCol, 4.2 * u, ow * 0.42, "round");
     } else if (a.claw) {
-      p.ell(hx, hy, 7.8 * u, 7.0 * u, skin, ow * 0.58);
+      p.ell(hx, hy, 7.8 * u, 7.0 * u, handCol, ow * 0.58);
       for (const f of [-1.5, -0.5, 0.5, 1.5]) {
         p.stroke([[hx + f * 3.2 * u, hy], [hx + (f * 4.5 + moveDir * 8) * u, hy + 5 * u], [hx + (f * 5 + moveDir * 12) * u, hy + 12 * u]], 2.8 * u, "#240d12");
       }
     } else {
-      p.ell(hx, hy, 7.4 * u, 7.0 * u, skin, ow * 0.58);
+      p.ell(hx, hy, 7.4 * u, 7.0 * u, handCol, ow * 0.58);
+    }
+    if (a.holdVial) {
+      p.ell(hx, hy - 13 * u, 5.4 * u, 9.5 * u, "#cdeedd", ow * 0.5);
+      p.ell(hx, hy - 19 * u, 3.4 * u, 4.4 * u, "#8effc0", 0);
+      p.stroke([[hx - 5.4 * u, hy - 8.5 * u], [hx + 5.4 * u, hy - 8.5 * u]], 2.2 * u, "#39413c", "round");
     }
 
     if (a.prop === "phoneBuzz") {
       p.poly(rrect(hx - 11 * u, hy - 26 * u, hx + 11 * u, hy + 6 * u, 4 * u), "#1a1d24", ow * 0.68);
       p.poly(rrect(hx - 8.5 * u, hy - 22 * u, hx + 8.5 * u, hy + 2 * u, 2 * u), "#ff3328", 0);
       p.poly(rrect(hx - 6.5 * u, hy - 18 * u, hx + 6.5 * u, hy - 12 * u, 1 * u), "#ffffff", 0);
-      p.ell(hx - 9.5 * u, hy - 5 * u, 4.2 * u, 3.2 * u, skin, ow * 0.45);
+      p.ell(hx - 9.5 * u, hy - 5 * u, 4.2 * u, 3.2 * u, handCol, ow * 0.45);
       if (phoneBuzz > 0) {
         const pulse = (phoneBuzz * 6) % 1;
         for (const sgn of [-1, 1]) {
@@ -3168,7 +3213,9 @@ export function rickChar(p, roleKey = "you", opts = {}) {
   p.shadedFill(hp, skin, skinShadow, light, H.a, 0.42);
   p.inkRing(hp, ow * 1.04, thick);
 
-  if (R.infected) {
+  if (R.gasMask) {
+    drawGasMaskFace(p, cx + jx, hc + 4 * u, H, u, ow, facing, light);
+  } else if (R.infected) {
     drawHorrorInfectedFace(p, cx + jx, hc + 4 * u, H, u, ow, facing, jawAnim, seed);
   } else {
     drawSituationHumanFace(p, roleKey, R, cx + jx, hc + 4 * u, H, u, ow, expr, facing, blink, speakOpen);
@@ -3180,7 +3227,7 @@ export function rickChar(p, roleKey = "you", opts = {}) {
     p.poly([[sx, sy - 11 * u], [sx + 6 * u, sy + 3 * u], [sx, sy + 8 * u], [sx - 6 * u, sy + 3 * u]], "#8ad4ff", ow * 0.45);
   }
 
-  drawModernHairFront(p, R, H, cx + jx, hc, u, ow, thick, light);
+  if (!R.gasMask) drawModernHairFront(p, R, H, cx + jx, hc, u, ow, thick, light);
   p.rot = null;
 
   // Draw foreground raised hands/props (phoneBuzz, Woman's palm, Shutter pull, Man's shush finger, Boy's sleeve grab) IN FRONT of head!

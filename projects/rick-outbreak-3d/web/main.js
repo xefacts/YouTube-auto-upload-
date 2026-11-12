@@ -133,6 +133,24 @@ scene.add(figBackLight);
 const phoneGlow = new THREE.PointLight('#ff3528', 0.0, 3.2, 1.4);
 scene.add(phoneGlow);
 
+// V6.5 ORIGINS set lighting: cold lab fluoros, vial glow, alarm beacon, news studio key + wash
+const labLight = new THREE.PointLight('#bcd9ff', 0.0, 17, 1.15);
+labLight.position.set(-40, 3.05, -13.6); scene.add(labLight);
+const labBenchLight = new THREE.PointLight('#9fd8ff', 0.0, 6.5, 1.3);
+labBenchLight.position.set(-40.3, 1.9, -15.4); scene.add(labBenchLight);
+const vialGlowLight = new THREE.PointLight('#8effc0', 0.0, 3.2, 1.5);
+vialGlowLight.position.set(-41.35, 1.25, -15.6); scene.add(vialGlowLight);
+const labAlarmLight = new THREE.PointLight('#ff2a1a', 0.0, 13, 1.25);
+labAlarmLight.position.set(-37.6, 3.0, -14.2); scene.add(labAlarmLight);
+const newsKeyLight = new THREE.PointLight('#ffe2c2', 0.0, 11, 1.2);
+newsKeyLight.position.set(-40, 2.7, -48.9); scene.add(newsKeyLight);
+const newsWashLight = new THREE.PointLight('#4d7dcc', 0.0, 15, 1.25);
+newsWashLight.position.set(-40, 2.1, -51.2); scene.add(newsWashLight);
+const fireLightA = new THREE.PointLight('#ff7a26', 0.0, 9, 1.3);
+fireLightA.position.set(-1.9, 1.0, 17.5); scene.add(fireLightA);
+const fireLightB = new THREE.PointLight('#ff8a36', 0.0, 11, 1.3);
+fireLightB.position.set(2.3, 1.2, 15.2); scene.add(fireLightB);
+
 // ---------- Build Unified V3 3D World ----------
 const world = buildOutbreakWorld(scene);
 // V6: screens & neon stay crisp under ACES filmic tone mapping.
@@ -196,6 +214,8 @@ const charRigs = {
   infA:    makeCharRig('infectedA', ROLES.infectedA, 1.79),
   infB:    makeCharRig('infectedB', ROLES.infectedB, 1.76),
   infC:    makeCharRig('infectedC', ROLES.infectedC, 1.77),
+  scientist: makeCharRig('scientist', ROLES.scientist, 1.80),
+  anchor:  makeCharRig('anchor',    ROLES.anchor,    1.72),
 };
 
 // 2D Cartoon FX Card
@@ -278,7 +298,9 @@ export function renderAt(t) {
     const dt = Math.max(0, Math.min(0.05, t - partLastT));
     partLastT = t;
     let mode = 'none';
-    if (z === 'street' && t >= 145.96 && t < 188.4) mode = 'ash';
+    if (st.introFire) mode = 'ember';
+    else if (z === 'street' && t >= 145.96 && t < 188.4) mode = 'ash';
+    else if (z === 'street' && t < 3.36) mode = 'paper';
     else if (z === 'street' && t < 145.96) mode = 'paper';
     else if (z === 'underground') mode = 'ugdust';
     else if (z === 'store') mode = 'motes';
@@ -288,7 +310,11 @@ export function renderAt(t) {
         const r1 = Math.sin(i * 91.7 + t * 0.13) * 0.5 + 0.5;
         const r2 = Math.sin(i * 47.3 + t * 0.17) * 0.5 + 0.5;
         const r3 = Math.sin(i * 33.9 + t * 0.11) * 0.5 + 0.5;
-        if (mode === 'paper' || mode === 'ash') {
+        if (mode === 'ember') {
+          const fx0 = [-1.9, 2.3, -3.2][i % 3];
+          const fz0 = [17.5, 15.2, 14.8][i % 3];
+          partPos[i*3] = fx0 + (r1 - 0.5) * 1.6; partPos[i*3+1] = 0.2 + r2 * 2.6; partPos[i*3+2] = fz0 + (r3 - 0.5) * 1.6;
+        } else if (mode === 'paper' || mode === 'ash') {
           partPos[i*3] = -20 + r1 * 40; partPos[i*3+1] = 0.15 + r2 * 2.4; partPos[i*3+2] = 9 + r3 * 20;
         } else if (mode === 'ugdust') {
           partPos[i*3] = -1.6 + r1 * 3.2; partPos[i*3+1] = 0.4 + r2 * 3.0; partPos[i*3+2] = -66 + r3 * 10;
@@ -299,6 +325,7 @@ export function renderAt(t) {
     }
     const cfg = mode === 'paper' ? { op: 0.50, size: 0.11, col: '#cfc9ba' }
       : mode === 'ash' ? { op: 0.38, size: 0.075, col: '#8b8f98' }
+      : mode === 'ember' ? { op: 0.85, size: 0.06, col: '#ff9a3c' }
       : mode === 'ugdust' ? { op: 0.22, size: 0.045, col: '#ffd9a8' }
       : { op: 0.32, size: 0.05, col: '#ffe9c8' };
     partMat.opacity = cfg.op;
@@ -308,7 +335,12 @@ export function renderAt(t) {
     if (particles.visible) {
       for (let i = 0; i < PART_N; i++) {
         const sd = partSeed[i * 4], ph = partSeed[i * 4 + 3];
-        if (mode === 'paper') {
+        if (mode === 'ember') {
+          partPos[i*3] += Math.sin(t * 2.2 + ph) * 0.45 * dt;
+          partPos[i*3+1] += (0.9 + sd * 1.4) * dt;
+          partPos[i*3+2] += Math.cos(t * 1.9 + ph) * 0.4 * dt;
+          if (partPos[i*3+1] > 4.6) { partPos[i*3+1] = 0.2; }
+        } else if (mode === 'paper') {
           partPos[i*3] += (0.55 + sd * 0.75) * dt * (1 + 0.4 * Math.sin(t * 1.7 + ph));
           partPos[i*3+1] += Math.sin(t * 3.1 + ph) * 0.5 * dt;
           if (partPos[i*3] > 20) partPos[i*3] = -20;
@@ -337,6 +369,9 @@ export function renderAt(t) {
   if (z === 'underground') {
     scene.fog.near = 4.5;
     scene.fog.far  = 24.5;
+  } else if (z === 'lab' || z === 'news') {
+    scene.fog.near = 9.0;
+    scene.fog.far  = 42.0;
   } else if (z === 'back') {
     scene.fog.near = 3.8;
     scene.fog.far  = 21.0;
@@ -353,6 +388,8 @@ export function renderAt(t) {
   world.backGroup.visible        = (z === 'back' || st.shot.id === 37 || st.shot.id === 60);
   world.alleyGroup.visible       = (z === 'alley');
   world.undergroundGroup.visible = (z === 'underground');
+  world.labGroup.visible = (z === 'lab');
+  world.newsGroup.visible = (z === 'news');
 
   world.lightShafts.visible = (z === 'store' && st.shaftOpacity > 0.005);
   world.shaftMat.opacity = st.shaftOpacity;
@@ -549,18 +586,65 @@ export function renderAt(t) {
     world.patrolCar.rotation.y = st.patrolCarRot;
   }
 
-  // Hand-Gripped Smartphone Close-Up Inserts
+  // Hand-Gripped Smartphone Close-Up Inserts — V6.5 REAL PHONE
   world.heldPhone.visible = st.phoneState.visible;
   phoneGlow.visible = st.phoneState.visible;
   if (st.phoneState.visible) {
     world.phoneScrMat.map =
       st.phoneState.mode === 'alert1' ? world.alert1Tex :
-      st.phoneState.mode === 'alert2' ? world.alert2Tex : world.mapTex;
+      st.phoneState.mode === 'alert2' ? world.alert2Tex :
+      st.phoneState.mode === 'social0' ? world.social0Tex :
+      st.phoneState.mode === 'social1' ? world.social1Tex : world.mapTex;
     world.heldPhone.position.set(st.phoneState.pos[0], st.phoneState.pos[1], st.phoneState.pos[2]);
     world.heldPhone.lookAt(camera.position);
-    world.heldPhone.rotateZ((st.phoneState.vib || 0) * 5.0);
+    // Realistic vibration: sharp pulse-train envelope driving multi-axis jitter
+    const va = st.phoneState.vib || 0;
+    if (va > 0.0004) {
+      world.heldPhone.rotateZ(Math.sin(t * 92) * va * 4.6);
+      world.heldPhone.position.y += Math.sin(t * 133) * va * 0.6;
+      world.heldPhone.position.x += Math.sin(t * 171) * va * 0.38;
+      world.heldPhone.rotation.x += Math.sin(t * 115) * va * 1.6;
+    }
     phoneGlow.position.set(st.phoneState.pos[0], st.phoneState.pos[1], st.phoneState.pos[2] - 0.15);
-    phoneGlow.intensity = st.phoneState.mode === 'map1bar' ? 0.85 : 1.35;
+    phoneGlow.color.set(st.phoneState.mode.startsWith('social') ? '#cfe0ff' : (st.phoneState.mode === 'map1bar' ? '#9ec0d8' : '#ff3528'));
+    phoneGlow.intensity = st.phoneState.mode === 'map1bar' ? 0.85 : (st.phoneState.mode.startsWith('social') ? 1.05 : 1.35);
+  }
+
+  // V6.5 ORIGINS set dressing dynamics
+  if (z === 'lab') {
+    labLight.intensity = 1.45;
+    labBenchLight.intensity = 1.05;
+    vialGlowLight.intensity = 0.95 + 0.15 * Math.sin(t * 6.0);
+    const ai = st.alarmInt || 0;
+    labAlarmLight.intensity = ai * 1.6;
+    world.labAlarmMat.color.setRGB(0.55 + 0.45 * ai, 0.08, 0.05);
+    world.cageDoor.position.x = -1.78 * (st.cageDoorU || 0); // slides open at the release beat
+  } else {
+    labLight.intensity = 0; labBenchLight.intensity = 0; vialGlowLight.intensity = 0; labAlarmLight.intensity = 0;
+  }
+  if (z === 'news') {
+    newsKeyLight.intensity = 1.6;
+    newsWashLight.intensity = 1.05;
+    world.tickerTex.offset.x = (world.tickerTex.offset.x + 0.09 * Math.max(0.001, Math.min(0.05, t - partLastT))) % 1;
+  } else {
+    newsKeyLight.intensity = 0; newsWashLight.intensity = 0;
+  }
+  const fireOn = !!st.introFire;
+  world.introFireGroup.visible = fireOn;
+  world.smokeGroup.visible = fireOn;
+  fireLightA.intensity = fireOn ? 1.7 + 0.65 * Math.sin(t * 23.0) : 0;
+  fireLightB.intensity = fireOn ? 1.95 + 0.75 * Math.sin(t * 27.0 + 1.7) : 0;
+  if (fireOn) {
+    world.introFireGroup.children.forEach((fl, i) => {
+      fl.scale.y = 0.82 + 0.30 * Math.sin(t * 21.0 + i * 2.1);
+      fl.scale.x = fl.scale.z = 0.9 + 0.16 * Math.sin(t * 17.0 + i * 1.3);
+      fl.rotation.y = t * (0.7 + i * 0.2);
+    });
+    world.smokeGroup.children.forEach((sm, i) => {
+      sm.lookAt(camera.position);
+      sm.rotation.z = t * 0.12 * (i % 2 ? 1 : -1);
+      sm.scale.setScalar(0.9 + 0.18 * Math.sin(t * 0.9 + i));
+    });
   }
 
   // 4. Every-Frame Biomechanical Character Rig Update (Distance-Locked Stride, ZERO Sliding!)
@@ -628,6 +712,7 @@ export function renderAt(t) {
       else if (cs.armPose === 'plead')     { Larm = 'hang'; Rarm = 'plead'; }
       else if (cs.armPose === 'shush')     { Larm = 'hang'; Rarm = 'shush'; }
       else if (cs.armPose === 'grabSleeve'){ Larm = 'grabSleeve'; Rarm = 'grabSleeve'; }
+      else if (cs.armPose === 'labWork')  { Larm = 'labWork'; Rarm = 'labWork'; }
       else if (rig.roleCfg.infected)       { Larm = 'zombieReach'; Rarm = 'zombieReach'; }
       else if (cs.isRunning)               { Larm = 'run'; Rarm = 'run'; }
       else if (cs.shake > 0.006)           { Larm = 'shake'; Rarm = 'shake'; }

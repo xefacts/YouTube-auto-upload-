@@ -14,8 +14,9 @@ const require = createRequire('/tmp/studio_env/node/package.json');
 const { chromium } = require('playwright-core');
 
 const FFMPEG    = '/tmp/studio_env/bin/ffmpeg';
-const WEB_ROOT  = path.resolve('projects/rick-outbreak-3d/web');
-const ASS_PATH  = path.resolve('projects/rick-outbreak-3d/data/captions_v3.ass');
+const HERE       = path.dirname(new URL(import.meta.url).pathname);
+const WEB_ROOT  = path.resolve(HERE, 'web');
+const ASS_PATH  = path.resolve(HERE, 'data/captions_v3.ass');
 const AUDIO_WAV = '/tmp/rick_study/v3/master_audio_v3.wav';
 const OUT_DIR   = '/tmp/rick_study/v3/render_chunks';
 const FINAL_MP4 = '/tmp/rick_study/v3/Rick_Clips_Outbreak_V3_Final_1080x1920.mp4';
@@ -27,6 +28,14 @@ const RH    = 960;
 const BATCH = 24;
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
+if (!fs.existsSync(path.join(WEB_ROOT, 'index.html')) || !fs.existsSync(path.join(WEB_ROOT, 'main.js'))) {
+  console.error(`[FATAL] WEB_ROOT does not contain the scene: ${WEB_ROOT}`);
+  process.exit(1);
+}
+
+// Pre-flight: kill any orphaned swiftshader chromium left by a failed prior run
+try { execFileSync('pkill', ['-f', '/tmp/chromium'], { stdio: 'ignore' }); console.log('[V3] Swept orphaned chromium processes'); } catch {}
+await new Promise((r) => setTimeout(r, 1000));
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -83,10 +92,11 @@ async function runWorker({ id, start, end }) {
     ],
   });
 
+  try {
   const page = await browser.newPage({ viewport: { width: RW, height: RH } });
   page.on('pageerror', (e) => console.error(`[W${id} EXC]`, e));
   await page.goto(`http://127.0.0.1:${port}/index.html?w=${RW}&h=${RH}`, { waitUntil: 'networkidle' });
-  await page.waitForFunction(() => window.__ready === true, null, { timeout: 30000 });
+  await page.waitForFunction(() => window.__ready === true, null, { timeout: 180000 });
   console.log(`[W${id}] WebGL + PostProcessing ready — rendering frames [${start}..${end - 1}] (${end - start} frames)`);
 
   let cur = start;
@@ -122,12 +132,25 @@ async function runWorker({ id, start, end }) {
   await new Promise((res, rej) => {
     ff.on('close', (code) => (code === 0 ? res() : rej(new Error(`W${id} ffmpeg exited ${code}`))));
   });
-  await browser.close();
   console.log(`[W${id}] Completed lossless MJPEG chunk -> ${chunkPath}`);
   return chunkPath;
+  } catch (err) {
+    console.error(`[W${id}] FAILED — cleaning up:`, err && err.message || err);
+    try { ff.stdin.destroy(); } catch {}
+    try { ff.kill('SIGKILL'); } catch {}
+    throw err;
+  } finally {
+    try { await browser.close(); } catch {}
+  }
 }
 
-const chunkFiles = await Promise.all(RANGES.map(runWorker));
+// V6: stagger worker launches so 3 concurrent swiftshader compiles don't trip the ready timeout
+const chunkPromises = [];
+for (const r of RANGES) {
+  chunkPromises.push(runWorker(r));
+  await new Promise((rr) => setTimeout(rr, 2500));
+}
+const chunkFiles = await Promise.all(chunkPromises);
 server.close();
 
 const concatTxt = path.join(OUT_DIR, 'concat.txt');
@@ -135,7 +158,7 @@ fs.writeFileSync(concatTxt, chunkFiles.map((f) => `file '${f}'`).join('\n') + '\
 
 console.log(`[ENCODE] Upscaling 540x960 -> 1080x1920 (Lanczos) + burning 660 1-word ASS captions + muxing master_audio_v3.wav...`);
 // fontsdir: resolve Anton from the repo fonts/ dir - self-contained, no ~/.fonts dependency.
-const FONT_DIR = path.resolve('projects/rick-outbreak-3d/fonts');
+const FONT_DIR = path.resolve(HERE, 'fonts');
 const vf = `scale=1080:1920:flags=lanczos,unsharp=5:5:0.42:5:5:0.0,ass=${ASS_PATH.replace(/:/g, '\\:')}:fontsdir=${FONT_DIR.replace(/:/g, '\\:')}`;
 
 execFileSync(FFMPEG, [

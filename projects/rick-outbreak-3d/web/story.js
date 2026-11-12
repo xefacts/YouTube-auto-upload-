@@ -53,12 +53,23 @@ function solveMoveFacing(pos, vel, camPos, reverseWalk = false) {
 }
 
 export const SHOTS = [
-  // ================= V6 HOLLYWOOD COLD OPEN (0.00 - 3.36s) =================
-  // Nationwide infection map -> infected mauls a fleeing man -> strobe-lit horde sprint -> TITLE SMASH.
-  { id: 100, t0: 0.00, t1: 0.82, zone: 'street', p0: [3.2, 9.0, 27.0],  p1: [2.4, 7.2, 25.0],  l0: [0.0, 1.5, 16.0], l1: [0.2, 1.4, 16.0],  fov0: 44, fov1: 40, roll: 1.6 },
-  { id: 101, t0: 0.82, t1: 1.62, zone: 'street', p0: [-1.7, 1.32, 12.4], p1: [-0.9, 1.22, 12.7], l0: [0.9, 1.0, 15.4], l1: [1.3, 0.9, 15.1],  fov0: 46, fov1: 42, shake: 0.055, roll: -2.6 },
-  { id: 102, t0: 1.62, t1: 2.42, zone: 'street', p0: [2.1, 1.6, 10.6],  p1: [0.6, 1.5, 11.1],  l0: [0.0, 1.1, 16.0], l1: [-0.7, 1.0, 16.4], fov0: 50, fov1: 46, shake: 0.045, roll: 2.2 },
-  { id: 103, t0: 2.42, t1: 3.36, zone: 'street', p0: [0.0, 1.5, 10.0],  p1: [0.0, 1.44, 10.5],  l0: [0.0, 1.4, 14.0], l1: [0.0, 1.35, 14.2], fov0: 42, fov1: 39 },
+  // ================= V6.5 ORIGINS COLD OPEN (0.00 - 3.36s) =================
+  // VO over this: "The first warning comes at 4:17 PM."
+  // Busy family life -> HIDDEN LAB (masked evil scientist) -> THE RELEASE -> breaking news
+  // -> nationwide destruction -> OUTBREAK TITLE SMASH -> hard cut to the bright ordinary afternoon.
+  // `lx` = per-beat cinematic light override (hard montage cuts, no slow crossfade).
+  { id: 200, t0: 0.00, t1: 0.62, zone: 'street', p0: [2.6, 1.12, 15.0], p1: [0.9, 1.06, 14.6], l0: [1.2, 0.90, 13.5], l1: [-0.2, 0.85, 13.5], fov0: 44, fov1: 40, roll: 1.1, shake: 0.014,
+    lx: { sky: '#8fb4d4', sun: 1.68, amb: 0.92, store: 0.85, fridge: 0.80, tint: '#fff3e2', shaft: 0.050, dome: '#d8eaf8', win: 0.00 } },
+  { id: 201, t0: 0.62, t1: 1.24, zone: 'lab',   p0: [-38.1, 1.75, -9.7], p1: [-39.1, 1.62, -10.5], l0: [-40.2, 1.25, -14.9], l1: [-40.3, 1.30, -14.9], fov0: 46, fov1: 41, roll: -1.4,
+    lx: { sky: '#0a0e14', sun: 0.00, amb: 0.60, store: 0.00, fridge: 0.00, tint: '#cfe4ff', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
+  { id: 202, t0: 1.24, t1: 1.80, zone: 'lab',   p0: [-39.55, 1.52, -13.15], p1: [-39.66, 1.49, -13.32], l0: [-40.50, 1.56, -14.55], l1: [-40.54, 1.55, -14.60], fov0: 33, fov1: 29, roll: 1.8, shake: 0.010,
+    lx: { sky: '#0a0e14', sun: 0.00, amb: 0.52, store: 0.00, fridge: 0.00, tint: '#cfe4ff', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
+  { id: 203, t0: 1.80, t1: 2.42, zone: 'lab',   p0: [-35.20, 1.38, -11.20], p1: [-35.90, 1.30, -11.95], l0: [-36.85, 1.05, -14.10], l1: [-36.95, 1.00, -14.30], fov0: 49, fov1: 45, shake: 0.062, roll: -2.4,
+    lx: { sky: '#0a0e14', sun: 0.00, amb: 0.48, store: 0.00, fridge: 0.00, tint: '#ffcfc4', shaft: 0.000, dome: '#0a0e14', win: 0.00 } },
+  { id: 204, t0: 2.42, t1: 2.94, zone: 'news',  p0: [-38.35, 1.62, -45.5], p1: [-39.15, 1.56, -46.3], l0: [-40.0, 1.40, -49.7], l1: [-40.0, 1.35, -49.9], fov0: 44, fov1: 38, roll: 1.2,
+    lx: { sky: '#0a0d12', sun: 0.00, amb: 0.62, store: 0.00, fridge: 0.00, tint: '#ffd9d4', shaft: 0.000, dome: '#0a0d12', win: 0.00 } },
+  { id: 205, t0: 2.94, t1: 3.36, zone: 'street', p0: [0.7, 1.62, 8.6],  p1: [-0.4, 1.56, 9.3],  l0: [0.0, 1.05, 16.5], l1: [0.0, 1.00, 16.8],  fov0: 50, fov1: 46, shake: 0.048, roll: 2.0,
+    lx: { sky: '#2b0d08', sun: 0.20, amb: 0.68, store: 0.00, fridge: 0.00, tint: '#ffd9c4', shaft: 0.000, dome: '#431409', win: 0.00 } },
   // ================= ACT I: 4:17 PM ALERT & STREET CHAOS (0.00 - 42.60s) =================
   // Hard cut out of the nightmare: BRIGHT peaceful afternoon — the quiet world before it ended.
   { id: 0,  t0: 3.36, t1: 4.10, zone: 'street', p0: [9.5, 12.5, 22.5], p1: [4.5, 6.0, 19.5],    l0: [0.0, 1.7, 8.0],  l1: [0.4, 1.6, 9.0],   fov0: 50, fov1: 45 },
@@ -270,15 +281,22 @@ export function evaluateScene(t) {
   const LB = LIGHT_STATES[Math.min(li + 1, LIGHT_STATES.length - 1)];
   const blendWin = 1.10;
   const lu = (LA === LB) ? 0 : smootherstep(clamp01((t - (LB.t - blendWin * 0.5)) / blendWin));
-  const skyHex = hexLerp(LA.sky, LB.sky, lu);
-  const sunInt = lerp(LA.sun, LB.sun, lu);
-  const ambInt = lerp(LA.amb, LB.amb, lu);
-  const storeLightInt = lerp(LA.store, LB.store, lu);
-  const fridgeOn = lerp(LA.fridge, LB.fridge, lu);
-  const cardTint = hexLerp(LA.tint, LB.tint, lu);
-  const shaftOpacity = lerp(LA.shaft, LB.shaft, lu);
-  const skyDomeTint = hexLerp(LA.dome, LB.dome, lu);
-  const windowsLit = lerp(LA.win, LB.win, lu);
+  let skyHex = hexLerp(LA.sky, LB.sky, lu);
+  let sunInt = lerp(LA.sun, LB.sun, lu);
+  let ambInt = lerp(LA.amb, LB.amb, lu);
+  let storeLightInt = lerp(LA.store, LB.store, lu);
+  let fridgeOn = lerp(LA.fridge, LB.fridge, lu);
+  let cardTint = hexLerp(LA.tint, LB.tint, lu);
+  let shaftOpacity = lerp(LA.shaft, LB.shaft, lu);
+  let skyDomeTint = hexLerp(LA.dome, LB.dome, lu);
+  let windowsLit = lerp(LA.win, LB.win, lu);
+  // V6.5 ORIGINS: per-beat montage light override — hard cuts, Hollywood trailer rhythm.
+  if (shot.lx) {
+    const L = shot.lx;
+    skyHex = L.sky; sunInt = L.sun; ambInt = L.amb;
+    storeLightInt = L.store; fridgeOn = L.fridge; cardTint = L.tint;
+    shaftOpacity = L.shaft; skyDomeTint = L.dome; windowsLit = L.win;
+  }
 
   // =========================================================================
   // DYNAMIC WORLD PROPS (100% CLOSED SHUTTERS, DOORS, FLASHLIGHT, RADIO, CARS)
@@ -372,8 +390,8 @@ export function evaluateScene(t) {
       swerveCarPos = [lerp(6.6, -2.6, swU), 0, lerp(15.30, 13.90, swU)];
       swerveCarRot = lerp(-Math.PI / 2, -Math.PI / 2 + 0.58, swU);
     }
-  } else if ((t >= 0.82 && t < 2.42) || (t >= 59.88 && t < 69.96)) {
-    patrolCarVis = true; // V6: strobes wash the cold-open horde + the Act II police standoff
+  } else if ((t >= 2.94 && t < 3.36) || (t >= 59.88 && t < 69.96)) {
+    patrolCarVis = true; // V6.5: strobes wash the destruction beat + the Act II police standoff
   } else if (t >= 145.9) {
     // Sunrise abandoned cars scattered askew across empty street!
     abandonedCarPos = [8.5, 0, 22.5]; abandonedCarRot = 0.55;
@@ -381,13 +399,17 @@ export function evaluateScene(t) {
     patrolCarVis = true; patrolCarPos = [7.0, 0, 20.0]; patrolCarRot = 0.9;
   }
 
-  // V6 CINEMATIC OVERLAYS: cold-open map -> OUTBREAK title smash -> DAY cards -> TO BE CONTINUED.
+  // V6.5 CINEMATIC OVERLAYS: origins beat cards -> OUTBREAK title smash -> DAY cards -> TO BE CONTINUED.
   let introOverlay = null;
-  if (t < 0.82) {
-    introOverlay = { tex: 'map', op: clamp01((t + 0.30) / 0.34) * clamp01((0.82 - t) / 0.08) };
-  } else if (t >= 2.42 && t < 3.36) {
+  if (t < 0.62) {
+    introOverlay = { tex: 'intro1', op: clamp01((t - 0.08) / 0.16) * clamp01((0.56 - t) / 0.09) };
+  } else if (t >= 0.62 && t < 1.24) {
+    introOverlay = { tex: 'intro2', op: clamp01((t - 0.68) / 0.16) * clamp01((1.18 - t) / 0.09) };
+  } else if (t >= 2.42 && t < 2.94) {
+    introOverlay = { tex: 'intro3', op: clamp01((t - 2.48) / 0.16) * clamp01((2.88 - t) / 0.09) };
+  } else if (t >= 2.94 && t < 3.36) {
     const fl2 = Math.sin(t * 47.0) > 0.82 ? 0.80 : 1.0; // title glitch flicker
-    introOverlay = { tex: 'title', op: clamp01((t - 2.42) / 0.05) * clamp01((3.36 - t) / 0.12) * fl2 };
+    introOverlay = { tex: 'title', op: clamp01((t - 2.94) / 0.05) * clamp01((3.36 - t) / 0.12) * fl2 };
   } else if (t >= 3.50 && t < 6.30) {
     introOverlay = { tex: 'locator1', op: clamp01((t - 3.50) / 0.4) * clamp01((6.30 - t) / 0.5) };
   } else if (t >= 146.30 && t < 149.30) {
@@ -396,18 +418,33 @@ export function evaluateScene(t) {
     introOverlay = { tex: 'end', op: clamp01((t - 259.75) / 0.5) };
   }
 
-  // Held Smartphone close-up inserts
+  // Held Smartphone close-up inserts — V6.5 REAL PHONE:
+  // feed browsing -> notification banner arrives (buzz) -> EMERGENCY ALERT slams in mid-shot.
+  const buzzAmp = (t0, pulses) => {
+    let a = 0;
+    for (let p = 0; p < pulses; p++) {
+      const dt = t - (t0 + p * 0.34);
+      if (dt >= 0 && dt < 0.24) a = Math.max(a, Math.min(1, dt / 0.03) * (1 - dt / 0.24));
+    }
+    return a;
+  };
   const phoneState = { visible: false, mode: 'alert1', pos: [3.02, 1.35, 3.10], vib: 0 };
   if ([3, 4, 6].includes(shot.id)) {
     phoneState.visible = true;
-    phoneState.mode = 'alert1';
     phoneState.pos = [3.02, 1.35, 3.10];
-    phoneState.vib = t < 6.0 ? Math.sin(t * 55) * 0.014 : 0;
+    if (shot.id === 3) {
+      if (t < 5.35) phoneState.mode = 'social0';        // scrolling the feed — ordinary life
+      else if (t < 5.75) phoneState.mode = 'social1';   // notification banner + badge (buzz!)
+      else phoneState.mode = 'alert1';                  // the alert FILLS THE SCREEN (with the VO!)
+      phoneState.vib = buzzAmp(5.35, 2) * 0.016 + buzzAmp(5.78, 1) * 0.020;
+    } else {
+      phoneState.mode = 'alert1';
+    }
   } else if ([45, 46].includes(shot.id)) {
     phoneState.visible = true;
     phoneState.mode = 'alert2';
     phoneState.pos = [2.66, 1.35, -13.80];
-    phoneState.vib = t < 116.5 ? Math.sin(t * 55) * 0.012 : 0;
+    phoneState.vib = buzzAmp(115.45, 2) * 0.014;
   } else if ([56, 57].includes(shot.id)) {
     phoneState.visible = true;
     phoneState.mode = 'map1bar';
@@ -436,6 +473,8 @@ export function evaluateScene(t) {
     infA: mkChar(),
     infB: mkChar(),
     infC: mkChar(),
+    scientist: mkChar(),
+    anchor: mkChar(),
   };
 
   // Helper to place a walking/running character with exact distance-locked stride (`dist` in meters -> stride cycle!)
@@ -597,34 +636,53 @@ export function evaluateScene(t) {
     }
   }
 
-  // ---------------- 0. V6 COLD OPEN CHOREOGRAPHY: flash-forward outbreak (0.70 - 2.42s) ----------------
-  if (t >= 0.70 && t < 1.62 && shot.zone === 'street') {
-    if (t < 1.30) {
-      // A fleeing man is run down and MAULED by a sprinting infected — brutal flash-forward.
-      placeMoving(chars.runB, -0.8, 15.40, 1.85, 15.40, 0.70, 1.30, true, false);
-      chars.runB.expr = 'extreme_panic';
-      placeMoving(chars.infA, 2.9, 16.10, 1.30, 15.60, 0.70, 1.30, true, false);
-      chars.infA.armPose = 'zombieReach';
-    } else {
-      // Down: the infected hunches over the fallen man, blood pooling fast under him.
-      chars.runB.visible = true;
-      chars.runB.pos = [1.85, 0, 15.40];
-      chars.runB.view = 'front'; chars.runB.flipX = false;
-      chars.runB.fallU = 1; chars.runB.expr = 'knocked_out';
-      chars.infA.visible = true;
-      chars.infA.pos = [1.62, 0, 15.62];
-      chars.infA.view = 'front'; chars.infA.flipX = false;
-      chars.infA.armPose = 'zombieReach';
-    }
+  // ---------------- 0. V6.5 ORIGINS COLD OPEN CHOREOGRAPHY (0.00 - 3.36s) ----------------
+  if (shot.id === 200) {
+    // Busy ordinary afternoon: a boy sprints ahead playing, his mom walks behind, a jogger passes.
+    placeMoving(chars.survBoy, 2.0, 13.50, -1.0, 13.50, 0.00, 0.68, true, false);
+    placeMoving(chars.woman, 3.1, 13.10, 1.9, 13.10, 0.00, 0.68, false, false);
+    placeMoving(chars.runA, -2.2, 16.60, 1.9, 16.60, 0.00, 0.68, true, false);
   }
-  if (t >= 1.62 && t < 2.42 && shot.zone === 'street') {
-    // Horde sprinting through the patrol-strobe night — enters WITH the shot-102 cut, no pop.
-    placeMoving(chars.runA, -3.6, 15.10, 5.4, 15.10, 1.62, 2.45, true, false);
-    chars.runA.expr = 'extreme_panic';
-    placeMoving(chars.infA, -5.2, 15.70, 3.4, 15.70, 1.62, 2.45, true, false);
+  if (shot.id === 201 || shot.id === 202) {
+    // The hidden evil scientist at his bench — masked, gloved, calm. Total control.
+    chars.scientist.visible = true;
+    chars.scientist.pos = [-40.55, 0, -14.55];
+    chars.scientist.view = shot.id === 201 ? 'backFull' : 'threeQuarter';
+    chars.scientist.flipX = false;
+    chars.scientist.armPose = 'labWork';
+    chars.scientist.breath = 0;
+  }
+  if (shot.id === 203) {
+    // THE RELEASE: cage door slides, three infected sprint loose into the world.
+    chars.scientist.visible = true;
+    chars.scientist.pos = [-41.45, 0, -13.10];
+    chars.scientist.view = 'side'; chars.scientist.flipX = true;
+    chars.scientist.armPose = 'labWork';
+    placeMoving(chars.infA, -36.9, -14.2, -34.9, -11.2, 1.80, 2.46, true, false);
     chars.infA.armPose = 'zombieReach';
-    placeMoving(chars.infB, -6.8, 16.40, 1.6, 16.40, 1.62, 2.45, true, false);
-    placeMoving(chars.infC, -4.2, 14.90, 4.6, 14.90, 1.62, 2.45, true, false);
+    placeMoving(chars.infB, -36.9, -14.2, -35.5, -11.9, 1.80, 2.46, true, false);
+    chars.infB.armPose = 'zombieReach';
+    placeMoving(chars.infC, -36.6, -14.6, -34.6, -12.4, 1.80, 2.46, true, false);
+    chars.infC.armPose = 'zombieReach';
+  }
+  if (shot.id === 204) {
+    // News anchor, live, reading the end of the world — ticker running.
+    chars.anchor.visible = true;
+    chars.anchor.pos = [-40.0, 0, -50.30];
+    chars.anchor.view = 'front'; chars.anchor.flipX = false;
+    chars.anchor.crouchSit = true;
+    chars.anchor.talk = 0.30 + 0.50 * Math.abs(Math.sin(t * 11.0));
+  }
+  if (shot.id === 205) {
+    // Nationwide destruction: fires, smoke, the horde loose in the strobing dark.
+    placeMoving(chars.infA, -3.4, 16.30, 3.2, 16.30, 2.94, 3.46, true, false);
+    chars.infA.armPose = 'zombieReach';
+    placeMoving(chars.infB, -4.5, 17.30, 1.6, 17.30, 2.94, 3.46, true, false);
+    chars.infB.armPose = 'zombieReach';
+    placeMoving(chars.infC, -1.2, 15.10, 1.5, 12.60, 2.94, 3.46, true, false);
+    chars.infC.armPose = 'zombieReach';
+    placeMoving(chars.runA, 3.9, 15.90, 1.1, 15.90, 2.94, 3.42, true, false);
+    chars.runA.expr = 'extreme_panic';
   }
 
   // ---------------- 2. STREET ATTACKER (`carMan`) & FLEEING CIVILIANS (`runA`, `runB`) ----------------
@@ -828,9 +886,11 @@ export function evaluateScene(t) {
     // Blood pool decal under the hit-and-run man (grows 27.35 -> 29.6, gone by the store cut)
     bloodPool: (t >= 27.35 && t < 31.00 && shot.zone === 'street')
       ? { x: 3.05, z: 17.00, s: 0.55 + 0.55 * clamp01((t - 27.35) / 2.2), a: clamp01((t - 27.35) / 0.5) }
-      : (t >= 1.34 && t < 1.62 && shot.zone === 'street') // V6 cold-open maul blood
-      ? { x: 1.85, z: 15.45, s: 0.50 + 0.40 * clamp01((t - 1.34) / 0.28), a: clamp01((t - 1.34) / 0.18) }
       : null,
+    // V6.5 ORIGINS states
+    cageDoorU: easeOut(t, 1.86, 2.16),
+    alarmInt: (t >= 1.80 && t < 2.42) ? (0.55 + 0.45 * Math.sin(t * 17.0)) : ((t >= 1.24 && t < 1.80) ? 0.30 : 0.0),
+    introFire: shot.id === 205,
     patrolCarVis,
     patrolCarPos,
     patrolCarRot,

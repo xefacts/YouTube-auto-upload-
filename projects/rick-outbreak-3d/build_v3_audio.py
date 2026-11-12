@@ -206,8 +206,8 @@ def build_dramatic_horror_score(total_samples: int) -> np.ndarray:
     # Act I: 0-42.6s | Act II: 42.6-80.5s | Act III: 80.5-146s | Act IV: 146-188.4s | Act V: 188.4-260.32s
     # V5 ARC: normal quiet day (0-17.6) -> unease -> attack -> horror -> emergency -> mimic dread
     tension_kf = [
-        # V6 COLD OPEN: nationwide map -> maul -> horde -> TITLE (full horror, then SMASH to calm)
-        (0.0, 0.74), (0.82, 0.82), (1.62, 0.88), (2.42, 0.99), (2.62, 0.99),
+        # V6.5 ORIGINS: busy life -> hidden lab -> release -> news -> destruction/TITLE (then SMASH to calm)
+        (0.0, 0.30), (0.62, 0.46), (1.24, 0.58), (1.80, 0.88), (2.42, 0.72), (2.94, 0.99), (3.15, 0.99),
         (3.36, 0.10), (4.88, 0.22), (8.6, 0.16), (16.0, 0.18),
         (17.6, 0.28), (20.4, 0.40), (24.0, 0.62), (26.96, 0.88),
         (28.3, 0.66), (32.9, 0.46), (42.6, 0.50), (48.0, 0.36),
@@ -296,7 +296,8 @@ def build_dramatic_horror_score(total_samples: int) -> np.ndarray:
     # powers the cold open, the sprint-at-the-car, the police overrun, the siege and the finale. ---
     sos_ost = signal.butter(2, 720.0 / (SR * 0.5), btype="low", output="sos")
     ost_windows = [
-        (0.00, 2.42, 0.34, 0.50),    # cold open: map -> maul -> horde (rising)
+        (1.80, 2.42, 0.30, 0.46),   # V6.5: THE RELEASE — infected sprint loose from the cage
+        (2.94, 3.36, 0.40, 0.52),   # V6.5: nationwide destruction + TITLE SMASH
         (17.60, 27.06, 0.18, 0.38),   # traffic stops -> sprint -> IMPACT
         (61.00, 70.20, 0.28, 0.36),   # police overrun by the sprinting horde
         (94.00, 113.84, 0.20, 0.32),  # alley crash + door knocks
@@ -375,7 +376,7 @@ def build_dramatic_horror_score(total_samples: int) -> np.ndarray:
 
     # --- LAYER 4: Muffled Human Heartbeat Suspense Pulses in High-Dread Windows ---
     heartbeat_windows = [
-        (0.00, 2.42, 96.0, 128.0, 0.11), # V6: cold-open dread pulse under the chaos
+        (1.24, 2.42, 88.0, 122.0, 0.12), # V6.5: lab close-up + THE RELEASE dread pulse
         (24.2, 33.5, 92.0, 116.0, 0.10),  # V5: sprint-at-car hit-and-run panic
         (51.0, 80.2, 68.0, 92.0, 0.11),   # Woman at door & police backing away from zombies
         (101.0, 140.0, 64.0, 96.0, 0.12), # Back-door knocks & brother voice mimic
@@ -402,10 +403,13 @@ def build_dramatic_horror_score(total_samples: int) -> np.ndarray:
     # --- LAYER 5: Dramatic Horror Stingers, Risers & Sub-Braam Impacts on Twist Beats ---
     stingers = [
         # (peak_time_s, riser_len_s, tail_len_s, intensity, base_freq)
-        (0.84, 0.30, 1.55, 0.80, 48.99),   # V6 cold-open cut 1: the maul
-        (1.64, 0.30, 1.60, 0.86, 43.65),   # V6 cold-open cut 2: the horde
-        (2.42, 1.90, 3.40, 1.00, 36.71),   # V6 TITLE SMASH — OUTBREAK
-        (4.92, 0.80, 2.00, 0.60, 55.00),   # V6 emergency alert fills the screen
+        # ---- V6.5 ORIGINS COLD OPEN: busy life -> lab -> release -> news -> destruction ----
+        (0.62, 0.30, 1.30, 0.55, 49.00),   # cut 1: into the hidden lab
+        (1.24, 0.30, 1.30, 0.62, 46.25),   # cut 2: the masked scientist close-up
+        (1.80, 0.55, 1.70, 0.95, 41.20),   # THE RELEASE — cage opens, they sprint loose
+        (2.42, 0.45, 1.20, 0.70, 48.99),   # cut 4: breaking news wall
+        (2.94, 1.60, 3.40, 1.00, 36.71),   # V6.5 TITLE SMASH — OUTBREAK over the burning city
+        (5.75, 0.70, 2.00, 0.62, 55.00),   # emergency alert FILLS THE SCREEN (with the VO)
         (3.45, 0.8, 1.8, 0.55, 55.0),    # Phone vibrates alert
         (27.06, 1.4, 3.0, 1.00, 43.65),  # CAR CLIPS THE MAN — hit-and-run impact!
         (65.95, 1.2, 2.6, 0.95, 43.65),   # Horde sprints & TACKLES the officer down!
@@ -477,20 +481,71 @@ def build_clean_foley(total_samples: int) -> np.ndarray:
         n = int(dur * SR)
         t = np.linspace(0, dur, n, dtype=np.float32)
         # Authentic muted dual-tone EAS (853Hz + 960Hz, gentle lowpassed so never piercing)
-        tone = 0.5 * (np.sin(2*np.pi*853*t) + np.sin(2*np.pi*960*t)) * env_ad(n, 0.03, 0.08) * 0.038
+        tone = 0.5 * (np.sin(2*np.pi*853*t) + np.sin(2*np.pi*960*t)) * env_ad(n, 0.03, 0.08) * 0.058
         add_clip(sfx, tone, t0, pan=0.0)
 
-    # 1) V6 COLD OPEN: EAS attention signal at the very top + phone buzz + alert tone
-    eas_tone(0.14, dur=0.55)
+    # 1) V6.5 ORIGINS COLD OPEN SOUND DESIGN — montage whooshes, lab dread, release, news, TITLE.
+    # (All in FOLEY so the VO duck never weakens them.)
 
-    # V6b: cold-open cut accents + TITLE SMASH braam — in FOLEY so the VO duck never weakens them.
-    for t0, g, f0 in [(0.84, 0.20, 96.0), (1.64, 0.22, 88.0)]:
-        n_c = int(0.9 * SR)
-        t_c = np.linspace(0.0, 0.9, n_c, dtype=np.float32)
-        f_c = f0 * (1.0 + 0.5 * np.exp(-t_c * 8.0))
-        hit = (np.sin(2*np.pi*np.cumsum(f_c)/SR) + 0.3*np.tanh(2.0*np.sin(2*np.pi*np.cumsum(f_c*1.98)/SR)))
-        hit = hit * np.exp(-t_c * 4.5) * env_ad(n_c, 0.003, 0.2) * g
-        add_clip(sfx, hit.astype(np.float32), t0, pan=0.0)
+    # 1a) Montage cut whooshes — fast airy transitions between the beats
+    for t0, g in [(0.62, 0.19), (1.24, 0.18), (1.80, 0.28), (2.42, 0.19), (2.94, 0.26)]:
+        n_w = int(0.34 * SR)
+        t_w = np.linspace(0.0, 0.34, n_w, dtype=np.float32)
+        sos_w = signal.butter(2, [500.0/(SR*0.5), 3600.0/(SR*0.5)], btype="band", output="sos")
+        wh = signal.sosfilt(sos_w, rng.standard_normal(n_w).astype(np.float32) * (0.25 + (t_w/0.34)**1.8))
+        wh = wh * env_ad(n_w, 0.012, 0.10) * g
+        add_clip(sfx, wh.astype(np.float32), t0 - 0.22, pan=0.0)
+
+    # 1b) The hidden lab: cold fluorescent hum + deep sub drone (0.62 -> 2.45)
+    n_ld = int(1.85 * SR)
+    t_ld = np.linspace(0.0, 1.85, n_ld, dtype=np.float32)
+    lab_drone = (0.42*np.sin(2*np.pi*55.0*t_ld) + 0.22*np.sin(2*np.pi*110.3*t_ld)
+                 + 0.16*np.sin(2*np.pi*164.8*t_ld) + 0.05*np.sin(2*np.pi*493.9*t_ld))
+    lab_drone = lab_drone * env_ad(n_ld, 0.28, 0.5) * 0.042
+    add_clip(sfx, lab_drone.astype(np.float32), 0.64, pan=-0.1)
+
+    # 1c) Glass vial clink at 1.38 (the scientist lifts the specimen)
+    n_cl = int(0.30 * SR)
+    t_cl = np.linspace(0.0, 0.30, n_cl, dtype=np.float32)
+    clink = (np.sin(2*np.pi*2320.0*t_cl) * np.exp(-t_cl*26.0)
+             + 0.5*np.sin(2*np.pi*3410.0*t_cl) * np.exp(-t_cl*34.0)) * 0.09
+    add_clip(sfx, clink.astype(np.float32), 1.38, pan=0.18)
+
+    # 1d) THE RELEASE at 1.86: heavy cage-slide grind + alarm klaxon pulses
+    n_gr = int(0.5 * SR)
+    t_gr = np.linspace(0.0, 0.5, n_gr, dtype=np.float32)
+    sos_gr = signal.butter(3, [140.0/(SR*0.5), 900.0/(SR*0.5)], btype="band", output="sos")
+    grind = signal.sosfilt(sos_gr, rng.standard_normal(n_gr).astype(np.float32) * (0.3 + t_gr*1.4))
+    grind = grind * env_ad(n_gr, 0.02, 0.12) * 0.20
+    add_clip(sfx, grind.astype(np.float32), 1.86, pan=-0.15)
+    for k_al in range(3):
+        t_al0 = 1.88 + k_al * 0.20
+        n_al = int(0.16 * SR)
+        t_al = np.linspace(0.0, 0.16, n_al, dtype=np.float32)
+        f_al = 740.0 if k_al % 2 == 0 else 560.0
+        klax = np.sin(2*np.pi*f_al*t_al) * env_ad(n_al, 0.008, 0.05) * 0.075
+        add_clip(sfx, klax.astype(np.float32), t_al0, pan=0.0)
+
+    # 1e) Newsroom 2.46-2.88: urgent teletype/beep punctuation
+    for t_b in [2.48, 2.62, 2.76]:
+        n_b = int(0.07 * SR)
+        t_bv = np.linspace(0.0, 0.07, n_b, dtype=np.float32)
+        beep = np.sin(2*np.pi*1245.0*t_bv) * env_ad(n_b, 0.004, 0.02) * 0.055
+        add_clip(sfx, beep.astype(np.float32), t_b, pan=0.22)
+
+    # 1f) Destruction 2.94-3.36: low rumble + distant siren under the TITLE braam
+    n_rm = int(0.55 * SR)
+    t_rm = np.linspace(0.0, 0.55, n_rm, dtype=np.float32)
+    sos_rm = signal.butter(2, 180.0/(SR*0.5), btype="low", output="sos")
+    rumble = signal.sosfilt(sos_rm, rng.standard_normal(n_rm).astype(np.float32)) * env_ad(n_rm, 0.05, 0.3) * 0.22
+    add_clip(sfx, rumble.astype(np.float32), 2.96, pan=0.0)
+    n_si = int(0.9 * SR)
+    t_si = np.linspace(0.0, 0.9, n_si, dtype=np.float32)
+    f_si = 620.0 + 190.0 * np.sin(2*np.pi*0.85*t_si)
+    siren_far = np.sin(2*np.pi*np.cumsum(f_si)/SR) * env_ad(n_si, 0.3, 0.4) * 0.016
+    add_clip(sfx, siren_far.astype(np.float32), 2.60, pan=0.45)
+
+    # 1g) TITLE SMASH braam at 2.94 (moved from 2.42 — hits over the burning city)
     n_tb = int(3.2 * SR)
     t_tb = np.linspace(0.0, 3.2, n_tb, dtype=np.float32)
     f_tb = 38.0 * (1.0 + 0.55 * np.exp(-t_tb * 6.5))
@@ -498,9 +553,12 @@ def build_clean_foley(total_samples: int) -> np.ndarray:
              + 0.30*np.tanh(2.2*np.sin(2*np.pi*np.cumsum(f_tb*2.5)/SR))
              + 0.15*np.sin(2*np.pi*np.cumsum(f_tb*1.5)/SR))
     braam = braam * np.exp(-t_tb * 1.5) * env_ad(n_tb, 0.006, 0.5) * 0.30
-    add_clip(sfx, braam.astype(np.float32), 2.42, pan=0.0)
+    add_clip(sfx, braam.astype(np.float32), 2.94, pan=0.0)
+
+    # 1h) Phone: buzz heard over the store shot, then the on-screen buzz + EAS slam
     phone_vibrate(3.45, pulses=2)
-    eas_tone(5.15, dur=0.62)
+    phone_vibrate(5.35, pulses=2)
+    eas_tone(5.78, dur=0.62)
 
     # V6 FINALE: tunnel-figure LUNGE whoosh (254.50) + maintenance-door grind + SLAM + end boom
     n_wh = int(0.52 * SR)
