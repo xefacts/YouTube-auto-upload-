@@ -5,7 +5,7 @@
 set -e
 FF=/tmp/studio_env/bin/ffmpeg
 FP=/tmp/studio_env/bin/ffprobe
-WEB=/tmp/rick_study/v3/Rick_Clips_Outbreak_V6_Web_1080x1920.mp4
+WEB=/tmp/rick_study/v3/Rick_Clips_Outbreak_V7_Web_1080x1920.mp4
 MASTER=/tmp/rick_study/v3/Rick_Clips_Outbreak_V3_Final_1080x1920.mp4
 PASS=0; FAIL=0
 ok()   { echo "PASS | $1"; PASS=$((PASS+1)); }
