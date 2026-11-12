@@ -32,7 +32,7 @@ print("PASS | -14.6..-13.6 LUFS" if -14.6 <= v <= -13.6 else f"FAIL | LUFS {v}")
 PY
 
 # 3) caption burn on the BLACK beat (t=10.0 -> big white WARNING pixels on pure black)
-$FF -y -v error -ss 10.0 -i "$WEB" -frames:v 1 -f rawvideo -pix_fmt gray - /tmp/qa_cap_v7.raw
+$FF -y -v error -ss 10.0 -i "$WEB" -frames:v 1 -f rawvideo -pix_fmt gray /tmp/qa_cap_v7.raw
 python3 - << 'PY'
 import numpy as np
 a = np.fromfile('/tmp/qa_cap_v7.raw', dtype=np.uint8).reshape(1920, 1080).astype(np.float32)
@@ -43,7 +43,7 @@ print("PASS | caption visible on black beat" if bright > 0.01 else "FAIL | no ca
 PY
 
 # 4) motion fraction (1 fps sampling; >= 85.5% frames must differ from previous)
-$FF -y -v error -i "$WEB" -vf "fps=1,scale=270:480" -f rawvideo -pix_fmt gray - /tmp/qa_mot_v7.raw
+$FF -y -v error -i "$WEB" -vf "fps=1,scale=270:480" -f rawvideo -pix_fmt gray /tmp/qa_mot_v7.raw
 python3 - << 'PY'
 import numpy as np
 a = np.fromfile('/tmp/qa_mot_v7.raw', dtype=np.uint8).reshape(-1, 480, 270).astype(np.int16)

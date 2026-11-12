@@ -2055,7 +2055,14 @@ export function buildOutbreakWorld(scene) {
     g.fillText(text.split(' ').join('\u2002'), 190, 1676);
     const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
   }
+  // V7: pure-black full-screen texture — the 3.00s silence beat before the story begins.
+  const makeBlackTex = () => {
+    const c = document.createElement('canvas'); c.width = 16; c.height = 16;
+    const g = c.getContext('2d'); g.fillStyle = '#000000'; g.fillRect(0, 0, 16, 16);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+  };
   const introOverlayTex = {
+    black: makeBlackTex(),
     map: makeIntroMapTex(),
     title: makeTitleTex(),
     end: makeEndTex(),

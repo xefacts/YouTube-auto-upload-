@@ -622,6 +622,9 @@ export function rickChar(p, roleKey = "you", opts = {}) {
         return { pts: [s, [X(16), s[1] - 0.22 * HH], [tcx + side * 18 * u, s[1] - 0.56 * HH]], front: true, overHead: true, fist: true };
       case "lockDoor":
         return { pts: [s, [X(18), s[1] + 0.12 * HH], [tcx + moveDir * 44 * u, s[1] + 0.04 * HH]], front: true, fist: true };
+      case "wave":
+        // Warm goodbye wave — arm up beside the head, hand swinging (mom sending the boy off)
+        return { pts: [s, [X(20), s[1] + 0.02 * HH], [X(30), s[1] - 0.42 * HH]], front: true, overHead: true, palmSpread: true };
       case "plead":
         return { pts: [s, [X(22), s[1] + 0.04 * HH], [X(26), s[1] - 0.34 * HH]], front: true, overHead: true, palmSpread: true };
       case "slam":
