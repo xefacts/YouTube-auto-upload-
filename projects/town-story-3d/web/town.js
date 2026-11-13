@@ -397,5 +397,31 @@ export function buildTown(scene) {
     town.add(stars);
   }
 
-  return { buildings, heroDoors, plates, lamps, trees, clouds, stars, carGroup, heroWinMat };
+  // ---- EMPTY LOT prop: appears when Finch's house vanishes ----
+  const lot = new THREE.Group();
+  const patch = new THREE.Mesh(
+    new THREE.PlaneGeometry(4.4, 3.8),
+    new THREE.MeshLambertMaterial({ color: '#3a3428' })
+  );
+  patch.rotation.x = -Math.PI / 2;
+  patch.position.y = 0.015;
+  lot.add(patch);
+  // foundation slab outline
+  const slab = box(3.6, 0.12, 3.2, '#565044', { y: 0.06 });
+  lot.add(slab);
+  // lone plate on a small post
+  const post = box(0.14, 0.9, 0.14, '#4a4438', { y: 0.45, z: -1.2 });
+  lot.add(post);
+  const lotPlate = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.92, 0.46),
+    new THREE.MeshBasicMaterial({ map: makePlateTex('147') })
+  );
+  lotPlate.position.set(0, 0.98, -1.13);
+  lotPlate.rotation.x = -0.12;
+  lot.add(lotPlate);
+  lot.position.set(14, 0, 9.6);
+  lot.visible = false;
+  town.add(lot);
+
+  return { buildings, heroDoors, plates, lamps, trees, clouds, stars, carGroup, heroWinMat, emptyLot: lot };
 }

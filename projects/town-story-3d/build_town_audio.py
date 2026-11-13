@@ -37,33 +37,33 @@ rng = np.random.default_rng(20260911)
 # ------------------------------------------------------------------ sections
 # (id, start, window_end, text)
 SECTIONS = [
-    ("n01", 0.40,  7.90,  "In this town, every night at nine PM, a voice counts down from ten. And if it reaches one... and you're still outside... you're gone."),
-    ("n02", 8.00,  13.50, "Meet Tommy. New house, new town, one rule from the neighbor: nine o'clock, inside, no exceptions."),
-    ("n03", 13.60, 16.10, "Tommy thought it was a joke."),
-    ("n04", 16.20, 22.10, "Then dusk came... and the whole town started running. Doors slamming. Windows locking."),
-    ("n05", 22.20, 31.10, "Tommy watched from his dark doorway. The street emptied. Nothing moved. Then - the voice."),
-    ("n06", 35.00, 39.10, "Old Mr. Finch was still outside. Cane down. Too slow."),
-    ("n07", 49.60, 51.90, "Finch looked straight at Tommy's window."),
-    ("n08", 53.70, 57.90, "And he was gone. Only his hat... and a soft little thud."),
-    ("n09", 58.00, 65.50, "Next morning, Tommy found the hat. And the Finch door... had a number. 147."),
-    ("n10", 65.60, 71.90, "Tommy walked home. Turned the corner. And stopped. His own door... read 149."),
-    ("n11", 72.00, 78.50, "The town isn't counting down. It's counting the neighbors. One door at a time. And tonight... it counts to ten again."),
+    ("n01", 0.40,  7.90,  "In this town, every night at nine PM, one house disappears. A voice counts down from ten. And whatever it counts... is gone."),
+    ("n02", 8.00,  13.40, "Tommy just moved in. His neighbor had one warning: be inside before nine."),
+    ("n03", 13.60, 16.00, "Tommy laughed. Houses don't just disappear."),
+    ("n04", 16.20, 21.40, "Then dusk came. And the whole town started running."),
+    ("n05", 21.60, 27.20, "Doors slammed. Lights flickered. And the voice began to count."),
+    ("n06", 35.20, 38.60, "Old Mr. Finch was still outside."),
+    ("n07", 42.50, 45.80, "The lamps turned... toward Finch's house."),
+    ("n08", 53.80, 57.60, "And Finch's house... was gone. Only his hat remained."),
+    ("n09", 58.20, 63.60, "Next morning, Tommy found it. House 147... vanished."),
+    ("n10", 64.20, 69.40, "143. 145. Gone. And Tommy's own door... read 149."),
+    ("n11", 73.80, 78.40, "Every night, it takes one house. And tonight... it counts again."),
 ]
 # counts: (id, start) — deep entity voice
 COUNTS = [
-    ("c1", 31.30, "Ten... Nine... Eight.",     1.30),
-    ("c2", 39.30, "Seven... Six... Five.",     1.30),
+    ("c1", 27.60, "Ten... Nine... Eight.",     1.30),
+    ("c2", 39.00, "Seven... Six... Five.",     1.30),
     ("c3", 46.30, "Four... Three.",            1.22),
-    ("c4", 52.00, "Two.",                      1.12),
-    ("c5", 52.42, "One.",                      1.08),
+    ("c4", 51.55, "Two.",                      1.12),
+    ("c5", 52.28, "One.",                      1.08),
 ]
 COUNT_WORDS = {"ten", "nine", "eight", "seven", "six", "five", "four", "three", "two", "one"}
 
 # hardcoded visual captions (plate numbers during tracking shot) — start, end, text, color
 EXTRA_CAPTIONS = [
-    (61.90, 62.80, "143", "RED"),
-    (63.10, 64.00, "145", "RED"),
-    (64.30, 65.30, "147", "RED"),
+    (65.00, 65.90, "143", "RED"),
+    (66.50, 67.40, "145", "RED"),
+    (67.90, 68.90, "GONE", "RED"),
 ]
 
 # caption accent colors (word -> ASS &HBBGGRR&)
@@ -393,71 +393,71 @@ def main():
     # ---- SFX ----
     print("[3/5] SFX...")
     # soft cut whooshes at every hard shot boundary (subtle, fast-paced glue)
-    cut_times = [3.2, 6.2, 10.0, 13.6, 16.2, 19.4, 22.2, 25.0, 28.4, 31.2, 35.0,
-                 39.2, 43.0, 46.2, 49.6, 52.6, 53.7, 56.6, 61.6, 65.6, 68.8, 72.0, 76.0]
+    cut_times = [4.0, 8.0, 12.0, 15.5, 19.5, 23.0, 26.0, 31.0, 36.5, 41.0,
+                 46.0, 50.0, 52.6, 53.7, 58.0, 64.0, 69.5, 73.5, 76.6]
     for ct in cut_times:
-        place(bed, sfx_whoosh(0.26, g=0.045, up=(ct in (3.2, 6.2, 10.0, 56.6, 61.6, 65.6, 68.8, 72.0, 76.0))), ct - 0.10)
-    # door slams (kid 19.8, neighbors 20.4 / 20.8)
-    place(bed, sfx_door_slam(0.5), 19.80)
-    place(bed, sfx_door_slam(0.34), 20.40)
-    place(bed, sfx_door_slam(0.28), 20.80)
-    # night ticking clock 22.2 -> 52.6 (the town counting seconds)
-    tt = 22.6
-    while tt < 52.4:
+        place(bed, sfx_whoosh(0.26, g=0.045, up=(ct in (4.0, 8.0, 58.0, 64.0, 69.5, 73.5, 76.6))), ct - 0.10)
+    # door slams (kid 19.95, neighbors 20.55 / 20.95)
+    place(bed, sfx_door_slam(0.5), 19.95)
+    place(bed, sfx_door_slam(0.34), 20.55)
+    place(bed, sfx_door_slam(0.28), 20.95)
+    # night ticking clock 23.2 -> 52.4 (the town counting seconds)
+    tt = 23.4
+    while tt < 52.3:
         place(bed, sfx_tick(2100, g=0.030), tt)
         place(bed, sfx_tick(1400, g=0.018), tt + 0.5)
         tt += 1.0
     # heartbeat under the final approach
-    place(bed, sfx_heartbeat(68, 6.4, 0.26), 46.2)
+    place(bed, sfx_heartbeat(68, 6.5, 0.26), 46.1)
     # cane drop + hat thud
-    place(bed, sfx_cane(), 37.60)
+    place(bed, sfx_cane(), 34.65)
     place(bed, sfx_thud(0.16), 53.75)
     # riser into ONE
-    place(bed, sfx_riser(2.9, 0.15), 49.75)
+    place(bed, sfx_riser(2.9, 0.15), 49.70)
     # THE FLASH
     place(bed, sfx_flash(0.6), 52.60)
     # footsteps during the dusk RUN (fast taps, alternating pan)
-    ft = 16.45
+    ft = 15.75
     k2 = 0
-    while ft < 19.30:
+    while ft < 19.35:
         place(bed, sfx_footstep(0.045), ft, pan=(0.35 if k2 % 2 == 0 else -0.35))
         ft += 0.215
         k2 += 1
     # Finch's cane taps as he stumbles
-    ct2 = 35.25
-    while ct2 < 38.95:
+    ct2 = 31.6
+    while ct2 < 38.9:
         place(bed, sfx_cane_tap(0.09), ct2, pan=0.15)
         ct2 += 0.55
     # electrical lamp buzz all through the night count
-    place(bed, sfx_lamp_buzz(30.0, 0.006), 22.4)
+    place(bed, sfx_lamp_buzz(29.2, 0.006), 23.2)
     # dissonant tension swell into ONE
-    place(bed, sfx_dissonant_swell(6.35, 0.045), 46.25)
+    place(bed, sfx_dissonant_swell(6.4, 0.045), 46.15)
     # morning birds
-    for bt, bf, bp in [(57.2, 3300, -0.3), (57.9, 2900, 0.35), (58.9, 3600, 0.15),
-                       (60.0, 3050, -0.2), (61.2, 3450, 0.3), (63.4, 2800, -0.35), (65.5, 3300, 0.2)]:
+    for bt, bf, bp in [(58.4, 3300, -0.3), (59.1, 2900, 0.35), (60.1, 3600, 0.15),
+                       (61.2, 3050, -0.2), (62.4, 3450, 0.3), (63.6, 2800, -0.35)]:
         place(bed, sfx_bird(bf, 0.17, 0.018, bp), bt)
-    # day street ambience (soft airy noise bed 3.2-16.2)
-    n_amb = int(13.0 * SR)
+    # day street ambience (soft airy noise bed 4.0-13.6)
+    n_amb = int(9.6 * SR)
     amb = signal.sosfilt(signal.butter(2, 480.0 / (SR * 0.5), btype="low", output="sos"),
                          rng.standard_normal(n_amb).astype(np.float32))
     amb *= (0.6 + 0.4 * np.sin(np.linspace(0, 7, n_amb, dtype=np.float32)))
-    place(bed, (amb * 0.006).astype(np.float32), 3.2)
-    # dusk wind 16.2-22.2
-    n_w = int(6.0 * SR)
+    place(bed, (amb * 0.006).astype(np.float32), 4.0)
+    # dusk wind 15.5-21.6
+    n_w = int(6.1 * SR)
     wind = signal.sosfilt(signal.butter(2, [180 / (SR * 0.5), 900 / (SR * 0.5)], btype="bandpass", output="sos"),
                            rng.standard_normal(n_w).astype(np.float32))
     wind *= (0.5 + 0.5 * np.sin(np.linspace(0, 9, n_w, dtype=np.float32)))
-    place(bed, (wind * 0.016).astype(np.float32), 16.2)
+    place(bed, (wind * 0.016).astype(np.float32), 15.5)
 
     # ---- BGM ----
     print("[4/5] BGM...")
-    place(bed, bgm_day_plucks(15.4, 0.028), 0.6)
+    place(bed, bgm_day_plucks(12.9, 0.028), 0.6)
     # dusk tension: short minor pluck cluster
-    place(bed, bgm_day_plucks(5.4, 0.020) * 0.8, 16.4)
-    place(bed, bgm_night_drone(30.8, 0.050), 22.2)
-    place(bed, bgm_day_plucks(3.4, 0.018), 56.8)  # morning eerie-calm
-    place(bed, bgm_night_drone(14.0, 0.030), 65.6)  # walk home unease
-    place(bed, bgm_end_sting(6.5, 0.085), 73.4)
+    place(bed, bgm_day_plucks(5.7, 0.020) * 0.8, 15.7)
+    place(bed, bgm_night_drone(30.8, 0.050), 21.7)
+    place(bed, bgm_day_plucks(5.6, 0.018), 58.0)  # morning eerie-calm
+    place(bed, bgm_night_drone(5.6, 0.030), 64.1)  # walk home unease
+    place(bed, bgm_end_sting(6.6, 0.085), 73.6)
 
     # ---- pre-flash moment of silence (bed ducks hard, VO stays) ----
     print("[5/5] Mix + normalize...")

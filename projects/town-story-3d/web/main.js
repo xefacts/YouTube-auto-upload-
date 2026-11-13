@@ -44,6 +44,8 @@ const porchLight = new THREE.PointLight(0xffcf8a, 0, 10, 1.2);
 porchLight.position.set(17.8, 2.4, 6.9);
 scene.add(porchLight);
 // cool moonlight at night (cinematic blue fill)
+let finchHouseRef = null;
+let plate147Ref = null;
 const moon = new THREE.DirectionalLight(0x8fa3e8, 0);
 moon.position.set(-14, 20, -10);
 scene.add(moon);
@@ -97,7 +99,7 @@ const CARDS = {
     g.font = '900 64px Arial, sans-serif';
     g.lineWidth = 14;
     g.strokeText('EVERY NIGHT AT 9 PM', 540, 1120); g.fillText('EVERY NIGHT AT 9 PM', 540, 1120);
-    g.strokeText('A VOICE COUNTS DOWN', 540, 1210); g.fillText('A VOICE COUNTS DOWN', 540, 1210);
+    g.strokeText('ONE HOUSE DISAPPEARS', 540, 1210); g.fillText('ONE HOUSE DISAPPEARS', 540, 1210);
   }),
   card2: mkCard((g) => {
     g.textAlign = 'center';
@@ -114,8 +116,9 @@ const CARDS = {
     g.textAlign = 'center';
     g.font = '900 96px Arial, sans-serif';
     g.lineWidth = 18; g.strokeStyle = '#000'; g.fillStyle = '#f4efe4';
-    g.strokeText('TONIGHT —', 540, 860); g.fillText('TONIGHT —', 540, 860);
-    g.strokeText('IT COUNTS AGAIN', 540, 970); g.fillText('IT COUNTS AGAIN', 540, 970);
+    g.strokeText('EVERY NIGHT', 540, 800); g.fillText('EVERY NIGHT', 540, 800);
+    g.strokeText('IT TAKES ONE HOUSE', 540, 910); g.fillText('IT TAKES ONE HOUSE', 540, 910);
+    g.strokeText('TONIGHT — IT COUNTS AGAIN', 540, 1060); g.fillText('TONIGHT — IT COUNTS AGAIN', 540, 1060);
     g.fillStyle = '#d8341f';
     g.fillRect(390, 1040, 300, 14);
     g.font = '900 46px Arial, sans-serif';
@@ -262,6 +265,16 @@ function renderAt(t) {
   // aftermath props
   hatGroup.visible = st.props.hat;
   groundCane.visible = st.props.caneDown;
+  // Finch's house VANISHES at the flash — empty lot appears
+  if (!finchHouseRef) {
+    finchHouseRef = world.buildings.find((b) => b.num === '147') || null;
+  }
+  if (finchHouseRef) finchHouseRef.group.visible = !st.props.houseGone;
+  world.emptyLot.visible = st.props.houseGone;
+  // hide Finch's separate door + wall plate too (they'd float otherwise)
+  if (world.heroDoors.finch && world.heroDoors.finch.pivot) world.heroDoors.finch.pivot.visible = !st.props.houseGone;
+  if (!plate147Ref) plate147Ref = world.plates.find((p) => p.num === '147') || null;
+  if (plate147Ref) plate147Ref.mesh.visible = !st.props.houseGone;
 
   // overlays
   if (st.overlay) {
@@ -306,5 +319,8 @@ window.__SHOTS = SHOTS;
 window.__DURATION = DURATION;
 
 window.__dbg = { camera, scene, renderer, renderAt, THREE };
+window.__world = world;
+window.__props = { hatGroup, groundCane };
+window.__castApi = cast;
 renderAt(parseFloat(params.get('t') || '1.0'));
 window.__ready = true;
