@@ -43,6 +43,10 @@ for (const lx of [-8, 0, 8, 16, 24]) {
 const porchLight = new THREE.PointLight(0xffcf8a, 0, 10, 1.2);
 porchLight.position.set(17.8, 2.4, 6.9);
 scene.add(porchLight);
+// cool moonlight at night (cinematic blue fill)
+const moon = new THREE.DirectionalLight(0x8fa3e8, 0);
+moon.position.set(-14, 20, -10);
+scene.add(moon);
 
 // ------------------------------------------------------------------ world
 const world = buildTown(scene);
@@ -129,10 +133,10 @@ camera.add(overlayMesh);
 
 // ---- countdown number overlay (10..1) ----
 const NUMS = {};
-for (const d of ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1']) {
+for (const d of ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '9PM']) {
   const [nc, ng] = (() => { const c = document.createElement('canvas'); c.width = 540; c.height = 420; return [c, c.getContext('2d')]; })();
   ng.textAlign = 'center'; ng.textBaseline = 'middle';
-  ng.font = '900 300px Arial, sans-serif';
+  ng.font = d === '9PM' ? '900 170px Arial, sans-serif' : '900 300px Arial, sans-serif';
   ng.shadowColor = '#ff2828'; ng.shadowBlur = 55;
   ng.lineWidth = 26; ng.strokeStyle = '#20060a';
   ng.strokeText(d, 270, 215);
@@ -143,6 +147,25 @@ for (const d of ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1']) {
   t2.colorSpace = THREE.SRGBColorSpace;
   NUMS[d] = t2;
 }
+// ---- cinematic vignette (soft dark corners) ----
+const vigC = document.createElement('canvas'); vigC.width = 270; vigC.height = 480;
+{
+  const vg = vigC.getContext('2d');
+  const grd = vg.createRadialGradient(135, 240, 130, 135, 240, 320);
+  grd.addColorStop(0, 'rgba(0,0,0,0)');
+  grd.addColorStop(0.62, 'rgba(0,0,0,0)');
+  grd.addColorStop(1, 'rgba(4,6,14,0.55)');
+  vg.fillStyle = grd; vg.fillRect(0, 0, 270, 480);
+}
+const vigTex = new THREE.CanvasTexture(vigC);
+const vignetteMesh = new THREE.Mesh(
+  new THREE.PlaneGeometry(2.6, 4.6),
+  new THREE.MeshBasicMaterial({ map: vigTex, transparent: true, opacity: 0.85, depthTest: false, toneMapped: false })
+);
+vignetteMesh.position.set(0, 0, -1.7);
+vignetteMesh.renderOrder = 996;
+camera.add(vignetteMesh);
+
 const numMesh = new THREE.Mesh(
   new THREE.PlaneGeometry(1.285, 1.0),
   new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthTest: false, toneMapped: false })
@@ -174,6 +197,7 @@ function renderAt(t) {
   }
   camera.position.set(px, py, pz);
   camera.lookAt(V3.set(st.cam.l[0], st.cam.l[1], st.cam.l[2]));
+  if (st.cam.roll) camera.rotateZ(st.cam.roll);
 
   // sky / fog / lights
   scene.background = new THREE.Color(st.sky.bg);
@@ -203,8 +227,10 @@ function renderAt(t) {
   }
   for (const lp of world.lamps) {
     lp.glowMat.opacity = L.on ? (L.blaze ? 0.95 : (L.flicker > 0 ? (Math.sin(t * 43.0 + lp.x * 3.1) > 0 ? 0.7 : 0.1) : 0.7)) : 0;
+    if (lp.poolMat) lp.poolMat.opacity = L.on ? (L.blaze ? 0.55 : (L.flicker > 0 ? (Math.sin(t * 43.0 + lp.x * 3.1) > 0 ? 0.38 : 0.05) : 0.38)) : 0;
   }
   porchLight.intensity = (t >= 22.2 && t < 53.7) ? 5.0 : 0;
+  moon.intensity = 0.62 * st.sky.night;
   // hero-house windows glow warm at night
   world.heroWinMat.color.set(night ? '#ffd98a' : '#2b3f66');
   world.heroWinMat.emissive.set(night ? '#7a4a18' : '#000000');

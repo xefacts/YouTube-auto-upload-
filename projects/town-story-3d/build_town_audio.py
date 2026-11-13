@@ -170,14 +170,14 @@ def sfx_riser(dur=2.9, g=0.16):
     x += signal.sosfilt(sos, noise) * (t / dur) ** 2.4 * 1.4
     return (x * g).astype(np.float32)
 
-def sfx_flash(g=0.65):
-    n = int(1.3 * SR)
-    t = np.linspace(0, 1.3, n, dtype=np.float32)
-    burst = rng.standard_normal(n).astype(np.float32) * np.exp(-t * 40)
+def sfx_flash(g=0.7):
+    n = int(2.2 * SR)
+    t = np.linspace(0, 2.2, n, dtype=np.float32)
+    burst = rng.standard_normal(n).astype(np.float32) * np.exp(-t * 34)
     sos = signal.butter(2, 900.0 / (SR * 0.5), btype="low", output="sos")
-    burst = signal.sosfilt(sos, burst) * 1.6
-    f = 55 * np.exp(-t * 1.4) + 28
-    sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 3.2) * 0.9
+    burst = signal.sosfilt(sos, burst) * 1.7
+    f = 55 * np.exp(-t * 1.1) + 26
+    sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 1.9) * 1.0
     return ((burst + sub) * g).astype(np.float32)
 
 def sfx_bird(t0f, dur=0.16, g=0.020, pan=0.0):
@@ -222,13 +222,51 @@ def sfx_thud(g=0.30):
     f = 90 * np.exp(-t * 8) + 40
     return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 12) * g).astype(np.float32)
 
+def sfx_footstep(g=0.05):
+    n = int(0.07 * SR)
+    t = np.linspace(0, 0.07, n, dtype=np.float32)
+    x = np.sin(2 * np.pi * 95 * t) * np.exp(-t * 70)
+    x += 0.4 * np.sin(2 * np.pi * 210 * t) * np.exp(-t * 110)
+    return (x * g).astype(np.float32)
+
+def sfx_cane_tap(g=0.10):
+    n = int(0.05 * SR)
+    t = np.linspace(0, 0.05, n, dtype=np.float32)
+    x = (np.sin(2 * np.pi * 1250 * t) + 0.6 * np.sin(2 * np.pi * 2100 * t)) * np.exp(-t * 220)
+    return (x * g).astype(np.float32)
+
+def sfx_lamp_buzz(dur, g=0.006):
+    n = int(dur * SR)
+    t = np.linspace(0, dur, n, dtype=np.float32)
+    x = np.sin(2 * np.pi * 100 * t) + 0.45 * np.sin(2 * np.pi * 200 * t)
+    am = 1 + 0.35 * np.sin(2 * np.pi * 5.2 * t)
+    fade = np.minimum(1, np.minimum(t / 0.4, (dur - t) / 0.4))
+    return (x * am * fade * g).astype(np.float32)
+
+def sfx_whine(dur, g=0.006):
+    n = int(dur * SR)
+    t = np.linspace(0, dur, n, dtype=np.float32)
+    f = 1975 + 22 * np.sin(2 * np.pi * 0.31 * t)
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR)
+    fade = np.minimum(1, np.minimum(t / 2.5, (dur - t) / 3.0))
+    return (x * fade * g).astype(np.float32)
+
+def sfx_dissonant_swell(dur, g=0.045):
+    n = int(dur * SR)
+    t = np.linspace(0, dur, n, dtype=np.float32)
+    x = np.sin(2 * np.pi * 220 * t) + np.sin(2 * np.pi * 233.1 * t) + 0.4 * np.sin(2 * np.pi * 466 * t)
+    ramp = (t / dur) ** 1.6
+    trem = 1 + 0.25 * np.sin(2 * np.pi * 5.5 * t)
+    return (x * ramp * trem * g).astype(np.float32)
+
 # ------------------------------------------------------------------ BGM synth
 def bgm_day_plucks(dur, g=0.030):
-    """light major pluck pattern (normal-life feel)"""
+    """light major pluck pattern + soft bass (normal-life feel)"""
     n = int(dur * SR)
     x = np.zeros(n, dtype=np.float32)
     # C major-ish gentle pattern, eighth-note grid at 96bpm
     notes = [261.6, 329.6, 392.0, 329.6, 261.6, 392.0, 523.3, 392.0]
+    bass = [130.8, 98.0]
     step = 60 / 96 / 2
     k = 0
     while k * step < dur:
@@ -240,6 +278,12 @@ def bgm_day_plucks(dur, g=0.030):
         td = np.linspace(0, nn / SR, nn, dtype=np.float32)
         tone = (np.sin(2 * np.pi * f * td) + 0.35 * np.sin(2 * np.pi * f * 2 * td)) * np.exp(-td * 6.5)
         x[i0:i0 + nn] += tone * (0.8 if k % 4 == 0 else 0.55)
+        if k % 4 == 0:  # bass on the downbeats
+            bf = bass[(k // 4) % 2]
+            bnn = min(nn, int(0.9 * SR))
+            btd = np.linspace(0, bnn / SR, bnn, dtype=np.float32)
+            btone = np.sin(2 * np.pi * bf * btd) * np.exp(-btd * 3.2)
+            x[i0:i0 + bnn] += btone * 0.5
         k += 1
     return (x * g).astype(np.float32)
 
@@ -254,6 +298,9 @@ def bgm_night_drone(dur, g=0.052):
     noise = rng.standard_normal(n).astype(np.float32)
     sos = signal.butter(2, [80 / (SR * 0.5), 420 / (SR * 0.5)], btype="bandpass", output="sos")
     x += signal.sosfilt(sos, noise) * 0.020
+    # eerie high whine (horror pad)
+    fw = 1975 + 22 * np.sin(2 * np.pi * 0.31 * t)
+    x += np.sin(2 * np.pi * np.cumsum(fw) / SR) * 0.11
     return (x * g).astype(np.float32)
 
 def bgm_end_sting(dur=6.0, g=0.09):
@@ -262,7 +309,14 @@ def bgm_end_sting(dur=6.0, g=0.09):
     x = (0.6 * np.sin(2 * np.pi * 49.0 * t) + 0.4 * np.sin(2 * np.pi * 58.3 * t + 0.5)
          + 0.25 * np.sin(2 * np.pi * 98.0 * t + 1.1))
     envl = np.minimum(1, t / 0.8) * np.exp(-t * 0.55)
-    return (x * envl * g).astype(np.float32)
+    # deep sub drop at the hit
+    fs = 46 * np.exp(-t * 1.2) + 30
+    x += np.sin(2 * np.pi * np.cumsum(fs) / SR) * np.exp(-t * 1.6) * 0.8
+    # downward noise sweep (cymbal-ish release)
+    noise = rng.standard_normal(n).astype(np.float32)
+    sos = signal.butter(2, [400 / (SR * 0.5), 5500 / (SR * 0.5)], btype="bandpass", output="sos")
+    sweep = signal.sosfilt(sos, noise) * np.exp(-t * 2.4) * 0.5
+    return ((x * envl + sweep * envl) * g).astype(np.float32)
 
 # ------------------------------------------------------------------ main build
 def main():
@@ -324,7 +378,7 @@ def main():
             deep = d2.mean(axis=1).astype(np.float32)
         place(vo, deep, t0, gain=1.15)
         # impact boom under each count word start
-        place(bed, sfx_thud(0.26), t0, gain=0.6)
+        place(bed, sfx_thud(0.30), t0, gain=0.78)
         # caption timings for the count words (proportional)
         cwords = [w for w in ctext.replace("...", ". ").split(" ") if w]
         cweights = np.array([len(w) + 2.4 for w in cwords], dtype=np.float64)
@@ -362,6 +416,22 @@ def main():
     place(bed, sfx_riser(2.9, 0.15), 49.75)
     # THE FLASH
     place(bed, sfx_flash(0.6), 52.60)
+    # footsteps during the dusk RUN (fast taps, alternating pan)
+    ft = 16.45
+    k2 = 0
+    while ft < 19.30:
+        place(bed, sfx_footstep(0.045), ft, pan=(0.35 if k2 % 2 == 0 else -0.35))
+        ft += 0.215
+        k2 += 1
+    # Finch's cane taps as he stumbles
+    ct2 = 35.25
+    while ct2 < 38.95:
+        place(bed, sfx_cane_tap(0.09), ct2, pan=0.15)
+        ct2 += 0.55
+    # electrical lamp buzz all through the night count
+    place(bed, sfx_lamp_buzz(30.0, 0.006), 22.4)
+    # dissonant tension swell into ONE
+    place(bed, sfx_dissonant_swell(6.35, 0.045), 46.25)
     # morning birds
     for bt, bf, bp in [(57.2, 3300, -0.3), (57.9, 2900, 0.35), (58.9, 3600, 0.15),
                        (60.0, 3050, -0.2), (61.2, 3450, 0.3), (63.4, 2800, -0.35), (65.5, 3300, 0.2)]:
@@ -389,8 +459,15 @@ def main():
     place(bed, bgm_night_drone(14.0, 0.030), 65.6)  # walk home unease
     place(bed, bgm_end_sting(6.5, 0.085), 73.4)
 
-    # ---- mix + normalize ----
+    # ---- pre-flash moment of silence (bed ducks hard, VO stays) ----
     print("[5/5] Mix + normalize...")
+    duck2 = np.ones(N, dtype=np.float32)
+    i0, i1 = int(52.26 * SR), int(52.60 * SR)
+    duck2[i0:i1] = np.linspace(1.0, 0.06, i1 - i0)
+    i2 = int(52.95 * SR)
+    duck2[i1:i2] = np.linspace(0.06, 1.0, i2 - i1)
+    bed[:, 0] *= duck2
+    bed[:, 1] *= duck2
     # bed ducks ~6.5 dB under narration
     mono_vo = vo.mean(axis=1)
     vo_env = np.zeros(N, dtype=np.float32)

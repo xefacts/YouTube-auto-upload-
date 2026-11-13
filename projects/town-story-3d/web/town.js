@@ -313,7 +313,22 @@ export function buildTown(scene) {
     head.rotation.z = 0.32; // aim slightly down toward road
     g.add(head);
     town.add(g);
-    lamps.push({ group: g, head, lensMat, glowMat, baseAim: 0.32, x: lx });
+    // warm light pool on the ground under the lamp
+    const poolC = document.createElement('canvas'); poolC.width = 128; poolC.height = 128;
+    const pg = poolC.getContext('2d');
+    const pgrd = pg.createRadialGradient(64, 64, 4, 64, 64, 62);
+    pgrd.addColorStop(0, 'rgba(255,205,120,0.85)');
+    pgrd.addColorStop(0.5, 'rgba(255,180,90,0.35)');
+    pgrd.addColorStop(1, 'rgba(255,170,80,0)');
+    pg.fillStyle = pgrd; pg.fillRect(0, 0, 128, 128);
+    const poolTex = new THREE.CanvasTexture(poolC);
+    poolTex.colorSpace = THREE.SRGBColorSpace;
+    const poolMat = new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false });
+    const pool = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 4.6), poolMat);
+    pool.rotation.x = -Math.PI / 2;
+    pool.position.set(lx + 1.45, 0.03, -4.2);
+    town.add(pool);
+    lamps.push({ group: g, head, lensMat, glowMat, poolMat, baseAim: 0.32, x: lx });
   }
 
   // ---- trees ----------------------------------------------------------
