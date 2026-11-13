@@ -1,8 +1,8 @@
 // ============================================================================
-// CHARS.JS — SMOOTH ROUNDED characters (V4 "smooth capsule" pass)
-// No sharp squares: pill/capsule body, capsule limbs with sphere hands,
-// rounded CYLINDER head with a curved face decal wrapped on the front.
-// Proportions keep the same world heights as V3 (camera framing untouched).
+// CHARS.JS — SQUARE R6 characters with SOFT ROUNDED EDGES (V5)
+// Classic Roblox proportions (user spec): head 1x1x1, torso 2x2x1,
+// limbs 1x2x1 — but every block is a ROUNDED BOX (no sharp corners).
+// Outfit details: belt, collar, accent stripe, cuffs, rounded shoes.
 // Expressions: neutral, smile, happy, worried, scared, shocked, creepy, talk.
 // All animation is a pure function of time (deterministic re-render).
 // ============================================================================
@@ -19,13 +19,35 @@ const tex = (c) => {
   return t;
 };
 
+// ---- rounded box geometry: square blocks with softly beveled edges ----
+function roundedBoxGeo(w, h, d, r, seg = 4) {
+  const g = new THREE.BoxGeometry(w, h, d, seg, seg, seg);
+  const pos = g.attributes.position;
+  const hx = Math.max(0.0001, w / 2 - r), hy = Math.max(0.0001, h / 2 - r), hz = Math.max(0.0001, d / 2 - r);
+  const v = new THREE.Vector3(), q = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i);
+    q.set(
+      THREE.MathUtils.clamp(v.x, -hx, hx),
+      THREE.MathUtils.clamp(v.y, -hy, hy),
+      THREE.MathUtils.clamp(v.z, -hz, hz)
+    );
+    if (v.distanceToSquared(q) > 1e-9) {
+      const dir = v.sub(q).normalize().multiplyScalar(r);
+      pos.setXYZ(i, q.x + dir.x, q.y + dir.y, q.z + dir.z);
+    }
+  }
+  g.computeVertexNormals();
+  return g;
+}
+
 function makeMat(hex) {
   const col = new THREE.Color(hex);
   const em = col.clone().multiplyScalar(0.15);
   return new THREE.MeshLambertMaterial({ color: col, emissive: em });
 }
-const capGeo = (r, len) => new THREE.CapsuleGeometry(r, len, 6, 16);
-const sphGeo = (r) => new THREE.SphereGeometry(r, 20, 14);
+// rounded block mesh helper
+const rbox = (w, h, d, mat, r = 0.055) => new THREE.Mesh(roundedBoxGeo(w, h, d, r), mat);
 
 // ------------------------------------------------------------- face factory
 function makeFaceTex(cfg, expr) {
@@ -153,6 +175,9 @@ export class BlockChar {
     this.group = new THREE.Group();
     scene.add(this.group);
 
+    const U = 0.61;                    // 1 Roblox unit
+    const RR = 0.075;                  // edge rounding radius
+
     const skinM = makeMat(cfg.skin || '#f2c96e');
     const shirtM = makeMat(cfg.shirt);
     const pantsM = makeMat(cfg.pants);
@@ -161,154 +186,152 @@ export class BlockChar {
     const capM = cfg.cap ? makeMat(cfg.cap) : null;
     const accentM = cfg.accent ? makeMat(cfg.accent) : null;
 
-    const mesh = (geo, mat) => new THREE.Mesh(geo, mat);
-
-    // ---- legs: capsule limbs, pivot at hip (y=1.22) ----
+    // ---- legs: 1x2x1 rounded, pivot at hip (y=2U) ----
     const mkLeg = (side) => {
       const pivot = new THREE.Group();
-      pivot.position.set(side * 0.20, 1.22, 0);
-      const leg = mesh(capGeo(0.155, 0.78), pantsM);   // total ~1.09
-      leg.position.y = -0.55;
+      pivot.position.set(side * 0.5 * U, 2 * U, 0);
+      const leg = rbox(1 * U, 2 * U, 1 * U, pantsM, RR);
+      leg.position.y = -1 * U;
       pivot.add(leg);
-      // smooth rounded foot (flattened sphere, slightly forward)
-      const foot = mesh(sphGeo(0.185), shoesM);
-      foot.scale.set(1.0, 0.62, 1.35);
-      foot.position.set(0, -1.06, 0.07);
-      pivot.add(foot);
+      const shoe = rbox(1.04 * U, 0.32 * U, 1.3 * U, shoesM, 0.06);
+      shoe.position.set(0, -1.82 * U, 0.10 * U);
+      pivot.add(shoe);
       return pivot;
     };
     this.legL = mkLeg(-1); this.legR = mkLeg(1);
     this.group.add(this.legL, this.legR);
 
-    // ---- torso: smooth pill (capsule) ----
-    this.torso = mesh(capGeo(0.46, 0.42), shirtM);     // total ~1.34
-    this.torso.position.y = 1.86;
+    // ---- torso: 2x2x1 rounded ----
+    this.torso = rbox(2 * U, 2 * U, 1 * U, shirtM, RR);
+    this.torso.position.y = 3 * U;
     this.group.add(this.torso);
-    // belt (thin torus-ish ring via flattened cylinder)
-    const belt = mesh(new THREE.CylinderGeometry(0.465, 0.465, 0.09, 24), makeMat('#33383f'));
-    belt.position.y = 1.34;
+    // belt + buckle
+    const belt = rbox(2.05 * U, 0.22 * U, 1.05 * U, makeMat('#33383f'), 0.04);
+    belt.position.y = 2.06 * U;
     this.group.add(belt);
-    // accent chest band
+    const buckle = rbox(0.26 * U, 0.16 * U, 0.07 * U, makeMat('#f5d76e'), 0.02);
+    buckle.position.set(0, 2.06 * U, -0.54 * U);
+    this.group.add(buckle);
+    // collar
+    const collar = rbox(0.92 * U, 0.2 * U, 1.08 * U, shirtM, 0.04);
+    collar.position.y = 3.94 * U;
+    this.group.add(collar);
+    // accent stripe + pocket
     if (cfg.accent) {
-      const band = mesh(new THREE.CylinderGeometry(0.468, 0.468, 0.16, 24), accentM);
-      band.position.y = 2.06;
-      this.group.add(band);
+      const stripe = rbox(0.42 * U, 2 * U, 0.06 * U, accentM, 0.02);
+      stripe.position.set(-0.5 * U, 3 * U, 0.53 * U);
+      this.group.add(stripe);
+      const pocket = rbox(0.4 * U, 0.34 * U, 0.06 * U, accentM, 0.02);
+      pocket.position.set(0.55 * U, 2.66 * U, 0.53 * U);
+      this.group.add(pocket);
     }
-    // neck
-    const neck = mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.14, 12), skinM);
-    neck.position.y = 2.52;
-    this.group.add(neck);
 
-    // ---- arms: capsule limbs, pivot at shoulder (y=2.42) ----
+    // ---- arms: 1x2x1 rounded, pivot at shoulder (y=4U) ----
     const mkArm = (side) => {
       const pivot = new THREE.Group();
-      pivot.position.set(side * 0.585, 2.42, 0);
-      const shoulder = mesh(sphGeo(0.145), shirtM);
-      pivot.add(shoulder);
-      const arm = mesh(capGeo(0.125, 0.68), shirtM);   // total ~0.93
-      arm.position.y = -0.44;
+      pivot.position.set(side * 1.5 * U, 4 * U, 0);
+      const arm = rbox(1 * U, 2 * U, 1 * U, shirtM, RR);
+      arm.position.y = -1 * U;
       pivot.add(arm);
-      const hand = mesh(sphGeo(0.155), skinM);
-      hand.position.y = -0.88;
+      const cuff = rbox(1.03 * U, 0.2 * U, 1.03 * U, accentM || shirtM, 0.04);
+      cuff.position.y = -1.2 * U;
+      pivot.add(cuff);
+      const hand = rbox(1.03 * U, 0.34 * U, 1.03 * U, skinM, 0.05);
+      hand.position.y = -1.8 * U;
       pivot.add(hand);
-      if (cfg.accent) {
-        const cuff = mesh(new THREE.CylinderGeometry(0.132, 0.132, 0.09, 16), accentM);
-        cuff.position.y = -0.62;
-        pivot.add(cuff);
-      }
       return pivot;
     };
     this.armL = mkArm(-1); this.armR = mkArm(1);
     this.group.add(this.armL, this.armR);
 
-    // ---- head: ROUNDED CYLINDER (cyl body + hemisphere top) ----
-    const HR = 0.305, HCYL = 0.34;                     // head radius / cylinder height
-    const headBase = 2.56;                             // bottom of head
-    const headGroup = new THREE.Group();
-    headGroup.position.y = 0;
-    const headCyl = mesh(new THREE.CylinderGeometry(HR, HR, HCYL, 28), skinM);
-    headCyl.position.y = headBase + HCYL / 2;
-    headGroup.add(headCyl);
-    const headTop = mesh(new THREE.SphereGeometry(HR, 28, 16, 0, Math.PI * 2, 0, Math.PI / 2), skinM);
-    headTop.position.y = headBase + HCYL;
-    headGroup.add(headTop);
-    const headBot = mesh(new THREE.SphereGeometry(HR, 28, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), skinM);
-    headBot.position.y = headBase;
-    headGroup.add(headBot);
-    this.head = headCyl; // main ref (kept for camera/aim code)
-    this.headMeshGroup = headGroup;
-
-    // ---- curved FACE decal wrapped on the front of the head ----
+    // ---- head: 1x1x1 ROUNDED cube, flat face decal on front ----
+    const headS = 1.06 * U;
+    const headTop = 4 * U;
     this.faces = {};
     for (const e of EXPRS) this.faces[e] = makeFaceTex(cfg, e);
     this.faceMat = new THREE.MeshLambertMaterial({ map: this.faces.neutral, transparent: true });
-    const faceArc = mesh(
-      new THREE.CylinderGeometry(HR + 0.012, HR + 0.012, 0.46, 28, 1, true, -1.05, 2.10),
+    this.head = rbox(headS, headS, headS, skinM, 0.09);
+    this.head.position.y = headTop + headS / 2;
+    this.group.add(this.head);
+    // face decal (flat plane on the flat front region)
+    const facePlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(headS - 0.17, headS - 0.17),
       this.faceMat
     );
-    faceArc.material.side = THREE.DoubleSide;
-    faceArc.position.y = headBase + HCYL / 2 + 0.02;
-    headGroup.add(faceArc);
-    this.faceArc = faceArc;
-    this.group.add(headGroup);
+    facePlane.position.set(0, headTop + headS / 2, headS / 2 + 0.006);
+    this.group.add(facePlane);
+    this.headGroup = new THREE.Group();
+    this.group.add(this.headGroup);
 
-    // ---- hair / cap (smooth) ----
+    // ---- hair / cap (rounded slabs) ----
+    const hw = headS + 0.06 * U;
     if (cfg.hair && cfg.hair.style === 'block') {
-      const dome = mesh(new THREE.SphereGeometry(HR + 0.045, 28, 16, 0, Math.PI * 2, 0, Math.PI * 0.62), hairM);
-      dome.position.y = headBase + HCYL * 0.42;
-      this.group.add(dome);
-      const back = mesh(new THREE.CylinderGeometry(HR + 0.045, HR + 0.045, 0.30, 28, 1, true, Math.PI * 0.62, Math.PI * 1.76), hairM);
-      back.material = new THREE.MeshLambertMaterial({ color: cfg.hair.color });
-      back.material.side = THREE.DoubleSide;
-      back.position.y = headBase + HCYL * 0.45;
+      const top = rbox(hw, 0.38 * U, hw, hairM, 0.07);
+      top.position.y = headTop + headS - 0.02 * U;
+      this.group.add(top);
+      const back = rbox(hw, 0.74 * U, 0.30 * U, hairM, 0.07);
+      back.position.set(0, headTop + headS * 0.60, -(headS / 2 + 0.09 * U));
       this.group.add(back);
+      for (const sx of [-1, 1]) {
+        const tuft = rbox(0.20 * U, 0.6 * U, headS * 0.9, hairM, 0.05);
+        tuft.position.set(sx * (headS / 2 + 0.05 * U), headTop + headS * 0.64);
+        this.group.add(tuft);
+      }
     }
     if (cfg.hair && cfg.hair.style === 'bun') {
-      const dome = mesh(new THREE.SphereGeometry(HR + 0.045, 28, 16, 0, Math.PI * 2, 0, Math.PI * 0.58), hairM);
-      dome.position.y = headBase + HCYL * 0.50;
-      this.group.add(dome);
-      const back = mesh(new THREE.CylinderGeometry(HR + 0.045, HR + 0.045, 0.34, 28, 1, true, Math.PI * 0.66, Math.PI * 1.68), new THREE.MeshLambertMaterial({ color: cfg.hair.color, side: THREE.DoubleSide }));
-      back.position.y = headBase + HCYL * 0.42;
+      const top = rbox(hw, 0.38 * U, hw, hairM, 0.07);
+      top.position.y = headTop + headS - 0.02 * U;
+      this.group.add(top);
+      const back = rbox(hw, 0.86 * U, 0.30 * U, hairM, 0.07);
+      back.position.set(0, headTop + headS * 0.56, -(headS / 2 + 0.09 * U));
       this.group.add(back);
-      const bun = mesh(sphGeo(0.145), makeMat(cfg.hair.color));
-      bun.position.set(0, headBase + HCYL + 0.16, -(HR + 0.02));
+      for (const sx of [-1, 1]) {
+        const side = rbox(0.22 * U, 0.72 * U, headS * 0.92, hairM, 0.05);
+        side.position.set(sx * (headS / 2 + 0.06 * U), headTop + headS * 0.58);
+        this.group.add(side);
+      }
+      const bun = new THREE.Mesh(new THREE.SphereGeometry(0.30 * U, 14, 10), hairM);
+      bun.position.set(0, headTop + headS * 0.95, -(headS / 2 + 0.15 * U));
       this.group.add(bun);
     }
     if (cfg.cap) {
-      const crown = mesh(new THREE.SphereGeometry(HR + 0.05, 28, 16, 0, Math.PI * 2, 0, Math.PI * 0.55), capM);
-      crown.position.y = headBase + HCYL * 0.55;
+      const crown = rbox(hw, 0.42 * U, hw, capM, 0.08);
+      crown.position.y = headTop + headS - 0.02 * U;
       this.group.add(crown);
-      const brim = mesh(new THREE.CylinderGeometry(0.30, 0.30, 0.05, 20, 1, false, -0.85, 1.70), capM);
-      brim.position.set(0, headBase + HCYL * 0.62, 0.02);
+      const brim = rbox(0.96 * U, 0.12 * U, 0.64 * U, capM, 0.05);
+      brim.position.set(0, headTop + headS - 0.16 * U, headS / 2 + 0.22 * U);
       this.group.add(brim);
-      const button = mesh(sphGeo(0.05), makeMat('#f5d76e'));
-      button.position.y = headBase + HCYL + 0.42;
+      const button = new THREE.Mesh(new THREE.SphereGeometry(0.09 * U, 10, 8), makeMat('#f5d76e'));
+      button.position.y = headTop + headS + 0.14 * U;
       this.group.add(button);
     }
 
     // cane (old man)
     if (cfg.cane) {
-      this.cane = mesh(new THREE.CylinderGeometry(0.045, 0.045, 1.0, 12), makeMat('#8a6a45'));
-      this.cane.geometry.translate(0, -0.5, 0);
-      const knob = mesh(sphGeo(0.07), makeMat('#f5d76e'));
+      this.cane = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.05, 0.05, 1.45 * U, 12),
+        makeMat('#8a6a45')
+      );
+      this.cane.geometry.translate(0, -0.72 * U, 0);
+      const knob = new THREE.Mesh(new THREE.SphereGeometry(0.10 * U, 10, 8), makeMat('#f5d76e'));
       this.cane.add(knob);
-      this.cane.position.set(0.72, 1.25, 0.16);
+      this.cane.position.set(1.62 * U, 1.95 * U, 0.16 * U);
       this.cane.rotation.x = 0.10;
       this.group.add(this.cane);
     }
     // moving box (arrival scene)
     if (cfg.carryBox) {
-      this.carry = mesh(new THREE.BoxGeometry(0.72, 0.5, 0.52), makeMat('#c8a05a'));
-      this.carry.position.set(0, 1.98, 0.50);
-      const tape = mesh(new THREE.BoxGeometry(0.74, 0.52, 0.10), makeMat('#e8d8b0'));
-      tape.position.set(0, 1.98, 0.50);
+      this.carry = rbox(1.5 * U, 1.0 * U, 1.1 * U, makeMat('#c8a05a'), 0.05);
+      this.carry.position.set(0, 3.45 * U, 0.8 * U);
+      const tape = rbox(1.54 * U, 1.02 * U, 0.16 * U, makeMat('#e8d8b0'), 0.03);
+      tape.position.set(0, 3.45 * U, 0.8 * U);
       this.group.add(this.carry, tape);
     }
 
-    // ---- soft blob shadow ----
+    // ---- blob shadow ----
     const shadow = new THREE.Mesh(
-      new THREE.CircleGeometry(0.52, 24),
-      new THREE.MeshBasicMaterial({ color: '#000000', transparent: true, opacity: 0.22, depthWrite: false })
+      new THREE.CircleGeometry(1.1 * U, 24),
+      new THREE.MeshBasicMaterial({ color: '#000000', transparent: true, opacity: 0.24, depthWrite: false })
     );
     shadow.rotation.x = -Math.PI / 2;
     shadow.position.y = 0.02;

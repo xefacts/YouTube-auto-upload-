@@ -28,56 +28,55 @@ Dialogue: 0,0:00:06.08,0:00:06.75,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx
 Dialogue: 0,0:00:06.69,0:00:07.47,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}YOU'RE GONE.
 Dialogue: 0,0:00:07.98,0:00:08.74,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}MEET TOMMY.
 Dialogue: 0,0:00:08.68,0:00:09.52,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NEW HOUSE, NEW
-Dialogue: 0,0:00:09.46,0:00:10.30,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOWN, ONE RULE
-Dialogue: 0,0:00:10.24,0:00:11.26,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}FROM THE NEIGHBOR:
+Dialogue: 0,0:00:09.46,0:00:10.29,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOWN, ONE RULE
+Dialogue: 0,0:00:10.23,0:00:11.26,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}FROM THE NEIGHBOR:
 Dialogue: 0,0:00:11.20,0:00:12.36,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NINE O'CLOCK, INSIDE,
 Dialogue: 0,0:00:12.30,0:00:13.20,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NO EXCEPTIONS.
-Dialogue: 0,0:00:13.58,0:00:14.43,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOMMY THOUGHT IT
-Dialogue: 0,0:00:14.37,0:00:15.09,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}WAS A JOKE.
-Dialogue: 0,0:00:16.18,0:00:17.20,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}THEN DUSK CAME...
-Dialogue: 0,0:00:17.14,0:00:17.90,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND THE WHOLE
-Dialogue: 0,0:00:17.84,0:00:19.03,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOWN STARTED RUNNING.
-Dialogue: 0,0:00:18.97,0:00:19.87,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}DOORS SLAMMING.
-Dialogue: 0,0:00:19.81,0:00:20.76,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}WINDOWS LOCKING.
-Dialogue: 0,0:00:20.70,0:00:21.78,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}STREETLIGHTS DYING.
-Dialogue: 0,0:00:22.18,0:00:23.31,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOMMY WATCHED FROM
-Dialogue: 0,0:00:23.25,0:00:24.43,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}HIS DARK DOORWAY.
-Dialogue: 0,0:00:24.37,0:00:25.65,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}THE STREET EMPTIED.
-Dialogue: 0,0:00:25.59,0:00:26.59,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NOTHING MOVED.
-Dialogue: 0,0:00:26.53,0:00:27.25,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}THEN - THE
-Dialogue: 0,0:00:27.19,0:00:27.74,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&HFFD43C&}VOICE.
+Dialogue: 0,0:00:13.58,0:00:14.48,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOMMY THOUGHT IT
+Dialogue: 0,0:00:14.42,0:00:15.19,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}WAS A JOKE.
+Dialogue: 0,0:00:16.18,0:00:17.43,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}THEN DUSK CAME...
+Dialogue: 0,0:00:17.37,0:00:18.30,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND THE WHOLE
+Dialogue: 0,0:00:18.24,0:00:19.72,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOWN STARTED RUNNING.
+Dialogue: 0,0:00:19.66,0:00:20.77,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}DOORS SLAMMING.
+Dialogue: 0,0:00:20.71,0:00:21.88,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}WINDOWS LOCKING.
+Dialogue: 0,0:00:22.18,0:00:23.38,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOMMY WATCHED FROM
+Dialogue: 0,0:00:23.32,0:00:24.57,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}HIS DARK DOORWAY.
+Dialogue: 0,0:00:24.51,0:00:25.87,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}THE STREET EMPTIED.
+Dialogue: 0,0:00:25.81,0:00:26.87,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NOTHING MOVED.
+Dialogue: 0,0:00:26.81,0:00:27.57,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}THEN - THE
+Dialogue: 0,0:00:27.51,0:00:28.09,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&HFFD43C&}VOICE.
 Dialogue: 0,0:00:34.98,0:00:35.67,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}OLD MR.
-Dialogue: 0,0:00:35.61,0:00:36.68,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}FINCH WAS STILL
-Dialogue: 0,0:00:36.62,0:00:37.33,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}OUTSIDE.
-Dialogue: 0,0:00:37.27,0:00:38.14,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}CANE DOWN.
-Dialogue: 0,0:00:38.08,0:00:38.88,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOO SLOW.
-Dialogue: 0,0:00:49.58,0:00:50.73,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}FINCH LOOKED STRAIGHT
-Dialogue: 0,0:00:50.67,0:00:51.77,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AT TOMMY'S WINDOW.
-Dialogue: 0,0:00:53.68,0:00:54.45,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND HE WAS
-Dialogue: 0,0:00:54.39,0:00:54.92,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&HFFD43C&}GONE.
-Dialogue: 0,0:00:54.86,0:00:56.02,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}ONLY HIS HAT...
-Dialogue: 0,0:00:55.96,0:00:56.73,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND A SOFT
-Dialogue: 0,0:00:56.67,0:00:57.63,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}LITTLE THUD.
-Dialogue: 0,0:00:57.98,0:00:59.65,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NEXT MORNING, TOMMY
-Dialogue: 0,0:00:59.59,0:01:01.03,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}FOUND THE HAT.
-Dialogue: 0,0:01:00.97,0:01:02.20,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND THE FINCH
-Dialogue: 0,0:01:02.14,0:01:02.97,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}DOOR...
-Dialogue: 0,0:01:02.91,0:01:04.28,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}HAD A NUMBER.
-Dialogue: 0,0:01:04.22,0:01:04.84,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}147.
+Dialogue: 0,0:00:35.61,0:00:36.69,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}FINCH WAS STILL
+Dialogue: 0,0:00:36.63,0:00:37.34,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}OUTSIDE.
+Dialogue: 0,0:00:37.28,0:00:38.15,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}CANE DOWN.
+Dialogue: 0,0:00:38.09,0:00:38.89,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOO SLOW.
+Dialogue: 0,0:00:49.58,0:00:50.74,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}FINCH LOOKED STRAIGHT
+Dialogue: 0,0:00:50.68,0:00:51.78,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AT TOMMY'S WINDOW.
+Dialogue: 0,0:00:53.68,0:00:54.46,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND HE WAS
+Dialogue: 0,0:00:54.40,0:00:54.94,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&HFFD43C&}GONE.
+Dialogue: 0,0:00:54.88,0:00:56.05,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}ONLY HIS HAT...
+Dialogue: 0,0:00:55.99,0:00:56.77,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND A SOFT
+Dialogue: 0,0:00:56.71,0:00:57.67,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}LITTLE THUD.
+Dialogue: 0,0:00:57.98,0:00:59.71,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NEXT MORNING, TOMMY
+Dialogue: 0,0:00:59.65,0:01:01.14,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}FOUND THE HAT.
+Dialogue: 0,0:01:01.08,0:01:02.35,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND THE FINCH
+Dialogue: 0,0:01:02.29,0:01:03.15,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}DOOR...
+Dialogue: 0,0:01:03.09,0:01:04.50,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}HAD A NUMBER.
+Dialogue: 0,0:01:04.44,0:01:05.08,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}147.
 Dialogue: 0,0:01:05.58,0:01:07.06,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TOMMY WALKED HOME.
 Dialogue: 0,0:01:07.00,0:01:08.49,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TURNED THE CORNER.
-Dialogue: 0,0:01:08.43,0:01:09.49,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND STOPPED.
-Dialogue: 0,0:01:09.43,0:01:10.73,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}HIS OWN DOOR...
+Dialogue: 0,0:01:08.43,0:01:09.50,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND STOPPED.
+Dialogue: 0,0:01:09.44,0:01:10.73,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}HIS OWN DOOR...
 Dialogue: 0,0:01:10.67,0:01:11.55,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}READ 149.
 Dialogue: 0,0:01:11.98,0:01:12.77,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}THE TOWN ISN'T
 Dialogue: 0,0:01:12.71,0:01:13.56,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}COUNTING DOWN.
-Dialogue: 0,0:01:13.50,0:01:14.42,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}IT'S COUNTING THE
-Dialogue: 0,0:01:14.36,0:01:15.00,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NEIGHBORS.
+Dialogue: 0,0:01:13.50,0:01:14.41,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}IT'S COUNTING THE
+Dialogue: 0,0:01:14.35,0:01:15.00,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}NEIGHBORS.
 Dialogue: 0,0:01:14.94,0:01:15.60,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}ONE DOOR AT
-Dialogue: 0,0:01:15.54,0:01:16.09,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}A TIME.
-Dialogue: 0,0:01:16.03,0:01:16.87,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND TONIGHT...
-Dialogue: 0,0:01:16.81,0:01:17.52,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}IT COUNTS TO
-Dialogue: 0,0:01:17.46,0:01:18.13,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TEN AGAIN.
+Dialogue: 0,0:01:15.54,0:01:16.08,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}A TIME.
+Dialogue: 0,0:01:16.02,0:01:16.87,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}AND TONIGHT...
+Dialogue: 0,0:01:16.81,0:01:17.51,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}IT COUNTS TO
+Dialogue: 0,0:01:17.45,0:01:18.12,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)}TEN AGAIN.
 Dialogue: 0,0:00:31.28,0:00:32.37,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}TEN.
 Dialogue: 0,0:00:32.31,0:00:33.57,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}NINE.
 Dialogue: 0,0:00:33.51,0:00:34.93,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}EIGHT.
@@ -86,5 +85,5 @@ Dialogue: 0,0:00:40.88,0:00:42.16,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx
 Dialogue: 0,0:00:42.10,0:00:43.58,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}FIVE.
 Dialogue: 0,0:00:46.28,0:00:47.67,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}FOUR.
 Dialogue: 0,0:00:47.61,0:00:49.18,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}THREE.
-Dialogue: 0,0:00:50.88,0:00:52.42,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}TWO.
-Dialogue: 0,0:00:52.28,0:00:53.54,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}ONE.
+Dialogue: 0,0:00:51.98,0:00:53.52,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}TWO.
+Dialogue: 0,0:00:52.40,0:00:53.66,OneWord,,0,0,0,,{\fscx116\fscy116\t(0,65,\fscx100\fscy100)\1c&H3838FF&}ONE.

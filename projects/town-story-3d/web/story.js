@@ -5,7 +5,7 @@
 // ============================================================================
 
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
-const ease = (u) => u * u * (3 - 2 * u);
+const ease = (u) => u * u * u * (u * (u * 6 - 15) + 10); // smootherstep
 const easeIn = (u) => u * u;
 const easeOut = (u) => 1 - (1 - u) * (1 - u);
 const lerp = (a, b, u) => a + (b - a) * u;
@@ -224,6 +224,23 @@ function flashState(t) {
 }
 
 // ------------------------------------------------------------- evaluate
+// big countdown numbers shown on screen with the Voice (clarity)
+const NUM_OVERLAYS = [
+  [31.30, 32.40, '10'], [32.40, 33.50, '9'], [33.50, 34.70, '8'],
+  [39.30, 40.40, '7'], [40.40, 41.50, '6'], [41.50, 42.70, '5'],
+  [46.30, 47.30, '4'], [47.30, 48.50, '3'],
+  [52.00, 52.42, '2'], [52.42, 52.62, '1'],
+];
+function numState(t) {
+  for (const [t0, t1, d] of NUM_OVERLAYS) {
+    if (t >= t0 && t < t1) {
+      const u = (t - t0) / (t1 - t0);
+      return { d, op: u > 0.82 ? (1 - u) / 0.18 : 1, pop: Math.min(1, u / 0.12) };
+    }
+  }
+  return null;
+}
+
 export function evaluateScene(t) {
   t = Math.max(0, Math.min(DURATION - 0.0001, t));
   const shot = getShotAt(t);
@@ -255,6 +272,7 @@ export function evaluateScene(t) {
     doors: doorStates(t),
     lamps: lampState(t),
     overlay: overlayState(t),
+    num: numState(t),
     flash: flashState(t),
     // finch's dropped hat/cane appear right after the flash
     props: { hat: t >= 53.7, caneDown: t >= 37.6 },

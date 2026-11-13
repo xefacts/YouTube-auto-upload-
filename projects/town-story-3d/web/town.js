@@ -89,11 +89,11 @@ function makeFacade({ wall, trim, floors, cols, door, lit, seed }) {
 
 function makePlateTex(numStr) {
   const [c, g] = cv(256, 128);
-  g.fillStyle = '#1a1f2b'; g.fillRect(0, 0, 256, 128);
-  g.strokeStyle = '#e8e4d8'; g.lineWidth = 8; g.strokeRect(8, 8, 240, 112);
-  g.fillStyle = '#f4efe2'; g.font = '900 74px Arial, sans-serif';
+  g.fillStyle = '#141a26'; g.fillRect(0, 0, 256, 128);
+  g.strokeStyle = '#f0ecdf'; g.lineWidth = 10; g.strokeRect(9, 9, 238, 110);
+  g.fillStyle = '#ffffff'; g.font = '900 86px Arial, sans-serif';
   g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.fillText(numStr, 128, 70);
+  g.fillText(numStr, 128, 68);
   return tex(c);
 }
 
@@ -214,7 +214,7 @@ export function buildTown(scene) {
       g.position.set(spec.x, 0, side * 9.6);
       town.add(g);
       const plate = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.62, 0.31),
+        new THREE.PlaneGeometry(0.92, 0.46),
         new THREE.MeshBasicMaterial({ map: makePlateTex(spec.num) })
       );
       plate.position.set(spec.x, 2.06, side * (9.6 - d / 2) - side * 0.13);
@@ -251,7 +251,7 @@ export function buildTown(scene) {
     town.add(g);
     // number plate above door (street side)
     const plate = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.62, 0.31),
+      new THREE.PlaneGeometry(0.92, 0.46),
       new THREE.MeshBasicMaterial({ map: makePlateTex(spec.num) })
     );
     plate.position.set(spec.x, 2.02, side * (9.6 - d / 2 - 0.012) * 1);

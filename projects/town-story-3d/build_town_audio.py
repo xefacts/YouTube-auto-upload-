@@ -40,7 +40,7 @@ SECTIONS = [
     ("n01", 0.40,  7.90,  "In this town, every night at nine PM, a voice counts down from ten. And if it reaches one... and you're still outside... you're gone."),
     ("n02", 8.00,  13.50, "Meet Tommy. New house, new town, one rule from the neighbor: nine o'clock, inside, no exceptions."),
     ("n03", 13.60, 16.10, "Tommy thought it was a joke."),
-    ("n04", 16.20, 22.10, "Then dusk came... and the whole town started running. Doors slamming. Windows locking. Streetlights dying."),
+    ("n04", 16.20, 22.10, "Then dusk came... and the whole town started running. Doors slamming. Windows locking."),
     ("n05", 22.20, 31.10, "Tommy watched from his dark doorway. The street emptied. Nothing moved. Then - the voice."),
     ("n06", 35.00, 39.10, "Old Mr. Finch was still outside. Cane down. Too slow."),
     ("n07", 49.60, 51.90, "Finch looked straight at Tommy's window."),
@@ -54,8 +54,8 @@ COUNTS = [
     ("c1", 31.30, "Ten... Nine... Eight.",     1.30),
     ("c2", 39.30, "Seven... Six... Five.",     1.30),
     ("c3", 46.30, "Four... Three.",            1.22),
-    ("c4", 50.90, "Two.",                      1.12),
-    ("c5", 52.30, "One.",                      1.08),
+    ("c4", 52.00, "Two.",                      1.12),
+    ("c5", 52.42, "One.",                      1.08),
 ]
 COUNT_WORDS = {"ten", "nine", "eight", "seven", "six", "five", "four", "three", "two", "one"}
 
@@ -281,17 +281,17 @@ def main():
     for sid, t0, t1, text in SECTIONS:
         path = os.path.join(TTS_DIR, sid + ".mp3")
         raw = ffmpeg_load_mono(path)
-        shrunk = ffmpeg_shrill(path, pitch=1.32, atempo=1.0)
+        shrunk = ffmpeg_shrill(path, pitch=1.24, atempo=1.0)
         window = (t1 - t0) * 0.94
         if len(shrunk) > window * SR:
             atempo = (len(shrunk) / SR) / window
-            atempo = min(1.62, atempo)
-            shrunk = ffmpeg_shrill(path, pitch=1.32, atempo=atempo)
+            atempo = min(1.5, atempo)
+            shrunk = ffmpeg_shrill(path, pitch=1.24, atempo=atempo)
         # normalize clip level
         peak = np.abs(shrunk).max()
         if peak > 1e-6:
             shrunk = shrunk * (0.72 / peak)
-        place(vo, shrunk, t0, gain=1.00)
+        place(vo, shrunk, t0, gain=1.10)
         # word timings for captions (proportional within the placed clip)
         words = [w for w in text.split(" ") if w]
         weights = np.array([len(w) + 1.6 + (1.9 if any(c in w for c in ".…") else 0) for w in words], dtype=np.float64)
@@ -398,7 +398,7 @@ def main():
     kern = np.ones(win, dtype=np.float32) / win
     vo_env = np.convolve(np.abs(mono_vo), kern, mode="same")
     vo_env = np.minimum(1.0, vo_env / max(1e-6, np.percentile(vo_env[vo_env > 1e-4], 85) if (vo_env > 1e-4).any() else 1.0))
-    duck = 1.0 - 0.53 * vo_env
+    duck = 1.0 - 0.62 * vo_env
     mix = vo * 1.0
     mix[:, 0] += bed[:, 0] * duck
     mix[:, 1] += bed[:, 1] * duck

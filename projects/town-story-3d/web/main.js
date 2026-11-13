@@ -127,6 +127,29 @@ overlayMesh.position.set(0, 0, -2.0);
 overlayMesh.renderOrder = 999;
 camera.add(overlayMesh);
 
+// ---- countdown number overlay (10..1) ----
+const NUMS = {};
+for (const d of ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1']) {
+  const [nc, ng] = (() => { const c = document.createElement('canvas'); c.width = 540; c.height = 420; return [c, c.getContext('2d')]; })();
+  ng.textAlign = 'center'; ng.textBaseline = 'middle';
+  ng.font = '900 300px Arial, sans-serif';
+  ng.shadowColor = '#ff2828'; ng.shadowBlur = 55;
+  ng.lineWidth = 26; ng.strokeStyle = '#20060a';
+  ng.strokeText(d, 270, 215);
+  ng.shadowBlur = 25;
+  ng.fillStyle = '#ffffff';
+  ng.fillText(d, 270, 215);
+  const t2 = new THREE.CanvasTexture(nc);
+  t2.colorSpace = THREE.SRGBColorSpace;
+  NUMS[d] = t2;
+}
+const numMesh = new THREE.Mesh(
+  new THREE.PlaneGeometry(1.285, 1.0),
+  new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthTest: false, toneMapped: false })
+);
+numMesh.renderOrder = 998;
+camera.add(numMesh);
+
 const flashMesh = new THREE.Mesh(
   new THREE.PlaneGeometry(2.6, 4.6),
   new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0, depthTest: false, toneMapped: false })
@@ -144,9 +167,10 @@ function renderAt(t) {
   camera.fov = st.cam.fov; camera.updateProjectionMatrix();
   let px = st.cam.p[0], py = st.cam.p[1], pz = st.cam.p[2];
   if (st.cam.shake > 0) {
-    px += Math.sin(t * 61.0) * st.cam.shake;
-    py += Math.cos(t * 53.0) * st.cam.shake * 0.6;
-    pz += Math.sin(t * 47.0 + 1.3) * st.cam.shake * 0.5;
+    const sk = st.cam.shake * 0.4; // gentler, smoother shake
+    px += Math.sin(t * 37.0) * sk;
+    py += Math.cos(t * 31.0) * sk * 0.6;
+    pz += Math.sin(t * 29.0 + 1.3) * sk * 0.5;
   }
   camera.position.set(px, py, pz);
   camera.lookAt(V3.set(st.cam.l[0], st.cam.l[1], st.cam.l[2]));
@@ -220,6 +244,22 @@ function renderAt(t) {
     overlayMesh.visible = st.overlay.op > 0.001;
   } else {
     overlayMesh.visible = false;
+  }
+  // countdown number (independent of cards)
+  if (st.num) {
+    if (numMesh.material.map !== NUMS[st.num.d]) {
+      numMesh.material.map = NUMS[st.num.d];
+      numMesh.material.needsUpdate = true;
+    }
+    numMesh.material.opacity = st.num.op;
+    // size/pos follow the camera fov so the number always sits upper-center
+    const vh = 2 * 1.9 * Math.tan((camera.fov * Math.PI) / 360);
+    const sc = vh * 0.40 * (1.22 - 0.22 * st.num.pop);
+    numMesh.scale.set(sc, sc, 1);
+    numMesh.position.set(0, vh * 0.27, -1.9);
+    numMesh.visible = true;
+  } else {
+    numMesh.visible = false;
   }
   flashMesh.material.opacity = st.flash;
 
