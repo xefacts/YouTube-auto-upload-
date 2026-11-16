@@ -607,11 +607,11 @@ function makePhoneScreenTex(mode = 'alert1') {
   const chrome = (wall, time, pct, lowBatt) => {
     g.fillStyle = wall; g.fillRect(0, 0, W, H);
     // status bar
-    g.fillStyle = '#eef1f5'; g.font = 'bold 20px Arial'; g.textAlign = 'left';
+    g.fillStyle = '#eef1f5'; g.font = 'bold 26px Arial'; g.textAlign = 'left';
     g.fillText(time, 34, 46);
     // signal bars
     for (let i = 0; i < 4; i++) g.fillRect(300 + i * 9, 40 - (7 + i * 4), 6, 7 + i * 4);
-    g.font = 'bold 15px Arial'; g.fillText('LTE', 268, 46);
+    g.font = 'bold 19px Arial'; g.fillText('LTE', 268, 46);
     // wifi arcs
     g.strokeStyle = '#eef1f5'; g.lineWidth = 3.4;
     for (let rr = 5; rr <= 15; rr += 5) { g.beginPath(); g.arc(356, 42, rr, Math.PI * 1.25, Math.PI * 1.75); g.stroke(); }
@@ -622,7 +622,7 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.fillStyle = lowBatt ? '#ff4438' : '#eef1f5';
     g.fillRect(395, 27, Math.max(3, Math.round(40 * pct)), 14);
     g.fillRect(439, 29, 5, 10);
-    g.font = 'bold 15px Arial'; g.textAlign = 'right'; g.fillText(`${Math.round(pct * 100)}%`, 384, 46);
+    g.font = 'bold 19px Arial'; g.textAlign = 'right'; g.fillText(`${Math.round(pct * 100)}%`, 384, 46);
     // dynamic island
     g.fillStyle = '#000000';
     g.beginPath(); g.roundRect(165, 12, 150, 32, 16); g.fill();
@@ -639,51 +639,51 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.fillStyle = wall; g.fillRect(0, 0, W, H);
     // fb header
     g.fillStyle = '#ffffff'; g.fillRect(0, 52, W, 76);
-    g.fillStyle = '#1877f2'; g.font = '900 31px Arial'; g.textAlign = 'left';
+    g.fillStyle = '#1877f2'; g.font = '900 40px Arial'; g.textAlign = 'left';
     g.fillText('facebook', 30, 104);
     // search + messenger circles
     g.fillStyle = '#e4e6eb'; g.beginPath(); g.arc(366, 90, 25, 0, 7); g.fill();
-    g.fillStyle = '#65676b'; g.font = '900 20px Arial'; g.textAlign = 'center'; g.fillText('Q', 366, 100);
+    g.fillStyle = '#65676b'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText('Q', 366, 100);
     g.fillStyle = '#e4e6eb'; g.beginPath(); g.arc(428, 90, 25, 0, 7); g.fill();
     g.strokeStyle = '#0084ff'; g.lineWidth = 3;
     g.beginPath(); g.moveTo(418, 84); g.lineTo(438, 84); g.moveTo(418, 94); g.lineTo(432, 94); g.stroke(); // messenger bolt
     if (mode === 'social1') {
       g.fillStyle = '#e41e3f'; g.beginPath(); g.arc(448, 70, 14, 0, 7); g.fill();
-      g.fillStyle = '#fff'; g.font = 'bold 14px Arial'; g.fillText('9', 448, 76);
+      g.fillStyle = '#fff'; g.font = 'bold 18px Arial'; g.fillText('9', 448, 76);
     }
     // ===== post 1: city news page =====
     g.fillStyle = '#ffffff'; g.fillRect(0, 128, W, 300);
     g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(30, 152, 56, 56, 12); g.fill();
-    g.fillStyle = '#fff'; g.font = '900 20px Arial'; g.textAlign = 'center'; g.fillText('OCN', 58, 188);
-    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 20px Arial';
+    g.fillStyle = '#fff'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText('OCN', 58, 188);
+    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 26px Arial';
     g.fillText('Outbreak City News', 102, 172);
     g.fillStyle = '#0084ff'; g.beginPath(); g.arc(340, 164, 9, 0, 7); g.fill();
     g.fillStyle = '#fff'; g.font = 'bold 13px Arial'; g.fillText('✓', 336, 169);
-    g.fillStyle = '#65676b'; g.font = 'normal 16px Arial'; g.fillText('Sponsored · 4m', 102, 198);
-    g.fillStyle = '#050505'; g.font = 'normal 19px Arial';
+    g.fillStyle = '#65676b'; g.font = 'normal 20px Arial'; g.fillText('Sponsored · 4m', 102, 198);
+    g.fillStyle = '#050505'; g.font = 'normal 24px Arial';
     g.fillText('BREAKING: Hospitals report a fast-spreading', 30, 246);
     g.fillText('illness. Officials urge everyone to stay', 30, 278);
     g.fillText('indoors until further notice.', 30, 310);
     // link preview with LIVE tag
     g.fillStyle = '#1c1e21'; g.fillRect(30, 330, 420, 56);
     g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(40, 344, 58, 26, 5); g.fill();
-    g.fillStyle = '#fff'; g.font = '900 13px Arial'; g.textAlign = 'center'; g.fillText('LIVE', 69, 363);
-    g.fillStyle = '#d8dbe1'; g.textAlign = 'left'; g.font = 'bold 16px Arial';
+    g.fillStyle = '#fff'; g.font = '900 17px Arial'; g.textAlign = 'center'; g.fillText('LIVE', 69, 363);
+    g.fillStyle = '#d8dbe1'; g.textAlign = 'left'; g.font = 'bold 21px Arial';
     g.fillText('LIVE: Emergency briefing — city lockdown', 110, 366);
     // reactions row (drawn icons — no emoji)
     g.fillStyle = '#1877f2'; g.beginPath(); g.arc(48, 412, 12, 0, 7); g.fill();
     g.fillStyle = '#e41e3f'; g.beginPath(); g.arc(63, 412, 12, 0, 7); g.fill();
-    g.fillStyle = '#65676b'; g.font = 'normal 16px Arial';
+    g.fillStyle = '#65676b'; g.font = 'normal 21px Arial';
     g.fillText('15.2K', 84, 419);
     g.textAlign = 'right'; g.fillText('612 comments · 4.1K shares', 450, 419);
     // ===== post 2 (partial): community panic =====
     g.fillStyle = '#ffffff'; g.fillRect(0, 442, W, 210);
     g.fillStyle = '#7a5af8'; g.beginPath(); g.roundRect(30, 466, 56, 56, 28); g.fill();
-    g.fillStyle = '#fff'; g.font = '900 19px Arial'; g.textAlign = 'center'; g.fillText('CA', 58, 502);
-    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 20px Arial';
+    g.fillStyle = '#fff'; g.font = '900 24px Arial'; g.textAlign = 'center'; g.fillText('CA', 58, 502);
+    g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = 'bold 26px Arial';
     g.fillText('Community Alert Group', 102, 486);
-    g.fillStyle = '#65676b'; g.font = 'normal 16px Arial'; g.fillText('1m · Public', 102, 512);
-    g.fillStyle = '#050505'; g.font = 'normal 19px Arial';
+    g.fillStyle = '#65676b'; g.font = 'normal 20px Arial'; g.fillText('1m · Public', 102, 512);
+    g.fillStyle = '#050505'; g.font = 'normal 24px Arial';
     g.fillText('They are NOT sick. They are not people', 30, 558);
     g.fillText('anymore. Lock your doors. Do not open', 30, 590);
     g.fillText('for ANYONE.', 30, 622);
@@ -696,13 +696,13 @@ function makePhoneScreenTex(mode = 'alert1') {
       g.strokeStyle = 'rgba(20,24,34,0.18)'; g.lineWidth = 2;
       g.beginPath(); g.roundRect(21, 67, 438, 116, 25); g.stroke();
       g.fillStyle = '#c8102e'; g.beginPath(); g.roundRect(40, 84, 64, 64, 16); g.fill();
-      g.fillStyle = '#fff'; g.font = '900 31px Arial'; g.textAlign = 'center'; g.fillText('!', 72, 130);
-      g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = '900 19px Arial';
+      g.fillStyle = '#fff'; g.font = '900 40px Arial'; g.textAlign = 'center'; g.fillText('!', 72, 130);
+      g.textAlign = 'left'; g.fillStyle = '#050505'; g.font = '900 24px Arial';
       g.fillText('EMERGENCY ALERTS', 120, 108);
-      g.fillStyle = '#3a3d42'; g.font = 'normal 16px Arial';
+      g.fillStyle = '#3a3d42'; g.font = 'normal 21px Arial';
       g.fillText('Severe threat in this area. Tap', 120, 138);
       g.fillStyle = '#3a3d42'; g.fillText('to read the full alert', 120, 164);
-      g.fillStyle = '#8a8d91'; g.font = 'normal 13px Arial'; g.textAlign = 'right'; g.fillText('now', 444, 108);
+      g.fillStyle = '#8a8d91'; g.font = 'normal 17px Arial'; g.textAlign = 'right'; g.fillText('now', 444, 108);
     }
   } else if (mode === 'alert1') {
     // ================= iOS GOVERNMENT EMERGENCY ALERT (4:17 PM) =================
@@ -716,21 +716,21 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.fillStyle = '#f7f5f0'; g.beginPath(); g.roundRect(28, 210, 424, 400, 30); g.fill();
     g.restore();
     g.textAlign = 'center';
-    g.fillStyle = '#b25000'; g.font = '900 27px Arial';
+    g.fillStyle = '#b25000'; g.font = '900 34px Arial';
     g.fillText('EMERGENCY ALERT', 240, 276);
-    g.fillStyle = '#8d939c'; g.font = 'bold 17px Arial';
+    g.fillStyle = '#8d939c'; g.font = 'bold 22px Arial';
     g.fillText('CIVIL DANGER WARNING', 240, 312);
     g.strokeStyle = '#d9d4c8'; g.lineWidth = 2; g.beginPath(); g.moveTo(60, 338); g.lineTo(420, 338); g.stroke();
-    g.fillStyle = '#15181d'; g.font = '900 34px Arial';
+    g.fillStyle = '#15181d'; g.font = '900 44px Arial';
     g.fillText('STAY INDOORS', 240, 398);
-    g.fillStyle = '#33383f'; g.font = 'bold 20px Arial';
+    g.fillStyle = '#33383f'; g.font = 'bold 26px Arial';
     for (const [i, ln] of [
       'Avoid confused or violent', 'individuals.', '',
       'Do not approach emergency', 'responders unless instructed.',
     ].entries()) g.fillText(ln, 240, 452 + i * 42);
     // realistic Dismiss button
     g.fillStyle = '#e8e4da'; g.beginPath(); g.roundRect(150, 528, 180, 56, 28); g.fill();
-    g.fillStyle = '#007aff'; g.font = '900 20px Arial'; g.fillText('Dismiss', 240, 564);
+    g.fillStyle = '#007aff'; g.font = '900 26px Arial'; g.fillText('Dismiss', 240, 564);
   } else if (mode === 'alert2') {
     // ================= 2:14 AM CRITICAL UPDATE + missed-message stack =================
     chrome('#0a0507', '2:14', 0.17, true);
@@ -739,10 +739,10 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.fillStyle = '#b8171e'; g.beginPath(); g.roundRect(28, 140, 424, 210, 28); g.fill();
     g.restore();
     g.textAlign = 'center'; g.fillStyle = '#ffffff';
-    g.font = '900 28px Arial'; g.fillText('CRITICAL UPDATE', 240, 206);
-    g.font = 'bold 18px Arial'; g.fillStyle = '#ffd9d4'; g.fillText('NEW EMERGENCY MESSAGE', 240, 244);
+    g.font = '900 36px Arial'; g.fillText('CRITICAL UPDATE', 240, 206);
+    g.font = 'bold 23px Arial'; g.fillStyle = '#ffd9d4'; g.fillText('NEW EMERGENCY MESSAGE', 240, 244);
     g.strokeStyle = 'rgba(255,255,255,0.35)'; g.lineWidth = 2; g.beginPath(); g.moveTo(60, 268); g.lineTo(420, 268); g.stroke();
-    g.fillStyle = '#ffffff'; g.font = '900 23px Arial';
+    g.fillStyle = '#ffffff'; g.font = '900 30px Arial';
     g.fillText('Do not respond to voices outside.', 240, 310);
     // missed messages stack (the dread of an unread world)
     for (const [yy, icon, iconCol, name, body, when] of [
@@ -754,22 +754,22 @@ function makePhoneScreenTex(mode = 'alert1') {
       g.fillStyle = '#1c1f26'; g.beginPath(); g.roundRect(28, yy, 424, 108, 24); g.fill();
       g.restore();
       g.fillStyle = iconCol; g.beginPath(); g.roundRect(48, yy + 24, 56, 56, 14); g.fill();
-      g.fillStyle = '#fff'; g.font = '900 20px Arial'; g.textAlign = 'center'; g.fillText(icon, 76, yy + 60);
-      g.textAlign = 'left'; g.fillStyle = '#e8eaee'; g.font = 'bold 19px Arial';
+      g.fillStyle = '#fff'; g.font = '900 26px Arial'; g.textAlign = 'center'; g.fillText(icon, 76, yy + 60);
+      g.textAlign = 'left'; g.fillStyle = '#e8eaee'; g.font = 'bold 24px Arial';
       g.fillText(name, 122, yy + 42);
-      g.fillStyle = '#9aa0a8'; g.font = 'normal 16px Arial';
+      g.fillStyle = '#9aa0a8'; g.font = 'normal 21px Arial';
       g.fillText(body, 122, yy + 74);
-      g.textAlign = 'right'; g.fillStyle = '#6b7280'; g.font = 'normal 13px Arial';
+      g.textAlign = 'right'; g.fillStyle = '#6b7280'; g.font = 'normal 17px Arial';
       g.fillText(when, 432, yy + 40);
     }
-    g.textAlign = 'center'; g.fillStyle = '#ff4f42'; g.font = '900 21px Arial';
+    g.textAlign = 'center'; g.fillStyle = '#ff4f42'; g.font = '900 27px Arial';
     g.fillText('AFFECTED MAY IMITATE FAMILIAR SPEECH', 240, 664);
-    g.fillStyle = '#ffd24c'; g.font = 'bold 19px Arial';
+    g.fillStyle = '#ffd24c'; g.font = 'bold 24px Arial';
     g.fillText('KEEP ALL DOORS LOCKED', 240, 704);
   } else {
     // ================= SUNRISE OFFLINE MAP (4% battery) =================
     chrome('#0c1824', '6:12', 0.04, true);
-    g.fillStyle = '#9ec0d8'; g.font = 'bold 17px Arial'; g.textAlign = 'left';
+    g.fillStyle = '#9ec0d8'; g.font = 'bold 22px Arial'; g.textAlign = 'left';
     g.fillText('OFFLINE MAP', 34, 96);
     g.fillStyle = '#132638'; g.beginPath(); g.roundRect(24, 120, 432, 470, 18); g.fill();
     g.save(); g.beginPath(); g.roundRect(24, 120, 432, 470, 18); g.clip();
@@ -783,11 +783,11 @@ function makePhoneScreenTex(mode = 'alert1') {
     g.strokeStyle = '#ff4438'; g.lineWidth = 4;
     g.beginPath(); g.arc(350, 210, 26 + 6 * Math.sin(Date.now() * 0.004), 0, 7); g.stroke();
     g.restore();
-    g.textAlign = 'center'; g.fillStyle = '#ffffff'; g.font = '900 22px Arial';
+    g.textAlign = 'center'; g.fillStyle = '#ffffff'; g.font = '900 28px Arial';
     g.fillText('TRANSIT STATION', 240, 636);
-    g.fillStyle = '#ffd24c'; g.font = 'bold 18px Arial';
+    g.fillStyle = '#ffd24c'; g.font = 'bold 23px Arial';
     g.fillText('MAINTENANCE ENTRANCE', 240, 672);
-    g.fillStyle = '#9ec0d8'; g.font = 'bold 16px Arial';
+    g.fillStyle = '#9ec0d8'; g.font = 'bold 21px Arial';
     g.fillText('2 STREETS AWAY · ALLEY ROUTE', 240, 708);
   }
   const t = new THREE.CanvasTexture(c);
@@ -2055,31 +2055,15 @@ export function buildOutbreakWorld(scene) {
     g.fillText(text.split(' ').join('\u2002'), 190, 1676);
     const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
   }
-  // V7: pure-black full-screen texture — the 3.00s silence beat before the story begins.
-  const makeBlackTex = () => {
-    const c = document.createElement('canvas'); c.width = 16; c.height = 16;
-    const g = c.getContext('2d'); g.fillStyle = '#000000'; g.fillRect(0, 0, 16, 16);
-    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
-  };
   const introOverlayTex = {
-    black: makeBlackTex(),
     map: makeIntroMapTex(),
     title: makeTitleTex(),
     end: makeEndTex(),
-    // V7 ORIGINS text cards (render-time; captions stay ASS-side)
     intro1: makeStripTex('IT BEGAN LIKE ANY OTHER DAY'),
-    intro1b: makeStripTex('SCHOOL  •  OFFICE  •  AN ORDINARY MORNING'),
-    intro2: makeStripTex('ONE LAB CHANGED EVERYTHING'),
+    intro2: makeStripTex('SOMEWHERE, IT HAD ALREADY BEGUN'),
     intro3: makeStripTex('IT SPREAD IN HOURS'),
-    intro4: makeStripTex('SPECIMEN 47 — LIVE TEST'),
-    intro5: makeStripTex('EVERY SCREEN SAID THE SAME THING'),
     locator1: makeLocatorTex('OUTBREAK — DAY 1', '4:17 PM  •  CITY LOCKDOWN IN EFFECT'),
     locator2: makeLocatorTex('DAY 2 — SUNRISE', '6:12 AM  •  THE STREET IS EMPTY'),
-    black: (() => {
-      const c = document.createElement('canvas'); c.width = 8; c.height = 8;
-      const g = c.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, 8, 8);
-      const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
-    })(),
   };
 
   // =========================================================================
@@ -2163,11 +2147,6 @@ export function buildOutbreakWorld(scene) {
   const labGroup = new THREE.Group();
   labGroup.position.set(-40, 0, -12);
   let labAlarmMat, cageDoor;
-  let labContainers = [];
-  let labConsole = null;
-  let labButtonBase = null;
-  let labButtonCover = null;
-  let labButtonMat = null;
   {
     labGroup.add(ibox(14, 0.12, 10, '#191d23', { y: -0.06, thick: 0.02, cast: false }));           // floor
     labGroup.add(ibox(14, 3.8, 0.18, '#252b34', { y: 1.9, z: -5, thick: 0.02, cast: false }));      // back wall
@@ -2266,61 +2245,6 @@ export function buildOutbreakWorld(scene) {
     // hazard stripes on floor in front of cage
     for (let hy = 0; hy < 6; hy++)
       labGroup.add(ibox(1.9 - hy * 0.12, 0.012, 0.16, hy % 2 ? '#c9a227' : '#23262b', { x: 3.1, y: 0.008, z: -0.85 + hy * 0.3, thick: 0.002, edges: false, cast: false }));
-    // ---- V7: THE GLASS CONTAINERS — where the subjects turn ----
-    labContainers = [];
-    const containDefs = [[-0.62, -2.10], [0.75, -2.05]];
-    for (const [ci, [cxx, czz]] of containDefs.entries()) {
-      const cg = new THREE.Group(); cg.position.set(cxx, 0, czz);
-      // frosted-glass tall cylinder (open-topped vessel)
-      const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.66, 0.72, 2.0, 24, 1, true),
-        new THREE.MeshBasicMaterial({ color: '#2c4b3f', transparent: true, opacity: 0.30, side: THREE.DoubleSide, toneMapped: false }));
-      glass.position.y = 1.22; cg.add(glass);
-      // steel base + rim rings
-      cg.add(icyl(0.80, 0.86, 0.14, '#39424c', { y: 0.07, thick: 0.008, cast: false }));
-      cg.add(icyl(0.78, 0.78, 0.07, '#39424c', { y: 2.26, thick: 0.006, cast: false }));
-      // side hose to ceiling
-      cg.add(icyl(0.045, 0.045, 1.3, '#2b322a', { x: 0.55, y: 1.75, rz: Math.PI / 2 - 0.35, seg: 8, thick: 0.006, cast: false }));
-      // CHEMICAL RAIN — falling droplet instanced planes inside the glass (set by updateIntroLab)
-      const rainMat = new THREE.MeshBasicMaterial({ color: '#8fffc4', transparent: true, opacity: 0.9, toneMapped: false, depthWrite: false });
-      const rainGeo = new THREE.PlaneGeometry(0.028, 0.11);
-      const rain = new THREE.InstancedMesh(rainGeo, rainMat, 34);
-      rain.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-      rain.frustumCulled = false;
-      cg.add(rain);
-      // venting vapor puffs at the base
-      const fogMat = new THREE.MeshBasicMaterial({ color: '#b9ffd9', transparent: true, opacity: 0.16, toneMapped: false, depthWrite: false });
-      const fog = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.7, 0.7), fogMat, 8);
-      fog.instanceMatrix.setUsage(THREE.DynamicDrawUsage); fog.frustumCulled = false;
-      cg.add(fog);
-      // sickly fill-glow at the bottom (grows as they turn)
-      const fillMat = new THREE.MeshBasicMaterial({ color: '#59d98c', transparent: true, opacity: 0.0, toneMapped: false, depthWrite: false });
-      const fill = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.68, 2.0, 20, 1, true), fillMat);
-      fill.position.y = 1.22; cg.add(fill);
-      // top spotlight cone (always visible — the specimens are always lit)
-      const cone = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.92, 2.35, 20, 1, true),
-        new THREE.MeshBasicMaterial({ color: '#eafff4', transparent: true, opacity: 0.10, side: THREE.DoubleSide, toneMapped: false, depthWrite: false }));
-      cone.position.y = 1.30; cg.add(cone);
-      labGroup.add(cg);
-      labContainers.push({ group: cg, rain, fog, fill, seed: ci * 1.37 + 2.0 });
-    }
-    // ---- V7: THE BUTTON — a heavy red master-switch console beside the containers ----
-    labConsole = new THREE.Group(); labConsole.position.set(1.85, 0, -2.35);
-    labConsole.add(ibox(0.66, 0.9, 0.44, '#262c34', { y: 0.45, ry: -0.10, thick: 0.012, cast: false }));
-    labConsole.add(ibox(0.60, 0.05, 0.40, '#11161b', { y: 0.93, ry: -0.10, thick: 0.006, cast: false }));
-    for (const [px, pz] of [[-0.14, -0.06], [0.02, 0.06]])
-      labConsole.add(ibox(0.11, 0.035, 0.11, '#c9a227', { x: px, y: 0.95, z: pz, ry: -0.10, thick: 0.004, cast: false }));
-    // the big covered red button — glass safety cover flips up when armed!
-    labButtonBase = new THREE.Group(); labButtonBase.position.set(0.12, 0.945, -0.02); labButtonBase.rotation.y = -0.10;
-    labButtonBase.add(icyl(0.09, 0.10, 0.05, '#101317', { thick: 0.004, cast: false }));
-    labButtonMat = new THREE.MeshBasicMaterial({ color: '#ff2f1e', toneMapped: false });
-    const labButtonCap = new THREE.Mesh(new THREE.SphereGeometry(0.065, 14, 10), labButtonMat);
-    labButtonCap.position.y = 0.035; labButtonBase.add(labButtonCap);
-    labConsole.add(labButtonBase);
-    const cover = new THREE.Mesh(new THREE.SphereGeometry(0.105, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2),
-      new THREE.MeshBasicMaterial({ color: '#ffd24c', transparent: true, opacity: 0.30, toneMapped: false }));
-    cover.position.y = 0.045; labButtonBase.add(cover);
-    labButtonCover = cover;
-    labGroup.add(labConsole);
     // ceiling alarm beacon
     labAlarmMat = new THREE.MeshBasicMaterial({ color: '#ff2a1a', toneMapped: false });
     const labAlarm = new THREE.Mesh(new THREE.SphereGeometry(0.085, 12, 10), labAlarmMat);
@@ -2350,7 +2274,7 @@ export function buildOutbreakWorld(scene) {
     ng.fillStyle = '#ffffff'; ng.font = '900 56px Arial'; ng.textAlign = 'left';
     ng.fillText('BREAKING NEWS', 36, 62);
     ng.fillStyle = '#ffffff'; ng.font = '900 40px Arial';
-    ng.fillText('DEADLY VIRUS SPREADING — STAY INDOORS', 36, 148);
+    ng.fillText('UNKNOWN ILLNESS SPREADING — STAY INDOORS', 36, 148);
     ng.fillStyle = '#9fc3e8'; ng.font = 'bold 30px Arial';
     ng.fillText('HOSPITALS OVERWHELMED · SCHOOLS CLOSED · TRANSIT HALTED', 36, 196);
     ng.fillStyle = '#c8102e'; ng.font = 'bold 34px Arial';
@@ -2384,51 +2308,6 @@ export function buildOutbreakWorld(scene) {
     }
   }
   scene.add(newsGroup);
-
-  // =========================================================================
-  // 6b-V7. GLASS-CONTAINER CHEMICAL RAIN + MASTER BUTTON UPDATER
-  // (pure render-time function of t — deterministic under any render order)
-  // =========================================================================
-  function updateIntroLab(t) {
-    if (!labContainers.length) return;
-    const drip = Math.max(0, Math.min(1, (t - 4.30) / 0.80));
-    const turn = (t >= 5.70 && t < 6.60) ? 1 : 0;
-    const pressed = (t >= 4.30) ? 1 : 0;
-    const M = new THREE.Matrix4();
-    for (const ct of labContainers) {
-      const { group, rain, fog, fill, seed } = ct;
-      if (drip > 0) {
-        const n = Math.max(1, Math.round(34 * drip));
-        for (let i = 0; i < 34; i++) {
-          const ang = seed * 2.1 + i * 2.399963;
-          const rr = (i / 34) * 0.58 + 0.03;
-          const speed = 0.30 + ((i * 7 + Math.round(seed * 13)) % 10) * 0.055;
-          const yy = 2.25 - ((t * speed + i * 0.317) % 1.0) * 2.15;
-          M.makeRotationY(-group.rotation.y);
-          M.setPosition(group.position.x + Math.cos(ang) * rr, yy, group.position.z + Math.sin(ang) * rr);
-          if (i >= n) M.setPosition(0, -9, 0);
-          rain.setMatrixAt(i, M);
-        }
-        rain.count = 34;
-        rain.instanceMatrix.needsUpdate = true;
-      } else {
-        rain.count = 0;
-      }
-      for (let i = 0; i < 8; i++) {
-        const fa = t * 0.4 + i * 0.785398 + seed;
-        const fy = 0.14 + ((t * 0.12 + i * 0.125 + seed * 0.1) % 1.0) * 0.65 * drip;
-        M.makeRotationY(-group.rotation.y);
-        M.setPosition(group.position.x + Math.cos(fa) * 0.48, fy, group.position.z + Math.sin(fa) * 0.48);
-        fog.setMatrixAt(i, M);
-      }
-      fog.count = drip > 0 ? 8 : 0;
-      fog.instanceMatrix.needsUpdate = true;
-      fill.material.opacity = turn ? 0.26 : (drip > 0 ? 0.10 : 0);
-      fill.material.color.set(turn ? '#49ff8e' : '#59d98c');
-    }
-    if (labButtonCover) labButtonCover.rotation.x = pressed ? -1.45 : 0;
-    if (labButtonBase) labButtonBase.children[1].position.y = pressed ? 0.018 : 0.035;
-  }
 
   // =========================================================================
   // 6c. INTRO DESTRUCTION PROPS — fire glows, embers source, smoke billboards
@@ -2532,10 +2411,6 @@ export function buildOutbreakWorld(scene) {
     labGroup,
     labAlarmMat,
     cageDoor,
-    labContainers,
-    labConsole,
-    labButtonMat,
-    updateIntroLab,
     newsGroup,
     tickerTex,
     introFireGroup,

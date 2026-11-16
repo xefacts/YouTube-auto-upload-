@@ -137,7 +137,7 @@ export function buildWorld(scene, loader) {
     const rad = 10 + rnd() * 55;
     const x = Math.cos(ang) * rad - 4;
     const z = Math.sin(ang) * rad - 4;
-    if (Math.abs(z + 13) < 3.2 && x > -30 && x < 20) continue; // keep road clear
+    if (Math.abs(z + 13) < 3.2 && x > -62 && x < 20) continue; // keep road clear (full approach)
     if (z > 3.5 && z < 15 && x > -7 && x < 9) continue; // keep figure-viewing corridor clear (south approach)
     const s = 0.8 + rnd() * 1.5;
     const t = new THREE.Group();

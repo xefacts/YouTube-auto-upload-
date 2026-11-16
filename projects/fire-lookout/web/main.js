@@ -96,7 +96,7 @@ const clamp01 = (v) => Math.max(0, Math.min(1, v));
 const lerp = (a, b, u) => a + (b - a) * u;
 
 const STAGE_WINDOWS = [
-  [world.stageCctv, [[0.0, 6.8]]],
+  // stageCctv removed — opening is clean 3D now
   [world.stageNotebook, [[52.3, 61.7]]],
   [world.stageWarning, [[61.7, 65.3]]],
   [world.stagePhoneMsg, [[111.6, 116.4], [126.5, 130.0]]],

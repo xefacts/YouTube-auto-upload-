@@ -119,8 +119,9 @@ sweep(drone_crystal, 0.0, 8.0, gain=0.15, attack=1.0, release=1.5)
 # ---- SFX beats ----
 SFX_BEATS = [
     # (clip, t, gain)
-    (malfunc, 0.05, 0.35),          # CCTV glitch open
-    (malfunc, 6.55, 0.30),          # CCTV cut out
+    (sub_mini, 0.10, 0.35),         # opening establishing thud
+    (whoosh, 2.55, 0.22),           # cut to low angle
+    (whoosh, 4.55, 0.24),           # cut to road/truck
     (imp_deep, 11.3, 0.75),         # truck stops
     (whoosh, 12.4, 0.34),           # tower reveal
     (sub_mini, 20.0, 0.45),         # name tag macro

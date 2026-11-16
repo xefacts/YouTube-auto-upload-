@@ -33,9 +33,10 @@ const ecam = (x, y, z, lx, ly, lz, fov = 42) => ({ pos: [x, y, z], look: [lx, ly
 // each: [t0, t1, cam, move]
 // move: 'push' (slow dolly in), 'pull', 'panL', 'panR', 'tiltU', 'tiltD', 'hold', 'drift'
 export const SHOTS = [
-  // ---- HOOK: security footage (generated image asset + HUD) ----
-  [0.00, 3.30, macroCam(MS.cctv, 9.4, 46), 'push'],
-  [3.30, 6.80, macroCam(MS.cctv, 7.4, 44), 'push'],
+  // ---- OPENING: clean 3D establishing (dusk) ----
+  [0.00, 2.60, ecam(-24, 5.5, 24, 0, 9.5, 0, 40), 'push'],          // wide: tower on ridge, dusk
+  [2.60, 4.60, ecam(-5.8, 1.1, 6.0, 0.2, 9.2, -0.6, 46), 'push'],   // low angle: sun-lit stairs + west face
+  [4.60, 6.80, ecam(-30, 1.7, -10.8, -38, 1.0, -13.0, 42), 'hold'], // road: truck approaching (big in frame)
   // ---- "but that came later / three weeks earlier" ----
   [6.80, 9.10, ecam(-14, 4.5, -22, -2, 9, -4, 48), 'panR'],
   [9.10, 11.30, ecam(-8, 2.2, -9.5, -2, 1.2, -13, 40), 'panL'],
@@ -113,9 +114,9 @@ export const SHOTS = [
 // ---------------------------------------------------------------- SKY / LIGHT KEYS
 // [t, bg, fog, sun, moon, amb]
 const LIGHT_KEYS = [
-  [0.0, '#0a0f14', '#0a0f14', 0.0, 0.0, 0.30],
-  [6.8, '#0a0f14', '#0a0f14', 0.0, 0.0, 0.30],
-  [7.2, '#2a3550', '#2a3550', 0.15, 0.0, 0.42],
+  [0.0, '#82705c', '#82705c', 0.85, 0.0, 0.52],
+  [6.8, '#7d6b58', '#7d6b58', 0.85, 0.0, 0.55],
+  [7.2, '#7d6b58', '#7d6b58', 0.85, 0.0, 0.55],
   [9.2, '#5a6a80', '#5a6a80', 0.75, 0.0, 0.55],
   [13.0, '#7a7a6a', '#6a6a5a', 0.9, 0.0, 0.60],
   [18.9, '#4a4a50', '#4a4a50', 0.45, 0.0, 0.50],
@@ -257,9 +258,13 @@ export function propStates(t) {
   const knocks3 = t >= 76.5 && t < 79.2;
   const knocking = t >= 132.5 && t < 136.9;
   return {
-    // truck: arrival (9.1-11.3), leaving (37.7-40.8)
-    truckX: t < 20 ? lerp(-28, -3.5, ease(clamp01((t - 9.1) / 2.2))) : lerp(-3.5, -22, ease(clamp01((t - 37.7) / 3.1))),
-    truckVis: (t >= 9.1 && t < 11.3) || (t >= 37.7 && t < 40.8),
+    // truck: approach (4.6-9.1 far), arrival (9.1-11.3), leaving (37.7-40.8)
+    truckX: t < 4.6 ? -80
+      : t < 6.8 ? lerp(-58, -38, ease(clamp01((t - 4.6) / 2.2)))
+      : t < 9.1 ? lerp(-38, -28, ease(clamp01((t - 6.8) / 2.3)))
+      : t < 20 ? lerp(-28, -3.5, ease(clamp01((t - 9.1) / 2.2)))
+      : lerp(-3.5, -22, ease(clamp01((t - 37.7) / 3.1))),
+    truckVis: (t >= 4.6 && t < 11.3) || (t >= 37.7 && t < 40.8),
     // radio dial: amber normally, red + pulse when voice
     radioOn: t >= 40.8,
     radioVoice, radioRed,
@@ -280,9 +285,9 @@ export function propStates(t) {
     belowGlow: t >= 101.1 && t < 110.1 ? ease(clamp01((t - 101.1) / 2.4)) * (0.7 + 0.3 * Math.sin(t * 6)) : (t >= 130 && t < 142 ? 0.5 + 0.4 * Math.sin(t * 7) : 0),
     // flashlight beam
     beam: t >= 79.2 && t < 99.1 ? 0.34 + 0.05 * Math.sin(t * 1.3) : 0,
-    // CCTV hud + grain
-    cctvHud: t < 6.8 ? 0.85 : 0,
-    cctvGlitch: t < 6.8 ? (Math.sin(t * 9.1) > 0.86 || (t > 5.9 && t < 6.1)) : false,
+    // CCTV hud + grain (disabled — opening is clean 3D now)
+    cctvHud: 0,
+    cctvGlitch: false,
     // red frame pulse on warning page
     warnRed: t >= 61.7 && t < 65.3 ? 0.25 + 0.2 * Math.sin(t * 5.2) : 0,
     // green reveal outline on jacket (flashback)
