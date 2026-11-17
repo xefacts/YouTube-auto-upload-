@@ -9,8 +9,18 @@ cuboids, three visible faces each, lambert+ambient shading, painter's sort.
 """
 import math
 
-import draw2d as g
-from draw2d import Pen
+try:                                    # only needed by the legacy polygon path
+    import draw2d as g
+    from draw2d import Pen
+except ImportError:                     # ray-caster path: no Pillow pen required
+    g = None
+
+    class Pen:                          # minimal stub
+        def __init__(self, *a, **k):
+            pass
+
+        def poly(self, *a, **k):
+            pass
 
 LIGHT = (-0.34, 0.80, -0.50)
 
@@ -208,7 +218,7 @@ def _face(sc, hx, hy, hz, s, facing, spec, expr):
     """Glossy toy face: white eyes, dark pupils, specular dot, shaped mouth."""
     sign = -1.0 if facing else 1.0
     fz = hz + sign * 0.012
-    eo, eye_h, pup_h = 0.158 * s, 0.180 * s, 0.092 * s
+    eo, eye_h, pup_h = 0.132 * s, 0.190 * s, 0.100 * s
     ey = hy + 0.020 * s
     white = spec.get("eye", (250, 250, 252))
     pupil = spec.get("pupil", (34, 30, 42))
@@ -216,7 +226,7 @@ def _face(sc, hx, hy, hz, s, facing, spec, expr):
         eye_h, pup_h, ey = 0.115 * s, 0.070 * s, hy + 0.010 * s
     xeyes = expr in ("shock", "dead", "dizzy")
     for sx in (-eo, eo):
-        sc.box((hx + sx, ey, fz), (0.200 * s, eye_h, 0.02), white, glow=True)
+        sc.box((hx + sx, ey, fz), (0.205 * s, eye_h, 0.02), white, glow=True)
         if xeyes:
             for dx, dy in ((-0.034, -0.034), (0.034, 0.034), (-0.034, 0.034),
                            (0.034, -0.034)):
@@ -295,7 +305,7 @@ def character(sc, x, z, y=0.0, s=1.0, spec=None, pose="idle", t=0.0, facing=180,
                "hiccup": (-30, -20), "hold": (-70, -70), "strain": (-20, -20),
                "clap": (-60, -60), "wave": (-150, -20)}.get(pose)
     for i, side in enumerate((-1, 1)):
-        sx0, sy0 = x + side * 0.520 * s, base + 1.230 * s
+        sx0, sy0 = x + side * 0.468 * s, base + 1.215 * s
         if arm_ang:
             ang = math.radians(arm_ang[i])
             ax = sx0 + side * -math.sin(ang) * 0.30 * s
@@ -312,16 +322,16 @@ def character(sc, x, z, y=0.0, s=1.0, spec=None, pose="idle", t=0.0, facing=180,
     if hair:
         sc.box((x + lean * 1.2, hy + 0.290 * s, z), (0.660 * s, 0.090 * s, 0.600 * s),
                hair, rot=rot)
-        sc.box((x + lean * 1.2, hy + 0.205 * s, z - 0.293 * s),
-               (0.660 * s, 0.165 * s, 0.032 * s), hair, rot=rot)
+        sc.box((x + lean * 1.2, hy + 0.238 * s, z - 0.293 * s),
+               (0.660 * s, 0.120 * s, 0.032 * s), hair, rot=rot)
         if spec.get("long_hair"):
             sc.box((x + lean * 1.2, hy - 0.090 * s, z + 0.300 * s),
                    (0.660 * s, 0.520 * s, 0.060 * s), hair, rot=rot)
     if cap:
-        sc.box((x + lean * 1.2, hy + 0.290 * s, z), (0.660 * s, 0.110 * s, 0.600 * s),
+        sc.box((x + lean * 1.2, hy + 0.315 * s, z), (0.665 * s, 0.120 * s, 0.605 * s),
                cap, rot=rot)
-        sc.box((x + lean * 1.2, hy + 0.235 * s, z - 0.390 * s),
-               (0.560 * s, 0.055 * s, 0.240 * s), cap, rot=rot)
+        sc.box((x + lean * 1.2, hy + 0.275 * s, z - 0.400 * s),
+               (0.560 * s, 0.048 * s, 0.250 * s), cap, rot=rot)
     if hat:
         sc.box((x + lean * 1.2, hy + 0.320 * s, z), (0.720 * s, 0.060 * s, 0.660 * s),
                hat, rot=rot)

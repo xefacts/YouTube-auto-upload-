@@ -90,3 +90,30 @@ $(cat /tmp/ffpath) -i out/video_only.mp4 -i out/master.wav \
   -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -c:a aac -b:a 192k \
   -af apad -shortest -movflags +faststart out/hiccup_town_1080p.mp4
 ```
+
+
+## 6. v3 — replaced the painter's-algorithm renderer with a ray-caster
+
+v2 (the polygon drawing above) was rejected as "achi nahi": flat cut-out shapes, no
+occlusion, no real light. v3 keeps every set / stage / camera key from v2 but swaps the
+renderer for `ray.py`, a numpy per-pixel ray-caster over the same `Scene3D.box()`
+geometry:
+
+* per-pixel z-buffer (true occlusion, no more polygon sort errors)
+* key light `(-0.34, 0.80, -0.50)` + sky-fill term, per-face diffuse/spec mix
+* soft footprint shadows under every character (`shadow()` now feeds ellipses)
+* depth haze toward the mood horizon colour, contact edges at depth jumps
+* mood lighting: day `amb=.70 kd=.40 ks=.12`, dusk, night (tinted + dimmed)
+* caption font switched to the skill's `InterDisplay-ExtraBold`, global colour/contrast polish
+
+```bash
+cd projects/roblox-town
+../../.venv/bin/python render_town.py --start 0   --frames 520 --out out/part1.mp4
+../../.venv/bin/python render_town.py --start 520 --frames 519 --out out/part2.mp4
+# concat parts -> out/video_only.mp4, then mux out/master.wav (-af apad)
+```
+
+Render cost: ~1.0 fps at 1080x1920 (SS=1), 1039 frames ≈ 19 min on 2 cores.
+
+Deliverable: `out/hiccup_town_v3_1080p.mp4` — 34.63 s, 1080x1920@30, H.264 crf18 + AAC 192k.
+Drive: `1Jd5QFOBdHZBAApT_DZ1wgVpIdguPYWzY` (public, in the "In the town" folder).

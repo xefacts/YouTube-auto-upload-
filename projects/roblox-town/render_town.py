@@ -10,30 +10,94 @@ import subprocess
 import time
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 
 import boxes
-import draw2d as g
 import scenes_town as S
-from boxes import Cam, Scene3D
-from draw2d import Pen
+import ray
+from boxes import Cam
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+FONT_DIR = os.path.join(HERE, "ref", "skill", "blocky-shorts", "engine", "fonts")
+FONT_BOLD = os.path.join(FONT_DIR, "InterDisplay-ExtraBold.otf")
+FONT_BLACK = os.path.join(FONT_DIR, "InterDisplay-Black.otf")
 W, H = 540, 960                 # design space
 OUT_W, OUT_H = 1080, 1920       # delivery
-SCALE = float(os.environ.get("SCALE", "2.4"))   # supersample (design -> canvas)
+SCALE = float(os.environ.get("SCALE", "2.0"))   # design -> render canvas
+SS = int(os.environ.get("SS", "1"))             # ray samples per pixel
 BW, BH = int(W * SCALE), int(H * SCALE)
 FPS = 30
 FF = os.environ.get("FFMPEG") or open("/tmp/ffpath").read().strip()
 
 MOODS = {
-    "day": dict(top=(116, 188, 238), bot=(210, 234, 246), amb=0.74,
+    "day": dict(top=(104, 182, 238), bot=(208, 234, 246), amb=0.700, kd=0.40, ks=0.12,
                 tint=(1.0, 1.0, 1.0), sun=(255, 248, 214)),
-    "dusk": dict(top=(88, 84, 154), bot=(246, 170, 122), amb=0.58,
-                 tint=(1.03, 0.95, 0.92), sun=(255, 214, 160)),
-    "night": dict(top=(16, 20, 46), bot=(46, 56, 100), amb=0.42,
-                  tint=(0.88, 0.92, 1.08), sun=(226, 232, 250)),
+    "dusk": dict(top=(74, 72, 146), bot=(246, 168, 120), amb=0.560, kd=0.32, ks=0.10,
+                 tint=(1.02, 0.93, 0.90), sun=(255, 214, 160)),
+    "night": dict(top=(14, 18, 44), bot=(44, 54, 98), amb=0.330, kd=0.14, ks=0.08,
+                  tint=(0.84, 0.88, 1.06), sun=(226, 232, 250)),
 }
+
+
+def _grid(x, z, step, width=0.06):
+    return (np.abs((x % step) - step / 2) < width) | (np.abs((z % step) - step / 2) < width)
+
+
+def make_ground(name, mood_key):
+    night = mood_key == "night"
+
+    def fn(x, z):
+        x = x.astype(np.float32)
+        z = z.astype(np.float32)
+        if name == "street":
+            road = (z > 1.0) & (z < 7.9)
+            kerb = ((z > 0.86) & (z <= 1.0)) | ((z >= 7.9) & (z < 8.06))
+            walk = (z >= 8.06) & (z < 10.2)
+            r = np.full(x.shape, 116.0, np.float32)
+            g = np.full(x.shape, 166.0, np.float32)
+            b = np.full(x.shape, 108.0, np.float32)
+            for arr, val in ((r, 208), (g, 205), (b, 198)):
+                arr[walk] = val
+            for arr, val in ((r, 202), (g, 198), (b, 190)):
+                arr[kerb] = val
+            for arr, val in ((r, 92), (g, 96), (b, 106)):
+                arr[road] = val
+            dash = road & (np.abs(z - 4.45) < 0.11) & ((x % 2.6) < 1.3)
+            cross = road & (x > 7.4) & (x < 10.9) & ((x % 0.78) < 0.36)
+            for arr in (r, g, b):
+                arr[dash] = 236
+                arr[cross] = 240
+            joint = walk & _grid(x, z, 2.0, 0.05)
+            r[joint] = 190; g[joint] = 187; b[joint] = 180
+        elif name == "classroom":
+            r = np.full(x.shape, 206.0, np.float32)
+            g = np.full(x.shape, 176.0, np.float32)
+            b = np.full(x.shape, 138.0, np.float32)
+            plank = np.abs((x % 1.6) - 0.8) < 0.05
+            r[plank] = 186; g[plank] = 158; b[plank] = 122
+        elif name == "clinic":
+            r = np.full(x.shape, 200.0, np.float32)
+            g = np.full(x.shape, 216.0, np.float32)
+            b = np.full(x.shape, 212.0, np.float32)
+            joint = _grid(x, z, 1.5, 0.05)
+            r[joint] = 176; g[joint] = 194; b[joint] = 190
+        elif name == "field":
+            stripe = (np.floor(x / 2.8) % 2) == 0
+            r = np.where(stripe, 94.0, 86.0).astype(np.float32)
+            g = np.where(stripe, 164.0, 156.0).astype(np.float32)
+            b = np.where(stripe, 96.0, 88.0).astype(np.float32)
+        else:
+            r = np.full(x.shape, 206.0, np.float32)
+            g = np.full(x.shape, 198.0, np.float32)
+            b = np.full(x.shape, 182.0, np.float32)
+            joint = _grid(x, z, 2.0, 0.05)
+            r[joint] = 186; g[joint] = 178; b[joint] = 164
+        out = np.stack([r, g, b], -1)
+        if night:
+            out = out * 0.55
+        return out
+
+    return fn
 
 
 def smoothstep(a, b, x):
@@ -62,7 +126,7 @@ class CamKeys:
 
     def resolve(self, cut=1.0, dshift=0.0, yshift=0.0):
         fx, fy, fz, dist, yaw, pitch, fov = self.v
-        dist *= cut
+        dist *= cut * float(os.environ.get("CAMD", "0.84"))
         yaw += yshift
         cp, sp = math.cos(pitch), math.sin(pitch)
         x = fx - dist * math.sin(yaw) * cp + dshift
@@ -71,9 +135,17 @@ class CamKeys:
         return x, y, z, yaw, pitch, fov
 
 
+def _vgrad(w, h, top, bot):
+    t = np.linspace(0.0, 1.0, h, dtype=np.float32)[:, None]
+    arr = np.empty((h, w, 3), np.float32)
+    for i in range(3):
+        arr[..., i] = top[i] + (bot[i] - top[i]) * t
+    return Image.fromarray(arr.astype(np.uint8), "RGB")
+
+
 def sky(canvas, mood, t, shake=(0, 0)):
     m = MOODS[mood]
-    grad = g._lg(BW, BH, m["top"], m["bot"]).copy()
+    grad = _vgrad(BW, BH, m["top"], m["bot"])
     canvas.paste(grad, (0, 0))
     d = ImageDraw.Draw(canvas)
     # sun / moon
@@ -126,7 +198,7 @@ _fonts = {}
 def font(size):
     key = int(size)
     if key not in _fonts:
-        _fonts[key] = ImageFont.truetype(g.FONT_BOLD, key)
+        _fonts[key] = ImageFont.truetype(FONT_BOLD, key)
     return _fonts[key]
 
 
@@ -230,8 +302,8 @@ def title_card(t, dur):
     d = ImageDraw.Draw(img)
     k = smoothstep(0.0, 0.22, t)
     sc = 0.86 + 0.14 * min(1.0, k * 1.15)
-    f1 = ImageFont.truetype(g.FONT_BOLD, int(150 * sc))
-    f2 = ImageFont.truetype(g.FONT_BOLD, int(150 * sc))
+    f1 = ImageFont.truetype(FONT_BOLD, int(150 * sc))
+    f2 = ImageFont.truetype(FONT_BOLD, int(150 * sc))
     d.text((OUT_W / 2, OUT_H * 0.40), "HICCUP", font=f1, fill=(250, 248, 240),
            anchor="mm", stroke_width=14, stroke_fill=(14, 12, 24))
     d.text((OUT_W / 2, OUT_H * 0.40 + 140), "TOWN", font=f2, fill=(245, 201, 59),
@@ -239,7 +311,7 @@ def title_card(t, dur):
     d.line((OUT_W * 0.20, OUT_H * 0.535, OUT_W * 0.80, OUT_H * 0.535),
            fill=(206, 62, 62), width=12)
     if k > 0.75:
-        f3 = ImageFont.truetype(g.FONT_BOLD, 40)
+        f3 = ImageFont.truetype(FONT_BOLD, 40)
         d.text((OUT_W / 2, OUT_H * 0.60), "A BLOCKY SHORT", font=f3,
                fill=(214, 222, 244), anchor="mm")
     fade = smoothstep(dur - 0.18, dur, t)
@@ -282,20 +354,19 @@ def frame(t, timing):
     mood = MOODS[sh["mood"]]
     canvas = Image.new("RGB", (BW, BH))
     sky(canvas, sh["mood"], t)
-    d = ImageDraw.Draw(canvas)
-    p = Pen(d, s=SCALE, img=canvas)
-    sc = Scene3D(canvas, p, cam, ambient=mood["amb"], tint=mood["tint"],
-                 haze=mood["bot"], haze_from=12.0, haze_to=46.0)
-    S.SETS[sh["set"]](sc)
-    sc.flush()
-    sc2 = Scene3D(canvas, p, cam, ambient=mood["amb"], tint=mood["tint"],
-                  haze=mood["bot"], haze_from=12.0, haze_to=46.0)
-    S.STAGES[sh["stage"]](sc2, u, lt)
-    sc2.flush()
-    canvas = canvas.convert("RGBA")
+    coll = ray.Collector()
+    S.SETS[sh["set"]](coll)
+    S.STAGES[sh["stage"]](coll, u, lt)
+    cam_px = Cam(cam.x, cam.y, cam.z, cam.yaw, cam.pitch, cam.fov, w=BW, h=BH)
+    arr = ray.render(np.asarray(canvas), cam_px, coll, make_ground(sh["set"], sh["mood"]),
+                     amb=mood["amb"], kd=mood["kd"], ks=mood["ks"],
+                     haze=mood["bot"], ss=SS, tint=mood["tint"])
+    canvas = Image.fromarray(arr).convert("RGBA")
     draw_captions(canvas, sh["cap"], t, st["start"] + 0.04,
                   max(0.35, st["dur"] - 0.10), y=sh.get("cap_y", 0.815))
-    img = canvas.convert("RGB").resize((OUT_W, OUT_H), Image.BILINEAR)
+    img = canvas.convert("RGB")
+    img = ImageEnhance.Color(img).enhance(1.16)
+    img = ImageEnhance.Contrast(img).enhance(1.05)
     vig, grain = post_assets()
     img = Image.blend(img, vig, 0.16)
     gr = grain[int(t * FPS) % len(grain)]
@@ -306,12 +377,12 @@ def frame(t, timing):
 def end_card(u):
     img = Image.new("RGB", (OUT_W, OUT_H), (26, 22, 34))
     d = ImageDraw.Draw(img)
-    f = ImageFont.truetype(g.FONT_BOLD, 118)
+    f = ImageFont.truetype(FONT_BOLD, 118)
     d.text((OUT_W / 2, OUT_H * 0.455), "HICCUP", font=f, fill=(252, 250, 244),
            anchor="mm", stroke_width=14, stroke_fill=(16, 10, 18))
     d.text((OUT_W / 2, OUT_H * 0.535), "TOWN", font=f, fill=(245, 201, 59),
            anchor="mm", stroke_width=14, stroke_fill=(16, 10, 18))
-    f2 = ImageFont.truetype(g.FONT_BOLD, 48)
+    f2 = ImageFont.truetype(FONT_BOLD, 48)
     d.text((OUT_W / 2, OUT_H * 0.625), "part two tomorrow", font=f2,
            fill=(226, 232, 244), anchor="mm", stroke_width=8, stroke_fill=(16, 10, 18))
     k = smoothstep(0, 0.25, u)
