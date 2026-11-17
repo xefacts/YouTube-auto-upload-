@@ -1,0 +1,570 @@
+{
+ "title": "Clap Town",
+ "logline": "In a town where clapping turns day into night, one kid abuses it until the mayor bans clapping \u2014 then takes a bow.",
+ "fps": 30,
+ "style": {
+  "caption": {
+   "size": 50,
+   "y": 0.725
+  },
+  "clapBursts": true,
+  "saturate": 1.18
+ },
+ "cast": {
+  "hero": {
+   "preset": "kid"
+  },
+  "teacher": {
+   "preset": "teacher"
+  },
+  "mayor": {
+   "preset": "mayor",
+   "expr": "smirk"
+  }
+ },
+ "shots": [
+  {
+   "set": "plaza",
+   "mood": "day",
+   "lines": [
+    "In this town,",
+    "when you",
+    "*clap...*"
+   ],
+   "cast": {
+    "hero": {
+     "at": [
+      -2,
+      0,
+      6.6
+     ],
+     "do": [
+      {
+       "do": "walk",
+       "at": 0,
+       "to": [
+        -2,
+        0,
+        8.8
+       ],
+       "dur": 0.8
+      },
+      {
+       "do": "clap",
+       "at": "clap...",
+       "dur": 0.6,
+       "burst": true
+      },
+      {
+       "expr": "happy",
+       "at": "clap...+0.05"
+      }
+     ]
+    }
+   },
+   "extras": {
+    "walkers": 6
+   },
+   "camera": {
+    "on": "hero",
+    "shot": "full",
+    "move": "push"
+   },
+   "fx": [
+    {
+     "punch": 0.18,
+     "at": "clap..."
+    },
+    {
+     "shake": 0.08,
+     "at": "clap...+0.04"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "mood": "day",
+   "lines": [
+    "it turns",
+    "*night.*"
+   ],
+   "cast": {
+    "hero": {
+     "at": [
+      -2,
+      0,
+      8.8
+     ],
+     "expr": "happy",
+     "do": [
+      {
+       "do": "clap",
+       "at": 0,
+       "dur": 2
+      }
+     ]
+    }
+   },
+   "extras": {
+    "walkers": 10
+   },
+   "camera": {
+    "on": "hero",
+    "shot": "wide",
+    "angle": "low",
+    "from": "front-right",
+    "move": "crane-up"
+   },
+   "fx": [
+    {
+     "mood": "night",
+     "at": "night."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "mood": "day",
+   "lines": [
+    "One kid",
+    "found a",
+    "*loophole.*"
+   ],
+   "cast": {
+    "hero": {
+     "at": [
+      -2,
+      0,
+      9
+     ],
+     "face": 15,
+     "expr": "surprised",
+     "do": [
+      {
+       "expr": "smirk",
+       "at": "found a"
+      },
+      {
+       "do": "point",
+       "dir": "up",
+       "at": "found a",
+       "dur": 0.9
+      }
+     ]
+    }
+   },
+   "extras": {
+    "walkers": 5
+   },
+   "camera": {
+    "on": "hero",
+    "shot": "medium",
+    "move": "push",
+    "look": [
+     0,
+     0.5,
+     0
+    ]
+   },
+   "fx": [
+    {
+     "bulb": "hero",
+     "at": "found a"
+    },
+    {
+     "sparkle": "hero",
+     "at": "found a+0.05"
+    }
+   ]
+  },
+  {
+   "set": "classroom",
+   "setOpts": {
+    "board": "POP TEST\n7 \u00d7 8 = ?"
+   },
+   "mood": "day",
+   "lines": [
+    "Pop test?",
+    "*Clap.*",
+    "Class over."
+   ],
+   "cast": {
+    "hero": {
+     "spot": "desk2",
+     "do": [
+      {
+       "do": "clap",
+       "at": "Clap.",
+       "dur": 0.5,
+       "burst": true
+      },
+      {
+       "expr": "happy",
+       "at": "Clap."
+      }
+     ]
+    },
+    "teacher": {
+     "at": [
+      2.8,
+      0,
+      2.6
+     ],
+     "face": "hero",
+     "do": [
+      {
+       "do": "talk",
+       "at": 0,
+       "dur": 0.5
+      },
+      {
+       "expr": "shock",
+       "at": "Clap.+0.1"
+      }
+     ]
+    },
+    "s1": {
+     "spot": "desk1"
+    },
+    "s3": {
+     "spot": "desk3",
+     "do": [
+      {
+       "expr": "shock",
+       "at": "Clap.+0.1"
+      }
+     ]
+    },
+    "s5": {
+     "spot": "desk5"
+    }
+   },
+   "camera": {
+    "on": [
+     "hero",
+     "teacher"
+    ],
+    "shot": "full",
+    "from": "front-left",
+    "move": "push"
+   },
+   "fx": [
+    {
+     "punch": 0.2,
+     "at": "Clap."
+    },
+    {
+     "mood": "night",
+     "at": "Clap.+0.08"
+    },
+    {
+     "stamp": "DISMISSED!",
+     "at": "Class over."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "mood": "day",
+   "lines": [
+    "But claps are",
+    "*contagious.*"
+   ],
+   "cast": {
+    "hero": {
+     "at": [
+      -3,
+      0,
+      10
+     ],
+     "face": 10,
+     "expr": "smirk"
+    },
+    "a": {
+     "at": [
+      5.0,
+      0,
+      8.4
+     ],
+     "face": -40,
+     "expr": "surprised",
+     "do": [
+      {
+       "do": "clap",
+       "at": "contagious.+0.1",
+       "dur": 1.2
+      },
+      {
+       "expr": "happy",
+       "at": "contagious.+0.1"
+      }
+     ]
+    },
+    "b": {
+     "at": [
+      7.4,
+      0,
+      9.4
+     ],
+     "face": -40,
+     "expr": "surprised",
+     "do": [
+      {
+       "do": "clap",
+       "at": "contagious.+0.14",
+       "dur": 1.2
+      },
+      {
+       "expr": "happy",
+       "at": "contagious.+0.14"
+      }
+     ]
+    },
+    "c": {
+     "at": [
+      9.8,
+      0,
+      8.4
+     ],
+     "face": -40,
+     "expr": "surprised",
+     "do": [
+      {
+       "do": "clap",
+       "at": "contagious.+0.18",
+       "dur": 1.2
+      },
+      {
+       "expr": "happy",
+       "at": "contagious.+0.18"
+      }
+     ]
+    }
+   },
+   "camera": {
+    "on": "hero",
+    "shot": "medium",
+    "move": "push",
+    "whip": {
+     "to": [
+      "a",
+      "b",
+      "c"
+     ],
+     "at": "contagious.-0.12",
+     "shot": "medium"
+    }
+   },
+   "fx": [
+    {
+     "mood": "night",
+     "at": "contagious.+0.35"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "mood": "day",
+   "lines": [
+    "Day.",
+    "*Night.*",
+    "Day.",
+    "*Night.*"
+   ],
+   "cast": {
+    "hero": {
+     "at": [
+      4,
+      0,
+      8
+     ],
+     "expr": "happy",
+     "do": [
+      {
+       "do": "clap",
+       "at": 0,
+       "dur": 3
+      }
+     ]
+    }
+   },
+   "extras": {
+    "walkers": 14
+   },
+   "camera": {
+    "on": "hero",
+    "shot": "establishing",
+    "angle": "high",
+    "from": "front-right",
+    "move": "push"
+   },
+   "fx": [
+    {
+     "mood": "night",
+     "at": "#1"
+    },
+    {
+     "mood": "day",
+     "at": "#2"
+    },
+    {
+     "mood": "night",
+     "at": "#3"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "setOpts": {
+    "stage": true
+   },
+   "mood": "day",
+   "lines": [
+    "So the mayor",
+    "banned",
+    "*clapping.*"
+   ],
+   "cast": {
+    "mayor": {
+     "spot": "podium",
+     "hold": "gavel",
+     "do": [
+      {
+       "do": "slam",
+       "at": "banned-0.25",
+       "dur": 0.75,
+       "times": 2
+      }
+     ]
+    }
+   },
+   "camera": {
+    "on": "mayor",
+    "shot": "medium",
+    "angle": "eye",
+    "from": "front-right",
+    "move": "push"
+   },
+   "fx": [
+    {
+     "shake": 0.12,
+     "at": "banned+0.05"
+    },
+    {
+     "sign": {
+      "text": "NO\nCLAPPING",
+      "icon": "clap"
+     },
+     "at": "clapping."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "mood": "day",
+   "lines": [
+    "Nobody",
+    "*dared.*"
+   ],
+   "extras": {
+    "crowd": {
+     "n": 28,
+     "rows": 4,
+     "expr": "strain",
+     "do": [
+      {
+       "do": "tremble",
+       "at": 0
+      }
+     ]
+    }
+   },
+   "camera": {
+    "on": "crowd",
+    "shot": "medium",
+    "move": "track-right",
+    "amount": 0.6,
+    "angle": "high"
+   },
+   "fx": [
+    {
+     "sign": {
+      "text": "NO\nCLAPPING",
+      "icon": "clap"
+     },
+     "at": 0,
+     "instant": true
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "setOpts": {
+    "stage": true
+   },
+   "mood": "day",
+   "lines": [
+    "He took a bow.",
+    "*Oops.*"
+   ],
+   "cast": {
+    "mayor": {
+     "spot": "podium",
+     "do": [
+      {
+       "do": "bow",
+       "at": 0.05,
+       "dur": 0.45
+      },
+      {
+       "expr": "shock",
+       "at": "Oops."
+      },
+      {
+       "do": "scared",
+       "at": "Oops.",
+       "dur": 2
+      }
+     ]
+    }
+   },
+   "extras": {
+    "crowd": {
+     "n": 28,
+     "rows": 4,
+     "do": [
+      {
+       "do": "clap",
+       "at": "Oops.-0.08",
+       "high": true,
+       "rate": 5,
+       "expr": "happy"
+      }
+     ]
+    }
+   },
+   "camera": {
+    "on": "mayor",
+    "shot": "wide",
+    "from": "front",
+    "angle": "high",
+    "move": "static",
+    "crash": {
+     "at": "Oops.+0.02",
+     "dur": 0.32,
+     "shot": "close"
+    }
+   },
+   "fx": [
+    {
+     "mood": "night",
+     "at": "Oops.+0.05"
+    },
+    {
+     "glint": "mayor",
+     "at": "Oops.+0.45"
+    }
+   ]
+  }
+ ]
+}

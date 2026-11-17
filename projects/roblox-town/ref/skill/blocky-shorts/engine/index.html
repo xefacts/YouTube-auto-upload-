@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Blocky Shorts engine</title>
+<style>
+@font-face { font-family: 'BS Bold'; src: url('/engine/fonts/InterDisplay-ExtraBold.otf'); font-weight: 800; }
+@font-face { font-family: 'BS Black'; src: url('/engine/fonts/InterDisplay-Black.otf'); font-weight: 900; }
+html, body { margin: 0; background: #000; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "/engine/vendor/three.module.js", "three/addons/": "/engine/vendor/addons/" } }
+</script>
+</head><body>
+<script type="module">
+  window.addEventListener('error', e => { window.ENGINE_ERROR = String(e.message || e); });
+  window.addEventListener('unhandledrejection', e => { window.ENGINE_ERROR = String(e.reason && (e.reason.stack || e.reason.message) || e.reason); });
+  import('/engine/js/engine.js').catch(e => { window.ENGINE_ERROR = String(e.stack || e); });
+</script>
+</body></html>
