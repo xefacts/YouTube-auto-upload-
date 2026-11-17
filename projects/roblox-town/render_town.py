@@ -42,17 +42,33 @@ def smoothstep(a, b, x):
 
 
 class CamKeys:
+    """Camera keys: (u, focus_x, focus_y, focus_z, dist, yaw, pitch, fov).
+
+    Position is derived from a focus point plus a distance, so framing is easy to
+    reason about: bigger dist = wider shot, focus height decides where the subject sits.
+    """
+
     def __init__(self, keys, u):
         if len(keys) == 1:
-            u = 0.0
             keys = [keys[0], keys[0]]
+            u = 0.0
         for i in range(len(keys) - 1):
             a, b = keys[i], keys[i + 1]
             if a[0] <= u <= b[0] or i == len(keys) - 2:
                 k = smoothstep(a[0], b[0], min(max(u, a[0]), b[0]))
-                vals = [a[j] + (b[j] - a[j]) * k for j in range(1, 7)]
-                self.x, self.y, self.z, self.yaw, self.pitch, self.fov = vals
+                self.v = [a[j] + (b[j] - a[j]) * k for j in range(1, 8)]
                 return
+        self.v = list(keys[-1][1:])
+
+    def resolve(self, cut=1.0, dshift=0.0, yshift=0.0):
+        fx, fy, fz, dist, yaw, pitch, fov = self.v
+        dist *= cut
+        yaw += yshift
+        cp, sp = math.cos(pitch), math.sin(pitch)
+        x = fx - dist * math.sin(yaw) * cp + dshift
+        y = fy - dist * sp
+        z = fz - dist * math.cos(yaw) * cp
+        return x, y, z, yaw, pitch, fov
 
 
 def sky(canvas, mood, t, shake=(0, 0)):
@@ -117,7 +133,8 @@ def font(size):
 CAP_CACHE = {}
 
 
-def cap_image(word, color, size=27, stroke=3.2):
+def cap_image(word, color, size=23, stroke=2.4):
+    word = word.upper()
     color = tuple(int(c) for c in color)
     key = (word, color, size)
     img = CAP_CACHE.get(key)
@@ -138,15 +155,16 @@ def cap_image(word, color, size=27, stroke=3.2):
 CAP_PLAN = {}
 
 
-def cap_plan(chunks, size=27, maxw=0.78):
+def cap_plan(chunks, size=23, maxw=0.82):
     """chunks = [(text, colour)] -> word rows that fit the frame."""
     key = (tuple((t, tuple(int(c) for c in col)) for t, col in chunks), size, maxw)
     if key in CAP_PLAN:
         return CAP_PLAN[key]
     f = font(size * SCALE)
-    space = size * SCALE * 0.62
+    space = size * SCALE * 0.56
     limit = BW * maxw
-    words = [(w, tuple(int(c) for c in col)) for text, col in chunks for w in text.split()]
+    words = [(w.upper(), tuple(int(c) for c in col)) for text, col in chunks
+             for w in text.split()]
     rows, cur, curw = [], [], 0.0
     for w, col in words:
         ww = f.getlength(w)
@@ -167,11 +185,11 @@ def cap_plan(chunks, size=27, maxw=0.78):
             acc += len(w) + 1
             items.append((w, col, ww, at))
         out.append((items, rw, space))
-    CAP_PLAN[key] = (out, size * SCALE * 1.30)
+    CAP_PLAN[key] = (out, size * SCALE * 1.34)
     return CAP_PLAN[key]
 
 
-def draw_captions(canvas, chunks, t, born0, span, y=0.775):
+def draw_captions(canvas, chunks, t, born0, span, y=0.815):
     rows, lh = cap_plan(chunks)
     nl = len(rows)
     total_chars = sum(len(c[0].split()) for c in chunks) or 1
@@ -196,6 +214,40 @@ def draw_captions(canvas, chunks, t, born0, span, y=0.775):
             x += ww + space
 
 
+def title_card(t, dur):
+    img = Image.new("RGB", (OUT_W, OUT_H), (20, 24, 42))
+    d = ImageDraw.Draw(img)
+    for x in range(0, OUT_W, 96):                       # graph-paper grid
+        d.line((x, 0, x, OUT_H), fill=(30, 36, 60), width=2)
+    for y in range(0, OUT_H, 96):
+        d.line((0, y, OUT_W, y), fill=(30, 36, 60), width=2)
+    glow = Image.new("RGB", (OUT_W, OUT_H), (20, 24, 42))
+    gd = ImageDraw.Draw(glow)
+    gd.ellipse((OUT_W * 0.05, OUT_H * 0.22, OUT_W * 0.95, OUT_H * 0.72),
+               fill=(44, 54, 92))
+    glow = glow.filter(ImageFilter.GaussianBlur(90))
+    img = Image.blend(img, glow, 0.55)
+    d = ImageDraw.Draw(img)
+    k = smoothstep(0.0, 0.22, t)
+    sc = 0.86 + 0.14 * min(1.0, k * 1.15)
+    f1 = ImageFont.truetype(g.FONT_BOLD, int(150 * sc))
+    f2 = ImageFont.truetype(g.FONT_BOLD, int(150 * sc))
+    d.text((OUT_W / 2, OUT_H * 0.40), "HICCUP", font=f1, fill=(250, 248, 240),
+           anchor="mm", stroke_width=14, stroke_fill=(14, 12, 24))
+    d.text((OUT_W / 2, OUT_H * 0.40 + 140), "TOWN", font=f2, fill=(245, 201, 59),
+           anchor="mm", stroke_width=14, stroke_fill=(14, 12, 24))
+    d.line((OUT_W * 0.20, OUT_H * 0.535, OUT_W * 0.80, OUT_H * 0.535),
+           fill=(206, 62, 62), width=12)
+    if k > 0.75:
+        f3 = ImageFont.truetype(g.FONT_BOLD, 40)
+        d.text((OUT_W / 2, OUT_H * 0.60), "A BLOCKY SHORT", font=f3,
+               fill=(214, 222, 244), anchor="mm")
+    fade = smoothstep(dur - 0.18, dur, t)
+    if fade > 0:
+        img = Image.blend(img, Image.new("RGB", img.size, (20, 24, 42)), fade)
+    return img
+
+
 def shot_state(timing, t):
     for i, sh in enumerate(timing["shots"]):
         if sh["start"] <= t < sh["start"] + sh["dur"]:
@@ -207,6 +259,9 @@ def shot_state(timing, t):
 
 
 def frame(t, timing):
+    ttl = timing.get("title", {}).get("dur", 0.0)
+    if ttl and t < ttl:
+        return title_card(t, ttl)
     idx, u, lt = shot_state(timing, t)
     if idx < 0:
         return end_card(u)
@@ -215,31 +270,31 @@ def frame(t, timing):
     ck = CamKeys(sh["cam"], u)
     shake = (0.0, 0.0)
     if sh["stage"] == "mass_hic" and 0.2 < u < 0.6:
-        amp = 0.02 * (1 - abs(u - 0.4) / 0.2)
+        amp = 0.03 * (1 - abs(u - 0.4) / 0.2)
         shake = (math.sin(t * 61) * amp, math.cos(t * 47) * amp)
-    pull = float(os.environ.get("CAMD", "1.55"))
-    cam = Cam(ck.x * 0.6 + shake[0], ck.y + shake[1] + (pull - 1) * 0.30, ck.z * pull,
-              ck.yaw, ck.pitch, ck.fov, w=W, h=H)
-    if st["dur"] > 1.9 and u >= 0.52:
+    cxx, cyy, czz, cyaw, cpitch, cfov = ck.resolve()
+    if st["dur"] > 1.9 and u >= 0.52:          # punch-in cut inside long shots
         ck2 = CamKeys(sh["cam"], 1.0)
-        side = 0.22 if (idx % 2 == 0) else -0.22
-        cam = Cam(ck2.x * 0.6 + side, ck2.y + 0.14 + (pull - 1) * 0.30,
-                  ck2.z * pull * 1.06, ck2.yaw - math.copysign(0.10, side),
-                  ck2.pitch, ck2.fov * 0.92, w=W, h=H)
+        side = 0.10 if (idx % 2 == 0) else -0.10
+        cxx, cyy, czz, cyaw, cpitch, cfov = ck2.resolve(cut=0.86, dshift=0.30 * side,
+                                                        yshift=-0.06 * side)
+    cam = Cam(cxx + shake[0], cyy + shake[1], czz, cyaw, cpitch, cfov, w=W, h=H)
     mood = MOODS[sh["mood"]]
     canvas = Image.new("RGB", (BW, BH))
     sky(canvas, sh["mood"], t)
     d = ImageDraw.Draw(canvas)
     p = Pen(d, s=SCALE, img=canvas)
-    sc = Scene3D(canvas, p, cam, ambient=mood["amb"], tint=mood["tint"])
+    sc = Scene3D(canvas, p, cam, ambient=mood["amb"], tint=mood["tint"],
+                 haze=mood["bot"], haze_from=12.0, haze_to=46.0)
     S.SETS[sh["set"]](sc)
     sc.flush()
-    sc2 = Scene3D(canvas, p, cam, ambient=mood["amb"], tint=mood["tint"])
+    sc2 = Scene3D(canvas, p, cam, ambient=mood["amb"], tint=mood["tint"],
+                  haze=mood["bot"], haze_from=12.0, haze_to=46.0)
     S.STAGES[sh["stage"]](sc2, u, lt)
     sc2.flush()
     canvas = canvas.convert("RGBA")
     draw_captions(canvas, sh["cap"], t, st["start"] + 0.04,
-                  max(0.35, st["dur"] - 0.10), y=sh.get("cap_y", 0.775))
+                  max(0.35, st["dur"] - 0.10), y=sh.get("cap_y", 0.815))
     img = canvas.convert("RGB").resize((OUT_W, OUT_H), Image.BILINEAR)
     vig, grain = post_assets()
     img = Image.blend(img, vig, 0.16)

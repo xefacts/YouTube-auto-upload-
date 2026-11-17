@@ -3,9 +3,31 @@
 Vertical 9:16 blocky-toy short built from the **Roblox skills → blocky-shorts** skill
 (`_ In This Town _ Claude Skill File.zip` in the Drive folder *Roblox skills*).
 
-Deliverable: `out/hiccup_town_1080p.mp4` — 1080×1920, 30 fps, 32.77 s (983 frames),
+**v2 (current)** — `out/hiccup_town_v2_1080p.mp4`, 1080×1920, 30 fps, 34.63 s (1039 frames),
 H.264 High + AAC 192 kbps, no watermark.
-Drive: https://drive.google.com/file/d/1qx4LWSuACSyix0HorDdgKq5fNFT_tAjn/view
+Drive: https://drive.google.com/file/d/1GMJfxbgrrARiVdTVl9Z0Zl0i0sr0HQLt/view
+
+v1 (superseded) — `out/hiccup_town_1080p.mp4`, 32.77 s.
+
+### What changed in v2 (after studying the reference pack)
+Source material studied: Drive folder **In the town**
+(`12omLp1o71BisPGW6k_92yXZsRtzjDhd-`) — `The_Town_That_Counts_To_Ten_FINAL_1080x1920.mp4`
+(80 s, 1080×1920) frame-sampled every 4 s, its
+`CHARACTER_SHEET_The_Town_That_Counts_To_Ten.png`, plus the docs in
+`" In This Town " Skill Files` (`Claude Skill Guide.docx`,
+`If You Want to create with roblox studio then read this.docx`).
+
+| Reference trait | v2 implementation |
+| --- | --- |
+| chunky-wide bodies, thin legs, big head | `character()` rebuilt: torso 0.88×0.545×0.44, legs 0.175, head 0.64 |
+| glossy eyes (white sclera, dark pupil, specular dot) | `_face()` with unshaded (`glow`) eye boxes; 8 expression presets |
+| soft front lighting, characters bright | light vector flipped to the camera side + ambient 0.74 |
+| depth/haze, colour-graded dusk | `Scene3D(haze=…, haze_from=12, haze_to=46)` per mood |
+| colourful village (lilac / mint / coral / cream houses) | `set_street()`: two rows of houses with awnings, windows, doors, chimneys, kerbs, crosswalk, hydrant, lamps, trees, hills |
+| small uppercase captions, one yellow word | `cap_plan()`/`cap_image()`: size 23, stroke 2.4, y 0.815, highlight in `(245,201,59)` |
+| title card + end card with red rule | `title_card()` (grid + glow + HICCUP/TOWN + red line + "A BLOCKY SHORT"), `end_card()` |
+| punch-in cuts inside long shots | `CamKeys.resolve(cut=0.86)` hard cut at 52% of any shot longer than 1.9 s |
+| framing = focus point + distance | `CamKeys` rewritten as `(u, fx, fy, fz, dist, yaw, pitch, fov)` |
 
 ## 1. What the skill asked for, and how it was met
 

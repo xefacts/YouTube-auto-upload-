@@ -12,7 +12,7 @@ import math
 import draw2d as g
 from draw2d import Pen
 
-LIGHT = (-0.42, 0.86, 0.29)
+LIGHT = (-0.34, 0.80, -0.50)
 
 
 def _norm(v):
@@ -21,6 +21,7 @@ def _norm(v):
 
 
 LIGHT = _norm(LIGHT)
+FLAT = set()          # unshaded (emissive) faces: eyes, highlights
 
 FACES = [
     ((0, 1, 0), [(0, 1, 0), (1, 1, 0), (1, 1, 1), (0, 1, 1)]),      # top
@@ -92,18 +93,30 @@ def clip_near(pts):
     return out
 
 
+def mix(a, b, k):
+    k = max(0.0, min(1.0, k))
+    return (int(a[0] + (b[0] - a[0]) * k), int(a[1] + (b[1] - a[1]) * k),
+            int(a[2] + (b[2] - a[2]) * k))
+
+
 class Scene3D:
-    def __init__(self, canvas, pen, cam, ambient=0.62, tint=(1.0, 1.0, 1.0)):
+    def __init__(self, canvas, pen, cam, ambient=0.62, tint=(1.0, 1.0, 1.0),
+                 haze=None, haze_from=9.0, haze_to=34.0):
         self.canvas, self.p, self.cam = canvas, pen, cam
         self.items = []
         self.ambient, self.tint = ambient, tint
+        self.haze, self.haze_from, self.haze_to = haze or (206, 226, 240), haze_from, haze_to
+
+    def _air(self, col, depth):
+        k = (depth - self.haze_from) / (self.haze_to - self.haze_from)
+        return mix(col, self.haze, min(0.72, max(0.0, k)) if k > 0 else 0.0)
 
     # ---------------------------------------------------------------- boxes
     def box(self, center, size, color, rot=0.0, glow=None, alpha=255, tag="", bias=0.0):
-        self.items.append(("box", center, size, color, rot, alpha, tag, bias))
+        self.items.append(("box", center, size, color, rot, alpha, tag, bias, glow))
 
     def quad(self, pts, color, alpha=255, tag="", bias=0.0):
-        self.items.append(("quad", pts, None, color, 0.0, alpha, tag, bias))
+        self.items.append(("quad", pts, None, color, 0.0, alpha, tag, bias, None))
 
     def _corners(self, center, size, rot):
         cx, cy, cz = center
@@ -124,7 +137,7 @@ class Scene3D:
 
     def flush(self):
         draw = []
-        for kind, a, b, color, rot, alpha, tag, bias in self.items:
+        for kind, a, b, color, rot, alpha, tag, bias, glow in self.items:
             if kind == "box":
                 corners, (cr, sr) = self._corners(a, b, rot)
                 cam_pts = [self.cam.to_cam(c) for c in corners]
@@ -139,6 +152,8 @@ class Scene3D:
                         continue                      # back face
                     lam = max(0.0, wn[0] * LIGHT[0] + wn[1] * LIGHT[1] + wn[2] * LIGHT[2])
                     k = self.ambient + (1 - self.ambient) * lam
+                    if glow:
+                        k = glow if glow is not True else 1.0
                     if abs(wn[1]) > 0.9 and wn[1] > 0:
                         k *= 1.02
                     fcam = clip_near([cam_pts[c3[0] * 4 + c3[1] * 2 + c3[2]] for c3 in idx4])
@@ -152,7 +167,8 @@ class Scene3D:
                     if len(pts) < 3:
                         continue
                     depth = sum(q[2] for q in fcam) / len(fcam) + bias
-                    draw.append((depth, pts, shade(color, k, self.tint)))
+                    draw.append((depth, pts,
+                                 self._air(shade(color, k, self.tint), depth)))
             else:
                 fcam = clip_near([self.cam.to_cam(p) for p in a])
                 if len(fcam) < 3:
@@ -167,7 +183,7 @@ class Scene3D:
                 if not ok:
                     continue
                 depth = sum(q[2] for q in fcam) / len(fcam) + bias
-                draw.append((depth, pts, color))
+                draw.append((depth, pts, self._air(color, depth)))
         draw.sort(key=lambda t: -t[0])
         for _, pts, col in draw:
             self.p.poly(pts, col)
@@ -188,111 +204,140 @@ SKIN = (243, 199, 165)
 DARK = (54, 44, 58)
 
 
-def _face_blocks(sc, x, y, z, s, facing, spec, expr):
-    """Eyes + mouth, drawn as thin boxes just in front of the head face."""
-    fz = z + (0.26 * s if facing == 0 else -0.26 * s)
-    dx = 0.0 if facing == 0 else 0.0
-    eo = 0.125 * s
-    sign = -1.0 if facing else 1.0          # -z is the camera side
-    ez = fz + sign * 0.013
-    ey = y + 0.035 * s
+def _face(sc, hx, hy, hz, s, facing, spec, expr):
+    """Glossy toy face: white eyes, dark pupils, specular dot, shaped mouth."""
+    sign = -1.0 if facing else 1.0
+    fz = hz + sign * 0.012
+    eo, eye_h, pup_h = 0.158 * s, 0.180 * s, 0.092 * s
+    ey = hy + 0.020 * s
+    white = spec.get("eye", (250, 250, 252))
+    pupil = spec.get("pupil", (34, 30, 42))
+    if expr in ("worried", "strain", "sus"):
+        eye_h, pup_h, ey = 0.115 * s, 0.070 * s, hy + 0.010 * s
+    xeyes = expr in ("shock", "dead", "dizzy")
     for sx in (-eo, eo):
-        if expr == "shock":
-            sc.box((x + sx, ey, ez), (0.135 * s, 0.15 * s, 0.02), (252, 252, 252))
-            sc.box((x + sx, ey, ez + sign * 0.008),
-                   (0.07 * s, 0.08 * s, 0.02), DARK)
-        elif expr == "happy":
-            sc.box((x + sx, ey, ez), (0.13 * s, 0.045 * s, 0.02), DARK)
+        sc.box((hx + sx, ey, fz), (0.200 * s, eye_h, 0.02), white, glow=True)
+        if xeyes:
+            for dx, dy in ((-0.034, -0.034), (0.034, 0.034), (-0.034, 0.034),
+                           (0.034, -0.034)):
+                sc.box((hx + sx + dx * s, ey + dy * s, fz + sign * 0.006),
+                       (0.048 * s, 0.048 * s, 0.02), pupil, glow=True)
         else:
-            sc.box((x + sx, ey, ez), (0.105 * s, 0.125 * s, 0.02), DARK)
-        if spec.get("brows") and expr not in ("happy",):
-            sc.box((x + sx, ey + 0.10 * s, ez), (0.12 * s, 0.028 * s, 0.02), spec["brows"])
-    my = y - 0.115 * s
-    if expr == "sad":
-        sc.box((x, my, ez), (0.11 * s, 0.03 * s, 0.02), (150, 74, 78))
-    elif expr == "shock":
-        sc.box((x, my, ez), (0.10 * s, 0.10 * s, 0.02), (120, 60, 66))
+            py = ey - (0.020 * s if expr in ("sad", "worried") else 0.0)
+            sc.box((hx + sx, py, fz + sign * 0.006), (0.078 * s, pup_h, 0.02), pupil,
+                   glow=True)
+            sc.box((hx + sx - 0.030 * s, py + pup_h * 0.40, fz + sign * 0.010),
+                   (0.026 * s, 0.028 * s, 0.02), (255, 255, 255), glow=True)
+    my = hy - 0.150 * s
+    dark = (108, 52, 58)
+    if expr in ("shock", "surprised"):
+        sc.box((hx, my - 0.010 * s, fz), (0.115 * s, 0.115 * s, 0.02), (96, 48, 54))
+        sc.box((hx, my + 0.030 * s, fz), (0.070 * s, 0.030 * s, 0.02), (250, 248, 244))
+    elif expr in ("sad", "worried", "strain"):
+        sc.box((hx, my + 0.028 * s, fz), (0.150 * s, 0.032 * s, 0.02), dark)
+        for sx in (-0.070, 0.070):
+            sc.box((hx + sx * s, my + 0.006 * s, fz), (0.045 * s, 0.032 * s, 0.02), dark)
+    elif expr in ("grin", "happy", "laugh"):
+        sc.box((hx, my + 0.010 * s, fz), (0.215 * s, 0.050 * s, 0.02), dark)
+        for sx in (-0.095, 0.095):
+            sc.box((hx + sx * s, my + 0.052 * s, fz), (0.048 * s, 0.048 * s, 0.02), dark)
+    elif expr == "smile":
+        sc.box((hx, my + 0.030 * s, fz), (0.170 * s, 0.036 * s, 0.02), dark)
+        for sx in (-0.074, 0.074):
+            sc.box((hx + sx * s, my + 0.050 * s, fz), (0.042 * s, 0.034 * s, 0.02), dark)
     else:
-        sc.box((x, my, ez), (0.17 * s, 0.038 * s, 0.02), (150, 74, 78))
+        sc.box((hx, my + 0.030 * s, fz), (0.135 * s, 0.030 * s, 0.02), dark)
 
 
-def character(sc, x, z, y=0.0, s=1.0, spec=None, pose="idle", t=0.0, facing=0,
+def character(sc, x, z, y=0.0, s=1.0, spec=None, pose="idle", t=0.0, facing=180,
               tilt=0.0):
-    """Blocky toy character. Returns head-top y for framing."""
+    """Chunky-wide toy character (blocky-shorts look). Returns head-top height."""
     spec = spec or {}
     skin = spec.get("skin", SKIN)
     shirt = spec.get("shirt", (86, 156, 232))
-    pants = spec.get("pants", (58, 74, 122))
+    pants = spec.get("pants", (46, 56, 96))
     hair = spec.get("hair", (68, 48, 38))
-    shoe = spec.get("shoe", (44, 44, 52))
+    shoe = spec.get("shoe", (38, 38, 50))
     expr = spec.get("expr", "idle")
     hat = spec.get("hat")
+    cap = spec.get("cap")
     rot = math.radians(facing)
 
     walk = pose in ("walk", "run")
-    ph = t * (8.0 if pose == "run" else 5.2)
-    swing = math.sin(ph) * (0.34 if pose == "run" else 0.22) if walk else 0.0
+    ph = t * (8.4 if pose == "run" else 5.4)
+    swing = math.sin(ph) * (0.32 if pose == "run" else 0.20) if walk else 0.0
     bob = abs(math.sin(ph)) * 0.05 if walk else 0.0
-    jump = 0.0
-    if pose == "jump":
-        jump = 0.55 * math.sin(min(1.0, t / 0.7) * math.pi)
-    lean = 0.0
-    if pose == "hiccup":
-        lean = 0.06 * math.sin(t * 9.0)
+    jump = 0.55 * math.sin(min(1.0, t / 0.7) * math.pi) if pose == "jump" else 0.0
+    lean = 0.05 * math.sin(t * 9.0) if pose == "hiccup" else 0.0
     if pose == "strain":
         bob = 0.02 * math.sin(t * 22.0)
+    if pose == "tremble":
+        bob = 0.03 * math.sin(t * 34.0)
 
     base = y + jump + bob
-    # legs
-    for i, side in enumerate((-1, 1)):
+    # legs + shoes
+    for side in (-1, 1):
         off = swing * (1 if side > 0 else -1)
-        sc.box((x + side * 0.115 * s, base + 0.47 * s, z + off),
-               (0.19 * s, 0.88 * s, 0.21 * s), pants, rot=rot)
-        sc.box((x + side * 0.115 * s, base + 0.06 * s, z + off + 0.03),
-               (0.21 * s, 0.12 * s, 0.29 * s), shoe, rot=rot)
-    # torso
-    sc.box((x + lean, base + 1.22 * s, z), (0.50 * s, 0.62 * s, 0.30 * s), shirt, rot=rot)
-    if spec.get("badge"):
-        sc.box((x + 0.14 * lean, base + 1.30 * s, z - 0.17 * s),
-               (0.11 * s, 0.13 * s, 0.02), (250, 250, 252), rot=rot)
-    if spec.get("tie"):
-        sc.box((x + lean, base + 1.28 * s, z - 0.16 * s),
-               (0.07 * s, 0.34 * s, 0.02), spec["tie"], rot=rot)
+        sc.box((x + side * 0.170 * s, base + 0.430 * s, z + off),
+               (0.175 * s, 0.600 * s, 0.200 * s), pants, rot=rot)
+        sc.box((x + side * 0.170 * s, base + 0.055 * s, z + off + 0.035),
+               (0.205 * s, 0.110 * s, 0.300 * s), shoe, rot=rot)
+    # torso (wide + chunky)
+    sc.box((x + lean, base + 1.010 * s, z), (0.880 * s, 0.545 * s, 0.440 * s), shirt,
+           rot=rot)
+    if spec.get("print"):
+        sc.box((x + lean, base + 1.010 * s, z - 0.225 * s),
+               (0.300 * s, 0.230 * s, 0.02), spec["print"], rot=rot)
+    sc.box((x + lean, base + 0.760 * s, z), (0.900 * s, 0.070 * s, 0.460 * s),
+           spec.get("belt", (30, 34, 52)), rot=rot)
     # arms
     arm_ang = {"point": (-100, 8), "shock": (-150, -150), "cheer": (-165, -165),
-               "hiccup": (-30, -20), "hold": (-70, -70), "strain": (-20, -20)}.get(pose)
+               "hiccup": (-30, -20), "hold": (-70, -70), "strain": (-20, -20),
+               "clap": (-60, -60), "wave": (-150, -20)}.get(pose)
     for i, side in enumerate((-1, 1)):
-        sx0, sy0 = x + side * 0.325 * s, base + 1.42 * s
+        sx0, sy0 = x + side * 0.520 * s, base + 1.230 * s
         if arm_ang:
             ang = math.radians(arm_ang[i])
-            ax = sx0 + side * -math.sin(ang) * 0.34 * s
+            ax = sx0 + side * -math.sin(ang) * 0.30 * s
             ay = sy0 + math.cos(ang) * 0.26 * s
-            sc.box((ax, ay, z), (0.17 * s, 0.24 * s, 0.19 * s), shirt, rot=rot)
-            sc.box((ax, ay - 0.24 * s, z), (0.17 * s, 0.32 * s, 0.19 * s), skin, rot=rot)
         else:
-            sw = -swing * 0.6
-            sc.box((sx0, sy0 - 0.20 * s, z + sw), (0.17 * s, 0.42 * s, 0.19 * s),
-                   shirt, rot=rot)
-            sc.box((sx0, sy0 - 0.55 * s, z + sw), (0.17 * s, 0.30 * s, 0.18 * s),
-                   skin, rot=rot)
+            ax, ay = sx0, sy0 - swing * 0.6 * (1 if side > 0 else -1) * 0.5
+        sc.box((ax, ay - 0.190 * s, z), (0.180 * s, 0.420 * s, 0.220 * s),
+               skin if spec.get("sleeveless") else shirt, rot=rot)
+        sc.box((ax, ay - 0.480 * s, z), (0.180 * s, 0.190 * s, 0.210 * s), skin, rot=rot)
     # head
-    hy = base + 1.70 * s
-    sc.box((x + lean * 1.4, hy, z), (0.48 * s, 0.46 * s, 0.48 * s), skin, rot=rot)
+    hy = base + 1.600 * s
+    sc.box((x + lean * 1.2, base + 1.315 * s, z), (0.200 * s, 0.090 * s, 0.200 * s), skin)
+    sc.box((x + lean * 1.2, hy, z), (0.640 * s, 0.560 * s, 0.580 * s), skin, rot=rot)
     if hair:
-        sc.box((x + lean * 1.4, hy + 0.24 * s, z), (0.50 * s, 0.10 * s, 0.50 * s), hair, rot=rot)
-        sc.box((x + lean * 1.4, hy + 0.13 * s, z + 0.245 * s), (0.50 * s, 0.19 * s, 0.04 * s),
+        sc.box((x + lean * 1.2, hy + 0.290 * s, z), (0.660 * s, 0.090 * s, 0.600 * s),
                hair, rot=rot)
+        sc.box((x + lean * 1.2, hy + 0.205 * s, z - 0.293 * s),
+               (0.660 * s, 0.165 * s, 0.032 * s), hair, rot=rot)
         if spec.get("long_hair"):
-            sc.box((x + lean * 1.4, hy - 0.10 * s, z - 0.25 * s),
-                   (0.52 * s, 0.42 * s, 0.06 * s), hair, rot=rot)
+            sc.box((x + lean * 1.2, hy - 0.090 * s, z + 0.300 * s),
+                   (0.660 * s, 0.520 * s, 0.060 * s), hair, rot=rot)
+    if cap:
+        sc.box((x + lean * 1.2, hy + 0.290 * s, z), (0.660 * s, 0.110 * s, 0.600 * s),
+               cap, rot=rot)
+        sc.box((x + lean * 1.2, hy + 0.235 * s, z - 0.390 * s),
+               (0.560 * s, 0.055 * s, 0.240 * s), cap, rot=rot)
     if hat:
-        sc.box((x + lean * 1.4, hy + 0.28 * s, z), (0.54 * s, 0.11 * s, 0.54 * s), hat, rot=rot)
-        sc.box((x + lean * 1.4, hy + 0.39 * s, z), (0.32 * s, 0.15 * s, 0.32 * s), hat, rot=rot)
-    _face_blocks(sc, x + lean * 1.4, hy, z, s, facing, spec, expr)
-    return base + 1.95 * s
+        sc.box((x + lean * 1.2, hy + 0.320 * s, z), (0.720 * s, 0.060 * s, 0.660 * s),
+               hat, rot=rot)
+        sc.box((x + lean * 1.2, hy + 0.430 * s, z), (0.520 * s, 0.190 * s, 0.500 * s),
+               hat, rot=rot)
+    if spec.get("glasses"):
+        for sx in (-0.150, 0.150):
+            sc.box((x + lean * 1.2 + sx * s, hy + 0.030 * s, z - 0.305 * s),
+                   (0.215 * s, 0.150 * s, 0.02), (60, 66, 84))
+            sc.box((x + lean * 1.2 + sx * s, hy + 0.030 * s, z - 0.320 * s),
+                   (0.150 * s, 0.100 * s, 0.02), (236, 244, 250))
+    _face(sc, x + lean * 1.2, hy, z - 0.290 * s, s, facing, spec, expr)
+    return base + 1.930 * s
 
 
-def hills(sc, color=(150, 176, 168), z=46.0, n=7, w=14.0):
+def hills(sc, color=(170, 184, 196), z=46.0, n=7, w=14.0):
     """Distant blocky skyline so the horizon is never empty."""
     for i in range(n):
         h = 5.0 + ((i * 37) % 5) * 1.6
@@ -300,31 +345,47 @@ def hills(sc, color=(150, 176, 168), z=46.0, n=7, w=14.0):
                (w * (0.8 + ((i * 11) % 3) * 0.2), h, 3.0), color)
 
 
-def shadow(sc, x, z, r=0.42, ground=(0, 0.012, 0), color=(96, 116, 90)):
+def shadow(sc, x, z, r=0.42, col=(92, 134, 86)):
     """Soft flat patch under a character, so blocky feet read as planted."""
-    y, col = ground[1], color
+    y = 0.013
     pts = [(x - r, y, z - r * 0.55), (x + r, y, z - r * 0.55),
            (x + r, y, z + r * 0.55), (x - r, y, z + r * 0.55)]
     sc.quad(pts, col)
 
 
 # ---------------------------------------------------------------- props
-def tree(sc, x, z, s=1.0, leaf=(64, 148, 92)):
-    sc.box((x, 0.9 * s, z), (0.34 * s, 1.8 * s, 0.34 * s), (118, 84, 56))
-    sc.box((x, 2.1 * s, z), (1.5 * s, 1.2 * s, 1.5 * s), leaf)
-    sc.box((x, 2.85 * s, z), (1.0 * s, 0.7 * s, 1.0 * s), tuple(int(c * 1.12) for c in leaf))
+def tree(sc, x, z, s=1.0, leaf=(64, 148, 92), trunk=(118, 84, 56)):
+    sc.box((x, 0.85 * s, z), (0.32 * s, 1.70 * s, 0.32 * s), trunk)
+    sc.box((x, 1.95 * s, z), (1.55 * s, 1.05 * s, 1.55 * s), leaf)
+    sc.box((x, 2.62 * s, z), (1.15 * s, 0.80 * s, 1.15 * s),
+           tuple(min(255, int(c * 1.14)) for c in leaf))
+    sc.box((x, 3.10 * s, z), (0.70 * s, 0.55 * s, 0.70 * s),
+           tuple(min(255, int(c * 1.26)) for c in leaf))
 
 
 def house(sc, x, z, w=3.0, h=2.4, d=2.6, wall=(226, 214, 196), roof=(196, 86, 78),
-          front=-1.0):
+          front=-1.0, trim=None, awning=None, chimney=True):
+    trim = trim or (250, 248, 240)
     sc.box((x, h / 2, z), (w, h, d), wall)
-    sc.box((x, h + 0.42, z), (w + 0.30, 0.84, d + 0.30), roof)
-    sc.box((x, h + 0.98, z), (w * 0.55, 0.30, d * 0.55), roof)
+    sc.box((x, h + 0.34, z), (w + 0.26, 0.68, d + 0.26), roof)
+    sc.box((x, h + 0.80, z), (w * 0.62, 0.28, d * 0.62), roof)
     fz = z + front * (d / 2 + 0.02)
-    sc.box((x, 0.62, fz), (0.72, 1.24, 0.06), (150, 106, 74))
-    for sx in (-w * 0.30, w * 0.30):
-        sc.box((x + sx, h * 0.64, fz), (0.66, 0.66, 0.06), (120, 168, 208))
-        sc.box((x + sx, h * 0.64, fz + front * 0.03), (0.50, 0.50, 0.02), (176, 212, 236))
+    # door + frame
+    sc.box((x, 0.66, fz), (0.84, 1.32, 0.06), trim)
+    sc.box((x, 0.62, fz + front * 0.04), (0.66, 1.22, 0.05), (146, 102, 72))
+    sc.box((x + 0.22, 0.62, fz + front * 0.08), (0.08, 0.08, 0.04), (232, 196, 108))
+    # windows
+    for sx in (-w * 0.32, w * 0.32):
+        sc.box((x + sx, h * 0.66, fz), (0.78, 0.80, 0.06), trim)
+        sc.box((x + sx, h * 0.66, fz + front * 0.04), (0.60, 0.62, 0.05),
+               (118, 166, 208))
+        sc.box((x + sx, h * 0.66, fz + front * 0.07), (0.62, 0.07, 0.03), trim)
+        sc.box((x + sx, h * 0.66, fz + front * 0.07), (0.07, 0.62, 0.03), trim)
+    if awning:
+        sc.box((x, h * 0.66 + 0.52, fz + front * 0.16), (w * 0.92, 0.10, 0.42), awning)
+    if chimney:
+        sc.box((x + w * 0.30, h + 1.05, z + d * 0.18), (0.36, 0.80, 0.36),
+               (168, 120, 100))
 
 
 def lamp(sc, x, z):

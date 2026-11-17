@@ -20,7 +20,7 @@ VOICE = os.path.join(HERE, "voice")
 OUT = os.path.join(HERE, "out")
 SFX = os.path.join(HERE, "ref", "skill", "blocky-shorts", "assets", "sfx")
 
-LEAD, SEG_GAP, CLIP_GAP, TAIL = 0.45, 0.12, 0.26, 0.9
+LEAD, SEG_GAP, CLIP_GAP, TAIL = 1.90, 0.12, 0.26, 0.9
 
 
 def rd(path):
@@ -122,7 +122,7 @@ def main():
         t += d + SEG_GAP
     shots[-1]["dur"] = round(shots[-1]["dur"] + TAIL, 4)
     end = shots[-1]["start"] + shots[-1]["dur"]
-    timing = {"fps": 30, "shots": shots, "plan": plan,
+    timing = {"fps": 30, "title": {"dur": 1.70}, "shots": shots, "plan": plan,
               "total": round(end + story.END_CARD["hold"], 4),
               "end_card": {"start": round(end, 4), "dur": story.END_CARD["hold"]}}
     os.makedirs(os.path.join(HERE, "story"), exist_ok=True)
