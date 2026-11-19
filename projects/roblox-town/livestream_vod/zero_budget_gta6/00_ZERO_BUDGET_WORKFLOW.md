@@ -1,6 +1,7 @@
 # ZERO-BUDGET WORKFLOW — IShowSpeed GTA 6 VOD → cinematic short
 
 **TOTAL APPROVED BUDGET: $0.00**
+**Rights:** User ne confirm kiya hai ke Speed ke clips ke rights unke paas hain (2026-11-16).
 **Source:** `https://www.youtube.com/live/qSyo5d-dVzA`
 **Verified metadata (fetched 2026-11-16):**
 - Title: 🔴PLAYING GTA 6 EARLY ACCESS GAMEPLAY GET IN HERE!

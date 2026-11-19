@@ -1,0 +1,19 @@
+Ye kahani hai Speed ki.
+Jo ghus gaya GTA 6 ke early access mein — seedha, bina soche.
+Ek lakh taintalis hazar log live dekh rahe hain.
+Aur pehla mission... yahin se shuru hota hai.
+
+Pehla mission: {{MISSION_1_NAME}}.
+Speed ne koshish ki — ek baar. Do baar. Teen baar.
+Har baar fail. Har baar wapas, wahi jagah.
+Phir ek pal aaya... {{MISSION_1_CLUTCH_MOMENT}}.
+Aur mission... complete.
+
+Dusra mission: {{MISSION_2_NAME}}.
+Is baar Speed ne {{MISSION_2_STRATEGY}} try kiya.
+Lekin {{MISSION_2_COMPLICATION}} ne sab bigaad diya.
+Speed ne haar nahi maani.
+{{MISSION_2_CLUTCH_MOMENT}} — aur dusra mission bhi complete.
+
+Do missions. Ek stream. Ek lakh taintalis hazar log gawah.
+Aur Speed... abhi bhi khel raha hai.
