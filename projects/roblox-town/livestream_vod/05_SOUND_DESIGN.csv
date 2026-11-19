@@ -1,0 +1,25 @@
+cue_id,edl_id,sfx_file,offset_ms,gain_db,music,note
+C01,M1-01,impact.wav,0,-3,none,hit on black→frame cut; no tail
+C02,M1-02,whoosh.wav,0,-9,bed in at -26 dB,"whoosh under the push, ends on cut"
+C03,M1-03,pop.wav,120,-8,bed,"one pop, not a ratchet"
+C04,M1-04,thud.wav,0,-2,bed out 200 ms,duck bed before the thud
+C05,M1-05,tick.wav,0,-12,none,"3 ticks, 0.4 s apart, match the 3 cuts"
+C06,M1-06,riser.wav,0,-6,none,riser must peak ON the cut to M1-07
+C07,M1-07,alert.wav,0,-4,none,"single alert, no loop"
+C08,M1-08,ding.wav,0,-2,none,+4 ms after banner lands
+C09,M1-08,sparkle.wav,90,-10,none,"tail only, no second hit"
+C10,M1-09,applause.wav,0,-10,none,ducked hard; original stream audio +6 dB dominates
+C11,M1-10,stamp.wav,60,-5,none,on the tick animation
+C12,M1-11,boing.wav,0,-9,none,match-cut punctuation
+C13,M1-12,swish.wav,0,-8,end-card pad -20 dB,card slides in
+C14,M2-01,impact.wav,0,-3,none,identical to C01 so the pair feels like a series
+C15,M2-02,whoosh.wav,0,-9,bed -26 dB,
+C16,M2-03,grr.wav,80,-12,bed,one instance only
+C17,M2-04,thud.wav,0,-2,bed out 200 ms,
+C18,M2-05,riser.wav,0,-6,none,peak on the cut to the clutch
+C19,M2-06,alert.wav,0,-4,none,
+C20,M2-07,ding.wav,0,-2,none,
+C21,M2-07,sparkle.wav,90,-10,none,
+C22,M2-08,clap_2.wav,0,-10,none,claps instead of applause (series variation)
+C23,M2-09,stamp.wav,60,-5,none,
+C24,M2-10,swish.wav,0,-8,end-card pad -20 dB,

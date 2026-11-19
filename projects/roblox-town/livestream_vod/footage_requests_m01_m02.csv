@@ -1,0 +1,10 @@
+request_id,mission,window_tag,src_in,src_out,max_len_s,purpose,must_contain,verification,evidence_ref,status
+R01,M1,w1-cold-open,TBC,TBC,600,completion banner + 15 s before it,MISSION COMPLETE banner; player+HUD inside centre 56%,UNVERIFIED,pending:S3-banner,BLOCKED
+R02,M1,w2-attempts,TBC,TBC,600,"first attempt, fail reset, retry loop",a visible reset/failure state; 2+ attempts,UNVERIFIED,pending:S3-attempts,BLOCKED
+R03,M1,w3-clutch,TBC,TBC,600,"plan → clutch → completion, contiguous",final action within 20 s of the banner,UNVERIFIED,pending:S3-clutch,BLOCKED
+R04,M2,w1-cold-open,TBC,TBC,600,M2 completion banner + 15 s before,MISSION COMPLETE banner; M1 progress state legible,UNVERIFIED,pending:S3-banner2,BLOCKED
+R05,M2,w2-complication,TBC,TBC,600,setup + complication + setback,objective text on screen; visible setback,UNVERIFIED,pending:S3-m2-setback,BLOCKED
+R06,M2,w3-clutch,TBC,TBC,600,switch → clutch → completion,final action within 20 s of the banner,UNVERIFIED,pending:S3-m2-clutch,BLOCKED
+R07,M1,spare-a,TBC,TBC,600,safety window if a beat sits outside R01–R03,any verified M1 completion-adjacent action,UNVERIFIED,pending,HELD
+R08,M2,spare-b,TBC,TBC,600,safety window for M2,any verified M2 completion-adjacent action,UNVERIFIED,pending,HELD
+R09,—,stream-intro,TBC,TBC,120,optional 2 s 'we are live' sting,stream starting screen / first frame after live,UNVERIFIED,pending:S0,OPTIONAL
