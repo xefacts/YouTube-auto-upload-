@@ -1,5 +1,10 @@
 # Livestream VOD pack — cloud-first, no full download
 
+> ⚠️ **SUPERSEDED (2026-11-16):** Budget ab **$0.00** hai. Paid workflow (Apify + Gemini)
+> **removed** kar diya gaya hai. Active workflow ab hai:
+> **`zero_budget_gta6/`** — complete $0 workflow, free transcript, Roman Hindi story,
+> editing timeline, captions + sound design. Neeche wale docs reference ke liye hain.
+
 Source: `https://www.youtube.com/live/qSyo5d-dVzA` (public, 18 h)
 Goal: two vertical shorts from the **first two completed missions**.
 
