@@ -1,0 +1,9 @@
+# Runtime deps for tools/media_extractor (kept separate from the root CI lock).
+yt-dlp==2026.10.26
+imageio-ffmpeg==0.8.1
+numpy>=1.26
+fastapi==0.165.0
+uvicorn==0.54.0
+python-multipart==0.0.34
+# Optional, heavy (torch): only for --separate (vocals / music+SFX split)
+# demucs
